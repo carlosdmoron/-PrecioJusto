@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { getDictionaryByLocale } from "../dictionaries";
-import ProfHero from "../../components/professional/ProfHero";
-import ProfFeatures from "../../components/professional/ProfFeatures";
-import ProfProcess from "../../components/professional/ProfProcess";
-import ProfServices from "../../components/professional/ProfServices";
-import ProfCta from "../../components/professional/ProfCta";
+import { getDictionaryByLocale } from "../../dictionaries";
+import ProfHero from "../../../components/professional/ProfHero";
+import ProfFeatures from "../../../components/professional/ProfFeatures";
+import ProfProcess from "../../../components/professional/ProfProcess";
+import ProfServices from "../../../components/professional/ProfServices";
+import ProfCta from "../../../components/professional/ProfCta";
 
 export async function generateMetadata({
   params,

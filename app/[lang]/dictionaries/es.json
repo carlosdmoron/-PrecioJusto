@@ -161,5 +161,31 @@
       "titleLine2": "Únete hoy a la red de profesionales de PrecioJusto.",
       "button": "Crear mi cuenta"
     }
+  },
+  "login": {
+    "meta": {
+      "title": "Inicia sesión | PrecioJusto",
+      "description": "Accede a tu cuenta de PrecioJusto y sigue tus alertas de precio desde cualquier dispositivo."
+    },
+    "nav": {
+      "categories": "Categorías",
+      "stores": "Tiendas",
+      "signup": "Crear cuenta",
+      "signin": "Entrar",
+      "account": "Mi cuenta"
+    },
+    "languageLabel": "Idioma",
+    "title": "Inicia sesión",
+    "subtitle": "Bienvenido de nuevo. Accede a tu cuenta para seguir ahorrando.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu@correo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "submitButton": "Iniciar sesión",
+    "noAccount": "¿No tienes cuenta?",
+    "registerLink": "Regístrate",
+    "googleButton": "Continuar con Google"
   }
 }

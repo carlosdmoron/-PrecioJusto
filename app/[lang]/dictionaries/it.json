@@ -161,5 +161,31 @@
       "titleLine2": "Unisciti oggi alla rete dei professionisti di PrecioJusto.",
       "button": "Crea il mio account"
     }
+  },
+  "login": {
+    "meta": {
+      "title": "Accedi | PrecioJusto",
+      "description": "Accedi al tuo account PrecioJusto e segui i tuoi avvisi di prezzo da qualsiasi dispositivo."
+    },
+    "nav": {
+      "categories": "Categorie",
+      "stores": "Negozi",
+      "signup": "Crea account",
+      "signin": "Accedi",
+      "account": "Il mio account"
+    },
+    "languageLabel": "Lingua",
+    "title": "Accedi",
+    "subtitle": "Bentornato. Accedi al tuo account per continuare a risparmiare.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "tua@email.it",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "La tua password",
+    "showPassword": "Mostra password",
+    "hidePassword": "Nascondi password",
+    "submitButton": "Accedi",
+    "noAccount": "Non hai un account?",
+    "registerLink": "Registrati",
+    "googleButton": "Continua con Google"
   }
 }

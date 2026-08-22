@@ -161,5 +161,31 @@
       "titleLine2": "Join the PrecioJusto professionals network today.",
       "button": "Create my account"
     }
+  },
+  "login": {
+    "meta": {
+      "title": "Log in | PrecioJusto",
+      "description": "Log in to your PrecioJusto account and track your price alerts from any device."
+    },
+    "nav": {
+      "categories": "Categories",
+      "stores": "Stores",
+      "signup": "Create account",
+      "signin": "Log in",
+      "account": "My account"
+    },
+    "languageLabel": "Language",
+    "title": "Log in",
+    "subtitle": "Welcome back. Log in to your account to keep saving.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@email.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Your password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submitButton": "Log in",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up",
+    "googleButton": "Continue with Google"
   }
 }

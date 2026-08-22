@@ -53,7 +53,8 @@ export default async function Navbar() {
               </a>
             ))}
           </nav>
-          <button
+          <a
+            href={`/${current}/iniciar-sesion`}
             aria-label={dict.navbar.account}
             className="grid size-8 place-items-center rounded-full bg-primary-dark text-white transition hover:bg-primary"
           >
@@ -70,7 +71,7 @@ export default async function Navbar() {
               <circle cx="12" cy="8" r="4" />
               <path d="M20 21a8 8 0 0 0-16 0" />
             </svg>
-          </button>
+          </a>
         </div>
       </div>
     </header>

@@ -1,9 +1,11 @@
 import Image from "next/image";
+import { lang } from "next/root-params";
 import { getDictionary } from "../../[lang]/dictionaries";
 
 export default async function ProfHero() {
   const dict = await getDictionary();
   const { hero } = dict.profesional;
+  const current = (await lang()) ?? "es";
   return (
     <section className="relative overflow-hidden">
       <Image
@@ -36,7 +38,10 @@ export default async function ProfHero() {
           </form>
           <p className="mt-6 text-center text-xs text-steel">
             {hero.haveAccount}{" "}
-            <a href="#" className="font-medium text-primary-dark hover:text-primary">
+            <a
+              href={`/${current}/iniciar-sesion`}
+              className="font-medium text-primary-dark hover:text-primary"
+            >
               {hero.loginLink}
             </a>
           </p>
