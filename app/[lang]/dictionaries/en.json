@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "PrecioJusto | Compare prices and pay the fair price",
+    "description": "We compare prices across hundreds of stores, spot real deals and alert you when your products drop in price."
+  },
+  "navbar": {
+    "account": "My account"
+  },
+  "hero": {
+    "badge": "New at PrecioJusto",
+    "title": "Always pay the fair price",
+    "subtitle": "We compare prices across hundreds of stores and alert you when the product you want hits its best price.",
+    "searchPlaceholder": "What product are you looking for?",
+    "categoryPlaceholder": "Store or category",
+    "searchButton": "Search"
+  },
+  "products": {
+    "title": "Featured deals",
+    "subtitle": "The best prices we found today for you.",
+    "viewAll": "View all",
+    "viewAllOffers": "See all offers",
+    "items": [
+      { "name": "Smart TV 50\" 4K UHD", "store": "ElectroHogar", "price": "$1,299", "oldPrice": "$1,599" },
+      { "name": "Wireless noise-cancelling headphones", "store": "TecnoStore", "price": "$189", "oldPrice": "$249" },
+      { "name": "Espresso coffee maker, 20 bar", "store": "HomeMarket", "price": "$349", "oldPrice": "$429" },
+      { "name": "5L digital air fryer", "store": "CasaFeliz", "price": "$159", "oldPrice": "$219" },
+      { "name": "14\" laptop, Core i5, 16GB RAM", "store": "DigitalPlus", "price": "$1,899", "oldPrice": "$2,299" },
+      { "name": "GPS sports watch", "store": "GadgetCity", "price": "$259", "oldPrice": "$329" },
+      { "name": "Robot vacuum with laser mapping", "store": "MegaOfertas", "price": "$449", "oldPrice": "$599" },
+      { "name": "Steel urban bike, 7 speeds", "store": "CompraYa", "price": "$549", "oldPrice": "$699" }
+    ]
+  },
+  "features": [
+    {
+      "title": "Verified prices",
+      "desc": "We analyze each product's price history to spot artificial hikes before you buy."
+    },
+    {
+      "title": "Save time",
+      "desc": "We compare hundreds of stores in seconds and show you only the best option."
+    },
+    {
+      "title": "From your home",
+      "desc": "Get alerts when prices drop and shop without leaving home."
+    },
+    {
+      "title": "Share & save",
+      "desc": "Create wish lists and compare them with family and friends."
+    }
+  ],
+  "howItWorks": {
+    "title": "How does PrecioJusto work?",
+    "subtitle": "Three steps and you start saving on every purchase.",
+    "steps": [
+      {
+        "title": "Search the product",
+        "desc": "Type what you need and we compare the price across hundreds of stores instantly."
+      },
+      {
+        "title": "Set an alert",
+        "desc": "Choose your target price and we notify you as soon as any store reaches it."
+      },
+      {
+        "title": "Buy at the fair price",
+        "desc": "Buy with peace of mind knowing it's the right time to do it."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Start paying the fair price today",
+    "text": "Join for free, create your alerts and let PrecioJusto watch prices for you.",
+    "button": "Get started free",
+    "imageAlt": "Person shopping online with their phone"
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Product",
+        "links": ["Price comparison", "Price alerts", "Shared lists", "Browser extension"]
+      },
+      {
+        "title": "Company",
+        "links": ["About us", "How it works", "Blog", "Work with us"]
+      },
+      {
+        "title": "Resources",
+        "links": ["Help center", "Savings guide", "Store API", "Service status"]
+      },
+      {
+        "title": "Legal",
+        "links": ["Terms & conditions", "Privacy", "Cookies", "Price transparency"]
+      }
+    ],
+    "rights": "© {year} PrecioJusto. All rights reserved."
+  }
+}

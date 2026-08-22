@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "PrecioJusto | Confronta i prezzi e paga il prezzo giusto",
+    "description": "Confrontiamo i prezzi di centinaia di negozi, individuiamo le offerte vere e ti avvisiamo quando i tuoi prodotti scendono di prezzo."
+  },
+  "navbar": {
+    "account": "Il mio account"
+  },
+  "hero": {
+    "badge": "Novità su PrecioJusto",
+    "title": "Paga sempre il prezzo giusto",
+    "subtitle": "Confrontiamo i prezzi di centinaia di negozi e ti avvisiamo quando il prodotto che vuoi raggiunge il suo miglior prezzo.",
+    "searchPlaceholder": "Quale prodotto cerchi?",
+    "categoryPlaceholder": "Negozio o categoria",
+    "searchButton": "Cerca"
+  },
+  "products": {
+    "title": "Offerte in evidenza",
+    "subtitle": "I migliori prezzi che abbiamo trovato oggi per te.",
+    "viewAll": "Vedi tutto",
+    "viewAllOffers": "Vedi tutte le offerte",
+    "items": [
+      { "name": "Smart TV 50\" 4K UHD", "store": "ElectroHogar", "price": "$1,299", "oldPrice": "$1,599" },
+      { "name": "Cuffie wireless con cancellazione del rumore", "store": "TecnoStore", "price": "$189", "oldPrice": "$249" },
+      { "name": "Macchina da caffè espresso 20 bar", "store": "HomeMarket", "price": "$349", "oldPrice": "$429" },
+      { "name": "Friggitrice ad aria 5L digitale", "store": "CasaFeliz", "price": "$159", "oldPrice": "$219" },
+      { "name": "Notebook 14\" Core i5 16GB RAM", "store": "DigitalPlus", "price": "$1,899", "oldPrice": "$2,299" },
+      { "name": "Orologio sportivo con GPS", "store": "GadgetCity", "price": "$259", "oldPrice": "$329" },
+      { "name": "Robot aspirapolvere con mappatura laser", "store": "MegaOfertas", "price": "$449", "oldPrice": "$599" },
+      { "name": "Bicicletta urbana in acciaio a 7 marce", "store": "CompraYa", "price": "$549", "oldPrice": "$699" }
+    ]
+  },
+  "features": [
+    {
+      "title": "Prezzi verificati",
+      "desc": "Analizziamo lo storico di ogni prodotto per individuare aumenti artificiali prima che tu acquisti."
+    },
+    {
+      "title": "Risparmia tempo",
+      "desc": "Confrontiamo centinaia di negozi in pochi secondi e ti mostriamo solo la migliore opzione."
+    },
+    {
+      "title": "Da casa tua",
+      "desc": "Ricevi avvisi quando il prezzo scende e acquista senza uscire di casa."
+    },
+    {
+      "title": "Condividi e risparmia",
+      "desc": "Crea liste dei desideri e confrontale con la tua famiglia e i tuoi amici."
+    }
+  ],
+  "howItWorks": {
+    "title": "Come funziona PrecioJusto?",
+    "subtitle": "Tre passaggi e inizi a risparmiare su ogni acquisto.",
+    "steps": [
+      {
+        "title": "Cerca il prodotto",
+        "desc": "Scrivi cosa ti serve e confrontiamo il prezzo in centinaia di negozi all'istante."
+      },
+      {
+        "title": "Attiva un avviso",
+        "desc": "Scegli il prezzo obiettivo e ti avvisiamo non appena qualche negozio lo raggiunge."
+      },
+      {
+        "title": "Compra al prezzo giusto",
+        "desc": "Acquista con la tranquillità di sapere che è il momento migliore per farlo."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Inizia a pagare il prezzo giusto oggi",
+    "text": "Unisciti gratis, crea i tuoi avvisi e lascia che PrecioJusto controlli i prezzi per te.",
+    "button": "Inizia gratis",
+    "imageAlt": "Persona che fa acquisti online con il telefono"
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Prodotto",
+        "links": ["Confrontatore", "Avvisi di prezzo", "Liste condivise", "Estensione del browser"]
+      },
+      {
+        "title": "Azienda",
+        "links": ["Chi siamo", "Come funziona", "Blog", "Lavora con noi"]
+      },
+      {
+        "title": "Risorse",
+        "links": ["Centro assistenza", "Guida al risparmio", "API per i negozi", "Stato del servizio"]
+      },
+      {
+        "title": "Legale",
+        "links": ["Termini e condizioni", "Privacy", "Cookie", "Trasparenza dei prezzi"]
+      }
+    ],
+    "rights": "© {year} PrecioJusto. Tutti i diritti riservati."
+  }
+}
