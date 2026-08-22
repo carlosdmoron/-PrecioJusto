@@ -27,6 +27,12 @@ export default async function Navbar() {
           </span>
         </a>
         <div className="flex items-center gap-5">
+          <a
+            href={`/${current}/profesional`}
+            className="hidden text-sm font-medium text-steel transition hover:text-primary sm:block"
+          >
+            {dict.navbar.professional}
+          </a>
           <nav
             aria-label="Language"
             className="flex items-center gap-2 text-xs font-medium"

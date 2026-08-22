@@ -4,7 +4,8 @@
     "description": "We compare prices across hundreds of stores, spot real deals and alert you when your products drop in price."
   },
   "navbar": {
-    "account": "My account"
+    "account": "My account",
+    "professional": "Are you a professional?"
   },
   "hero": {
     "badge": "New at PrecioJusto",
@@ -92,5 +93,73 @@
       }
     ],
     "rights": "© {year} PrecioJusto. All rights reserved."
+  },
+  "profesional": {
+    "meta": {
+      "title": "PrecioJusto for Professionals | Join our network",
+      "description": "List your services on PrecioJusto, reach nearby customers and get paid with no hidden fees."
+    },
+    "hero": {
+      "cardTitle": "Grow your business with PrecioJusto",
+      "cardText": "Join as a professional and reach thousands of customers looking for services like yours every day.",
+      "emailPlaceholder": "Your business email",
+      "submitButton": "Sign up free",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Log in",
+      "highlights": [
+        {
+          "title": "Nearby customers",
+          "desc": "Get requests from people close to your area."
+        },
+        {
+          "title": "You set the price",
+          "desc": "Define your rates with no hidden fees."
+        },
+        {
+          "title": "Guaranteed payment",
+          "desc": "Get paid quickly and securely."
+        }
+      ]
+    },
+    "features": [
+      {
+        "title": "Real visibility",
+        "desc": "Show up when someone searches for a service you offer."
+      },
+      {
+        "title": "Your digital shopfront",
+        "desc": "Showcase your work with photos, prices and reviews."
+      },
+      {
+        "title": "Verified badge",
+        "desc": "Win customer trust with a verified profile."
+      }
+    ],
+    "process": {
+      "title": "Get started in five steps",
+      "steps": [
+        "Create your account",
+        "Verify your identity",
+        "Publish your services",
+        "Receive requests",
+        "Get paid"
+      ]
+    },
+    "services": {
+      "title": "Most requested services",
+      "items": [
+        { "name": "Air conditioner installation", "price": "from $80" },
+        { "name": "Home appliance repair", "price": "from $35" },
+        { "name": "Plumbing & drain unclogging", "price": "from $30" },
+        { "name": "Certified electrician", "price": "from $45" },
+        { "name": "Custom furniture", "price": "from $120" },
+        { "name": "Interior painting", "price": "from $150" }
+      ]
+    },
+    "cta": {
+      "titleLine1": "Ready to grow your business?",
+      "titleLine2": "Join the PrecioJusto professionals network today.",
+      "button": "Create my account"
+    }
   }
 }

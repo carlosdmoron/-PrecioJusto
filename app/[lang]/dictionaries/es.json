@@ -4,7 +4,8 @@
     "description": "Comparamos precios entre cientos de tiendas, detectamos ofertas reales y te avisamos cuando tus productos bajan de precio."
   },
   "navbar": {
-    "account": "Mi cuenta"
+    "account": "Mi cuenta",
+    "professional": "Eres Profesional?"
   },
   "hero": {
     "badge": "Nuevo en PrecioJusto",
@@ -92,5 +93,73 @@
       }
     ],
     "rights": "© {year} PrecioJusto. Todos los derechos reservados."
+  },
+  "profesional": {
+    "meta": {
+      "title": "PrecioJusto para Profesionales | Únete a nuestra red",
+      "description": "Publica tus servicios en PrecioJusto, recibe clientes cercanos y cobra sin comisiones ocultas."
+    },
+    "hero": {
+      "cardTitle": "Haz crecer tu negocio con PrecioJusto",
+      "cardText": "Únete como profesional y llega a miles de clientes que buscan servicios como los tuyos cada día.",
+      "emailPlaceholder": "Tu correo profesional",
+      "submitButton": "Registrarme gratis",
+      "haveAccount": "¿Ya tienes cuenta?",
+      "loginLink": "Inicia sesión",
+      "highlights": [
+        {
+          "title": "Clientes cercanos",
+          "desc": "Recibe solicitudes de personas cerca de tu zona."
+        },
+        {
+          "title": "Tú pones el precio",
+          "desc": "Define tus tarifas sin comisiones ocultas."
+        },
+        {
+          "title": "Pago garantizado",
+          "desc": "Cobra de forma segura y rápida."
+        }
+      ]
+    },
+    "features": [
+      {
+        "title": "Visibilidad real",
+        "desc": "Aparece cuando alguien busca un servicio que ofreces."
+      },
+      {
+        "title": "Tu vitrina digital",
+        "desc": "Muestra tu trabajo con fotos, precios y reseñas."
+      },
+      {
+        "title": "Sello verificado",
+        "desc": "Gana la confianza de los clientes con perfil verificado."
+      }
+    ],
+    "process": {
+      "title": "Empieza en cinco pasos",
+      "steps": [
+        "Crea tu cuenta",
+        "Verifica tu identidad",
+        "Publica tus servicios",
+        "Recibe solicitudes",
+        "Cobra tu trabajo"
+      ]
+    },
+    "services": {
+      "title": "Servicios más solicitados",
+      "items": [
+        { "name": "Instalación de aires acondicionados", "price": "desde $80" },
+        { "name": "Reparación de electrodomésticos", "price": "desde $35" },
+        { "name": "Plomería y destapado de caños", "price": "desde $30" },
+        { "name": "Electricista certificado", "price": "desde $45" },
+        { "name": "Muebles a medida", "price": "desde $120" },
+        { "name": "Pintura de interiores", "price": "desde $150" }
+      ]
+    },
+    "cta": {
+      "titleLine1": "¿Listo para hacer crecer tu negocio?",
+      "titleLine2": "Únete hoy a la red de profesionales de PrecioJusto.",
+      "button": "Crear mi cuenta"
+    }
   }
 }
