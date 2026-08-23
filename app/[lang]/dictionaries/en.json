@@ -10,8 +10,7 @@
   },
   "hero": {
     "badge": "New at PrecioJusto",
-    "title": "Always pay the fair price",
-    "subtitle": "We compare prices across hundreds of stores and alert you when the product you want hits its best price.",
+    "title": "Find your expert",
     "searchPlaceholder": "What product are you looking for?",
     "categoryPlaceholder": "Store or category",
     "searchButton": "Search"

@@ -10,8 +10,7 @@
   },
   "hero": {
     "badge": "Nuevo en PrecioJusto",
-    "title": "Paga siempre el precio justo",
-    "subtitle": "Comparamos precios entre cientos de tiendas y te avisamos cuando el producto que quieres llega a su mejor precio.",
+    "title": "Encuentra a tu experto",
     "searchPlaceholder": "¿Qué producto buscas?",
     "categoryPlaceholder": "Tienda o categoría",
     "searchButton": "Buscar"
