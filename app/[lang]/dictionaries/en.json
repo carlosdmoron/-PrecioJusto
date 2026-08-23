@@ -5,7 +5,8 @@
   },
   "navbar": {
     "account": "My account",
-    "professional": "Are you a professional?"
+    "professional": "Are you a Professional?",
+    "signin": "Log in"
   },
   "hero": {
     "badge": "New at PrecioJusto",
@@ -104,8 +105,8 @@
       "cardText": "Join as a professional and reach thousands of customers looking for services like yours every day.",
       "emailPlaceholder": "Your business email",
       "submitButton": "Sign up free",
-      "haveAccount": "Already have an account?",
-      "loginLink": "Log in",
+      "haveAccount": "Don't have an account yet?",
+      "loginLink": "Create your free account",
       "highlights": [
         {
           "title": "Nearby customers",

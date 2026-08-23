@@ -5,7 +5,8 @@
   },
   "navbar": {
     "account": "Il mio account",
-    "professional": "Sei un professionista?"
+    "professional": "Sei un professionista?",
+    "signin": "Accedi"
   },
   "hero": {
     "badge": "Novità su PrecioJusto",
@@ -104,8 +105,8 @@
       "cardText": "Iscriviti come professionista e raggiungi migliaia di clienti che cercano ogni giorno servizi come i tuoi.",
       "emailPlaceholder": "La tua email professionale",
       "submitButton": "Registrati gratis",
-      "haveAccount": "Hai già un account?",
-      "loginLink": "Accedi",
+      "haveAccount": "Non hai ancora un account?",
+      "loginLink": "Crea il tuo account gratuito",
       "highlights": [
         {
           "title": "Clienti vicini",

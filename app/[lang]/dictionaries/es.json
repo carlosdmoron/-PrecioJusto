@@ -5,7 +5,8 @@
   },
   "navbar": {
     "account": "Mi cuenta",
-    "professional": "Eres Profesional?"
+    "professional": "Eres Profesional?",
+    "signin": "Iniciar sesión"
   },
   "hero": {
     "badge": "Nuevo en PrecioJusto",
@@ -104,8 +105,8 @@
       "cardText": "Únete como profesional y llega a miles de clientes que buscan servicios como los tuyos cada día.",
       "emailPlaceholder": "Tu correo profesional",
       "submitButton": "Registrarme gratis",
-      "haveAccount": "¿Ya tienes cuenta?",
-      "loginLink": "Inicia sesión",
+      "haveAccount": "¿Aún no tienes cuenta?",
+      "loginLink": "Crea tu cuenta gratuita",
       "highlights": [
         {
           "title": "Clientes cercanos",

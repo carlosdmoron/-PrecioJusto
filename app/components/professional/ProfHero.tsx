@@ -39,7 +39,7 @@ export default async function ProfHero() {
           <p className="mt-6 text-center text-xs text-steel">
             {hero.haveAccount}{" "}
             <a
-              href={`/${current}/iniciar-sesion`}
+              href={`/${current}/registro-profesional`}
               className="font-medium text-primary-dark hover:text-primary"
             >
               {hero.loginLink}
