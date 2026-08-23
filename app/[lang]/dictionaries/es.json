@@ -187,5 +187,28 @@
     "noAccount": "¿No tienes cuenta?",
     "registerLink": "Regístrate",
     "googleButton": "Continuar con Google"
+  },
+  "signProfesional": {
+    "meta": {
+      "title": "Crea tu cuenta profesional | PrecioJusto",
+      "description": "Únete a la red de profesionales de PrecioJusto, publica tus servicios y recibe clientes cercanos sin comisiones ocultas."
+    },
+    "nav": {
+      "categories": "Categorías",
+      "stores": "Tiendas",
+      "signin": "Iniciar sesión"
+    },
+    "title": "Crea tu cuenta profesional",
+    "subtitle": "Únete a la red de profesionales de PrecioJusto y llega a miles de clientes cada día.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu@correo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "Inicia sesión",
+    "or": "o",
+    "submitButton": "Crear cuenta gratuita"
   }
 }

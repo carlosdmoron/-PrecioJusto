@@ -110,7 +110,7 @@ export default async function LoginSection() {
           <p className="text-center text-sm text-steel">
             {t.noAccount}{" "}
             <a
-              href="#"
+              href={`/${current}/registro-profesional`}
               className="font-medium text-primary-dark transition hover:text-primary"
             >
               {t.registerLink}
