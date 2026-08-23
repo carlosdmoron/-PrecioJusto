@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { lang } from "next/root-params";
 import { getDictionary } from "../[lang]/dictionaries";
 
 export default async function CtaBanner() {
   const dict = await getDictionary();
+  const current = (await lang()) ?? "es";
   return (
     <section className="py-20 lg:py-24">
       <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-20">
@@ -12,12 +14,12 @@ export default async function CtaBanner() {
               {dict.cta.title}
             </h2>
             <p className="mt-4 text-steel">{dict.cta.text}</p>
-            <button
-              type="button"
-              className="mt-8 h-14 rounded-lg bg-primary-dark px-8 text-sm font-semibold text-white transition hover:bg-primary"
+            <a
+              href={`/${current}/profesional`}
+              className="mt-8 inline-flex h-14 items-center rounded-lg bg-primary-dark px-8 text-sm font-semibold text-white transition hover:bg-primary"
             >
               {dict.cta.button}
-            </button>
+            </a>
           </div>
           <Image
             src="/images/cta-photo.jpg"
