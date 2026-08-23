@@ -194,11 +194,7 @@
       "title": "Create your professional account | PrecioJusto",
       "description": "Join the PrecioJusto professional network, publish your services and reach nearby customers with no hidden fees."
     },
-    "nav": {
-      "categories": "Categories",
-      "stores": "Stores",
-      "signin": "Log in"
-    },
+    "registerButton": "Sign up as a professional",
     "title": "Create your professional account",
     "subtitle": "Join the PrecioJusto professional network and reach thousands of customers every day.",
     "emailLabel": "Email address",

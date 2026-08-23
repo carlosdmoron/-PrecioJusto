@@ -1,13 +1,6 @@
-import Image from "next/image";
 import { lang } from "next/root-params";
-import { getDictionary, locales } from "../../[lang]/dictionaries";
+import { getDictionary } from "../../[lang]/dictionaries";
 import PasswordInput from "./PasswordInput";
-
-const languageLabels: Record<string, string> = {
-  es: "ES",
-  it: "IT",
-  en: "EN",
-};
 
 export default async function SignProfesionalSection() {
   const dict = await getDictionary();
@@ -15,65 +8,14 @@ export default async function SignProfesionalSection() {
   const current = (await lang()) ?? "es";
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-gray-100">
-        <div className="mx-auto flex h-[65px] w-full max-w-[1280px] items-center gap-8 px-6 lg:px-10">
-          <a href={`/${current}`} className="flex items-center gap-3">
-            <Image
-              src="/images/logo.jpg"
-              alt="PrecioJusto"
-              width={32}
-              height={32}
-              className="rounded-lg"
-            />
-            <span className="text-xl font-bold tracking-tight text-gray-900">
-              PrecioJusto
-            </span>
-          </a>
-          <span aria-hidden="true" className="hidden h-5 w-px bg-gray-300 sm:block" />
-          <nav className="hidden items-center gap-8 sm:flex">
-            <a
-              href="#"
-              className="text-sm font-medium text-gray-500 transition hover:text-gray-900"
-            >
-              {t.nav.categories}
-            </a>
-            <a
-              href="#"
-              className="text-sm font-medium text-gray-500 transition hover:text-gray-900"
-            >
-              {t.nav.stores}
-            </a>
-          </nav>
-          <div className="ml-auto flex items-center gap-4">
-            <nav
-              aria-label="Language"
-              className="hidden items-center gap-2 text-xs font-medium md:flex"
-            >
-              {locales.map((locale) => (
-                <a
-                  key={locale}
-                  href={`/${locale}/registro-profesional`}
-                  hrefLang={locale}
-                  aria-current={current === locale ? "true" : undefined}
-                  className={
-                    current === locale
-                      ? "rounded px-1.5 py-1 font-semibold text-gray-900"
-                      : "rounded px-1.5 py-1 text-gray-400 transition hover:text-primary"
-                  }
-                >
-                  {languageLabels[locale]}
-                </a>
-              ))}
-            </nav>
-            <a
-              href={`/${current}/iniciar-sesion`}
-              className="inline-flex h-[38px] items-center rounded-full bg-[#EEF3FE] px-6 text-sm font-semibold text-primary transition hover:bg-chip-blue"
-            >
-              {t.nav.signin}
-            </a>
-          </div>
-        </div>
-      </header>
+      <div className="mx-auto flex w-full max-w-[1280px] justify-end px-4 pt-4 sm:px-6 sm:pt-6 lg:px-10">
+        <a
+          href={`/${current}/profesional`}
+          className="inline-flex h-[38px] items-center rounded-full bg-[#EEF3FE] px-6 text-sm font-semibold text-primary transition hover:bg-chip-blue"
+        >
+          {t.registerButton}
+        </a>
+      </div>
       <main className="flex justify-center px-4 pb-16 pt-4">
         <div className="w-full max-w-[512px] rounded-xl border border-gray-200 bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)] sm:p-[42px]">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900">

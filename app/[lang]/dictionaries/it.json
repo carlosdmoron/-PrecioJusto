@@ -194,11 +194,7 @@
       "title": "Crea il tuo account professionale | PrecioJusto",
       "description": "Entra nella rete di professionisti di PrecioJusto, pubblica i tuoi servizi e raggiungi clienti vicini senza commissioni nascoste."
     },
-    "nav": {
-      "categories": "Categorie",
-      "stores": "Negozi",
-      "signin": "Accedi"
-    },
+    "registerButton": "Registrati come professionista",
     "title": "Crea il tuo account professionale",
     "subtitle": "Entra nella rete di professionisti di PrecioJusto e raggiungi migliaia di clienti ogni giorno.",
     "emailLabel": "Email",

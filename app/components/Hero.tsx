@@ -6,7 +6,7 @@ export default async function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#d9dadc]">
       <Image
-        src="/images/hero-bg.jpg"
+        src="/images/hero-landing.jpg"
         alt=""
         fill
         priority
