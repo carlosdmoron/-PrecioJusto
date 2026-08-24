@@ -27,11 +27,11 @@ export default function CategoryFooter({
           <div className="md:col-span-4">
             <a href={`/${lang}`} className="flex items-center gap-2" aria-label="PrecioJusto - Inicio">
               <Image
-                src="/images/logo-lg.jpg"
+                src="/images/logo.webp"
                 alt="PrecioJusto"
-                width={32}
-                height={32}
-                className="rounded-lg"
+                width={473}
+                height={1024}
+                className="h-8 w-auto rounded-lg"
               />
               <span className="text-lg font-bold tracking-tight text-primary">PrecioJusto</span>
             </a>

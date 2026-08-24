@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { lang } from "next/root-params";
 import { getDictionary, locales } from "../../[lang]/dictionaries";
 import PasswordInput from "./PasswordInput";
@@ -13,6 +14,12 @@ export default async function LoginSection() {
   const dict = await getDictionary();
   const t = dict.login;
   const current = (await lang()) ?? "es";
+
+  async function loginToDashboard() {
+    "use server";
+    redirect(`/${current}/dashboard-profesional`);
+  }
+
   return (
     <main className="relative flex-1 overflow-hidden bg-field">
       <div
@@ -46,11 +53,11 @@ export default async function LoginSection() {
         </div>
         <div className="relative mx-auto w-full max-w-md rounded-xl bg-white p-6 shadow-xl shadow-navy/10 sm:p-10 md:p-12">
           <Image
-            src="/images/logo-lg.jpg"
+            src="/images/logo.webp"
             alt="PrecioJusto"
-            width={128}
-            height={128}
-            className="mx-auto rounded-xl"
+            width={473}
+            height={1024}
+            className="mx-auto h-32 w-auto rounded-xl"
           />
           <h1 className="mt-8 text-center text-2xl font-bold tracking-tight text-ink">
             {t.title}
@@ -58,7 +65,7 @@ export default async function LoginSection() {
           <p className="mt-2 text-center text-sm leading-relaxed text-steel">
             {t.subtitle}
           </p>
-          <form action="#" className="mt-10 space-y-6">
+          <form action={loginToDashboard} className="mt-10 space-y-6">
             <div>
               <label
                 htmlFor="email"

@@ -16,15 +16,12 @@ export default async function ProfLogoHeader() {
           aria-label="PrecioJusto - Inicio"
         >
           <Image
-            src="/images/logo-lg.jpg"
+            src="/images/logo.png"
             alt="PrecioJusto"
-            width={32}
-            height={32}
-            className="rounded-lg ring-1 ring-white/40"
+            width={771}
+            height={324}
+            className="h-12 w-auto"
           />
-          <span className="text-lg font-bold tracking-tight text-white drop-shadow-md">
-            PrecioJusto
-          </span>
         </a>
       </div>
     </header>

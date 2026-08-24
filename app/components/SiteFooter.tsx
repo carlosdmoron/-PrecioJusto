@@ -28,11 +28,11 @@ export default async function SiteFooter() {
         <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row lg:px-20">
           <a href="#" className="flex items-center gap-2.5">
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo.webp"
               alt="PrecioJusto"
-              width={28}
-              height={28}
-              className="rounded-md"
+              width={473}
+              height={1024}
+              className="h-7 w-auto rounded-md"
             />
             <span className="font-bold tracking-tight text-navy">
               PrecioJusto

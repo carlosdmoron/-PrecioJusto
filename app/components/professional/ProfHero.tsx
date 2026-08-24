@@ -9,7 +9,7 @@ export default async function ProfHero() {
   return (
     <section className="relative overflow-hidden">
       <Image
-        src="/images/prof-hero.jpg"
+        src="/images/profesional-hero.jpg"
         alt=""
         fill
         priority

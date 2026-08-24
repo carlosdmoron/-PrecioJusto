@@ -20,23 +20,22 @@ export default async function Hero() {
         <h1 className="mt-8 max-w-3xl text-center font-[family-name:var(--font-figtree)] text-[60px] font-semibold leading-[1.1] tracking-tight text-white drop-shadow-md">
           {dict.hero.title}
         </h1>
-        <form
-          action="#"
-          className="mt-12 flex w-full max-w-[768px] flex-col gap-2 rounded-xl bg-white p-2 shadow-xl shadow-navy/10 md:flex-row"
-        >
-          <input
-            type="text"
-            placeholder={dict.hero.searchPlaceholder}
-            className="h-12 min-w-0 flex-1 rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
-          />
-          <input
-            type="text"
-            placeholder={dict.hero.categoryPlaceholder}
-            className="h-12 min-w-0 flex-1 rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
-          />
+        <form action="#" className="mt-12 flex w-full max-w-[768px] items-stretch">
+          <div className="flex h-[54px] min-w-0 flex-1 items-center rounded-l-lg bg-white">
+            <input
+              type="search"
+              name="service-search"
+              autoComplete="off"
+              autoCapitalize="sentences"
+              inputMode="text"
+              maxLength={524288}
+              placeholder={dict.hero.searchPlaceholder}
+              className="h-full w-full bg-transparent px-4 text-base text-ink outline-none placeholder:text-faint"
+            />
+          </div>
           <button
             type="submit"
-            className="h-12 shrink-0 rounded-lg bg-primary-dark px-6 text-sm font-medium text-white transition hover:bg-primary"
+            className="h-[54px] w-[82px] shrink-0 rounded-r-lg bg-primary text-base font-semibold text-white transition-colors hover:bg-primary-dark"
           >
             {dict.hero.searchButton}
           </button>

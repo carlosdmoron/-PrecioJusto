@@ -46,15 +46,12 @@ export default function CategoryHeader({
           </button>
           <a href={`/${lang}`} className="flex items-center gap-2" aria-label="PrecioJusto - Inicio">
             <Image
-              src="/images/logo-lg.jpg"
+              src="/images/logo.png"
               alt="PrecioJusto"
-              width={32}
-              height={32}
-              className="rounded-lg ring-1 ring-white/40"
+              width={771}
+              height={324}
+              className="h-12 w-auto"
             />
-            <span className="text-lg font-bold tracking-tight text-white drop-shadow-md">
-              PrecioJusto
-            </span>
           </a>
         </div>
         <nav className="hidden items-center gap-6 lg:flex" aria-label={header.menu}>

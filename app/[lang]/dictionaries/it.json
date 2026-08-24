@@ -13,8 +13,7 @@
   "hero": {
     "badge": "Novità su PrecioJusto",
     "title": "Trova il tuo esperto",
-    "searchPlaceholder": "Quale prodotto cerchi?",
-    "categoryPlaceholder": "Negozio o categoria",
+    "searchPlaceholder": "Cosa ti serve?",
     "searchButton": "Cerca"
   },
   "products": {
@@ -23,14 +22,54 @@
     "viewAll": "Vedi tutto",
     "viewAllOffers": "Vedi tutte le offerte",
     "items": [
-      { "name": "Smart TV 50\" 4K UHD", "store": "ElectroHogar", "price": "$1,299", "oldPrice": "$1,599" },
-      { "name": "Cuffie wireless con cancellazione del rumore", "store": "TecnoStore", "price": "$189", "oldPrice": "$249" },
-      { "name": "Macchina da caffè espresso 20 bar", "store": "HomeMarket", "price": "$349", "oldPrice": "$429" },
-      { "name": "Friggitrice ad aria 5L digitale", "store": "CasaFeliz", "price": "$159", "oldPrice": "$219" },
-      { "name": "Notebook 14\" Core i5 16GB RAM", "store": "DigitalPlus", "price": "$1,899", "oldPrice": "$2,299" },
-      { "name": "Orologio sportivo con GPS", "store": "GadgetCity", "price": "$259", "oldPrice": "$329" },
-      { "name": "Robot aspirapolvere con mappatura laser", "store": "MegaOfertas", "price": "$449", "oldPrice": "$599" },
-      { "name": "Bicicletta urbana in acciaio a 7 marce", "store": "CompraYa", "price": "$549", "oldPrice": "$699" }
+      {
+        "name": "Smart TV 50\" 4K UHD",
+        "store": "ElectroHogar",
+        "price": "$1,299",
+        "oldPrice": "$1,599"
+      },
+      {
+        "name": "Cuffie wireless con cancellazione del rumore",
+        "store": "TecnoStore",
+        "price": "$189",
+        "oldPrice": "$249"
+      },
+      {
+        "name": "Macchina da caffè espresso 20 bar",
+        "store": "HomeMarket",
+        "price": "$349",
+        "oldPrice": "$429"
+      },
+      {
+        "name": "Friggitrice ad aria 5L digitale",
+        "store": "CasaFeliz",
+        "price": "$159",
+        "oldPrice": "$219"
+      },
+      {
+        "name": "Notebook 14\" Core i5 16GB RAM",
+        "store": "DigitalPlus",
+        "price": "$1,899",
+        "oldPrice": "$2,299"
+      },
+      {
+        "name": "Orologio sportivo con GPS",
+        "store": "GadgetCity",
+        "price": "$259",
+        "oldPrice": "$329"
+      },
+      {
+        "name": "Robot aspirapolvere con mappatura laser",
+        "store": "MegaOfertas",
+        "price": "$449",
+        "oldPrice": "$599"
+      },
+      {
+        "name": "Bicicletta urbana in acciaio a 7 marce",
+        "store": "CompraYa",
+        "price": "$549",
+        "oldPrice": "$699"
+      }
     ]
   },
   "features": [
@@ -79,19 +118,39 @@
     "columns": [
       {
         "title": "Prodotto",
-        "links": ["Confrontatore", "Avvisi di prezzo", "Liste condivise", "Estensione del browser"]
+        "links": [
+          "Confrontatore",
+          "Avvisi di prezzo",
+          "Liste condivise",
+          "Estensione del browser"
+        ]
       },
       {
         "title": "Azienda",
-        "links": ["Chi siamo", "Come funziona", "Blog", "Lavora con noi"]
+        "links": [
+          "Chi siamo",
+          "Come funziona",
+          "Blog",
+          "Lavora con noi"
+        ]
       },
       {
         "title": "Risorse",
-        "links": ["Centro assistenza", "Guida al risparmio", "API per i negozi", "Stato del servizio"]
+        "links": [
+          "Centro assistenza",
+          "Guida al risparmio",
+          "API per i negozi",
+          "Stato del servizio"
+        ]
       },
       {
         "title": "Legale",
-        "links": ["Termini e condizioni", "Privacy", "Cookie", "Trasparenza dei prezzi"]
+        "links": [
+          "Termini e condizioni",
+          "Privacy",
+          "Cookie",
+          "Trasparenza dei prezzi"
+        ]
       }
     ],
     "rights": "© {year} PrecioJusto. Tutti i diritti riservati."
@@ -150,12 +209,30 @@
     "services": {
       "title": "Servizi più richiesti",
       "items": [
-        { "name": "Installazione di condizionatori", "price": "da $80" },
-        { "name": "Riparazione di elettrodomestici", "price": "da $35" },
-        { "name": "Idraulica e sblocco tubature", "price": "da $30" },
-        { "name": "Elettricista certificato", "price": "da $45" },
-        { "name": "Mobili su misura", "price": "da $120" },
-        { "name": "Pittura di interni", "price": "da $150" }
+        {
+          "name": "Installazione di condizionatori",
+          "price": "da $80"
+        },
+        {
+          "name": "Riparazione di elettrodomestici",
+          "price": "da $35"
+        },
+        {
+          "name": "Idraulica e sblocco tubature",
+          "price": "da $30"
+        },
+        {
+          "name": "Elettricista certificato",
+          "price": "da $45"
+        },
+        {
+          "name": "Mobili su misura",
+          "price": "da $120"
+        },
+        {
+          "name": "Pittura di interni",
+          "price": "da $150"
+        }
       ]
     },
     "cta": {
@@ -217,10 +294,22 @@
     "header": {
       "menu": "Menù",
       "nav": [
-        { "key": "renovacion", "label": "Ristrutturazione" },
-        { "key": "reparacion", "label": "Riparazione" },
-        { "key": "fotografia", "label": "Fotografia" },
-        { "key": "eventos", "label": "Eventi" }
+        {
+          "key": "renovacion",
+          "label": "Ristrutturazione"
+        },
+        {
+          "key": "reparacion",
+          "label": "Riparazione"
+        },
+        {
+          "key": "fotografia",
+          "label": "Fotografia"
+        },
+        {
+          "key": "eventos",
+          "label": "Eventi"
+        }
       ],
       "help": "Aiuto",
       "signin": "Accedi",
@@ -228,24 +317,72 @@
     },
     "hero": {
       "title": "Servizi di Benessere e Cura Personale",
-      "searchPlaceholder": "Quale servizio stai cercando?",
+      "searchPlaceholder": "Cosa ti serve?",
       "searchButton": "Cerca"
     },
     "popularTitle": "I servizi più popolari di Benessere e Cura Personale",
     "quoteButton": "Richiedi un preventivo",
     "services": [
-      { "name": "Nutrizionista", "professionals": "978 professionisti", "rating": "4,6 (223 recensioni verificate)" },
-      { "name": "Allenatore Personale", "professionals": "2.349 professionisti", "rating": "4,6 (41 recensioni verificate)" },
-      { "name": "Psicologo", "professionals": "1.758 professionisti", "rating": "4,8 (287 recensioni verificate)" },
-      { "name": "Terapia di Coppia", "professionals": "1.073 professionisti", "rating": "4,9 (310 recensioni verificate)" },
-      { "name": "Nutrizionista Online", "professionals": "523 professionisti", "rating": "4,6 (182 recensioni verificate)" },
-      { "name": "Psichiatra", "professionals": "226 professionisti", "rating": "4,8 (362 recensioni verificate)" },
-      { "name": "Psicologo Online", "professionals": "1.123 professionisti", "rating": "4,9 (420 recensioni verificate)" },
-      { "name": "Dietista", "professionals": "1.162 professionisti", "rating": "4,6 (116 recensioni verificate)" },
-      { "name": "Allenatore Personale a Domicilio", "professionals": "449 professionisti", "rating": "4,6 (42 recensioni verificate)" },
-      { "name": "Fisioterapia a Domicilio", "professionals": "254 professionisti", "rating": "5,0 (61 recensioni verificate)" },
-      { "name": "Fisioterapista", "professionals": "673 professionisti", "rating": "4,7 (55 recensioni verificate)" },
-      { "name": "Allenatore Personale Online", "professionals": "644 professionisti", "rating": "4,6 (40 recensioni verificate)" }
+      {
+        "name": "Nutrizionista",
+        "professionals": "978 professionisti",
+        "rating": "4,6 (223 recensioni verificate)"
+      },
+      {
+        "name": "Allenatore Personale",
+        "professionals": "2.349 professionisti",
+        "rating": "4,6 (41 recensioni verificate)"
+      },
+      {
+        "name": "Psicologo",
+        "professionals": "1.758 professionisti",
+        "rating": "4,8 (287 recensioni verificate)"
+      },
+      {
+        "name": "Terapia di Coppia",
+        "professionals": "1.073 professionisti",
+        "rating": "4,9 (310 recensioni verificate)"
+      },
+      {
+        "name": "Nutrizionista Online",
+        "professionals": "523 professionisti",
+        "rating": "4,6 (182 recensioni verificate)"
+      },
+      {
+        "name": "Psichiatra",
+        "professionals": "226 professionisti",
+        "rating": "4,8 (362 recensioni verificate)"
+      },
+      {
+        "name": "Psicologo Online",
+        "professionals": "1.123 professionisti",
+        "rating": "4,9 (420 recensioni verificate)"
+      },
+      {
+        "name": "Dietista",
+        "professionals": "1.162 professionisti",
+        "rating": "4,6 (116 recensioni verificate)"
+      },
+      {
+        "name": "Allenatore Personale a Domicilio",
+        "professionals": "449 professionisti",
+        "rating": "4,6 (42 recensioni verificate)"
+      },
+      {
+        "name": "Fisioterapia a Domicilio",
+        "professionals": "254 professionisti",
+        "rating": "5,0 (61 recensioni verificate)"
+      },
+      {
+        "name": "Fisioterapista",
+        "professionals": "673 professionisti",
+        "rating": "4,7 (55 recensioni verificate)"
+      },
+      {
+        "name": "Allenatore Personale Online",
+        "professionals": "644 professionisti",
+        "rating": "4,6 (40 recensioni verificate)"
+      }
     ],
     "allServicesTitle": "Tutti i servizi di Benessere e Cura Personale",
     "allServices": [
@@ -282,7 +419,10 @@
       "contact": "Contattaci",
       "nearMe": "Vicino a me",
       "prices": "Prezzi",
-      "priceLinks": ["Prezzi Locale per Compleanni", "Prezzi Fotografo Matrimonio"],
+      "priceLinks": [
+        "Prezzi Locale per Compleanni",
+        "Prezzi Fotografo Matrimonio"
+      ],
       "mostSearched": "I più cercati",
       "searchedLinks": [
         "Elettricista Barcellona",
@@ -295,7 +435,11 @@
         "Ristrutturazione Completa Abitazione Barcellona"
       ],
       "register": "Registrazione Professionista",
-      "legal": ["Termini e condizioni", "Privacy", "Impressum"],
+      "legal": [
+        "Termini e condizioni",
+        "Privacy",
+        "Impressum"
+      ],
       "rights": "2011 - 2026 PrecioJusto, Tutti i diritti riservati."
     }
   },
@@ -307,10 +451,22 @@
     "header": {
       "menu": "Menù",
       "nav": [
-        { "key": "bienestar", "label": "Benessere" },
-        { "key": "reparacion", "label": "Riparazione" },
-        { "key": "fotografia", "label": "Fotografia" },
-        { "key": "eventos", "label": "Eventi" }
+        {
+          "key": "bienestar",
+          "label": "Benessere"
+        },
+        {
+          "key": "reparacion",
+          "label": "Riparazione"
+        },
+        {
+          "key": "fotografia",
+          "label": "Fotografia"
+        },
+        {
+          "key": "eventos",
+          "label": "Eventi"
+        }
       ],
       "help": "Aiuto",
       "signin": "Accedi",
@@ -318,24 +474,72 @@
     },
     "hero": {
       "title": "Servizi di Ristrutturazione, Decorazione e Costruzione",
-      "searchPlaceholder": "Quale servizio stai cercando?",
+      "searchPlaceholder": "Cosa ti serve?",
       "searchButton": "Cerca"
     },
     "popularTitle": "I servizi più popolari di Ristrutturazione, Decorazione e Costruzione",
     "quoteButton": "Richiedi un preventivo",
     "services": [
-      { "name": "Ristrutturazione Completa", "professionals": "3.731 professionisti", "rating": "4,4 (1.009 recensioni verificate)" },
-      { "name": "Ristrutturazione Casa", "professionals": "3.817 professionisti", "rating": "4,5 (1.339 recensioni verificate)" },
-      { "name": "Ristrutturazione Completa Abitazione", "professionals": "1.138 professionisti", "rating": "4,4 (611 recensioni verificate)" },
-      { "name": "Ristrutturazione Bagno", "professionals": "4.006 professionisti", "rating": "4,5 (1.228 recensioni verificate)" },
-      { "name": "Falegnameria", "professionals": "4.406 professionisti", "rating": "4,6 (1.345 recensioni verificate)" },
-      { "name": "Muratore", "professionals": "3.916 professionisti", "rating": "4,5 (953 recensioni verificate)" },
-      { "name": "Pittura Casa", "professionals": "1.171 professionisti", "rating": "4,5 (1.017 recensioni verificate)" },
-      { "name": "Ristrutturazione Completa Bagno", "professionals": "1.018 professionisti", "rating": "4,3 (557 recensioni verificate)" },
-      { "name": "Pittori", "professionals": "879 professionisti", "rating": "4,6 (1.313 recensioni verificate)" },
-      { "name": "Muratura", "professionals": "3.834 professionisti", "rating": "4,4 (1.136 recensioni verificate)" },
-      { "name": "Ristrutturazione Completa Appartamento", "professionals": "1.042 professionisti", "rating": "4,3 (435 recensioni verificate)" },
-      { "name": "Installazione Ventilatore da Soffitto", "professionals": "751 professionisti", "rating": "4,7 (560 recensioni verificate)" }
+      {
+        "name": "Ristrutturazione Completa",
+        "professionals": "3.731 professionisti",
+        "rating": "4,4 (1.009 recensioni verificate)"
+      },
+      {
+        "name": "Ristrutturazione Casa",
+        "professionals": "3.817 professionisti",
+        "rating": "4,5 (1.339 recensioni verificate)"
+      },
+      {
+        "name": "Ristrutturazione Completa Abitazione",
+        "professionals": "1.138 professionisti",
+        "rating": "4,4 (611 recensioni verificate)"
+      },
+      {
+        "name": "Ristrutturazione Bagno",
+        "professionals": "4.006 professionisti",
+        "rating": "4,5 (1.228 recensioni verificate)"
+      },
+      {
+        "name": "Falegnameria",
+        "professionals": "4.406 professionisti",
+        "rating": "4,6 (1.345 recensioni verificate)"
+      },
+      {
+        "name": "Muratore",
+        "professionals": "3.916 professionisti",
+        "rating": "4,5 (953 recensioni verificate)"
+      },
+      {
+        "name": "Pittura Casa",
+        "professionals": "1.171 professionisti",
+        "rating": "4,5 (1.017 recensioni verificate)"
+      },
+      {
+        "name": "Ristrutturazione Completa Bagno",
+        "professionals": "1.018 professionisti",
+        "rating": "4,3 (557 recensioni verificate)"
+      },
+      {
+        "name": "Pittori",
+        "professionals": "879 professionisti",
+        "rating": "4,6 (1.313 recensioni verificate)"
+      },
+      {
+        "name": "Muratura",
+        "professionals": "3.834 professionisti",
+        "rating": "4,4 (1.136 recensioni verificate)"
+      },
+      {
+        "name": "Ristrutturazione Completa Appartamento",
+        "professionals": "1.042 professionisti",
+        "rating": "4,3 (435 recensioni verificate)"
+      },
+      {
+        "name": "Installazione Ventilatore da Soffitto",
+        "professionals": "751 professionisti",
+        "rating": "4,7 (560 recensioni verificate)"
+      }
     ],
     "allServicesTitle": "Tutti i servizi di Ristrutturazione, Decorazione e Costruzione",
     "allServices": [
@@ -409,7 +613,10 @@
       "contact": "Contattaci",
       "nearMe": "Vicino a me",
       "prices": "Prezzi",
-      "priceLinks": ["Prezzi Locale per Compleanni", "Prezzi Fotografo Matrimonio"],
+      "priceLinks": [
+        "Prezzi Locale per Compleanni",
+        "Prezzi Fotografo Matrimonio"
+      ],
       "mostSearched": "I più cercati",
       "searchedLinks": [
         "Elettricista Barcellona",
@@ -422,8 +629,204 @@
         "Ristrutturazione Completa Abitazione Barcellona"
       ],
       "register": "Registrazione Professionista",
-      "legal": ["Termini e condizioni", "Privacy", "Impressum"],
+      "legal": [
+        "Termini e condizioni",
+        "Privacy",
+        "Impressum"
+      ],
       "rights": "2011 - 2026 PrecioJusto, Tutti i diritti riservati."
     }
+  },
+  "dashboard": {
+    "meta": {
+      "title": "Dashboard professionista | PrecioJusto",
+      "description": "Gestisci opportunità, preventivi, lavori, servizi e portafoglio in un unico posto."
+    },
+    "nav": {
+      "oportunidades": "Opportunità",
+      "presupuesto": "Preventivi",
+      "trabajo": "Lavori",
+      "misServicios": "I miei servizi",
+      "billetera": "Il mio portafoglio"
+    },
+    "accountLabel": "Account pro",
+    "sections": {
+      "oportunidades": {
+        "title": "Opportunità",
+        "subtitle": "Richieste recenti di clienti che cercano i tuoi servizi",
+        "items": [
+          {
+            "title": "Installazione aria condizionata",
+            "meta": "Chamberí, Madrid · 2 h fa",
+            "detail": "Preventivo stimato: 180 € - 260 €",
+            "cta": "Invia preventivo"
+          },
+          {
+            "title": "Lezioni di inglese a domicilio",
+            "meta": "Almagro, Madrid · 5 h fa",
+            "detail": "2 sessioni a settimana · livello B1",
+            "cta": "Invia preventivo"
+          },
+          {
+            "title": "Pittura di soggiorno e corridoio",
+            "meta": "Latina, Madrid · ieri",
+            "detail": "60 m² · vernice inclusa",
+            "cta": "Invia preventivo"
+          }
+        ],
+        "form": {
+          "title": "Invia preventivo",
+          "amount": "Importo (€)",
+          "amountPh": "Es: 180",
+          "days": "Tempo di consegna",
+          "daysPh": "Es: 5 giorni",
+          "message": "Messaggio per il cliente",
+          "messagePh": "Descrivi come eseguirai il lavoro…",
+          "submit": "Invia preventivo",
+          "cancel": "Annulla"
+        }
+      },
+      "presupuesto": {
+        "title": "Preventivi",
+        "subtitle": "Stato dei preventivi che hai inviato",
+        "items": [
+          {
+            "title": "Riparazione tapparella",
+            "meta": "Inviato 3 giorni fa",
+            "detail": "Cliente: Marta G. · 120 €",
+            "cta": "Vedi dettagli"
+          },
+          {
+            "title": "Piccolo trasloco",
+            "meta": "Visto 1 giorno fa",
+            "detail": "Cliente: Jorge P. · 340 €",
+            "cta": "Vedi dettagli"
+          },
+          {
+            "title": "Ripetizioni di matematica",
+            "meta": "Accettato ieri",
+            "detail": "Cliente: Lucía R. · 25 €/ora",
+            "cta": "Vedi dettagli"
+          }
+        ],
+        "form": {
+          "title": "Dettagli del preventivo",
+          "service": "Servizio",
+          "status": "Stato",
+          "detail": "Dettaglio",
+          "close": "Chiudi"
+        }
+      },
+      "trabajo": {
+        "title": "Lavori",
+        "subtitle": "Lavori attivi e prossime scadenze",
+        "items": [
+          {
+            "title": "Montaggio mobili da cucina",
+            "meta": "In corso · consegna venerdì",
+            "detail": "Cliente: Hugo S. · 480 €",
+            "cta": "Aggiorna stato"
+          },
+          {
+            "title": "Personal trainer - pacchetto 8 sessioni",
+            "meta": "In corso · 3/8 completate",
+            "detail": "Cliente: Carla M. · 200 €",
+            "cta": "Aggiorna stato"
+          },
+          {
+            "title": "Perdita d’acqua in bagno",
+            "meta": "Programmato domani 10:00",
+            "detail": "Cliente: Pedro L. · 90 €",
+            "cta": "Aggiorna stato"
+          }
+        ],
+        "form": {
+          "title": "Aggiorna stato del lavoro",
+          "current": "Stato attuale",
+          "inProgress": "In corso",
+          "completed": "Completato",
+          "cancelled": "Annullato",
+          "save": "Salva modifiche",
+          "cancel": "Annulla"
+        }
+      },
+      "misServicios": {
+        "title": "I miei servizi",
+        "subtitle": "I servizi che offri e la loro visibilità",
+        "items": [
+          {
+            "title": "Idraulico urgente",
+            "meta": "Attivo · visibile nelle ricerche",
+            "detail": "12 contatti questo mese",
+            "cta": "Modifica servizio"
+          },
+          {
+            "title": "Lezioni private di fisica",
+            "meta": "Attivo · visibile nelle ricerche",
+            "detail": "5 contatti questo mese",
+            "cta": "Modifica servizio"
+          },
+          {
+            "title": "Trasporto merci",
+            "meta": "In pausa",
+            "detail": "Riattiva per ricevere richieste",
+            "cta": "Modifica servizio"
+          }
+        ],
+        "form": {
+          "title": "Modifica servizio",
+          "name": "Nome del servizio",
+          "namePh": "Es: Idraulico urgente",
+          "description": "Descrizione",
+          "descriptionPh": "Spiega cosa include il tuo servizio…",
+          "price": "Prezzo orario (€)",
+          "pricePh": "Es: 25",
+          "stateActive": "Attivo e visibile",
+          "statePaused": "In pausa",
+          "save": "Salva modifiche",
+          "cancel": "Annulla",
+          "state": "Stato"
+        }
+      },
+      "billetera": {
+        "title": "Il mio portafoglio",
+        "subtitle": "Saldo disponibile e ultimi movimenti",
+        "items": [
+          {
+            "title": "Pagamento ricevuto - Montaggio cucina",
+            "meta": "Oggi · 14:20",
+            "detail": "+ 480,00 €",
+            "cta": ""
+          },
+          {
+            "title": "Commissione di servizio",
+            "meta": "Ieri · 09:05",
+            "detail": "- 12,50 €",
+            "cta": ""
+          },
+          {
+            "title": "Prelievo sul conto corrente",
+            "meta": "12 ago · 17:40",
+            "detail": "- 600,00 €",
+            "cta": ""
+          }
+        ],
+        "form": {
+          "title": "Preleva denaro",
+          "amount": "Importo da prelevare (€)",
+          "amountPh": "Es: 200",
+          "account": "Conto di destinazione",
+          "confirm": "Conferma prelievo",
+          "cancel": "Annulla",
+          "accounts": [
+            "Banco Santander ··4521",
+            "Banco BBVA ··7788"
+          ]
+        }
+      }
+    },
+    "balanceLabel": "Saldo disponibile",
+    "balance": "1.245,00 €",
+    "withdraw": "Preleva denaro"
   }
 }

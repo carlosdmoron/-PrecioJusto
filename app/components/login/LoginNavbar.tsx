@@ -10,16 +10,13 @@ export default async function LoginNavbar() {
     <header className="sticky top-0 z-50 border-b border-line/20 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-[1280px] items-center gap-8 px-4 sm:px-6 lg:px-20">
         <a href={`/${current}`} className="flex shrink-0 items-center gap-3">
-          <Image
-            src="/images/logo.jpg"
-            alt="PrecioJusto"
-            width={32}
-            height={32}
-            className="rounded-lg"
-          />
-          <span className="text-lg font-bold tracking-tight text-primary-dark">
-            PrecioJusto
-          </span>
+            <Image
+              src="/images/logo.png"
+              alt="PrecioJusto"
+              width={771}
+              height={324}
+              className="h-12 w-auto"
+            />
         </a>
         <nav aria-label={nav.categories} className="hidden items-center gap-6 text-sm font-medium text-steel lg:flex">
           <button

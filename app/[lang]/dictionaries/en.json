@@ -13,8 +13,7 @@
   "hero": {
     "badge": "New at PrecioJusto",
     "title": "Find your expert",
-    "searchPlaceholder": "What product are you looking for?",
-    "categoryPlaceholder": "Store or category",
+    "searchPlaceholder": "What do you need?",
     "searchButton": "Search"
   },
   "products": {
@@ -23,14 +22,54 @@
     "viewAll": "View all",
     "viewAllOffers": "See all offers",
     "items": [
-      { "name": "Smart TV 50\" 4K UHD", "store": "ElectroHogar", "price": "$1,299", "oldPrice": "$1,599" },
-      { "name": "Wireless noise-cancelling headphones", "store": "TecnoStore", "price": "$189", "oldPrice": "$249" },
-      { "name": "Espresso coffee maker, 20 bar", "store": "HomeMarket", "price": "$349", "oldPrice": "$429" },
-      { "name": "5L digital air fryer", "store": "CasaFeliz", "price": "$159", "oldPrice": "$219" },
-      { "name": "14\" laptop, Core i5, 16GB RAM", "store": "DigitalPlus", "price": "$1,899", "oldPrice": "$2,299" },
-      { "name": "GPS sports watch", "store": "GadgetCity", "price": "$259", "oldPrice": "$329" },
-      { "name": "Robot vacuum with laser mapping", "store": "MegaOfertas", "price": "$449", "oldPrice": "$599" },
-      { "name": "Steel urban bike, 7 speeds", "store": "CompraYa", "price": "$549", "oldPrice": "$699" }
+      {
+        "name": "Smart TV 50\" 4K UHD",
+        "store": "ElectroHogar",
+        "price": "$1,299",
+        "oldPrice": "$1,599"
+      },
+      {
+        "name": "Wireless noise-cancelling headphones",
+        "store": "TecnoStore",
+        "price": "$189",
+        "oldPrice": "$249"
+      },
+      {
+        "name": "Espresso coffee maker, 20 bar",
+        "store": "HomeMarket",
+        "price": "$349",
+        "oldPrice": "$429"
+      },
+      {
+        "name": "5L digital air fryer",
+        "store": "CasaFeliz",
+        "price": "$159",
+        "oldPrice": "$219"
+      },
+      {
+        "name": "14\" laptop, Core i5, 16GB RAM",
+        "store": "DigitalPlus",
+        "price": "$1,899",
+        "oldPrice": "$2,299"
+      },
+      {
+        "name": "GPS sports watch",
+        "store": "GadgetCity",
+        "price": "$259",
+        "oldPrice": "$329"
+      },
+      {
+        "name": "Robot vacuum with laser mapping",
+        "store": "MegaOfertas",
+        "price": "$449",
+        "oldPrice": "$599"
+      },
+      {
+        "name": "Steel urban bike, 7 speeds",
+        "store": "CompraYa",
+        "price": "$549",
+        "oldPrice": "$699"
+      }
     ]
   },
   "features": [
@@ -79,19 +118,39 @@
     "columns": [
       {
         "title": "Product",
-        "links": ["Price comparison", "Price alerts", "Shared lists", "Browser extension"]
+        "links": [
+          "Price comparison",
+          "Price alerts",
+          "Shared lists",
+          "Browser extension"
+        ]
       },
       {
         "title": "Company",
-        "links": ["About us", "How it works", "Blog", "Work with us"]
+        "links": [
+          "About us",
+          "How it works",
+          "Blog",
+          "Work with us"
+        ]
       },
       {
         "title": "Resources",
-        "links": ["Help center", "Savings guide", "Store API", "Service status"]
+        "links": [
+          "Help center",
+          "Savings guide",
+          "Store API",
+          "Service status"
+        ]
       },
       {
         "title": "Legal",
-        "links": ["Terms & conditions", "Privacy", "Cookies", "Price transparency"]
+        "links": [
+          "Terms & conditions",
+          "Privacy",
+          "Cookies",
+          "Price transparency"
+        ]
       }
     ],
     "rights": "© {year} PrecioJusto. All rights reserved."
@@ -150,12 +209,30 @@
     "services": {
       "title": "Most requested services",
       "items": [
-        { "name": "Air conditioner installation", "price": "from $80" },
-        { "name": "Home appliance repair", "price": "from $35" },
-        { "name": "Plumbing & drain unclogging", "price": "from $30" },
-        { "name": "Certified electrician", "price": "from $45" },
-        { "name": "Custom furniture", "price": "from $120" },
-        { "name": "Interior painting", "price": "from $150" }
+        {
+          "name": "Air conditioner installation",
+          "price": "from $80"
+        },
+        {
+          "name": "Home appliance repair",
+          "price": "from $35"
+        },
+        {
+          "name": "Plumbing & drain unclogging",
+          "price": "from $30"
+        },
+        {
+          "name": "Certified electrician",
+          "price": "from $45"
+        },
+        {
+          "name": "Custom furniture",
+          "price": "from $120"
+        },
+        {
+          "name": "Interior painting",
+          "price": "from $150"
+        }
       ]
     },
     "cta": {
@@ -217,10 +294,22 @@
     "header": {
       "menu": "Menu",
       "nav": [
-        { "key": "renovacion", "label": "Renovation" },
-        { "key": "reparacion", "label": "Repair" },
-        { "key": "fotografia", "label": "Photography" },
-        { "key": "eventos", "label": "Events" }
+        {
+          "key": "renovacion",
+          "label": "Renovation"
+        },
+        {
+          "key": "reparacion",
+          "label": "Repair"
+        },
+        {
+          "key": "fotografia",
+          "label": "Photography"
+        },
+        {
+          "key": "eventos",
+          "label": "Events"
+        }
       ],
       "help": "Help",
       "signin": "Log In",
@@ -228,24 +317,72 @@
     },
     "hero": {
       "title": "Wellness & Personal Care Services",
-      "searchPlaceholder": "What service are you looking for?",
+      "searchPlaceholder": "What do you need?",
       "searchButton": "Search"
     },
     "popularTitle": "The most popular Wellness & Personal Care services",
     "quoteButton": "Get a quote",
     "services": [
-      { "name": "Nutritionist", "professionals": "978 professionals", "rating": "4.6 (223 verified reviews)" },
-      { "name": "Personal Trainer", "professionals": "2,349 professionals", "rating": "4.6 (41 verified reviews)" },
-      { "name": "Psychologist", "professionals": "1,758 professionals", "rating": "4.8 (287 verified reviews)" },
-      { "name": "Couples Therapy", "professionals": "1,073 professionals", "rating": "4.9 (310 verified reviews)" },
-      { "name": "Online Nutritionist", "professionals": "523 professionals", "rating": "4.6 (182 verified reviews)" },
-      { "name": "Psychiatrist", "professionals": "226 professionals", "rating": "4.8 (362 verified reviews)" },
-      { "name": "Online Psychologist", "professionals": "1,123 professionals", "rating": "4.9 (420 verified reviews)" },
-      { "name": "Dietitian", "professionals": "1,162 professionals", "rating": "4.6 (116 verified reviews)" },
-      { "name": "Home Personal Trainer", "professionals": "449 professionals", "rating": "4.6 (42 verified reviews)" },
-      { "name": "Home Physiotherapy", "professionals": "254 professionals", "rating": "5.0 (61 verified reviews)" },
-      { "name": "Physiotherapist", "professionals": "673 professionals", "rating": "4.7 (55 verified reviews)" },
-      { "name": "Online Personal Trainer", "professionals": "644 professionals", "rating": "4.6 (40 verified reviews)" }
+      {
+        "name": "Nutritionist",
+        "professionals": "978 professionals",
+        "rating": "4.6 (223 verified reviews)"
+      },
+      {
+        "name": "Personal Trainer",
+        "professionals": "2,349 professionals",
+        "rating": "4.6 (41 verified reviews)"
+      },
+      {
+        "name": "Psychologist",
+        "professionals": "1,758 professionals",
+        "rating": "4.8 (287 verified reviews)"
+      },
+      {
+        "name": "Couples Therapy",
+        "professionals": "1,073 professionals",
+        "rating": "4.9 (310 verified reviews)"
+      },
+      {
+        "name": "Online Nutritionist",
+        "professionals": "523 professionals",
+        "rating": "4.6 (182 verified reviews)"
+      },
+      {
+        "name": "Psychiatrist",
+        "professionals": "226 professionals",
+        "rating": "4.8 (362 verified reviews)"
+      },
+      {
+        "name": "Online Psychologist",
+        "professionals": "1,123 professionals",
+        "rating": "4.9 (420 verified reviews)"
+      },
+      {
+        "name": "Dietitian",
+        "professionals": "1,162 professionals",
+        "rating": "4.6 (116 verified reviews)"
+      },
+      {
+        "name": "Home Personal Trainer",
+        "professionals": "449 professionals",
+        "rating": "4.6 (42 verified reviews)"
+      },
+      {
+        "name": "Home Physiotherapy",
+        "professionals": "254 professionals",
+        "rating": "5.0 (61 verified reviews)"
+      },
+      {
+        "name": "Physiotherapist",
+        "professionals": "673 professionals",
+        "rating": "4.7 (55 verified reviews)"
+      },
+      {
+        "name": "Online Personal Trainer",
+        "professionals": "644 professionals",
+        "rating": "4.6 (40 verified reviews)"
+      }
     ],
     "allServicesTitle": "All Wellness & Personal Care services",
     "allServices": [
@@ -282,7 +419,10 @@
       "contact": "Contact Us",
       "nearMe": "Near Me",
       "prices": "Prices",
-      "priceLinks": ["Party Venue Prices", "Wedding Photographer Prices"],
+      "priceLinks": [
+        "Party Venue Prices",
+        "Wedding Photographer Prices"
+      ],
       "mostSearched": "Most searched",
       "searchedLinks": [
         "Barcelona Electrician",
@@ -295,7 +435,11 @@
         "Barcelona Full Home Renovation"
       ],
       "register": "Pro Sign Up",
-      "legal": ["Terms and Conditions", "Privacy", "Impressum"],
+      "legal": [
+        "Terms and Conditions",
+        "Privacy",
+        "Impressum"
+      ],
       "rights": "2011 - 2026 PrecioJusto. All rights reserved."
     }
   },
@@ -307,10 +451,22 @@
     "header": {
       "menu": "Menu",
       "nav": [
-        { "key": "bienestar", "label": "Wellness" },
-        { "key": "reparacion", "label": "Repair" },
-        { "key": "fotografia", "label": "Photography" },
-        { "key": "eventos", "label": "Events" }
+        {
+          "key": "bienestar",
+          "label": "Wellness"
+        },
+        {
+          "key": "reparacion",
+          "label": "Repair"
+        },
+        {
+          "key": "fotografia",
+          "label": "Photography"
+        },
+        {
+          "key": "eventos",
+          "label": "Events"
+        }
       ],
       "help": "Help",
       "signin": "Log In",
@@ -318,24 +474,72 @@
     },
     "hero": {
       "title": "Renovation, Decoration & Construction Services",
-      "searchPlaceholder": "What service are you looking for?",
+      "searchPlaceholder": "What do you need?",
       "searchButton": "Search"
     },
     "popularTitle": "The most popular Renovation, Decoration & Construction services",
     "quoteButton": "Get a quote",
     "services": [
-      { "name": "Full Renovation", "professionals": "3,731 professionals", "rating": "4.4 (1,009 verified reviews)" },
-      { "name": "Home Renovation", "professionals": "3,817 professionals", "rating": "4.5 (1,339 verified reviews)" },
-      { "name": "Full Property Renovation", "professionals": "1,138 professionals", "rating": "4.4 (611 verified reviews)" },
-      { "name": "Bathroom Renovation", "professionals": "4,006 professionals", "rating": "4.5 (1,228 verified reviews)" },
-      { "name": "Carpentry", "professionals": "4,406 professionals", "rating": "4.6 (1,345 verified reviews)" },
-      { "name": "Bricklayer", "professionals": "3,916 professionals", "rating": "4.5 (953 verified reviews)" },
-      { "name": "House Painting", "professionals": "1,171 professionals", "rating": "4.5 (1,017 verified reviews)" },
-      { "name": "Full Bathroom Renovation", "professionals": "1,018 professionals", "rating": "4.3 (557 verified reviews)" },
-      { "name": "Painters", "professionals": "879 professionals", "rating": "4.6 (1,313 verified reviews)" },
-      { "name": "Bricklaying", "professionals": "3,834 professionals", "rating": "4.4 (1,136 verified reviews)" },
-      { "name": "Full Apartment Renovation", "professionals": "1,042 professionals", "rating": "4.3 (435 verified reviews)" },
-      { "name": "Ceiling Fan Installation", "professionals": "751 professionals", "rating": "4.7 (560 verified reviews)" }
+      {
+        "name": "Full Renovation",
+        "professionals": "3,731 professionals",
+        "rating": "4.4 (1,009 verified reviews)"
+      },
+      {
+        "name": "Home Renovation",
+        "professionals": "3,817 professionals",
+        "rating": "4.5 (1,339 verified reviews)"
+      },
+      {
+        "name": "Full Property Renovation",
+        "professionals": "1,138 professionals",
+        "rating": "4.4 (611 verified reviews)"
+      },
+      {
+        "name": "Bathroom Renovation",
+        "professionals": "4,006 professionals",
+        "rating": "4.5 (1,228 verified reviews)"
+      },
+      {
+        "name": "Carpentry",
+        "professionals": "4,406 professionals",
+        "rating": "4.6 (1,345 verified reviews)"
+      },
+      {
+        "name": "Bricklayer",
+        "professionals": "3,916 professionals",
+        "rating": "4.5 (953 verified reviews)"
+      },
+      {
+        "name": "House Painting",
+        "professionals": "1,171 professionals",
+        "rating": "4.5 (1,017 verified reviews)"
+      },
+      {
+        "name": "Full Bathroom Renovation",
+        "professionals": "1,018 professionals",
+        "rating": "4.3 (557 verified reviews)"
+      },
+      {
+        "name": "Painters",
+        "professionals": "879 professionals",
+        "rating": "4.6 (1,313 verified reviews)"
+      },
+      {
+        "name": "Bricklaying",
+        "professionals": "3,834 professionals",
+        "rating": "4.4 (1,136 verified reviews)"
+      },
+      {
+        "name": "Full Apartment Renovation",
+        "professionals": "1,042 professionals",
+        "rating": "4.3 (435 verified reviews)"
+      },
+      {
+        "name": "Ceiling Fan Installation",
+        "professionals": "751 professionals",
+        "rating": "4.7 (560 verified reviews)"
+      }
     ],
     "allServicesTitle": "All Renovation, Decoration & Construction services",
     "allServices": [
@@ -409,7 +613,10 @@
       "contact": "Contact Us",
       "nearMe": "Near Me",
       "prices": "Prices",
-      "priceLinks": ["Party Venue Prices", "Wedding Photographer Prices"],
+      "priceLinks": [
+        "Party Venue Prices",
+        "Wedding Photographer Prices"
+      ],
       "mostSearched": "Most searched",
       "searchedLinks": [
         "Barcelona Electrician",
@@ -422,8 +629,204 @@
         "Barcelona Full Home Renovation"
       ],
       "register": "Pro Sign Up",
-      "legal": ["Terms and Conditions", "Privacy", "Impressum"],
+      "legal": [
+        "Terms and Conditions",
+        "Privacy",
+        "Impressum"
+      ],
       "rights": "2011 - 2026 PrecioJusto. All rights reserved."
     }
+  },
+  "dashboard": {
+    "meta": {
+      "title": "Professional dashboard | PrecioJusto",
+      "description": "Manage your opportunities, quotes, jobs, services and wallet in one place."
+    },
+    "nav": {
+      "oportunidades": "Opportunities",
+      "presupuesto": "Quotes",
+      "trabajo": "Work",
+      "misServicios": "My services",
+      "billetera": "My wallet"
+    },
+    "accountLabel": "Pro account",
+    "sections": {
+      "oportunidades": {
+        "title": "Opportunities",
+        "subtitle": "Recent requests from clients looking for your services",
+        "items": [
+          {
+            "title": "Air conditioning installation",
+            "meta": "Chamberí, Madrid · 2 h ago",
+            "detail": "Estimated quote: €180 - €260",
+            "cta": "Send quote"
+          },
+          {
+            "title": "In-home English lessons",
+            "meta": "Almagro, Madrid · 5 h ago",
+            "detail": "2 sessions per week · B1 level",
+            "cta": "Send quote"
+          },
+          {
+            "title": "Living room and hallway painting",
+            "meta": "Latina, Madrid · yesterday",
+            "detail": "60 m² · paint included",
+            "cta": "Send quote"
+          }
+        ],
+        "form": {
+          "title": "Send quote",
+          "amount": "Amount (€)",
+          "amountPh": "e.g. 180",
+          "days": "Delivery time",
+          "daysPh": "e.g. 5 days",
+          "message": "Message to the client",
+          "messagePh": "Describe how you will do the job…",
+          "submit": "Send quote",
+          "cancel": "Cancel"
+        }
+      },
+      "presupuesto": {
+        "title": "Quotes",
+        "subtitle": "Status of the quotes you have sent",
+        "items": [
+          {
+            "title": "Blind repair",
+            "meta": "Sent 3 days ago",
+            "detail": "Client: Marta G. · €120",
+            "cta": "View details"
+          },
+          {
+            "title": "Small moving job",
+            "meta": "Viewed 1 day ago",
+            "detail": "Client: Jorge P. · €340",
+            "cta": "View details"
+          },
+          {
+            "title": "Math tutoring session",
+            "meta": "Accepted yesterday",
+            "detail": "Client: Lucía R. · €25/h",
+            "cta": "View details"
+          }
+        ],
+        "form": {
+          "title": "Quote details",
+          "service": "Service",
+          "status": "Status",
+          "detail": "Detail",
+          "close": "Close"
+        }
+      },
+      "trabajo": {
+        "title": "Work",
+        "subtitle": "Active jobs and upcoming deadlines",
+        "items": [
+          {
+            "title": "Kitchen furniture assembly",
+            "meta": "In progress · due Friday",
+            "detail": "Client: Hugo S. · €480",
+            "cta": "Update status"
+          },
+          {
+            "title": "Personal training - 8-session pack",
+            "meta": "In progress · 3/8 completed",
+            "detail": "Client: Carla M. · €200",
+            "cta": "Update status"
+          },
+          {
+            "title": "Bathroom water leak",
+            "meta": "Scheduled tomorrow 10:00",
+            "detail": "Client: Pedro L. · €90",
+            "cta": "Update status"
+          }
+        ],
+        "form": {
+          "title": "Update job status",
+          "current": "Current status",
+          "inProgress": "In progress",
+          "completed": "Completed",
+          "cancelled": "Cancelled",
+          "save": "Save changes",
+          "cancel": "Cancel"
+        }
+      },
+      "misServicios": {
+        "title": "My services",
+        "subtitle": "Services you offer and their visibility",
+        "items": [
+          {
+            "title": "Emergency plumbing",
+            "meta": "Active · visible in searches",
+            "detail": "12 contacts this month",
+            "cta": "Edit service"
+          },
+          {
+            "title": "Private physics lessons",
+            "meta": "Active · visible in searches",
+            "detail": "5 contacts this month",
+            "cta": "Edit service"
+          },
+          {
+            "title": "Goods transportation",
+            "meta": "Paused",
+            "detail": "Reactivate to receive requests",
+            "cta": "Edit service"
+          }
+        ],
+        "form": {
+          "title": "Edit service",
+          "name": "Service name",
+          "namePh": "e.g. Emergency plumbing",
+          "description": "Description",
+          "descriptionPh": "Explain what your service includes…",
+          "price": "Hourly rate (€)",
+          "pricePh": "e.g. 25",
+          "stateActive": "Active and visible",
+          "statePaused": "Paused",
+          "save": "Save changes",
+          "cancel": "Cancel",
+          "state": "Status"
+        }
+      },
+      "billetera": {
+        "title": "My wallet",
+        "subtitle": "Available balance and latest movements",
+        "items": [
+          {
+            "title": "Payment received - Kitchen assembly",
+            "meta": "Today · 14:20",
+            "detail": "+ €480.00",
+            "cta": ""
+          },
+          {
+            "title": "Service fee",
+            "meta": "Yesterday · 09:05",
+            "detail": "- €12.50",
+            "cta": ""
+          },
+          {
+            "title": "Withdrawal to bank account",
+            "meta": "Aug 12 · 17:40",
+            "detail": "- €600.00",
+            "cta": ""
+          }
+        ],
+        "form": {
+          "title": "Withdraw money",
+          "amount": "Amount to withdraw (€)",
+          "amountPh": "e.g. 200",
+          "account": "Destination account",
+          "confirm": "Confirm withdrawal",
+          "cancel": "Cancel",
+          "accounts": [
+            "Banco Santander ··4521",
+            "Banco BBVA ··7788"
+          ]
+        }
+      }
+    },
+    "balanceLabel": "Available balance",
+    "balance": "€1,245.00",
+    "withdraw": "Withdraw money"
   }
 }

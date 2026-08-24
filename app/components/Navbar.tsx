@@ -20,15 +20,12 @@ export default async function Navbar() {
       <div className="relative mx-auto flex h-16 w-full max-w-[1280px] items-center justify-between gap-4 px-6 lg:px-20">
         <a href="#" className="flex items-center gap-3">
           <Image
-            src="/images/logo.jpg"
+            src="/images/logo.png"
             alt="PrecioJusto"
-            width={32}
-            height={32}
-            className="rounded-lg"
+            width={771}
+            height={324}
+            className="h-12 w-auto"
           />
-          <span className="text-lg font-bold tracking-tight text-white drop-shadow-md">
-            PrecioJusto
-          </span>
         </a>
         <div className="flex items-center gap-5">
           <a
