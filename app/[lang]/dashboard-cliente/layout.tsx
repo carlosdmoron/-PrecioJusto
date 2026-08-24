@@ -21,7 +21,13 @@ export default async function CustomerDashboardLayout({
 
   return (
     <div className="flex min-h-screen bg-canvas max-lg:flex-col">
-      <CustomerSidebar items={nav} promo={cliente.promo} logoAlt="PrecioJusto" />
+      <CustomerSidebar
+        items={nav}
+        promo={cliente.promo}
+        logoAlt="PrecioJusto"
+        logoutLabels={dict.sesion}
+        loginHref={`/${current}/iniciar-sesion`}
+      />
       <div className="min-w-0 flex-1">
         <CustomerTopbar greeting={cliente.greeting} avatarLabel={cliente.avatarLabel} />
         <main className="min-w-0 flex-1">{children}</main>

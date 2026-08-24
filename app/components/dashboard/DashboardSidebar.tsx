@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LogoutButton, { type LogoutLabels } from "../shared/LogoutButton";
 
 export type DashboardNavItem = {
   href: string;
@@ -13,10 +14,14 @@ export default function DashboardSidebar({
   items,
   accountLabel,
   profileHref,
+  logoutLabels,
+  loginHref,
 }: {
   items: DashboardNavItem[];
   accountLabel: string;
   profileHref: string;
+  logoutLabels: LogoutLabels;
+  loginHref: string;
 }) {
   const pathname = usePathname();
 
@@ -71,6 +76,7 @@ export default function DashboardSidebar({
               <span className="block truncate text-xs text-muted">{accountLabel}</span>
             </span>
           </Link>
+          <LogoutButton loginHref={loginHref} labels={logoutLabels} />
         </div>
       </aside>
 
@@ -92,6 +98,7 @@ export default function DashboardSidebar({
           >
             PrecioJusto Pro
           </Link>
+          <LogoutButton loginHref={loginHref} labels={logoutLabels} compact />
         </div>
         <nav
           aria-label={accountLabel}

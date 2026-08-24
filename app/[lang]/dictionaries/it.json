@@ -900,8 +900,158 @@
       "text": "Crea il tuo profilo professionale e ricevi clienti vicino a te.",
       "cta": "Sono un professionista"
     },
-    "stub": {
-      "text": "Questa sezione sara disponibile molto presto."
+    "sections": {
+      "solicitudes": {
+        "title": "Le mie richieste",
+        "subtitle": "Segui lo stato di quello che hai pubblicato",
+        "publicar": {
+          "cta": "Pubblica richiesta",
+          "title": "Pubblica una nuova richiesta",
+          "cancel": "Annulla",
+          "enviar": "Pubblica richiesta",
+          "titulo": "Titolo del lavoro",
+          "tituloPh": "Es: Montaggio mobile cucina",
+          "categoria": "Categoria",
+          "categorias": [
+            "Ristrutturazioni",
+            "Traslochi",
+            "Climatizzazione",
+            "Elettricità",
+            "Idraulica",
+            "Pittura"
+          ],
+          "descripcion": "Descrizione",
+          "descripcionPh": "Racconta cosa ti serve, i tempi e i dettagli utili.",
+          "ubicacion": "Località",
+          "ubicacionPh": "Es: Milano, Porta Romana",
+          "presupuesto": "Budget stimato (€)",
+          "presupuestoPh": "Es: 800"
+        },
+        "items": [
+          {
+            "title": "Ristrutturazione bagno completa",
+            "meta": "Attiva",
+            "detail": "4 preventivi ricevuti · Pubblicata 2 giorni fa",
+            "cta": "Vedi dettaglio"
+          },
+          {
+            "title": "Installazione aria condizionata",
+            "meta": "In revisione",
+            "detail": "Confronto tra professionisti · Pubblicata 5 giorni fa",
+            "cta": "Vedi dettaglio"
+          },
+          {
+            "title": "Pittura soggiorno e corridoio",
+            "meta": "Completata",
+            "detail": "Lavoro completato · Recensione inviata",
+            "cta": "Vedi dettaglio"
+          }
+        ],
+        "detalle": {
+          "title": "Dettaglio della richiesta",
+          "estado": "Stato",
+          "descripcion": "Descrizione pubblicata",
+          "close": "Chiudi"
+        },
+        "descripciones": [
+          "Sostituire la vasca con piatto doccia, rivestimento completo e nuovo mobile. 4 m².",
+          "Installare uno split da 9000 BTU in soggiorno con tubazioni a vista all'esterno.",
+          "Due mani su pareti e soffitti, circa 60 m², colore bianco roto."
+        ]
+      },
+      "mensajes": {
+        "title": "Messaggi",
+        "subtitle": "Conversazioni con i tuoi professionisti",
+        "conversaciones": [
+          {
+            "iniciales": "MB",
+            "nombre": "Marco Bianchi",
+            "servicio": "Ristrutturazione bagno",
+            "ultimo": "Perfetto, giovedì primo mattino inizio con il piatto doccia.",
+            "hora": "09:24"
+          },
+          {
+            "iniciales": "LG",
+            "nombre": "Luca Galli",
+            "servicio": "Aria condizionata",
+            "ultimo": "Ti mando il preventivo dettagliato questo pomeriggio.",
+            "hora": "Ieri"
+          },
+          {
+            "iniciales": "RF",
+            "nombre": "Rosa Ferri",
+            "servicio": "Pittura",
+            "ultimo": "Grazie mille per la recensione!",
+            "hora": "Lun"
+          }
+        ],
+        "hilo": {
+          "placeholder": "Scrivi un messaggio…",
+          "enviar": "Invia",
+          "mensajes": [
+            {
+              "de": "pro",
+              "texto": "Ciao Laura, ho visto la tua richiesta di ristrutturazione bagno. Possiamo vedere l'appartamento questa settimana?"
+            },
+            {
+              "de": "yo",
+              "texto": "Ciao Marco, sì. Va bene giovedì mattina?"
+            },
+            {
+              "de": "pro",
+              "texto": "Perfetto, giovedì primo mattino inizio con il piatto doccia."
+            }
+          ]
+        }
+      },
+      "favoritos": {
+        "title": "Preferiti",
+        "subtitle": "Professionisti che hai salvato",
+        "verPerfil": "Vedi profilo",
+        "quitar": "Rimuovi",
+        "perfil": {
+          "title": "Profilo del professionista",
+          "ciudad": "Città",
+          "experiencia": "Esperienza",
+          "close": "Chiudi"
+        },
+        "items": [
+          {
+            "iniciales": "MB",
+            "nombre": "Marco Bianchi",
+            "oficio": "Ristrutturazioni complete",
+            "valoracion": "4.9",
+            "tarifa": "35 €/h",
+            "ciudad": "Milano",
+            "experiencia": "12 anni · 214 lavori"
+          },
+          {
+            "iniciales": "LG",
+            "nombre": "Luca Galli",
+            "oficio": "Climatizzazione",
+            "valoracion": "4.8",
+            "tarifa": "28 €/h",
+            "ciudad": "Milano",
+            "experiencia": "8 anni · 156 lavori"
+          },
+          {
+            "iniciales": "RF",
+            "nombre": "Rosa Ferri",
+            "oficio": "Pittura professionale",
+            "valoracion": "4.7",
+            "tarifa": "22 €/h",
+            "ciudad": "Sesto San Giovanni",
+            "experiencia": "10 anni · 189 lavori"
+          }
+        ]
+      }
     }
+  },
+  "sesion": {
+    "cerrar": "Esci",
+    "titulo": "Uscire dall'account?",
+    "texto": "Dovrai effettuare di nuovo l'accesso per tornare al tuo pannello.",
+    "cancelar": "Annulla",
+    "salir": "Esci"
   }
 }

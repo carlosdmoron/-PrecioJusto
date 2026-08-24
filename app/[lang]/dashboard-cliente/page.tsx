@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { lang } from "next/root-params";
 import { getDictionary, getDictionaryByLocale } from "../dictionaries";
 import ExploreTabs from "../../components/customer/ExploreTabs";
 import FeaturedRequest from "../../components/customer/FeaturedRequest";
@@ -23,6 +24,7 @@ const SERVICE_IMAGES = [
 
 export default async function CustomerDashboardPage() {
   const dict = await getDictionary();
+  const current = (await lang()) ?? "es";
   const cliente = dict.dashboardCliente;
   const services = cliente.services.map((service, index) => ({
     ...service,
@@ -31,7 +33,11 @@ export default async function CustomerDashboardPage() {
 
   return (
     <div className="mx-auto w-full max-w-[992px] px-6 py-8 lg:px-16">
-      <ExploreTabs tabs={cliente.tabs} empty={cliente.emptySolicitudes}>
+      <ExploreTabs
+        tabs={cliente.tabs}
+        empty={cliente.emptySolicitudes}
+        ctaHref={`/${current}/dashboard-cliente/solicitudes`}
+      >
         <FeaturedRequest
           badge={cliente.featured.badge}
           title={cliente.featured.title}

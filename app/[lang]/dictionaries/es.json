@@ -900,8 +900,158 @@
       "text": "Crea tu perfil profesional y recibe clientes cerca de ti.",
       "cta": "Soy profesional"
     },
-    "stub": {
-      "text": "Esta seccion estara disponible muy pronto."
+    "sections": {
+      "solicitudes": {
+        "title": "Mis solicitudes",
+        "subtitle": "Sigue el estado de lo que has publicado",
+        "publicar": {
+          "cta": "Publicar solicitud",
+          "title": "Publicar nueva solicitud",
+          "cancel": "Cancelar",
+          "enviar": "Publicar solicitud",
+          "titulo": "Título del trabajo",
+          "tituloPh": "Ej: Montaje de mueble de cocina",
+          "categoria": "Categoría",
+          "categorias": [
+            "Reformas",
+            "Mudanzas",
+            "Climatización",
+            "Electricidad",
+            "Fontanería",
+            "Pintura"
+          ],
+          "descripcion": "Descripción",
+          "descripcionPh": "Cuenta qué necesitas, plazos y cualquier detalle relevante.",
+          "ubicacion": "Ubicación",
+          "ubicacionPh": "Ej: Madrid, Chamberí",
+          "presupuesto": "Presupuesto estimado (€)",
+          "presupuestoPh": "Ej: 800"
+        },
+        "items": [
+          {
+            "title": "Reforma de baño completo",
+            "meta": "Activa",
+            "detail": "4 propuestas recibidas · Publicada hace 2 días",
+            "cta": "Ver detalle"
+          },
+          {
+            "title": "Instalación aire acondicionado",
+            "meta": "En revisión",
+            "detail": "Comparando profesionales · Publicada hace 5 días",
+            "cta": "Ver detalle"
+          },
+          {
+            "title": "Pintura salón y pasillo",
+            "meta": "Finalizada",
+            "detail": "Trabajo completado · Valoración enviada",
+            "cta": "Ver detalle"
+          }
+        ],
+        "detalle": {
+          "title": "Detalle de la solicitud",
+          "estado": "Estado",
+          "descripcion": "Descripción publicada",
+          "close": "Cerrar"
+        },
+        "descripciones": [
+          "Cambiar bañera por placa de ducha, alicatado completo y nuevo mueble. 4 m².",
+          "Instalar split de 3000 frigorías en salón con tubería vista por el exterior.",
+          "Pintar dos capas en paredes y techos, unos 60 m², color blanco roto."
+        ]
+      },
+      "mensajes": {
+        "title": "Mensajes",
+        "subtitle": "Conversaciones con tus profesionales",
+        "conversaciones": [
+          {
+            "iniciales": "JM",
+            "nombre": "Javier Molina",
+            "servicio": "Reforma de baño",
+            "ultimo": "Perfecto, el jueves a primera hora empiezo con la placa de ducha.",
+            "hora": "09:24"
+          },
+          {
+            "iniciales": "LG",
+            "nombre": "Lucía Gómez",
+            "servicio": "Aire acondicionado",
+            "ultimo": "Te paso el presupuesto detallado esta tarde.",
+            "hora": "Ayer"
+          },
+          {
+            "iniciales": "RT",
+            "nombre": "Roberto Torres",
+            "servicio": "Pintura",
+            "ultimo": "¡Muchas gracias por la valoración!",
+            "hora": "Lun"
+          }
+        ],
+        "hilo": {
+          "placeholder": "Escribe un mensaje…",
+          "enviar": "Enviar",
+          "mensajes": [
+            {
+              "de": "pro",
+              "texto": "Hola Laura, vi tu solicitud de reforma de baño. ¿Podemos visitar el piso esta semana?"
+            },
+            {
+              "de": "yo",
+              "texto": "Hola Javier, sí. ¿Os va mejor el jueves por la mañana?"
+            },
+            {
+              "de": "pro",
+              "texto": "Perfecto, el jueves a primera hora empiezo con la placa de ducha."
+            }
+          ]
+        }
+      },
+      "favoritos": {
+        "title": "Favoritos",
+        "subtitle": "Profesionales que has guardado",
+        "verPerfil": "Ver perfil",
+        "quitar": "Quitar",
+        "perfil": {
+          "title": "Perfil del profesional",
+          "ciudad": "Ciudad",
+          "experiencia": "Experiencia",
+          "close": "Cerrar"
+        },
+        "items": [
+          {
+            "iniciales": "JM",
+            "nombre": "Javier Molina",
+            "oficio": "Reformas integrales",
+            "valoracion": "4.9",
+            "tarifa": "35 €/h",
+            "ciudad": "Madrid",
+            "experiencia": "12 años · 214 trabajos"
+          },
+          {
+            "iniciales": "LG",
+            "nombre": "Lucía Gómez",
+            "oficio": "Climatización",
+            "valoracion": "4.8",
+            "tarifa": "28 €/h",
+            "ciudad": "Madrid",
+            "experiencia": "8 años · 156 trabajos"
+          },
+          {
+            "iniciales": "RT",
+            "nombre": "Roberto Torres",
+            "oficio": "Pintura profesional",
+            "valoracion": "4.7",
+            "tarifa": "22 €/h",
+            "ciudad": "Getafe",
+            "experiencia": "10 años · 189 trabajos"
+          }
+        ]
+      }
     }
+  },
+  "sesion": {
+    "cerrar": "Cerrar sesión",
+    "titulo": "¿Cerrar sesión?",
+    "texto": "Tendrás que iniciar sesión de nuevo para volver a tu panel.",
+    "cancelar": "Cancelar",
+    "salir": "Cerrar sesión"
   }
 }

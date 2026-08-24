@@ -900,8 +900,158 @@
       "text": "Create your pro profile and get clients near you.",
       "cta": "I am a pro"
     },
-    "stub": {
-      "text": "This section is coming soon."
+    "sections": {
+      "solicitudes": {
+        "title": "My requests",
+        "subtitle": "Track the status of what you've posted",
+        "publicar": {
+          "cta": "Post request",
+          "title": "Post a new request",
+          "cancel": "Cancel",
+          "enviar": "Post request",
+          "titulo": "Job title",
+          "tituloPh": "e.g.: Kitchen cabinet assembly",
+          "categoria": "Category",
+          "categorias": [
+            "Renovations",
+            "Moving",
+            "Air conditioning",
+            "Electrical",
+            "Plumbing",
+            "Painting"
+          ],
+          "descripcion": "Description",
+          "descripcionPh": "Describe what you need, deadlines and any relevant details.",
+          "ubicacion": "Location",
+          "ubicacionPh": "e.g.: London, Camden",
+          "presupuesto": "Estimated budget (£)",
+          "presupuestoPh": "e.g.: 700"
+        },
+        "items": [
+          {
+            "title": "Full bathroom renovation",
+            "meta": "Active",
+            "detail": "4 quotes received · Posted 2 days ago",
+            "cta": "View detail"
+          },
+          {
+            "title": "Air conditioner installation",
+            "meta": "Under review",
+            "detail": "Comparing professionals · Posted 5 days ago",
+            "cta": "View detail"
+          },
+          {
+            "title": "Living room and hallway painting",
+            "meta": "Completed",
+            "detail": "Job completed · Review sent",
+            "cta": "View detail"
+          }
+        ],
+        "detalle": {
+          "title": "Request detail",
+          "estado": "Status",
+          "descripcion": "Posted description",
+          "close": "Close"
+        },
+        "descripciones": [
+          "Replace the bathtub with a walk-in shower, full tiling and new vanity unit. 4 m².",
+          "Install a 9000 BTU split unit in the living room with exposed piping outside.",
+          "Two coats on walls and ceilings, about 60 m², off-white colour."
+        ]
+      },
+      "mensajes": {
+        "title": "Messages",
+        "subtitle": "Conversations with your professionals",
+        "conversaciones": [
+          {
+            "iniciales": "JM",
+            "nombre": "James Miller",
+            "servicio": "Bathroom renovation",
+            "ultimo": "Great, Thursday first thing I'll start on the shower tray.",
+            "hora": "09:24"
+          },
+          {
+            "iniciales": "LG",
+            "nombre": "Laura Green",
+            "servicio": "Air conditioning",
+            "ultimo": "I'll send you the detailed quote this afternoon.",
+            "hora": "Yesterday"
+          },
+          {
+            "iniciales": "RT",
+            "nombre": "Robert Turner",
+            "servicio": "Painting",
+            "ultimo": "Thanks so much for your review!",
+            "hora": "Mon"
+          }
+        ],
+        "hilo": {
+          "placeholder": "Write a message…",
+          "enviar": "Send",
+          "mensajes": [
+            {
+              "de": "pro",
+              "texto": "Hi Laura, I saw your bathroom renovation request. Could we visit the flat this week?"
+            },
+            {
+              "de": "yo",
+              "texto": "Hi James, sure. Does Thursday morning work for you?"
+            },
+            {
+              "de": "pro",
+              "texto": "Great, Thursday first thing I'll start on the shower tray."
+            }
+          ]
+        }
+      },
+      "favoritos": {
+        "title": "Favorites",
+        "subtitle": "Professionals you've saved",
+        "verPerfil": "View profile",
+        "quitar": "Remove",
+        "perfil": {
+          "title": "Professional profile",
+          "ciudad": "City",
+          "experiencia": "Experience",
+          "close": "Close"
+        },
+        "items": [
+          {
+            "iniciales": "JM",
+            "nombre": "James Miller",
+            "oficio": "Full renovations",
+            "valoracion": "4.9",
+            "tarifa": "£30/hr",
+            "ciudad": "London",
+            "experiencia": "12 years · 214 jobs"
+          },
+          {
+            "iniciales": "LG",
+            "nombre": "Laura Green",
+            "oficio": "Air conditioning",
+            "valoracion": "4.8",
+            "tarifa": "£25/hr",
+            "ciudad": "London",
+            "experiencia": "8 years · 156 jobs"
+          },
+          {
+            "iniciales": "RT",
+            "nombre": "Robert Turner",
+            "oficio": "Professional painting",
+            "valoracion": "4.7",
+            "tarifa": "£20/hr",
+            "ciudad": "Croydon",
+            "experiencia": "10 years · 189 jobs"
+          }
+        ]
+      }
     }
+  },
+  "sesion": {
+    "cerrar": "Log out",
+    "titulo": "Log out?",
+    "texto": "You'll need to sign in again to get back to your dashboard.",
+    "cancelar": "Cancel",
+    "salir": "Log out"
   }
 }

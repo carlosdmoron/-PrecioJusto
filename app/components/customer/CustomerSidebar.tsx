@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LogoutButton, { type LogoutLabels } from "../shared/LogoutButton";
 
 export type CustomerNavItem = {
   href: string;
@@ -13,10 +14,14 @@ export default function CustomerSidebar({
   items,
   promo,
   logoAlt,
+  logoutLabels,
+  loginHref,
 }: {
   items: CustomerNavItem[];
   promo: { title: string; text: string; cta: string };
   logoAlt: string;
+  logoutLabels: LogoutLabels;
+  loginHref: string;
 }) {
   const pathname = usePathname();
 
@@ -68,6 +73,7 @@ export default function CustomerSidebar({
               {promo.cta}
             </Link>
           </div>
+          <LogoutButton loginHref={loginHref} labels={logoutLabels} />
         </div>
       </aside>
 
@@ -86,6 +92,7 @@ export default function CustomerSidebar({
           <span className="grid size-9 place-items-center rounded-full bg-primary-dark text-sm font-semibold text-white">
             L
           </span>
+          <LogoutButton loginHref={loginHref} labels={logoutLabels} compact />
         </div>
         <nav
           aria-label="Menú principal"

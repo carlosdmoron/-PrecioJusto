@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
-
-const STORAGE_KEY = "pj-perfil-profesional";
+import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 
 type ProfileKey = "nombre" | "apellido" | "email" | "ubicacion" | "telefono";
 type ProfileValues = Record<ProfileKey, string>;
+
+const DEFAULT_STORAGE_KEY = "pj-perfil-profesional";
 
 const DEMO_VALUES: ProfileValues = {
   nombre: "Carlos",
@@ -28,15 +28,23 @@ function subscribe(callback: () => void) {
   return () => window.removeEventListener("storage", callback);
 }
 
-function getSnapshot(): string | null {
-  return window.localStorage.getItem(STORAGE_KEY);
-}
-
 function getServerSnapshot(): string | null {
   return null;
 }
 
-export default function ProfileForm({ form }: { form: Record<string, string> }) {
+export default function ProfileForm({
+  form,
+  storageKey = DEFAULT_STORAGE_KEY,
+  defaultValues = DEMO_VALUES,
+}: {
+  form: Record<string, string>;
+  storageKey?: string;
+  defaultValues?: ProfileValues;
+}) {
+  const getSnapshot = useCallback(
+    () => window.localStorage.getItem(storageKey),
+    [storageKey],
+  );
   const raw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const stored = useMemo<Partial<ProfileValues>>(() => {
@@ -50,7 +58,7 @@ export default function ProfileForm({ form }: { form: Record<string, string> }) 
   const [draft, setDraft] = useState<Partial<ProfileValues>>({});
   const [saved, setSaved] = useState(false);
 
-  const values: ProfileValues = { ...DEMO_VALUES, ...stored, ...draft };
+  const values: ProfileValues = { ...defaultValues, ...stored, ...draft };
 
   function update(key: ProfileKey, value: string) {
     setSaved(false);
@@ -60,7 +68,7 @@ export default function ProfileForm({ form }: { form: Record<string, string> }) 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(values));
+      window.localStorage.setItem(storageKey, JSON.stringify(values));
       setDraft({});
       setSaved(true);
     } catch {

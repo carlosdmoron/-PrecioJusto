@@ -39,6 +39,8 @@ export default async function DashboardLayout({
         items={nav}
         accountLabel={dict.dashboard.accountLabel}
         profileHref={`/${current}/dashboard-profesional/perfil`}
+        logoutLabels={dict.sesion}
+        loginHref={`/${current}/iniciar-sesion`}
       />
       <main className="min-w-0 flex-1">{children}</main>
     </div>

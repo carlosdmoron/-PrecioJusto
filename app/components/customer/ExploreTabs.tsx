@@ -1,14 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type ReactNode } from "react";
 
 export default function ExploreTabs({
   tabs,
   empty,
+  ctaHref,
   children,
 }: {
   tabs: { explorar: string; solicitudes: string };
   empty: { title: string; text: string; cta: string };
+  ctaHref: string;
   children: ReactNode;
 }) {
   const [active, setActive] = useState<"explorar" | "solicitudes">("explorar");
@@ -47,12 +50,12 @@ export default function ExploreTabs({
               {empty.title}
             </h2>
             <p className="mt-2 text-sm text-muted">{empty.text}</p>
-            <button
-              type="button"
+            <Link
+              href={ctaHref}
               className="mt-6 inline-flex h-12 items-center rounded-lg bg-primary px-6 text-sm font-semibold text-white transition hover:bg-primary-dark"
             >
               {empty.cta}
-            </button>
+            </Link>
           </div>
         )}
       </div>
