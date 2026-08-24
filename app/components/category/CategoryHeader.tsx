@@ -1,12 +1,27 @@
 import Image from "next/image";
-import { lang } from "next/root-params";
-import { getDictionary } from "../../[lang]/dictionaries";
 
-export default async function CategoriaHeader() {
-  const dict = await getDictionary();
-  const { header } = dict.categoria;
-  const current = (await lang()) ?? "es";
+const CATEGORY_ROUTES: Record<string, string> = {
+  bienestar: "categoria",
+  renovacion: "renovacion",
+};
 
+type NavLink = { key: string; label: string };
+
+export type CategoryHeaderContent = {
+  menu: string;
+  nav: NavLink[];
+  help: string;
+  signin: string;
+  register: string;
+};
+
+export default function CategoryHeader({
+  header,
+  lang,
+}: {
+  header: CategoryHeaderContent;
+  lang: string;
+}) {
   return (
     <header className="absolute inset-x-0 top-0 z-20">
       <div
@@ -29,7 +44,7 @@ export default async function CategoriaHeader() {
             </svg>
             <span>{header.menu}</span>
           </button>
-          <a href={`/${current}`} className="flex items-center gap-2" aria-label="PrecioJusto - Inicio">
+          <a href={`/${lang}`} className="flex items-center gap-2" aria-label="PrecioJusto - Inicio">
             <Image
               src="/images/logo-lg.jpg"
               alt="PrecioJusto"
@@ -43,15 +58,18 @@ export default async function CategoriaHeader() {
           </a>
         </div>
         <nav className="hidden items-center gap-6 lg:flex" aria-label={header.menu}>
-          {header.nav.map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="text-sm font-medium text-white/90 transition hover:text-white"
-            >
-              {item}
-            </a>
-          ))}
+          {header.nav.map((item) => {
+            const route = CATEGORY_ROUTES[item.key];
+            return (
+              <a
+                key={item.key}
+                href={route ? `/${lang}/${route}` : "#"}
+                className="text-sm font-medium text-white/90 transition hover:text-white"
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-5">
           <div className="hidden items-center gap-5 lg:flex">
@@ -59,14 +77,14 @@ export default async function CategoriaHeader() {
               {header.help}
             </a>
             <a
-              href={`/${current}/iniciar-sesion`}
+              href={`/${lang}/iniciar-sesion`}
               className="text-sm text-white/90 transition hover:text-white"
             >
               {header.signin}
             </a>
           </div>
           <a
-            href={`/${current}/registro-profesional`}
+            href={`/${lang}/registro-profesional`}
             className="flex h-9 items-center rounded-full border border-white/80 px-4 text-sm font-medium text-white transition hover:bg-white/10"
           >
             {header.register}

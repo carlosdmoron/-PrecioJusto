@@ -1,18 +1,31 @@
 import Image from "next/image";
-import { lang } from "next/root-params";
-import { getDictionary } from "../../[lang]/dictionaries";
 
-export default async function CategoriaFooter() {
-  const dict = await getDictionary();
-  const { footer } = dict.categoria;
-  const current = (await lang()) ?? "es";
+export type CategoryFooterContent = {
+  blog: string;
+  contact: string;
+  nearMe: string;
+  prices: string;
+  priceLinks: string[];
+  mostSearched: string;
+  searchedLinks: string[];
+  register: string;
+  legal: string[];
+  rights: string;
+};
 
+export default function CategoryFooter({
+  footer,
+  lang,
+}: {
+  footer: CategoryFooterContent;
+  lang: string;
+}) {
   return (
     <footer className="bg-surface-alt">
       <div className="mx-auto w-full max-w-[1280px] px-6 pb-8 pt-14 lg:px-10">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
-            <a href={`/${current}`} className="flex items-center gap-2" aria-label="PrecioJusto - Inicio">
+            <a href={`/${lang}`} className="flex items-center gap-2" aria-label="PrecioJusto - Inicio">
               <Image
                 src="/images/logo-lg.jpg"
                 alt="PrecioJusto"
@@ -92,7 +105,7 @@ export default async function CategoriaFooter() {
           </div>
           <div className="md:col-span-2 md:text-right">
             <a
-              href={`/${current}/registro-profesional`}
+              href={`/${lang}/registro-profesional`}
               className="inline-flex h-10 items-center rounded-full border border-primary px-5 text-sm font-medium text-primary transition hover:bg-primary hover:text-white"
             >
               {footer.register}

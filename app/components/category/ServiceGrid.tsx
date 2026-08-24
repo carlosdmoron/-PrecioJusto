@@ -1,25 +1,22 @@
 import Image from "next/image";
-import { getDictionary } from "../../[lang]/dictionaries";
 
-const SERVICE_IMAGES = [
-  "/images/categoria/108464-nutricionista.jpeg",
-  "/images/categoria/108481-entrenador-personal.jpeg",
-  "/images/categoria/108666-psicologo.jpeg",
-  "/images/categoria/108470-psicoterapia.jpg",
-  "/images/categoria/00692-online-diyetisyen.jpg",
-  "/images/categoria/109144-psiquiatra.jpeg",
-  "/images/categoria/00515-online-psikolog.jpg",
-  "/images/categoria/108465-dietista.jpg",
-  "/images/categoria/109162-entrenador-a-domicilio.jpg",
-  "/images/categoria/109023-fisioterapia-a-domicilio.jpeg",
-  "/images/categoria/108475-fisioterapeuta.jpeg",
-  "/images/categoria/109320-entrenador-personal-online.jpeg",
-];
+export type CategoryService = {
+  name: string;
+  professionals: string;
+  rating: string;
+};
 
-export default async function ServiceGrid() {
-  const dict = await getDictionary();
-  const { popularTitle, services, quoteButton } = dict.categoria;
-
+export default function ServiceGrid({
+  popularTitle,
+  services,
+  quoteButton,
+  images,
+}: {
+  popularTitle: string;
+  services: CategoryService[];
+  quoteButton: string;
+  images: string[];
+}) {
   return (
     <section className="bg-white py-14 lg:py-16">
       <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-10">
@@ -35,7 +32,7 @@ export default async function ServiceGrid() {
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
-                  src={SERVICE_IMAGES[index]}
+                  src={images[index]}
                   alt={service.name}
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"

@@ -1,15 +1,25 @@
 import Image from "next/image";
-import { getDictionary } from "../../[lang]/dictionaries";
 
-export default async function CategoriaHero() {
-  const dict = await getDictionary();
-  const { hero } = dict.categoria;
+export type CategoryHeroContent = {
+  title: string;
+  searchPlaceholder: string;
+  searchButton: string;
+};
 
+export default function CategoryHero({
+  hero,
+  image,
+  imageAlt,
+}: {
+  hero: CategoryHeroContent;
+  image: string;
+  imageAlt?: string;
+}) {
   return (
     <section className="relative flex h-[480px] items-center justify-center overflow-hidden sm:h-[400px]">
       <Image
-        src="/images/categoria/hero-personal-trainer.jpg"
-        alt={hero.title}
+        src={image}
+        alt={imageAlt ?? hero.title}
         fill
         priority
         sizes="100vw"
