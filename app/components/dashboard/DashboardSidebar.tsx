@@ -12,9 +12,11 @@ export type DashboardNavItem = {
 export default function DashboardSidebar({
   items,
   accountLabel,
+  profileHref,
 }: {
   items: DashboardNavItem[];
   accountLabel: string;
+  profileHref: string;
 }) {
   const pathname = usePathname();
 
@@ -54,7 +56,11 @@ export default function DashboardSidebar({
           ))}
         </nav>
         <div className="border-t border-line/30 p-4">
-          <div className="flex items-center gap-3 rounded-lg bg-surface px-3 py-2.5">
+          <Link
+            href={profileHref}
+            className="flex items-center gap-3 rounded-lg bg-surface px-3 py-2.5 transition hover:bg-surface-alt"
+            aria-current={isActive(profileHref) ? "page" : undefined}
+          >
             <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary-dark text-sm font-semibold text-white">
               PJ
             </span>
@@ -64,7 +70,7 @@ export default function DashboardSidebar({
               </span>
               <span className="block truncate text-xs text-muted">{accountLabel}</span>
             </span>
-          </div>
+          </Link>
         </div>
       </aside>
 
@@ -80,9 +86,12 @@ export default function DashboardSidebar({
               priority
             />
           </Link>
-          <span className="rounded-full bg-surface px-3 py-1 text-xs font-medium text-steel">
+          <Link
+            href={profileHref}
+            className="rounded-full bg-surface px-3 py-1 text-xs font-medium text-steel transition hover:text-ink"
+          >
             PrecioJusto Pro
-          </span>
+          </Link>
         </div>
         <nav
           aria-label={accountLabel}

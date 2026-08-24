@@ -647,7 +647,8 @@
       "presupuesto": "Preventivi",
       "trabajo": "Lavori",
       "misServicios": "I miei servizi",
-      "billetera": "Il mio portafoglio"
+      "billetera": "Il mio portafoglio",
+      "perfil": "Il mio profilo"
     },
     "accountLabel": "Account pro",
     "sections": {
@@ -822,6 +823,24 @@
             "Banco Santander ··4521",
             "Banco BBVA ··7788"
           ]
+        }
+      },
+      "perfil": {
+        "title": "Il mio profilo",
+        "subtitle": "Visualizza e aggiorna i tuoi dati personali in qualsiasi momento.",
+        "form": {
+          "nombre": "Nome",
+          "nombrePh": "Es: Carlo",
+          "apellido": "Cognome",
+          "apellidoPh": "Es: Morón",
+          "email": "Indirizzo email",
+          "emailPh": "Es: carlo@email.it",
+          "ubicacion": "Posizione",
+          "ubicacionPh": "Es: Milano, Italia",
+          "telefono": "Telefono",
+          "telefonoPh": "Es: +39 333 123 4567",
+          "guardar": "Salva modifiche",
+          "guardado": "Modifiche salvate"
         }
       }
     },

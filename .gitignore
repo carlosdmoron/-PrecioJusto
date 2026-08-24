@@ -45,3 +45,7 @@ dev.log
 
 # capturas de referencia guardadas desde el navegador
 design/*_files/
+.vercel
+
+# logs de despliegue local
+vercel-deploy.log

@@ -647,7 +647,8 @@
       "presupuesto": "Presupuesto",
       "trabajo": "Trabajo",
       "misServicios": "Mis servicios",
-      "billetera": "Mi billetera"
+      "billetera": "Mi billetera",
+      "perfil": "Mi perfil"
     },
     "accountLabel": "Cuenta profesional",
     "sections": {
@@ -822,6 +823,24 @@
             "Banco Santander ··4521",
             "Banco BBVA ··7788"
           ]
+        }
+      },
+      "perfil": {
+        "title": "Mi perfil",
+        "subtitle": "Consulta y actualiza tus datos personales en cualquier momento.",
+        "form": {
+          "nombre": "Nombre",
+          "nombrePh": "Ej: Carlos",
+          "apellido": "Apellido",
+          "apellidoPh": "Ej: Morón",
+          "email": "Correo electrónico",
+          "emailPh": "Ej: carlos@correo.com",
+          "ubicacion": "Ubicación",
+          "ubicacionPh": "Ej: Santiago, Chile",
+          "telefono": "Teléfono",
+          "telefonoPh": "Ej: +56 9 1234 5678",
+          "guardar": "Guardar cambios",
+          "guardado": "Cambios guardados"
         }
       }
     },

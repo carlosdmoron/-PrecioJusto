@@ -647,7 +647,8 @@
       "presupuesto": "Quotes",
       "trabajo": "Work",
       "misServicios": "My services",
-      "billetera": "My wallet"
+      "billetera": "My wallet",
+      "perfil": "My profile"
     },
     "accountLabel": "Pro account",
     "sections": {
@@ -822,6 +823,24 @@
             "Banco Santander ··4521",
             "Banco BBVA ··7788"
           ]
+        }
+      },
+      "perfil": {
+        "title": "My profile",
+        "subtitle": "View and update your personal details at any time.",
+        "form": {
+          "nombre": "First name",
+          "nombrePh": "e.g. Carlos",
+          "apellido": "Last name",
+          "apellidoPh": "e.g. Morón",
+          "email": "Email address",
+          "emailPh": "e.g. carlos@email.com",
+          "ubicacion": "Location",
+          "ubicacionPh": "e.g. Santiago, Chile",
+          "telefono": "Phone",
+          "telefonoPh": "e.g. +56 9 1234 5678",
+          "guardar": "Save changes",
+          "guardado": "Changes saved"
         }
       }
     },

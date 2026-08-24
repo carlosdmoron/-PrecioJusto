@@ -27,11 +27,19 @@ export default async function DashboardLayout({
       href: `/${current}/dashboard-profesional/billetera`,
       label: dict.dashboard.nav.billetera,
     },
+    {
+      href: `/${current}/dashboard-profesional/perfil`,
+      label: dict.dashboard.nav.perfil,
+    },
   ];
 
   return (
     <div className="flex min-h-screen bg-surface max-lg:flex-col">
-      <DashboardSidebar items={nav} accountLabel={dict.dashboard.accountLabel} />
+      <DashboardSidebar
+        items={nav}
+        accountLabel={dict.dashboard.accountLabel}
+        profileHref={`/${current}/dashboard-profesional/perfil`}
+      />
       <main className="min-w-0 flex-1">{children}</main>
     </div>
   );
