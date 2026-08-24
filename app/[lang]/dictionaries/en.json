@@ -847,5 +847,61 @@
     "balanceLabel": "Available balance",
     "balance": "€1,245.00",
     "withdraw": "Withdraw money"
+  },
+  "dashboardCliente": {
+    "meta": {
+      "title": "Customer dashboard | PrecioJusto",
+      "description": "Explore services, manage your requests and find the right professional for your home."
+    },
+    "nav": {
+      "inicio": "Home",
+      "solicitudes": "My requests",
+      "mensajes": "Messages",
+      "favoritos": "Saved",
+      "perfil": "My profile"
+    },
+    "greeting": "Hi, Laura",
+    "avatarLabel": "Your account",
+    "tabs": {
+      "explorar": "Explore",
+      "solicitudes": "My requests"
+    },
+    "emptySolicitudes": {
+      "title": "No requests yet",
+      "text": "When you post a job it will show up here.",
+      "cta": "Post a request"
+    },
+    "featured": {
+      "badge": "Active",
+      "title": "Complete bathroom renovation",
+      "meta": "Posted 2 days ago · 12 proposals",
+      "detail": "Looking for a professional for a full renovation of a 6 m² bathroom: walk-in shower, sanitary ware, vanity unit and tiling. Materials included in the quote.",
+      "cta": "View proposals"
+    },
+    "sectionTitle": "Services for your home",
+    "prevLabel": "Previous",
+    "nextLabel": "Next",
+    "services": [
+      {
+        "chip": "Cleaning",
+        "caption": "Home cleaning"
+      },
+      {
+        "chip": "Plumbing",
+        "caption": "Plumbing and unblocking"
+      },
+      {
+        "chip": "Electrical",
+        "caption": "Electrical work and repairs"
+      }
+    ],
+    "promo": {
+      "title": "Do you offer services?",
+      "text": "Create your pro profile and get clients near you.",
+      "cta": "I am a pro"
+    },
+    "stub": {
+      "text": "This section is coming soon."
+    }
   }
 }

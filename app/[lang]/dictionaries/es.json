@@ -847,5 +847,61 @@
     "balanceLabel": "Saldo disponible",
     "balance": "1.245,00 €",
     "withdraw": "Retirar dinero"
+  },
+  "dashboardCliente": {
+    "meta": {
+      "title": "Panel de cliente | PrecioJusto",
+      "description": "Explora servicios, gestiona tus solicitudes y encuentra al profesional ideal para tu hogar."
+    },
+    "nav": {
+      "inicio": "Inicio",
+      "solicitudes": "Mis solicitudes",
+      "mensajes": "Mensajes",
+      "favoritos": "Favoritos",
+      "perfil": "Mi perfil"
+    },
+    "greeting": "Hola, Laura",
+    "avatarLabel": "Tu cuenta",
+    "tabs": {
+      "explorar": "Explorar",
+      "solicitudes": "Mis solicitudes"
+    },
+    "emptySolicitudes": {
+      "title": "Aún no tienes solicitudes",
+      "text": "Cuando publiques un trabajo aparecerá aquí.",
+      "cta": "Publicar solicitud"
+    },
+    "featured": {
+      "badge": "Activa",
+      "title": "Reforma de baño completo",
+      "meta": "Publicado hace 2 días · 12 propuestas",
+      "detail": "Busco profesional para reforma integral de un baño de 6 m²: plato de ducha, sanitarios, mueble y alicatado. Materiales incluidos en el presupuesto.",
+      "cta": "Ver propuestas"
+    },
+    "sectionTitle": "Servicios para tu hogar",
+    "prevLabel": "Anterior",
+    "nextLabel": "Siguiente",
+    "services": [
+      {
+        "chip": "Limpieza",
+        "caption": "Limpieza a domicilio"
+      },
+      {
+        "chip": "Fontanería",
+        "caption": "Fontanería y desatascos"
+      },
+      {
+        "chip": "Electricidad",
+        "caption": "Electricidad y reparaciones"
+      }
+    ],
+    "promo": {
+      "title": "¿Ofreces servicios?",
+      "text": "Crea tu perfil profesional y recibe clientes cerca de ti.",
+      "cta": "Soy profesional"
+    },
+    "stub": {
+      "text": "Esta seccion estara disponible muy pronto."
+    }
   }
 }

@@ -847,5 +847,61 @@
     "balanceLabel": "Saldo disponibile",
     "balance": "1.245,00 €",
     "withdraw": "Preleva denaro"
+  },
+  "dashboardCliente": {
+    "meta": {
+      "title": "Pannello cliente | PrecioJusto",
+      "description": "Esplora i servizi, gestisci le tue richieste e trova il professionista giusto per la tua casa."
+    },
+    "nav": {
+      "inicio": "Home",
+      "solicitudes": "Le mie richieste",
+      "mensajes": "Messaggi",
+      "favoritos": "Preferiti",
+      "perfil": "Il mio profilo"
+    },
+    "greeting": "Ciao, Laura",
+    "avatarLabel": "Il tuo account",
+    "tabs": {
+      "explorar": "Esplora",
+      "solicitudes": "Le mie richieste"
+    },
+    "emptySolicitudes": {
+      "title": "Ancora nessuna richiesta",
+      "text": "Quando pubblichi un lavoro comparirà qui.",
+      "cta": "Pubblica una richiesta"
+    },
+    "featured": {
+      "badge": "Attiva",
+      "title": "Ristrutturazione completa del bagno",
+      "meta": "Pubblicato 2 giorni fa · 12 proposte",
+      "detail": "Cerco un professionista per la ristrutturazione integrale di un bagno di 6 m²: doccia, sanitari, mobile e rivestimenti. Materiali inclusi nel preventivo.",
+      "cta": "Vedi le proposte"
+    },
+    "sectionTitle": "Servizi per la tua casa",
+    "prevLabel": "Precedente",
+    "nextLabel": "Successivo",
+    "services": [
+      {
+        "chip": "Pulizie",
+        "caption": "Pulizie a domicilio"
+      },
+      {
+        "chip": "Idraulica",
+        "caption": "Idraulica e sblocchi"
+      },
+      {
+        "chip": "Elettricità",
+        "caption": "Elettricità e riparazioni"
+      }
+    ],
+    "promo": {
+      "title": "Offri dei servizi?",
+      "text": "Crea il tuo profilo professionale e ricevi clienti vicino a te.",
+      "cta": "Sono un professionista"
+    },
+    "stub": {
+      "text": "Questa sezione sara disponibile molto presto."
+    }
   }
 }

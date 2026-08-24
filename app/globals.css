@@ -17,6 +17,11 @@
   --color-chip-lavender: #e0e0fd;
   --color-chip-peach: #ffdbd0;
   --color-accent: #cc4204;
+  --color-canvas: #faf8ff;
+  --color-sidebar: #eaedff;
+  --color-panel: #f2f3ff;
+  --color-badge: #d0e1fb;
+  --color-cardimg: #e2e7ff;
   --font-sans: var(--font-inter);
 }
 
