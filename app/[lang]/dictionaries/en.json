@@ -283,8 +283,54 @@
     "hidePassword": "Hide password",
     "haveAccount": "Already have an account?",
     "loginLink": "Log in",
-    "or": "or",
-    "submitButton": "Create free account"
+    "wizard": {
+      "progreso": "Step {n} of 4",
+      "atras": "Back",
+      "continuar": "Continue",
+      "paso1": {
+        "titulo": "What services do you offer?",
+        "ayuda": "Choose all the services you provide. You can add more later from your dashboard.",
+        "seleccionados": "{n} selected",
+        "requerido": "Select at least one service"
+      },
+      "categorias": [
+        "Renovations",
+        "Electrical",
+        "Plumbing",
+        "Painting",
+        "Air conditioning",
+        "Moving"
+      ],
+      "paso2": {
+        "titulo": "Where do you work?",
+        "ayuda": "You'll receive requests from clients near your area.",
+        "label": "City or postal code",
+        "placeholder": "e.g.: London, E1 6AN",
+        "requerido": "Enter your city or postal code"
+      },
+      "paso3": {
+        "titulo": "Contact details",
+        "ayuda": "Clients will see your name on your profile. Capitalising the initials gives a more professional look.",
+        "nombre": "First name",
+        "nombrePh": "e.g.: James",
+        "apellido": "Last name",
+        "apellidoPh": "e.g.: Miller",
+        "telefono": "Mobile phone",
+        "telefonoPh": "e.g.: +44 7400 123456",
+        "emailInvalido": "Enter a valid email address",
+        "requerido": "Please fill in every field"
+      },
+      "paso4": {
+        "titulo": "Create your password",
+        "ayuda": "Use at least 8 characters to protect your account.",
+        "minLength": "Password must be at least 8 characters long"
+      },
+      "exito": {
+        "titulo": "Your professional profile is ready!",
+        "texto": "You're now part of the PrecioJusto network. Complete your profile from the dashboard to rank higher in searches and start receiving client requests.",
+        "cta": "Go to my dashboard"
+      }
+    }
   },
   "categoria": {
     "meta": {

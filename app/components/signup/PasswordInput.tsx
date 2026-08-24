@@ -7,6 +7,8 @@ type Props = {
   placeholder: string;
   showLabel: string;
   hideLabel: string;
+  value?: string;
+  onChange?: (value: string) => void;
 };
 
 export default function PasswordInput({
@@ -14,6 +16,8 @@ export default function PasswordInput({
   placeholder,
   showLabel,
   hideLabel,
+  value,
+  onChange,
 }: Props) {
   const [visible, setVisible] = useState(false);
   return (
@@ -32,6 +36,8 @@ export default function PasswordInput({
           autoComplete="new-password"
           required
           placeholder={placeholder}
+          value={value}
+          onChange={onChange ? (e) => onChange(e.target.value) : undefined}
           className="h-[49px] w-full rounded-lg border border-gray-300 bg-white px-4 pr-12 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
         />
         <button

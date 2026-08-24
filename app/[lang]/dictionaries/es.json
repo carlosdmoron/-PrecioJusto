@@ -283,8 +283,54 @@
     "hidePassword": "Ocultar contraseña",
     "haveAccount": "¿Ya tienes una cuenta?",
     "loginLink": "Inicia sesión",
-    "or": "o",
-    "submitButton": "Crear cuenta gratuita"
+    "wizard": {
+      "progreso": "Paso {n} de 4",
+      "atras": "Atrás",
+      "continuar": "Continuar",
+      "paso1": {
+        "titulo": "¿Qué servicio prestas?",
+        "ayuda": "Elige todos los servicios que ofreces. Podrás añadir más desde tu panel.",
+        "seleccionados": "{n} seleccionado(s)",
+        "requerido": "Selecciona al menos un servicio"
+      },
+      "categorias": [
+        "Reformas",
+        "Electricidad",
+        "Fontanería",
+        "Pintura",
+        "Climatización",
+        "Mudanzas"
+      ],
+      "paso2": {
+        "titulo": "¿Dónde trabajas?",
+        "ayuda": "Recibirás solicitudes de clientes cercanos a tu zona.",
+        "label": "Ciudad o código postal",
+        "placeholder": "Ej: Madrid, 28001",
+        "requerido": "Introduce tu ciudad o código postal"
+      },
+      "paso3": {
+        "titulo": "Datos de contacto",
+        "ayuda": "Los clientes verán tu nombre en tu perfil. Escribir las iniciales en mayúsculas dará un aspecto más profesional.",
+        "nombre": "Nombre",
+        "nombrePh": "Ej: Carlos",
+        "apellido": "Apellido",
+        "apellidoPh": "Ej: Morón",
+        "telefono": "Teléfono móvil",
+        "telefonoPh": "Ej: +34 600 123 456",
+        "emailInvalido": "Introduce un correo electrónico válido",
+        "requerido": "Completa todos los campos"
+      },
+      "paso4": {
+        "titulo": "Crea tu contraseña",
+        "ayuda": "Usa al menos 8 caracteres para proteger tu cuenta.",
+        "minLength": "La contraseña debe tener al menos 8 caracteres"
+      },
+      "exito": {
+        "titulo": "¡Tu perfil profesional está listo!",
+        "texto": "Ya formas parte de la red de PrecioJusto. Completa tu perfil desde el panel para aparecer antes en las búsquedas y empieza a recibir solicitudes de clientes.",
+        "cta": "Ir a mi panel"
+      }
+    }
   },
   "categoria": {
     "meta": {
