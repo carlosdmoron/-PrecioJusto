@@ -19,13 +19,7 @@ export default async function SignProfesionalSection() {
       <main className="flex justify-center px-4 pb-16 pt-4">
         <div className="w-full max-w-[512px] rounded-xl border border-gray-200 bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)] sm:p-[42px]">
           <SignupWizard
-            wizard={t.wizard}
-            emailLabel={t.emailLabel}
-            emailPlaceholder={t.emailPlaceholder}
-            passwordLabel={t.passwordLabel}
-            passwordPlaceholder={t.passwordPlaceholder}
-            showPassword={t.showPassword}
-            hidePassword={t.hidePassword}
+            onboarding={t.onboarding}
             dashboardHref={`/${current}/dashboard-profesional`}
           />
         </div>

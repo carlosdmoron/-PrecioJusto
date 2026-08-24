@@ -283,17 +283,48 @@
     "hidePassword": "Nascondi password",
     "haveAccount": "Hai già un account?",
     "loginLink": "Accedi",
-    "wizard": {
-      "progreso": "Passo {n} di 4",
-      "atras": "Indietro",
+    "onboarding": {
+      "hitos": [
+        "Informazioni personali",
+        "Dettagli del profilo",
+        "Pagamenti",
+        "Completamento"
+      ],
       "continuar": "Continua",
+      "atras": "Indietro",
       "paso1": {
-        "titulo": "Quali servizi offri?",
-        "ayuda": "Scegli tutti i servizi che offri. Potrai aggiungerne altri dal tuo pannello.",
-        "seleccionados": "{n} selezionato(i)",
-        "requerido": "Seleziona almeno un servizio"
+        "titulo": "Come lavorerai?",
+        "ayuda": "Scegli il tipo di account adatto alla tua attività.",
+        "individual": {
+          "titulo": "Professionista individuale",
+          "texto": "Freelance o partita IVA"
+        },
+        "empresa": {
+          "titulo": "Azienda",
+          "texto": "Con o senza dipendenti"
+        }
       },
-      "categorias": [
+      "paso2": {
+        "titulo": "Informazioni personali",
+        "ayuda": "I clienti vedranno il tuo nome nel profilo e nei preventivi. Scrivere le iniziali in maiuscolo dà un aspetto più professionale.",
+        "nombre": "Nome",
+        "nombrePh": "Es: Marco",
+        "apellido": "Cognome",
+        "apellidoPh": "Es: Bianchi",
+        "telefono": "Cellulare",
+        "telefonoPh": "340 123 4567",
+        "promociones": "Voglio ricevere promozioni e consigli per far crescere la mia attività"
+      },
+      "paso3": {
+        "titulo": "La tua zona e i tuoi servizi",
+        "ayuda": "Ti metteremo in contatto con clienti vicini che hanno bisogno di ciò che offri.",
+        "provincia": "Provincia",
+        "provinciaPh": "Es: Milano",
+        "municipio": "Comune",
+        "municipioPh": "Es: Porta Romana",
+        "servicios": "Seleziona i tuoi servizi"
+      },
+      "servicios": [
         "Ristrutturazioni",
         "Elettricità",
         "Idraulica",
@@ -301,34 +332,61 @@
         "Climatizzazione",
         "Traslochi"
       ],
-      "paso2": {
-        "titulo": "Dove lavori?",
-        "ayuda": "Riceverai richieste di clienti vicini alla tua zona.",
-        "label": "Città o CAP",
-        "placeholder": "Es: Milano, 20121",
-        "requerido": "Inserisci la tua città o il CAP"
-      },
-      "paso3": {
-        "titulo": "Dati di contatto",
-        "ayuda": "I clienti vedranno il tuo nome nel profilo. Scrivere le iniziali in maiuscolo dà un aspetto più professionale.",
-        "nombre": "Nome",
-        "nombrePh": "Es: Marco",
-        "apellido": "Cognome",
-        "apellidoPh": "Es: Bianchi",
-        "telefono": "Cellulare",
-        "telefonoPh": "Es: +39 340 123 4567",
-        "emailInvalido": "Inserisci un indirizzo email valido",
-        "requerido": "Compila tutti i campi"
-      },
       "paso4": {
-        "titulo": "Crea la tua password",
-        "ayuda": "Usa almeno 8 caratteri per proteggere il tuo account.",
-        "minLength": "La password deve contenere almeno 8 caratteri"
+        "titulo": "Dettagli del profilo",
+        "ayuda": "Più la tua descrizione è chiara, più velocemente conquisterai la fiducia dei clienti.",
+        "propuesta": "La tua proposta di valore",
+        "propostaPh": "Es: Oltre 10 anni di ristrutturazioni di bagni e cucine con finiture garantite…",
+        "fotoPerfil": "Foto del profilo (URL)",
+        "fotoAyuda": "Usa il logo della tua azienda o una foto chiara e di alta qualità: genera fiducia.",
+        "portfolio": "Portfolio (max. 5 foto)",
+        "anadirFoto": "Aggiungi foto al portfolio",
+        "urlInvalida": "Inserisci un URL valido (https://…)"
+      },
+      "paso5": {
+        "titulo": "Metodo di pagamento",
+        "ayuda": "Lo useremo solo per fatturare quando inizierai a ricevere lavori. Nessun addebito ora.",
+        "tarjeta": "Carta",
+        "paypal": "PayPal",
+        "transferencia": "Bonifico",
+        "titular": "Titolare della carta",
+        "titularPh": "Come indicato sulla carta",
+        "numero": "Numero della carta",
+        "caducidad": "Scadenza",
+        "caducidadPh": "MM/AA",
+        "emailPaypal": "Email PayPal",
+        "iban": "IBAN"
+      },
+      "paso6": {
+        "titulo": "Controlla la registrazione",
+        "ayuda": "Verifica che tutto sia corretto prima di completare.",
+        "resumen": {
+          "perfil": "Tipo di profilo",
+          "nombre": "Nome",
+          "telefono": "Telefono",
+          "zona": "Zona di lavoro",
+          "servicios": "Servizi",
+          "propuesta": "Proposta di valore",
+          "fotos": "Foto del portfolio",
+          "pago": "Metodo di pagamento"
+        },
+        "confirmar": "Completa la registrazione"
       },
       "exito": {
         "titulo": "Il tuo profilo professionale è pronto!",
         "texto": "Ora fai parte della rete PrecioJusto. Completa il profilo dal pannello per comparire prima nelle ricerche e inizia a ricevere richieste dai clienti.",
         "cta": "Vai al mio pannello"
+      },
+      "errores": {
+        "requerido": "Compila tutti i campi obbligatori",
+        "tipoCuenta": "Seleziona un tipo di account",
+        "emailInvalido": "Inserisci un indirizzo email valido",
+        "telefonoInvalido": "Inserisci un numero valido (solo cifre, almeno 6)",
+        "seleccionaServicio": "Seleziona almeno un servizio",
+        "propuestaCorta": "Raccontaci qualcosa in più (almeno 20 caratteri)",
+        "maxFotos": "Puoi aggiungere fino a 5 foto",
+        "pagoInvalido": "Controlla i dati del metodo di pagamento",
+        "urlInvalida": "Inserisci un URL valido (https://…)"
       }
     }
   },

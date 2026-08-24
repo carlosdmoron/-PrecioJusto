@@ -283,17 +283,48 @@
     "hidePassword": "Hide password",
     "haveAccount": "Already have an account?",
     "loginLink": "Log in",
-    "wizard": {
-      "progreso": "Step {n} of 4",
-      "atras": "Back",
+    "onboarding": {
+      "hitos": [
+        "Personal information",
+        "Profile details",
+        "Payments",
+        "Completion"
+      ],
       "continuar": "Continue",
+      "atras": "Back",
       "paso1": {
-        "titulo": "What services do you offer?",
-        "ayuda": "Choose all the services you provide. You can add more later from your dashboard.",
-        "seleccionados": "{n} selected",
-        "requerido": "Select at least one service"
+        "titulo": "How will you work?",
+        "ayuda": "Choose the account type that fits your activity.",
+        "individual": {
+          "titulo": "Individual professional",
+          "texto": "Self-employed or freelancer"
+        },
+        "empresa": {
+          "titulo": "Company",
+          "texto": "With or without employees"
+        }
       },
-      "categorias": [
+      "paso2": {
+        "titulo": "Personal information",
+        "ayuda": "Clients will see your name on your profile and quotes. Capitalising the initials gives a more professional look.",
+        "nombre": "First name",
+        "nombrePh": "e.g.: James",
+        "apellido": "Last name",
+        "apellidoPh": "e.g.: Miller",
+        "telefono": "Mobile phone",
+        "telefonoPh": "7400 123456",
+        "promociones": "I want to receive promotions and tips to grow my business"
+      },
+      "paso3": {
+        "titulo": "Your area and services",
+        "ayuda": "We'll connect you with nearby clients who need what you offer.",
+        "provincia": "County / Province",
+        "provinciaPh": "e.g.: Greater London",
+        "municipio": "Town / District",
+        "municipioPh": "e.g.: Camden",
+        "servicios": "Select your services"
+      },
+      "servicios": [
         "Renovations",
         "Electrical",
         "Plumbing",
@@ -301,34 +332,61 @@
         "Air conditioning",
         "Moving"
       ],
-      "paso2": {
-        "titulo": "Where do you work?",
-        "ayuda": "You'll receive requests from clients near your area.",
-        "label": "City or postal code",
-        "placeholder": "e.g.: London, E1 6AN",
-        "requerido": "Enter your city or postal code"
-      },
-      "paso3": {
-        "titulo": "Contact details",
-        "ayuda": "Clients will see your name on your profile. Capitalising the initials gives a more professional look.",
-        "nombre": "First name",
-        "nombrePh": "e.g.: James",
-        "apellido": "Last name",
-        "apellidoPh": "e.g.: Miller",
-        "telefono": "Mobile phone",
-        "telefonoPh": "e.g.: +44 7400 123456",
-        "emailInvalido": "Enter a valid email address",
-        "requerido": "Please fill in every field"
-      },
       "paso4": {
-        "titulo": "Create your password",
-        "ayuda": "Use at least 8 characters to protect your account.",
-        "minLength": "Password must be at least 8 characters long"
+        "titulo": "Profile details",
+        "ayuda": "The clearer your description, the faster you'll win clients' trust.",
+        "propuesta": "Your value proposition",
+        "propuestaPh": "e.g.: Over 10 years renovating kitchens and bathrooms with guaranteed finishes…",
+        "fotoPerfil": "Profile photo (URL)",
+        "fotoAyuda": "Use your company logo or a clear, high-quality photo: it builds trust.",
+        "portfolio": "Portfolio (max. 5 photos)",
+        "anadirFoto": "Add photo to portfolio",
+        "urlInvalida": "Enter a valid URL (https://…)"
+      },
+      "paso5": {
+        "titulo": "Payment method",
+        "ayuda": "We'll only use it to invoice once you start getting jobs. No charges are made now.",
+        "tarjeta": "Card",
+        "paypal": "PayPal",
+        "transferencia": "Bank transfer",
+        "titular": "Cardholder name",
+        "titularPh": "As shown on the card",
+        "numero": "Card number",
+        "caducidad": "Expiry",
+        "caducidadPh": "MM/YY",
+        "emailPaypal": "PayPal email",
+        "iban": "IBAN"
+      },
+      "paso6": {
+        "titulo": "Review your registration",
+        "ayuda": "Check everything looks right before finishing.",
+        "resumen": {
+          "perfil": "Account type",
+          "nombre": "Name",
+          "telefono": "Phone",
+          "zona": "Working area",
+          "servicios": "Services",
+          "propuesta": "Value proposition",
+          "fotos": "Portfolio photos",
+          "pago": "Payment method"
+        },
+        "confirmar": "Finish registration"
       },
       "exito": {
         "titulo": "Your professional profile is ready!",
         "texto": "You're now part of the PrecioJusto network. Complete your profile from the dashboard to rank higher in searches and start receiving client requests.",
         "cta": "Go to my dashboard"
+      },
+      "errores": {
+        "requerido": "Please fill in every required field",
+        "tipoCuenta": "Select an account type",
+        "emailInvalido": "Enter a valid email address",
+        "telefonoInvalido": "Enter a valid phone number (digits only, at least 6)",
+        "seleccionaServicio": "Select at least one service",
+        "propuestaCorta": "Tell us a bit more (at least 20 characters)",
+        "maxFotos": "You can add up to 5 photos",
+        "pagoInvalido": "Please review your payment details",
+        "urlInvalida": "Enter a valid URL (https://…)"
       }
     }
   },
