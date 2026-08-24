@@ -6,6 +6,7 @@
   "navbar": {
     "account": "My account",
     "professional": "Are you a Professional?",
+    "category": "Wellness",
     "signin": "Log in"
   },
   "hero": {
@@ -206,5 +207,90 @@
     "loginLink": "Log in",
     "or": "or",
     "submitButton": "Create free account"
+  },
+  "categoria": {
+    "meta": {
+      "title": "Wellness & Personal Care Services | PrecioJusto",
+      "description": "Find wellness and personal care professionals on PrecioJusto: nutritionists, personal trainers, psychologists and more."
+    },
+    "header": {
+      "menu": "Menu",
+      "nav": ["Renovation", "Repair", "Photography", "Events"],
+      "help": "Help",
+      "signin": "Log In",
+      "register": "Pro Sign Up"
+    },
+    "hero": {
+      "title": "Wellness & Personal Care Services",
+      "searchPlaceholder": "What service are you looking for?",
+      "searchButton": "Search"
+    },
+    "popularTitle": "The most popular Wellness & Personal Care services",
+    "quoteButton": "Get a quote",
+    "services": [
+      { "name": "Nutritionist", "professionals": "978 professionals", "rating": "4.6 (223 verified reviews)" },
+      { "name": "Personal Trainer", "professionals": "2,349 professionals", "rating": "4.6 (41 verified reviews)" },
+      { "name": "Psychologist", "professionals": "1,758 professionals", "rating": "4.8 (287 verified reviews)" },
+      { "name": "Couples Therapy", "professionals": "1,073 professionals", "rating": "4.9 (310 verified reviews)" },
+      { "name": "Online Nutritionist", "professionals": "523 professionals", "rating": "4.6 (182 verified reviews)" },
+      { "name": "Psychiatrist", "professionals": "226 professionals", "rating": "4.8 (362 verified reviews)" },
+      { "name": "Online Psychologist", "professionals": "1,123 professionals", "rating": "4.9 (420 verified reviews)" },
+      { "name": "Dietitian", "professionals": "1,162 professionals", "rating": "4.6 (116 verified reviews)" },
+      { "name": "Home Personal Trainer", "professionals": "449 professionals", "rating": "4.6 (42 verified reviews)" },
+      { "name": "Home Physiotherapy", "professionals": "254 professionals", "rating": "5.0 (61 verified reviews)" },
+      { "name": "Physiotherapist", "professionals": "673 professionals", "rating": "4.7 (55 verified reviews)" },
+      { "name": "Online Personal Trainer", "professionals": "644 professionals", "rating": "4.6 (40 verified reviews)" }
+    ],
+    "allServicesTitle": "All Wellness & Personal Care services",
+    "allServices": [
+      "Calisthenics Classes",
+      "Dietitian",
+      "Online Dietitian",
+      "Endocrinologist",
+      "Personal Trainer",
+      "Home Personal Trainer",
+      "Online Personal Trainer",
+      "Physiotherapist",
+      "Physiotherapy",
+      "Home Physiotherapy",
+      "Deep Tissue Massage",
+      "Nutritionist",
+      "Online Nutritionist",
+      "Personal Trainer",
+      "Online Personal Trainer",
+      "Pilates",
+      "Psychologist",
+      "Addiction Psychologist",
+      "Adolescent Psychologist",
+      "Online Psychologist",
+      "Psychotherapy",
+      "Online Psychotherapy",
+      "Psychiatrist",
+      "Chiropractor",
+      "Couples Therapy",
+      "Regression Therapy",
+      "Traumatology"
+    ],
+    "footer": {
+      "blog": "Blog",
+      "contact": "Contact Us",
+      "nearMe": "Near Me",
+      "prices": "Prices",
+      "priceLinks": ["Party Venue Prices", "Wedding Photographer Prices"],
+      "mostSearched": "Most searched",
+      "searchedLinks": [
+        "Barcelona Electrician",
+        "Madrid Home Painting",
+        "Barcelona Home Painting",
+        "Madrid Painters",
+        "Barcelona Painters",
+        "Madrid Full Apartment Renovation",
+        "Madrid Full Home Renovation",
+        "Barcelona Full Home Renovation"
+      ],
+      "register": "Pro Sign Up",
+      "legal": ["Terms and Conditions", "Privacy", "Impressum"],
+      "rights": "2011 - 2026 PrecioJusto. All rights reserved."
+    }
   }
 }

@@ -6,6 +6,7 @@
   "navbar": {
     "account": "Il mio account",
     "professional": "Sei un professionista?",
+    "category": "Benessere",
     "signin": "Accedi"
   },
   "hero": {
@@ -206,5 +207,90 @@
     "loginLink": "Accedi",
     "or": "o",
     "submitButton": "Crea account gratuito"
+  },
+  "categoria": {
+    "meta": {
+      "title": "Servizi di Benessere e Cura Personale | PrecioJusto",
+      "description": "Trova professionisti del benessere e della cura personale su PrecioJusto: nutrizionisti, allenatori personali, psicologi e altro."
+    },
+    "header": {
+      "menu": "Menù",
+      "nav": ["Ristrutturazione", "Riparazione", "Fotografia", "Eventi"],
+      "help": "Aiuto",
+      "signin": "Accedi",
+      "register": "Registrazione Professionista"
+    },
+    "hero": {
+      "title": "Servizi di Benessere e Cura Personale",
+      "searchPlaceholder": "Quale servizio stai cercando?",
+      "searchButton": "Cerca"
+    },
+    "popularTitle": "I servizi più popolari di Benessere e Cura Personale",
+    "quoteButton": "Richiedi un preventivo",
+    "services": [
+      { "name": "Nutrizionista", "professionals": "978 professionisti", "rating": "4,6 (223 recensioni verificate)" },
+      { "name": "Allenatore Personale", "professionals": "2.349 professionisti", "rating": "4,6 (41 recensioni verificate)" },
+      { "name": "Psicologo", "professionals": "1.758 professionisti", "rating": "4,8 (287 recensioni verificate)" },
+      { "name": "Terapia di Coppia", "professionals": "1.073 professionisti", "rating": "4,9 (310 recensioni verificate)" },
+      { "name": "Nutrizionista Online", "professionals": "523 professionisti", "rating": "4,6 (182 recensioni verificate)" },
+      { "name": "Psichiatra", "professionals": "226 professionisti", "rating": "4,8 (362 recensioni verificate)" },
+      { "name": "Psicologo Online", "professionals": "1.123 professionisti", "rating": "4,9 (420 recensioni verificate)" },
+      { "name": "Dietista", "professionals": "1.162 professionisti", "rating": "4,6 (116 recensioni verificate)" },
+      { "name": "Allenatore Personale a Domicilio", "professionals": "449 professionisti", "rating": "4,6 (42 recensioni verificate)" },
+      { "name": "Fisioterapia a Domicilio", "professionals": "254 professionisti", "rating": "5,0 (61 recensioni verificate)" },
+      { "name": "Fisioterapista", "professionals": "673 professionisti", "rating": "4,7 (55 recensioni verificate)" },
+      { "name": "Allenatore Personale Online", "professionals": "644 professionisti", "rating": "4,6 (40 recensioni verificate)" }
+    ],
+    "allServicesTitle": "Tutti i servizi di Benessere e Cura Personale",
+    "allServices": [
+      "Lezioni di Calistenica",
+      "Dietista",
+      "Dietista Online",
+      "Endocrinologo",
+      "Allenatore Personale",
+      "Allenatore Personale a Domicilio",
+      "Allenatore Personale Online",
+      "Fisioterapista",
+      "Fisioterapia",
+      "Fisioterapia a Domicilio",
+      "Massaggio Decontratturante",
+      "Nutrizionista",
+      "Nutrizionista Online",
+      "Personal Trainer",
+      "Personal Trainer Online",
+      "Pilates",
+      "Psicologo",
+      "Psicologo Dipendenze",
+      "Psicologo Adolescenti",
+      "Psicologo Online",
+      "Psicoterapia",
+      "Psicoterapia Online",
+      "Psichiatra",
+      "Chiropratico",
+      "Terapia di Coppia",
+      "Terapia Regressiva",
+      "Traumatologia"
+    ],
+    "footer": {
+      "blog": "Blog",
+      "contact": "Contattaci",
+      "nearMe": "Vicino a me",
+      "prices": "Prezzi",
+      "priceLinks": ["Prezzi Locale per Compleanni", "Prezzi Fotografo Matrimonio"],
+      "mostSearched": "I più cercati",
+      "searchedLinks": [
+        "Elettricista Barcellona",
+        "Pittura Casa Madrid",
+        "Pittura Casa Barcellona",
+        "Pittori Madrid",
+        "Pittori Barcellona",
+        "Ristrutturazione Completa Appartamento Madrid",
+        "Ristrutturazione Completa Abitazione Madrid",
+        "Ristrutturazione Completa Abitazione Barcellona"
+      ],
+      "register": "Registrazione Professionista",
+      "legal": ["Termini e condizioni", "Privacy", "Impressum"],
+      "rights": "2011 - 2026 PrecioJusto, Tutti i diritti riservati."
+    }
   }
 }

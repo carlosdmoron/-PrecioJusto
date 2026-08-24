@@ -6,6 +6,7 @@
   "navbar": {
     "account": "Mi cuenta",
     "professional": "Eres Profesional?",
+    "category": "Bienestar",
     "signin": "Iniciar sesión"
   },
   "hero": {
@@ -206,5 +207,90 @@
     "loginLink": "Inicia sesión",
     "or": "o",
     "submitButton": "Crear cuenta gratuita"
+  },
+  "categoria": {
+    "meta": {
+      "title": "Servicios de Bienestar y Cuidado Personal | PrecioJusto",
+      "description": "Encuentra profesionales de bienestar y cuidado personal en PrecioJusto: nutricionistas, entrenadores personales, psicólogos y más."
+    },
+    "header": {
+      "menu": "Menú",
+      "nav": ["Renovación", "Reparación", "Fotografía", "Eventos"],
+      "help": "Ayuda",
+      "signin": "Iniciar Sesión",
+      "register": "Registro Profesional"
+    },
+    "hero": {
+      "title": "Bienestar y Cuidado Personal Servicios",
+      "searchPlaceholder": "¿Qué servicio estás buscando?",
+      "searchButton": "Buscar"
+    },
+    "popularTitle": "Los Servicios más populares de Bienestar y Cuidado Personal",
+    "quoteButton": "Presupuestar",
+    "services": [
+      { "name": "Nutricionista", "professionals": "978 profesionales", "rating": "4,6 (223 reseñas verificadas)" },
+      { "name": "Entrenador Personal", "professionals": "2.349 profesionales", "rating": "4,6 (41 reseñas verificadas)" },
+      { "name": "Psicólogo", "professionals": "1.758 profesionales", "rating": "4,8 (287 reseñas verificadas)" },
+      { "name": "Terapia de Pareja", "professionals": "1.073 profesionales", "rating": "4,9 (310 reseñas verificadas)" },
+      { "name": "Nutricionista Online", "professionals": "523 profesionales", "rating": "4,6 (182 reseñas verificadas)" },
+      { "name": "Psiquiatra", "professionals": "226 profesionales", "rating": "4,8 (362 reseñas verificadas)" },
+      { "name": "Psicólogo Online", "professionals": "1.123 profesionales", "rating": "4,9 (420 reseñas verificadas)" },
+      { "name": "Dietista", "professionals": "1.162 profesionales", "rating": "4,6 (116 reseñas verificadas)" },
+      { "name": "Entrenador Personal a Domicilio", "professionals": "449 profesionales", "rating": "4,6 (42 reseñas verificadas)" },
+      { "name": "Fisioterapia a Domicilio", "professionals": "254 profesionales", "rating": "5,0 (61 reseñas verificadas)" },
+      { "name": "Fisioterapeuta", "professionals": "673 profesionales", "rating": "4,7 (55 reseñas verificadas)" },
+      { "name": "Entrenador Personal Online", "professionals": "644 profesionales", "rating": "4,6 (40 reseñas verificadas)" }
+    ],
+    "allServicesTitle": "Todos los Servicios de Bienestar y Cuidado Personal",
+    "allServices": [
+      "Clases de Calistenia",
+      "Dietista",
+      "Dietista Online",
+      "Endocrino",
+      "Entrenador Personal",
+      "Entrenador Personal a Domicilio",
+      "Entrenador Personal Online",
+      "Fisioterapeuta",
+      "Fisioterapia",
+      "Fisioterapia a Domicilio",
+      "Masaje Descontracturante",
+      "Nutricionista",
+      "Nutricionista Online",
+      "Personal Trainer",
+      "Personal Trainer Online",
+      "Pilates",
+      "Psicólogo",
+      "Psicólogo Adicciones",
+      "Psicólogo Adolescentes",
+      "Psicólogo Online",
+      "Psicoterapia",
+      "Psicoterapia Online",
+      "Psiquiatra",
+      "Quiropráctico",
+      "Terapia de Pareja",
+      "Terapia Regresiva",
+      "Traumatología"
+    ],
+    "footer": {
+      "blog": "Blog",
+      "contact": "Contacta Con Nosotros",
+      "nearMe": "Cerca de mí",
+      "prices": "Precios",
+      "priceLinks": ["Precios Local para Cumpleaños", "Precios Fotógrafo Boda"],
+      "mostSearched": "Lo más buscado",
+      "searchedLinks": [
+        "Barcelona Electricista",
+        "Madrid Pintar Casa",
+        "Barcelona Pintar Casa",
+        "Madrid Pintores",
+        "Barcelona Pintores",
+        "Madrid Reforma Integral Piso",
+        "Madrid Reforma Integral Vivienda",
+        "Barcelona Reforma Integral Vivienda"
+      ],
+      "register": "Registro Profesional",
+      "legal": ["Términos y condiciones", "Privacidad", "Impressum"],
+      "rights": "2011 - 2026 PrecioJusto, Todos los derechos reservados."
+    }
   }
 }
