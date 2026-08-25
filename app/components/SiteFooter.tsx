@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { lang } from "next/root-params";
 import { getDictionary } from "../[lang]/dictionaries";
 
 export default async function SiteFooter() {
   const dict = await getDictionary();
+  const current = (await lang()) ?? "es";
   return (
     <footer className="border-t border-line/30 bg-surface">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-16 lg:px-20">
@@ -11,12 +13,12 @@ export default async function SiteFooter() {
             <h3 className="text-sm font-semibold text-ink">{column.title}</h3>
             <ul className="mt-4 space-y-3">
               {column.links.map((link) => (
-                <li key={link}>
+                <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href.replace("{lang}", current)}
                     className="text-sm text-muted transition hover:text-primary"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}

@@ -119,10 +119,10 @@
       {
         "title": "Legal",
         "links": [
-          "Terms & conditions",
-          "Privacy",
-          "Cookies",
-          "Price transparency"
+          { "label": "Terms and Conditions", "href": "/{lang}/terminos-y-condiciones" },
+          { "label": "Privacy", "href": "/{lang}/privacidad" },
+          { "label": "Cookies", "href": "#" },
+          { "label": "Price transparency", "href": "#" }
         ]
       }
     ],
@@ -1130,5 +1130,232 @@
     "texto": "You'll need to sign in again to get back to your dashboard.",
     "cancelar": "Cancel",
     "salir": "Log out"
+  },
+  "legalTerminos": {
+    "meta": {
+      "title": "Terms and Conditions | PrecioJusto",
+      "description": "The conditions governing the use of the PrecioJusto platform: accounts, service requests, quotes, bookings, user content and applicable law."
+    },
+    "badge": "Legal agreement",
+    "title": "Terms and Conditions",
+    "updated": "Last updated: August 24, 2026",
+    "intro": [
+      "Please read these Conditions (\"Conditions\", \"Terms and Conditions\") carefully before using the PrecioJusto website (the \"Service\"), operated by PrecioJusto (\"we\", \"us\" or \"our\").",
+      "Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Conditions apply to all visitors, users and others who access or use the Service.",
+      "By accessing or using the Platform you agree to be bound by these Conditions. If you disagree with any part of them, you may not access the Platform."
+    ],
+    "sections": [
+      {
+        "heading": "Additional terms and policies",
+        "paragraphs": [
+          "Please review our [Privacy Policy](/{lang}/privacidad) for information and notices regarding the collection and use of your information by PrecioJusto."
+        ]
+      },
+      {
+        "heading": "Key terms",
+        "definitions": [
+          { "term": "\"Platform\"", "definition": "Means the PrecioJusto website, its subdomains and associated applications operated by PrecioJusto." },
+          { "term": "\"User\"", "definition": "Means any person or entity that accesses or uses the Platform for any purpose." },
+          { "term": "\"Member\"", "definition": "Means a person or entity that creates an account with an email address and password by accepting these Terms." },
+          { "term": "\"Professional\"", "definition": "Means a Member registered to publish their services on the Platform, receive Customer Requests and send Quotes." },
+          { "term": "\"Customer\"", "definition": "Means a Member registered to find Professionals and receive Quotes for their Service Request." },
+          { "term": "\"Service Request\"", "definition": "Means a request submitted on the Platform by a Customer to receive one or more Quotes from Professionals." },
+          { "term": "\"Quote\"", "definition": "Means the price of the service that the Professional sends to the Customer as an offer for their Service Request." },
+          { "term": "\"Booking\"", "definition": "Means the agreement reached between the Customer and the Professional based on an accepted Quote." }
+        ]
+      },
+      {
+        "heading": "Account creation and use of the platform",
+        "paragraphs": [
+          "PrecioJusto is a technology platform that allows Customers to find independent Professionals for their service requests.",
+          "Users can access the Platform free of charge without registering. To access and/or use certain features of the Platform, you must create an account with an email address and a password.",
+          "Only persons over 18 years of age may create an account with us. By creating an account on the Platform, you declare and warrant that you meet the necessary requirements. The Professional further declares and warrants that they are qualified, authorized and insured in accordance with the regulations applicable to the services they offer.",
+          "You are responsible for safeguarding the password you use to access the Platform and for any activity or action under your password. PrecioJusto is not liable for losses caused by unauthorized use of your Account.",
+          "When creating an account with us, you must provide accurate, complete and up-to-date information at all times. Failure to do so constitutes a breach of the Conditions, which may result in immediate cancellation of your account."
+        ]
+      },
+      {
+        "heading": "Nature of the service",
+        "paragraphs": [
+          "PrecioJusto is not a service provider. It is a technology platform that allows Customers and Professionals to connect to meet a service need.",
+          "Customers understand and accept that PrecioJusto does not guarantee that they will receive a Quote from a Professional for their service request. Likewise, Professionals understand and accept that PrecioJusto does not guarantee that the Quote they send will become a Booking.",
+          "Taking the necessary precautions to provide a safe working environment is the responsibility of the Customer and the Professional. PrecioJusto is not responsible for related accidents and losses arising from the absence of such precautions."
+        ]
+      },
+      {
+        "heading": "User content",
+        "paragraphs": [
+          "Users acknowledge that they are solely responsible for all content —such as ideas, suggestions, service descriptions, photographs, reviews or offers— that they share on the Platform.",
+          "PrecioJusto has no obligation, but reserves the right for any reason, to monitor, review or warrant the accuracy, quality, suitability or integrity of any User Content contained or presented on the Platform.",
+          "PrecioJusto reserves the right to remove or disable access to User Content or to cancel the account of a related Member who violates the Conditions and/or is harmful to the Platform, Users or the Member, at any time and without notice. Infringing content and activities include, without limitation:"
+        ],
+        "list": [
+          "Racist speech, incitement to hatred against any group or person.",
+          "Defamation, insult, harassment or advocacy of harassment.",
+          "Sexually explicit language.",
+          "Praise of illegal and terrorist activities.",
+          "Content that disparages PrecioJusto or creates interference or spam.",
+          "Encouraging illegal or unauthorized copying of copyright-protected works.",
+          "Providing instructive information about illegal activities.",
+          "Requesting passwords or personal information from others for commercial or illegal purposes.",
+          "Violating the intellectual or industrial property rights of third parties, such as trademarks and patents.",
+          "Including unfair business practices that limit competition, or violating national or local consumer protection laws."
+        ]
+      },
+      {
+        "heading": "Quotes, payments and invoicing",
+        "paragraphs": [
+          "The Customer pays the Professional directly once the service has been performed, in relation to the total fee of the Quote they have accepted. The Customer must request the invoice or receipt for the paid service from the Professional; the Customer cannot request these documents from PrecioJusto, since PrecioJusto does not perform and is not responsible for any of the Services requested.",
+          "Unless otherwise agreed between the Customer and the Professional, the Customer has the right to cancel the project without justification and without penalty, provided the service has not yet started.",
+          "Quotes and Request information provided on the Platform are for informational and communication purposes; we recommend formalizing the agreement in writing with the Professional and keeping the document or receipt for any advance payment.",
+          "Customers and Professionals acknowledge and accept that PrecioJusto has no liability whatsoever for disputes that may arise between them regarding payment, cancellation of the service, discounts or refunds."
+        ]
+      },
+      {
+        "heading": "Monitoring of communications",
+        "paragraphs": [
+          "In order to prevent inappropriate messages and maintain a quality, safe service, PrecioJusto may store and analyze communication between Professionals and Customers through the Platform. PrecioJusto reserves the right to use inappropriate content as evidence in court if required by law."
+        ]
+      },
+      {
+        "heading": "Links to other websites",
+        "paragraphs": [
+          "Our Platform may contain links to third-party websites or platforms that are not owned or controlled by PrecioJusto.",
+          "PrecioJusto has no control over, and assumes no responsibility for, the content, privacy policies or practices of any third-party websites or platforms. We strongly advise you to read the terms and conditions and privacy policies of any third-party websites that you visit."
+        ]
+      },
+      {
+        "heading": "Intellectual property rights",
+        "paragraphs": [
+          "PrecioJusto owns and licenses all intellectual property rights of the Platform and of the visual and/or written materials published therein, including, but not limited to: domain name, logo, graphics, texts, images and code. All rights reserved.",
+          "Members acknowledge and accept that they have no rights over PrecioJusto or over the technology used or supported by the Platform, other than the right to use it in accordance with these Conditions. The Member retains ownership of the content of their own profiles, services and reviews."
+        ]
+      },
+      {
+        "heading": "Termination",
+        "paragraphs": [
+          "We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including, without limitation, if you breach the Conditions.",
+          "Upon termination, your right to use the Platform will cease immediately. If you wish to cancel your account, simply stop using the Platform or request deactivation from your profile. All provisions of the Conditions which by their nature should survive termination shall survive it."
+        ]
+      },
+      {
+        "heading": "Limitation of liability",
+        "paragraphs": [
+          "In no event shall PrecioJusto be liable for any indirect, incidental, special or consequential damages, or loss of profits, data or goodwill, arising from the use or inability to use the Service, even if we have been advised of the possibility of such damages."
+        ]
+      },
+      {
+        "heading": "Governing law",
+        "paragraphs": [
+          "These Conditions shall be governed and construed in accordance with Spanish law. Our failure to enforce any right or provision of these Conditions will not be considered a waiver of those rights. If any provision of these Conditions is held to be invalid or unenforceable by a court, the remaining provisions will remain in effect. These Conditions constitute the entire agreement between us regarding the Platform."
+        ]
+      },
+      {
+        "heading": "Changes",
+        "paragraphs": [
+          "We reserve the right, at our sole discretion, to modify or replace these Conditions at any time. If a revision is material, we will try to provide at least 15 days' notice prior to any new terms taking effect. By continuing to access or use our Platform after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Platform."
+        ]
+      },
+      {
+        "heading": "Contact us",
+        "paragraphs": [
+          "If you have any questions about these Conditions, please contact us by email at legal@preciojusto.com."
+        ]
+      }
+    ]
+  },
+  "legalPrivacidad": {
+    "meta": {
+      "title": "Privacy Policy | PrecioJusto",
+      "description": "How PrecioJusto collects, uses and protects your personal data: information processed, purposes, GDPR rights and controller contact details."
+    },
+    "badge": "Privacy & security",
+    "title": "Privacy Policy",
+    "updated": "Last updated: August 24, 2026",
+    "intro": [
+      "This Privacy Policy describes how PrecioJusto (\"we\", \"us\" or \"our\"), as data controller, collects, uses and protects the personal data of Platform users.",
+      "By using the Service you accept the practices described in this document. For the remaining conditions governing the use of the Platform, please see our [Terms and Conditions](/{lang}/terminos-y-condiciones)."
+    ],
+    "sections": [
+      {
+        "heading": "Information we collect",
+        "list": [
+          "Account data: name, email address, password and, where applicable, phone number and city.",
+          "Professional profile data: trade or category, experience, rates, working areas, photographs and service descriptions.",
+          "Request and booking data: Service Requests, Quotes sent and accepted, messages exchanged between Customer and Professional, and reviews.",
+          "Technical data: IP address, device and browser type, and Platform usage data."
+        ]
+      },
+      {
+        "heading": "How we use your information",
+        "list": [
+          "To provide, operate and maintain the Platform, including publishing professional profiles and managing Requests and Quotes.",
+          "To enable communication between Customers and Professionals through the Platform.",
+          "To show relevant results and professionals based on your location and service needs.",
+          "To manage your account, technical support and service-related communications.",
+          "To prevent abuse, spam and fraudulent activities, and keep the Platform secure.",
+          "To comply with applicable legal obligations."
+        ]
+      },
+      {
+        "heading": "Sharing of information",
+        "paragraphs": [
+          "We do not sell or rent your personal data to third parties. We only share your information in the following cases:",
+          "With the Professional or Customer involved in a Service Request, to the extent necessary to manage the relationship (e.g., name and contact details). As a general rule, your email address and phone number are not publicly displayed on the Platform.",
+          "With providers who support us in operating the Service (hosting, analytics, support), who process the data as processors under our instructions.",
+          "Where there is a legal obligation or a request from a competent authority, or if we believe in good faith that it is necessary to protect our rights, your safety or the safety of others."
+        ]
+      },
+      {
+        "heading": "Cookies",
+        "paragraphs": [
+          "We use strictly necessary cookies for the operation of the Platform (keeping you signed in, remembering your preferences and ensuring security) and analytics cookies to understand how the Platform is used and improve it. You can configure your browser to refuse them, although this may affect the functionality of the Service."
+        ]
+      },
+      {
+        "heading": "Security",
+        "paragraphs": [
+          "We apply appropriate technical and organizational measures to protect your personal data against unauthorized access, loss or alteration, including encryption of communications via SSL/TLS. No system is completely secure, but we work to keep the protection of your data up to date with industry standards."
+        ]
+      },
+      {
+        "heading": "Data retention",
+        "paragraphs": [
+          "We retain your personal data while your account is active or as needed to provide you with the Service. If you cancel your account, we will delete or anonymize your data unless we must keep it to comply with legal obligations or resolve disputes."
+        ]
+      },
+      {
+        "heading": "Your rights (GDPR)",
+        "paragraphs": [
+          "In accordance with the European Union's General Data Protection Regulation, you have the right to:"
+        ],
+        "list": [
+          "Access the personal data we process about you.",
+          "Rectify inaccurate or incomplete data.",
+          "Request the erasure of your data when it is no longer necessary.",
+          "Restrict or object to the processing of your data.",
+          "Request portability of your data in a structured format.",
+          "Withdraw your consent at any time."
+        ]
+      },
+      {
+        "heading": "Children's privacy",
+        "paragraphs": [
+          "The Service is not directed to individuals under 18 and we do not knowingly collect personal information from minors. If you are a parent or guardian and believe a minor has provided us with personal data, please contact us so we can delete it."
+        ]
+      },
+      {
+        "heading": "Changes to this policy",
+        "paragraphs": [
+          "We may update this Privacy Policy from time to time. We will post any changes on this page and update the \"last updated\" date. If the changes are material, we will notify you with reasonable advance notice before they take effect."
+        ]
+      },
+      {
+        "heading": "Contact us",
+        "paragraphs": [
+          "If you have any questions about this Privacy Policy or about the processing of your data, you can exercise your rights by writing to legal@preciojusto.com."
+        ]
+      }
+    ]
   }
 }

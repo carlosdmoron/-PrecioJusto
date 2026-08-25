@@ -119,10 +119,10 @@
       {
         "title": "Legale",
         "links": [
-          "Termini e condizioni",
-          "Privacy",
-          "Cookie",
-          "Trasparenza dei prezzi"
+          { "label": "Termini e condizioni", "href": "/{lang}/terminos-y-condiciones" },
+          { "label": "Privacy", "href": "/{lang}/privacidad" },
+          { "label": "Cookie", "href": "#" },
+          { "label": "Trasparenza dei prezzi", "href": "#" }
         ]
       }
     ],
@@ -1130,5 +1130,232 @@
     "texto": "Dovrai effettuare di nuovo l'accesso per tornare al tuo pannello.",
     "cancelar": "Annulla",
     "salir": "Esci"
+  },
+  "legalTerminos": {
+    "meta": {
+      "title": "Termini e Condizioni | PrecioJusto",
+      "description": "Le condizioni che regolano l'uso della piattaforma PrecioJusto: account, richieste di servizio, preventivi, incarichi, contenuti degli utenti e legge applicabile."
+    },
+    "badge": "Accordo legale",
+    "title": "Termini e Condizioni",
+    "updated": "Ultimo aggiornamento: 24 agosto 2026",
+    "intro": [
+      "Ti preghiamo di leggere attentamente queste Condizioni («Condizioni», «Termini e Condizioni») prima di utilizzare il sito web di PrecioJusto (il «Servizio»), gestito da PrecioJusto («noi», «ci» o «nostro»).",
+      "Il tuo accesso e utilizzo del Servizio è condizionato alla tua accettazione e al rispetto di questi Termini. Queste Condizioni si applicano a tutti i visitatori, utenti e altre persone che accedono o utilizzano il Servizio.",
+      "Accedendo o utilizzando la Piattaforma, accetti di essere vincolato da queste Condizioni. Se non sei d'accordo con una parte delle stesse, non potrai accedere alla Piattaforma."
+    ],
+    "sections": [
+      {
+        "heading": "Condizioni e politiche aggiuntive",
+        "paragraphs": [
+          "Ti preghiamo di consultare la nostra [Informativa sulla Privacy](/{lang}/privacidad) per informazioni e avvisi relativi alla raccolta e all'uso delle tue informazioni da parte di PrecioJusto."
+        ]
+      },
+      {
+        "heading": "Termini chiave",
+        "definitions": [
+          { "term": "«Piattaforma»", "definition": "Indica il sito web di PrecioJusto, i suoi sottodomini e le applicazioni associate gestite da PrecioJusto." },
+          { "term": "«Utente»", "definition": "Indica qualsiasi persona o entità che accede o utilizza la Piattaforma per qualsiasi scopo." },
+          { "term": "«Membro»", "definition": "Indica una persona o entità che crea un account con un indirizzo email e una password accettando questi Termini." },
+          { "term": "«Professionista»", "definition": "Indica un Membro registrato per pubblicare i propri servizi sulla Piattaforma, ricevere Richieste dai Clienti e inviare Preventivi." },
+          { "term": "«Cliente»", "definition": "Indica un Membro registrato per trovare Professionisti e ricevere Preventivi per la propria Richiesta di Servizio." },
+          { "term": "«Richiesta di Servizio»", "definition": "Indica una richiesta inviata sulla Piattaforma da un Cliente per ricevere uno o più Preventivi da Professionisti." },
+          { "term": "«Preventivo»", "definition": "Indica il prezzo del servizio che il Professionista invia al Cliente come offerta per la sua Richiesta di Servizio." },
+          { "term": "«Incarico»", "definition": "Indica l'accordo raggiunto tra il Cliente e il Professionista a partire da un Preventivo accettato." }
+        ]
+      },
+      {
+        "heading": "Creazione di un account e uso della piattaforma",
+        "paragraphs": [
+          "PrecioJusto è una piattaforma tecnologica che consente ai Clienti di trovare Professionisti indipendenti per le proprie richieste di servizio.",
+          "Gli utenti possono accedere alla Piattaforma gratuitamente senza registrarsi. Per accedere e/o utilizzare determinate funzionalità della Piattaforma, dovrai creare un account con un indirizzo email e una password.",
+          "Solo le persone maggiorenni (oltre i 18 anni) possono creare un account con noi. Creando un account sulla Piattaforma, dichiari e garantisci di possedere i requisiti necessari. Il Professionista dichiara inoltre di essere qualificato, autorizzato e assicurato conformemente alla normativa applicabile ai servizi offerti.",
+          "Sei responsabile della salvaguardia della password che utilizzi per accedere alla Piattaforma e di qualsiasi attività o azione effettuata con la tua password. PrecioJusto non è responsabile di perdite causate da un uso non autorizzato del tuo Account.",
+          "Creando un account con noi, devi fornirci informazioni accurate, complete e aggiornate in ogni momento. Il loro mancato rispetto costituisce una violazione delle Condizioni, che può comportare la cancellazione immediata del tuo account."
+        ]
+      },
+      {
+        "heading": "Natura del servizio",
+        "paragraphs": [
+          "PrecioJusto non è un fornitore di servizi. È una piattaforma tecnologica che consente a Clienti e Professionisti di mettersi in contatto per soddisfare un'esigenza di servizio.",
+          "I Clienti comprendono e accettano che PrecioJusto non garantisce di ricevere un Preventivo da un Professionista per la propria richiesta di servizio. Allo stesso modo, i Professionisti comprendono e accettano che PrecioJusto non garantisce che il Preventivo inviato si trasformi in un Incarico.",
+          "Adottare le precauzioni necessarie per garantire un ambiente di lavoro sicuro è responsabilità del Cliente e del Professionista. PrecioJusto non è responsabile di incidenti e perdite correlate derivanti dall'assenza di tali precauzioni."
+        ]
+      },
+      {
+        "heading": "Contenuti degli utenti",
+        "paragraphs": [
+          "Gli Utenti riconoscono di essere gli unici responsabili di tutti i contenuti —come idee, suggerimenti, descrizioni dei servizi, fotografie, recensioni o offerte— che condividono sulla Piattaforma.",
+          "PrecioJusto non ha l'obbligo, ma si riserva il diritto, per qualsiasi motivo, di monitorare, esaminare o garantire l'accuratezza, la qualità, l'idoneità o l'integrità di qualsiasi Contenuto dell'Utente presente o presentato sulla Piattaforma.",
+          "PrecioJusto si riserva il diritto di rimuovere o disabilitare l'accesso ai Contenuti dell'Utente o di cancellare l'account di un Membro correlato che violi le Condizioni e/o sia dannoso per la Piattaforma, gli Utenti o il Membro, in qualsiasi momento e senza preavviso. I contenuti e le attività in violazione includono, senza limitarsi a essi:"
+        ],
+        "list": [
+          "Discorso razzista, incitamento all'odio contro qualsiasi gruppo o persona.",
+          "Diffamazione, insulto, molestia o apologia delle molestie.",
+          "Linguaggio sessualmente esplicito.",
+          "Elogio di attività illegali e terroristiche.",
+          "Contenuti che denigrano PrecioJusto o creano interferenze o spam.",
+          "Incoraggiare la copia illegale o non autorizzata di opere protette da copyright.",
+          "Fornire informazioni istruttive su attività illegali.",
+          "Richiedere password o informazioni personali di altri per scopi commerciali o illegali.",
+          "Violare i diritti di proprietà intellettuale e industriale di terzi, come marchi e brevetti.",
+          "Includere pratiche commerciali sleali che limitano la concorrenza, o violare le leggi nazionali o locali sulla tutela dei consumatori."
+        ]
+      },
+      {
+        "heading": "Preventivi, pagamenti e fatturazione",
+        "paragraphs": [
+          "Il Cliente paga direttamente il Professionista una volta eseguito il servizio, in relazione alla tariffa totale del Preventivo accettato. Il Cliente deve richiedere al Professionista la fattura o la ricevuta del servizio pagato; il Cliente non può richiedere questi documenti a PrecioJusto, poiché PrecioJusto non esegue né è responsabile di alcuno dei Servizi richiesti.",
+          "Salvo diverso accordo tra il Cliente e il Professionista, il Cliente ha il diritto di annullare il progetto senza giustificazione e senza penali, purché il servizio non sia ancora iniziato.",
+          "I Preventivi e le informazioni sulle Richieste fornite sulla Piattaforma hanno finalità informative e comunicative; si consiglia di formalizzare l'accordo per iscritto con il Professionista e di conservare il documento o la ricevuta di qualsiasi pagamento anticipato.",
+          "Clienti e Professionisti riconoscono e accettano che PrecioJusto non ha alcuna responsabilità per le controversie che possono sorgere tra loro relative al pagamento, all'annullamento del servizio, allo sconto o al rimborso."
+        ]
+      },
+      {
+        "heading": "Monitoraggio delle comunicazioni",
+        "paragraphs": [
+          "Al fine di prevenire messaggi inappropriati e mantenere un servizio di qualità e sicuro, PrecioJusto può archiviare e analizzare le comunicazioni tra Professionisti e Clienti attraverso la Piattaforma. PrecioJusto si riserva il diritto di utilizzare contenuti inappropriati come prova in tribunale se richiesto dalle leggi."
+        ]
+      },
+      {
+        "heading": "Link ad altri siti web",
+        "paragraphs": [
+          "La nostra Piattaforma può contenere link a siti web o piattaforme di terzi che non sono di proprietà né sotto il controllo di PrecioJusto.",
+          "PrecioJusto non ha alcun controllo sul contenuto, sulle politiche sulla privacy o sulle pratiche di siti web o piattaforme di terzi, né assume alcuna responsabilità per gli stessi. Ti consigliamo vivamente di leggere i termini e le condizioni e le informative sulla privacy dei siti web di terzi che visiti."
+        ]
+      },
+      {
+        "heading": "Diritti di proprietà intellettuale",
+        "paragraphs": [
+          "PrecioJusto è titolare e licenziataria di tutti i diritti di proprietà intellettuale della Piattaforma e dei materiali visivi e/o scritti ivi pubblicati, inclusi, ma non limitati a: nome dominio, logo, grafica, testi, immagini e codice. Tutti i diritti riservati.",
+          "I Membri riconoscono e accettano di non avere alcun diritto su PrecioJusto né sulla tecnologia utilizzata o supportata dalla Piattaforma, salvo il diritto di utilizzarla in conformità con queste Condizioni. Il Membre mantiene la titolarità dei contenuti dei propri profili, servizi e recensioni."
+        ]
+      },
+      {
+        "heading": "Risoluzione",
+        "paragraphs": [
+          "Possiamo cancellare o sospendere immediatamente il tuo account, senza preavviso né responsabilità, per qualsiasi motivo, incluso, tra gli altri, la violazione delle Condizioni.",
+          "In caso di risoluzione, cesserà immediatamente il tuo diritto di utilizzare la Piattaforma. Se desideri cancellare il tuo account, ti basta smettere di utilizzare la Piattaforma o richiedere la disattivazione dal tuo profilo. Tutte le disposizioni delle Condizioni che, per loro natura, devono sopravvivere alla risoluzione, rimarranno in vigore."
+        ]
+      },
+      {
+        "heading": "Limitazione di responsabilità",
+        "paragraphs": [
+          "In nessun caso PrecioJusto sarà responsabile di danni indiretti, incidentali, speciali o consequenziali, o perdita di profitti, dati o reputatione, derivanti dall'uso o dall'impossibilità di utilizzare il Servizio, anche se siamo stati informati della possibilità di tali danni."
+        ]
+      },
+      {
+        "heading": "Legge applicabile",
+        "paragraphs": [
+          "Le presenti Condizioni saranno regolate e interpretate in conformità con la legislazione spagnola. Il nostro mancato esercizio di qualsiasi diritto o disposizione di queste Condizioni non sarà considerato una rinuncia a tale diritto. Qualora una disposizione di queste Condizioni fosse dichiarata invalida o inapplicabile da un tribunale, le restanti disposizioni resteranno in vigore. Queste Condizioni costituiscono l'intero accordo tra noi in relazione alla Piattaforma."
+        ]
+      },
+      {
+        "heading": "Modifiche",
+        "paragraphs": [
+          "Ci riserviamo il diritto, a nostra esclusiva discrezione, di modificare o sostituire queste Condizioni in qualsiasi momento. Se una revisione è sostanziale, cercheremo di avvisarti con almeno 15 giorni di anticipo prima che i nuovi termini entrino in vigore. Continuando ad accedere o utilizzare la nostra Piattaforma dopo l'entrata in vigore di tali revisioni, accetti di essere vincolato dai termini rivisti. Se non accetti i nuovi termini, ti preghiamo di smettere di utilizzare la Piattaforma."
+        ]
+      },
+      {
+        "heading": "Contattaci",
+        "paragraphs": [
+          "Se hai domande su queste Condizioni, contattaci inviando un'email a legal@preciojusto.com."
+        ]
+      }
+    ]
+  },
+  "legalPrivacidad": {
+    "meta": {
+      "title": "Informativa sulla Privacy | PrecioJusto",
+      "description": "Come PrecioJusto raccoglie, utilizza e protegge i tuoi dati personali: informazioni trattate, finalità, diritti GDPR e contatti del titolare."
+    },
+    "badge": "Privacy e sicurezza",
+    "title": "Informativa sulla Privacy",
+    "updated": "Ultimo aggiornamento: 24 agosto 2026",
+    "intro": [
+      "Questa Informativa sulla Privacy descrive come PrecioJusto («noi», «ci» o «nostro»), in qualità di titolare del trattamento, raccoglie, utilizza e protegge i dati personali degli utenti della Piattaforma.",
+      "Utilizzando il Servizio, accetti le pratiche descritte in questo documento. Per le restanti condizioni applicabili all'uso della Piattaforma, consulta i nostri [Termini e Condizioni](/{lang}/terminos-y-condiciones)."
+    ],
+    "sections": [
+      {
+        "heading": "Informazioni che raccogliamo",
+        "list": [
+          "Dati dell'account: nome, indirizzo email, password e, se applicabile, numero di telefono e città.",
+          "Dati del profilo professionale: mestiere o categoria, esperienza, tariffe, zone di lavoro, fotografie e descrizione dei servizi.",
+          "Dati di richieste e incarichi: Richieste di Servizio, Preventivi inviati e accettati, messaggi scambiati tra Cliente e Professionista e recensioni.",
+          "Dati tecnici: indirizzo IP, tipo di dispositivo e browser, e dati di utilizzo della Piattaforma."
+        ]
+      },
+      {
+        "heading": "Come usiamo le tue informazioni",
+        "list": [
+          "Fornire, gestire e mantenere la Piattaforma, inclusa la pubblicazione dei profili professionali e la gestione di Richieste e Preventivi.",
+          "Consentire la comunicazione tra Clienti e Professionisti attraverso la Piattaforma.",
+          "Mostrare risultati e professionistri pertinenti in base alla tua posizione e alle tue esigenze di servizio.",
+          "Gestire il tuo account, l'assistenza tecnica e le comunicazioni relative al servizio.",
+          "Prevenire abusi, spam e attività fraudolente e garantire la sicurezza della Piattaforma.",
+          "Adempire agli obblighi legali applicabili."
+        ]
+      },
+      {
+        "heading": "Condivisione delle informazioni",
+        "paragraphs": [
+          "Non vendiamo né affittiamo i tuoi dati personali a terzi. Condividiamo le tue informazioni solo nei seguenti casi:",
+          "Con il Professionista o il Cliente coinvolti in una Richiesta di Servizio, nella misura necessaria per gestire la relazione (ad esempio, nome e dati di contatto). Di norma, il tuo indirizzo email e il tuo numero di telefono non sono mostrati pubblicamente sulla Piattaforma.",
+          "Con fornitori che ci supportano nell'operatività del Servizio (hosting, analisi, assistenza), che trattano i dati come responsabili secondo le nostre istruzioni.",
+          "In presenza di un obbligo legale o di una richiesta di autorità competente, o se riteniamo in buona fede che sia necessario per proteggere i nostri diritti, la tua sicurezza o la sicurezza di altri."
+        ]
+      },
+      {
+        "heading": "Cookie",
+        "paragraphs": [
+          "Utilizziamo cookie strettamente necessari per il funzionamento della Piattaforma (mantenere la sessione attiva, ricordare le tue preferenze e garantire la sicurezza) e cookie analitici per capire come viene utilizzata la Piattaforma e migliorarla. Puoi configurare il browser per rifiutarli, anche se questo può influire sulla funzionalità del Servizio."
+        ]
+      },
+      {
+        "heading": "Sicurezza",
+        "paragraphs": [
+          "Applichiamo misure tecniche e organizzative adeguate per proteggere i tuoi dati personali da accessi non autorizzati, perdite o alterazioni, inclusa la crittografia delle comunicazioni tramite SSL/TLS. Nessun sistema è completamente sicuro, ma lavoriamo per mantenere la protezione dei tuoi dati aggiornata secondo gli standard del settore."
+        ]
+      },
+      {
+        "heading": "Conservazione dei dati",
+        "paragraphs": [
+          "Conserviamo i tuoi dati personali finché il tuo account è attivo o finché è necessario per fornirti il Servizio. Se cancelli il tuo account, elimineremo o anonimizzeremo i tuoi dati salvo che debbamo conservarli per adempiere a obblighi legali o risolvere controversie."
+        ]
+      },
+      {
+        "heading": "I tuoi diritti (GDPR)",
+        "paragraphs": [
+          "In conformità con il Regolamento Generale sulla Protezione dei Dati dell'Unione Europea, hai il diritto di:"
+        ],
+        "list": [
+          "Accedere ai dati personali che trattiamo su di te.",
+          "Rettificare i dati inesatti o incompleti.",
+          "Richiedere la cancellazione dei tuoi dati quando non sono più necessari.",
+          "Limitare o opporsi al trattamento dei tuoi dati.",
+          "Richiedere la portabilità dei tuoi dati in un formato strutturato.",
+          "Ritirare il tuo consenso in qualsiasi momento."
+        ]
+      },
+      {
+        "heading": "Privacy dei minori",
+        "paragraphs": [
+          "Il Servizio non è rivolto a persone di età inferiore ai 18 anni e non raccogliamo deliberatamente informazioni personali da minori. Se sei un genitore o un tutore e ritieni che un minore ci abbia fornito dati personali, contattaci per eliminarli."
+        ]
+      },
+      {
+        "heading": "Modifiche a questa informativa",
+        "paragraphs": [
+          "Potremmo aggiornare periodicamente questa Informativa sulla Privacy. Pubblicheremo eventuali modifiche su questa pagina e aggiorneremo la data di «ultimo aggiornamento». Se le modifiche sono sostanziali, ti avviseremo con ragionevole preavviso prima che entrino in vigore."
+        ]
+      },
+      {
+        "heading": "Contattaci",
+        "paragraphs": [
+          "Se hai domande su questa Informativa sulla Privacy o sul trattamento dei tuoi dati, puoi esercitare i tuoi diritti scrivendo a legal@preciojusto.com."
+        ]
+      }
+    ]
   }
 }
