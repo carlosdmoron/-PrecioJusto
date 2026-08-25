@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { lang } from "next/root-params";
 import { getDictionary, locales } from "../../[lang]/dictionaries";
 import PasswordInput from "./PasswordInput";
@@ -17,6 +18,12 @@ export default async function LoginSection() {
 
   async function loginToDashboard() {
     "use server";
+    const store = await cookies();
+    store.set("pj-session", "1", {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30,
+    });
     redirect(`/${current}/dashboard-profesional`);
   }
 
@@ -53,11 +60,11 @@ export default async function LoginSection() {
         </div>
         <div className="relative mx-auto w-full max-w-md rounded-xl bg-white p-6 shadow-xl shadow-navy/10 sm:p-10 md:p-12">
           <Image
-            src="/images/logo.webp"
+            src="/images/logo.png"
             alt="PrecioJusto"
-            width={473}
-            height={1024}
-            className="mx-auto h-32 w-auto rounded-xl"
+            width={771}
+            height={324}
+            className="mx-auto h-12 w-auto"
           />
           <h1 className="mt-8 text-center text-2xl font-bold tracking-tight text-ink">
             {t.title}

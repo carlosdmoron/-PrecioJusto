@@ -72,6 +72,15 @@
       }
     ]
   },
+  "profBuscados": {
+    "title": "The 3 professionals we're looking for",
+    "items": {
+      "electricista": "Electrician",
+      "carpintero": "Carpenter",
+      "fontanero": "Plumber"
+    },
+    "comingSoon": "Coming soon"
+  },
   "features": [
     {
       "title": "Verified prices",
@@ -155,7 +164,7 @@
         }
       ]
     },
-    "features": [
+  "features": [
       {
         "title": "Real visibility",
         "desc": "Show up when someone searches for a service you offer."
@@ -224,6 +233,7 @@
       "stores": "Stores",
       "signup": "Create account",
       "signin": "Log in",
+      "register": "Sign up as a professional",
       "account": "My account"
     },
     "languageLabel": "Language",

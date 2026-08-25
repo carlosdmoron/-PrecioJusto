@@ -72,6 +72,15 @@
       }
     ]
   },
+  "profBuscados": {
+    "title": "Los 3 profesionales que estamos buscando",
+    "items": {
+      "electricista": "Electricista",
+      "carpintero": "Carpintero",
+      "fontanero": "Fontanero"
+    },
+    "comingSoon": "Próximamente"
+  },
   "features": [
     {
       "title": "Precios verificados",
@@ -155,7 +164,7 @@
         }
       ]
     },
-    "features": [
+  "features": [
       {
         "title": "Visibilidad real",
         "desc": "Aparece cuando alguien busca un servicio que ofreces."
@@ -224,6 +233,7 @@
       "stores": "Tiendas",
       "signup": "Crear cuenta",
       "signin": "Entrar",
+      "register": "Registrarse como profesional",
       "account": "Mi cuenta"
     },
     "languageLabel": "Idioma",
