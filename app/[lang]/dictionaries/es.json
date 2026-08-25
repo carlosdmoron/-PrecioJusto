@@ -79,7 +79,11 @@
       "carpintero": "Carpintero",
       "fontanero": "Fontanero"
     },
-    "comingSoon": "Próximamente"
+    "comingSoon": "Próximamente",
+    "presupuestar": "Presupuestar"
+  },
+  "featuresSection": {
+    "title": "¿Por qué comprar con nosotros?"
   },
   "features": [
     {

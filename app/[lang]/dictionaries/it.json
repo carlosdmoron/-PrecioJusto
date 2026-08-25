@@ -79,7 +79,11 @@
       "carpintero": "Falegname",
       "fontanero": "Idraulico"
     },
-    "comingSoon": "Prossimamente"
+    "comingSoon": "Prossimamente",
+    "presupuestar": "Preventivare"
+  },
+  "featuresSection": {
+    "title": "Perché comprare con noi?"
   },
   "features": [
     {

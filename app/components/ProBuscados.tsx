@@ -32,7 +32,7 @@ export default async function ProBuscados() {
             <a
               key={pro.key}
               href={href}
-              className="group overflow-hidden rounded-xl border border-line/40 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
+              className="group relative overflow-hidden rounded-xl border border-line/40 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="relative h-48 overflow-hidden">
                 <Image
@@ -43,10 +43,15 @@ export default async function ProBuscados() {
                   className="object-cover transition duration-300 group-hover:scale-105"
                 />
               </div>
-              <div className="flex flex-col items-center gap-1 p-4">
+              <div className="flex flex-col items-center gap-1 px-4 pt-4 pb-16">
                 <h3 className="text-sm font-semibold leading-snug text-ink">
                   {t.items[pro.key]}
                 </h3>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 translate-y-full px-3 pb-3 transition-transform duration-300 ease-out group-hover:translate-y-0">
+                <span className="flex w-full items-center justify-center rounded-lg bg-primary py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-primary-dark">
+                  {t.presupuestar}
+                </span>
               </div>
             </a>
           ))}
