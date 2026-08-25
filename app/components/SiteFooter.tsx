@@ -5,7 +5,7 @@ export default async function SiteFooter() {
   const dict = await getDictionary();
   return (
     <footer className="border-t border-line/30 bg-surface">
-      <div className="mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-x-6 gap-y-10 px-6 py-16 md:grid-cols-4 lg:px-20">
+      <div className="mx-auto w-full max-w-[1280px] px-6 py-16 lg:px-20">
         {dict.footer.columns.map((column) => (
           <nav key={column.title} aria-label={column.title}>
             <h3 className="text-sm font-semibold text-ink">{column.title}</h3>

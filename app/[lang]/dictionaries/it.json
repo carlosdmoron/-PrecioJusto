@@ -117,33 +117,6 @@
   "footer": {
     "columns": [
       {
-        "title": "Prodotto",
-        "links": [
-          "Confrontatore",
-          "Avvisi di prezzo",
-          "Liste condivise",
-          "Estensione del browser"
-        ]
-      },
-      {
-        "title": "Azienda",
-        "links": [
-          "Chi siamo",
-          "Come funziona",
-          "Blog",
-          "Lavora con noi"
-        ]
-      },
-      {
-        "title": "Risorse",
-        "links": [
-          "Centro assistenza",
-          "Guida al risparmio",
-          "API per i negozi",
-          "Stato del servizio"
-        ]
-      },
-      {
         "title": "Legale",
         "links": [
           "Termini e condizioni",

@@ -117,33 +117,6 @@
   "footer": {
     "columns": [
       {
-        "title": "Product",
-        "links": [
-          "Price comparison",
-          "Price alerts",
-          "Shared lists",
-          "Browser extension"
-        ]
-      },
-      {
-        "title": "Company",
-        "links": [
-          "About us",
-          "How it works",
-          "Blog",
-          "Work with us"
-        ]
-      },
-      {
-        "title": "Resources",
-        "links": [
-          "Help center",
-          "Savings guide",
-          "Store API",
-          "Service status"
-        ]
-      },
-      {
         "title": "Legal",
         "links": [
           "Terms & conditions",
