@@ -1371,5 +1371,460 @@
         ]
       }
     ]
+  },
+  "dashboardAdmin": {
+    "meta": { "title": "Admin dashboard — PrecioJusto", "description": "Manage services, requests, professionals and platform settings." },
+    "nav": {
+      "resumen": "Overview",
+      "servicios": "Services",
+      "formularios": "Forms",
+      "solicitudes": "Requests",
+      "matching": "Matching",
+      "profesionales": "Professionals",
+      "presupuestos": "Quotes",
+      "clientes": "Customers",
+      "conversaciones": "Conversations",
+      "trabajos": "Jobs",
+      "resenas": "Reviews",
+      "facturacion": "Billing",
+      "marketing": "Marketing",
+      "notificaciones": "Notifications",
+      "soporte": "Support",
+      "analitica": "Analytics",
+      "configuracion": "Settings"
+    },
+    "accountLabel": "Admin account",
+    "resumen": {
+      "title": "Executive summary",
+      "subtitle": "Global marketplace overview and operational alerts",
+      "filters": { "fecha": "Date range", "pais": "Country", "ciudad": "City", "categoria": "Category", "servicio": "Service", "dispositivo": "Device", "canal": "Acquisition channel", "aplicar": "Apply", "limpiar": "Clear" },
+      "stats": [
+        { "label": "New requests", "value": "247", "change": "+12%", "trend": "up" },
+        { "label": "Completed requests", "value": "198", "change": "+8%", "trend": "up" },
+        { "label": "Drop-off rate", "value": "18.4%", "change": "-2.1%", "trend": "down" },
+        { "label": "Quotes sent", "value": "583", "change": "+15%", "trend": "up" },
+        { "label": "Avg. quotes per request", "value": "2.9", "change": "+0.3", "trend": "up" },
+        { "label": "Time to first quote", "value": "4.2h", "change": "-0.8h", "trend": "down" },
+        { "label": "Selection rate", "value": "62%", "change": "+3%", "trend": "up" },
+        { "label": "Agreement rate", "value": "41%", "change": "+5%", "trend": "up" },
+        { "label": "Lead revenue", "value": "€4,850", "change": "+18%", "trend": "up" },
+        { "label": "Commission revenue", "value": "€2,340", "change": "+22%", "trend": "up" },
+        { "label": "Active professionals", "value": "156", "change": "+7", "trend": "up" },
+        { "label": "Unanswered requests", "value": "14", "change": "+3", "trend": "up" }
+      ],
+      "alerts": [
+        { "type": "warning", "title": "Abnormal form drop-off", "description": "The Plumbing form has 34% drop-off at step 3." },
+        { "type": "danger", "title": "Service without professionals", "description": "Electrical in Bilbao has no available professionals." },
+        { "type": "warning", "title": "Unanswered requests", "description": "14 leads have not received any quote in 48h." },
+        { "type": "info", "title": "Notification errors", "description": "3 notification emails failed yesterday." },
+        { "type": "danger", "title": "Negative balances", "description": "2 professionals have a negative balance." }
+      ]
+    },
+    "servicios": {
+      "title": "Services",
+      "subtitle": "Manage categories, services and catalogue settings",
+      "create": "Create service",
+      "createCategory": "Create category",
+      "table": { "id": "ID", "name": "Name", "category": "Category", "status": "Status", "requests": "Requests", "revenue": "Revenue", "actions": "Actions" },
+      "statuses": { "draft": "Draft", "review": "In review", "published": "Published", "paused": "Paused", "archived": "Archived" },
+      "actions": { "edit": "Edit", "duplicate": "Duplicate", "archive": "Archive", "preview": "Preview" },
+      "items": [
+        { "id": "SRV-001", "name": "Pipe repair", "category": "Plumbing", "status": "published", "requests": "89", "revenue": "€1,240" },
+        { "id": "SRV-002", "name": "Boiler installation", "category": "Plumbing", "status": "published", "requests": "34", "revenue": "€890" },
+        { "id": "SRV-003", "name": "Interior painting", "category": "Painting", "status": "published", "requests": "67", "revenue": "€980" },
+        { "id": "SRV-004", "name": "Facade repair", "category": "Painting", "status": "draft", "requests": "0", "revenue": "€0" },
+        { "id": "SRV-005", "name": "Garden mowing & design", "category": "Gardening", "status": "review", "requests": "0", "revenue": "€0" },
+        { "id": "SRV-006", "name": "Emergency plumbing", "category": "Plumbing", "status": "paused", "requests": "12", "revenue": "€180" }
+      ],
+      "categories": [
+        { "id": "CAT-001", "name": "Plumbing", "services": 3, "status": "active" },
+        { "id": "CAT-002", "name": "Painting", "services": 2, "status": "active" },
+        { "id": "CAT-003", "name": "Gardening", "services": 1, "status": "active" },
+        { "id": "CAT-004", "name": "Electrical", "services": 0, "status": "active" },
+        { "id": "CAT-005", "name": "Cleaning", "services": 0, "status": "draft" }
+      ],
+      "modal": { "editTitle": "Edit service", "createTitle": "Create service", "name": "Service name", "namePh": "e.g. Pipe repair", "category": "Category", "description": "Description", "descriptionPh": "Describe the service...", "status": "Status", "slug": "Slug", "slugPh": "pipe-repair", "save": "Save", "cancel": "Cancel" }
+    },
+    "formularios": {
+      "title": "Form builder",
+      "subtitle": "Design dynamic questionnaires for each service",
+      "create": "Create form",
+      "table": { "id": "ID", "service": "Service", "version": "Version", "questions": "Questions", "abandonment": "Drop-off", "status": "Status", "actions": "Actions" },
+      "statuses": { "draft": "Draft", "active": "Active", "archived": "Archived" },
+      "actions": { "edit": "Edit", "preview": "Preview", "duplicate": "Duplicate", "versions": "Versions" },
+      "items": [
+        { "id": "FRM-001", "service": "Pipe repair", "version": "v3.1", "questions": "12", "abandonment": "18%", "status": "active" },
+        { "id": "FRM-002", "service": "Boiler installation", "version": "v2.0", "questions": "9", "abandonment": "12%", "status": "active" },
+        { "id": "FRM-003", "service": "Interior painting", "version": "v1.2", "questions": "15", "abandonment": "24%", "status": "active" },
+        { "id": "FRM-004", "service": "Garden mowing & design", "version": "v1.0", "questions": "8", "abandonment": "0%", "status": "draft" }
+      ],
+      "builder": {
+        "title": "Form builder",
+        "addQuestion": "Add question",
+        "questionTypes": { "radio": "Single choice", "checkbox": "Multiple choice", "text": "Short text", "textarea": "Long text", "number": "Number", "date": "Date", "select": "Dropdown", "phone": "Phone", "email": "Email", "file": "File upload", "scale": "Scale 1-10" },
+        "questions": [
+          { "id": "q1", "label": "What type of issue do you have?", "type": "radio", "required": true, "options": ["Repair", "Installation", "Maintenance", "Emergency"] },
+          { "id": "q2", "label": "Describe the problem", "type": "textarea", "required": true },
+          { "id": "q3", "label": "When did it occur?", "type": "radio", "required": false, "options": ["Today", "This week", "This month", "Over a month ago"] },
+          { "id": "q4", "label": "Do you have photos of the problem?", "type": "file", "required": false },
+          { "id": "q5", "label": "Postcode", "type": "text", "required": true },
+          { "id": "q6", "label": "When do you need the service?", "type": "radio", "required": true, "options": ["ASAP", "In 1-2 weeks", "In 1 month", "No rush"] },
+          { "id": "q7", "label": "Approximate budget", "type": "select", "required": false, "options": ["Under €100", "€100-300", "€300-500", "Over €500"] }
+        ],
+        "save": "Save draft",
+        "publish": "Publish",
+        "previewClient": "Preview as customer",
+        "condition": "Condition",
+        "conditionPh": "Show if..."
+      }
+    },
+    "solicitudes": {
+      "title": "Requests",
+      "subtitle": "View, edit and distribute customer requests",
+      "table": { "id": "ID", "client": "Customer", "service": "Service", "city": "City", "status": "Status", "urgency": "Urgency", "quotes": "Quotes", "date": "Date" },
+      "statuses": { "new": "New", "published": "Published", "inProgress": "In progress", "completed": "Completed", "cancelled": "Cancelled", "blocked": "Blocked" },
+      "urgency": { "asap": "ASAP", "week": "1-2 weeks", "month": "1 month", "none": "No rush" },
+      "actions": { "edit": "Edit", "pause": "Pause", "reopen": "Reopen", "cancel": "Cancel", "resend": "Resend", "block": "Block", "detail": "View detail" },
+      "items": [
+        { "id": "SOL-2401", "client": "María García", "service": "Pipe repair", "city": "Madrid", "status": "new", "urgency": "asap", "quotes": "0", "date": "25/08/2026" },
+        { "id": "SOL-2400", "client": "Carlos Ruiz", "service": "Interior painting", "city": "Barcelona", "status": "published", "urgency": "week", "quotes": "3", "date": "24/08/2026" },
+        { "id": "SOL-2399", "client": "Ana López", "service": "Boiler installation", "city": "Valencia", "status": "inProgress", "urgency": "month", "quotes": "5", "date": "23/08/2026" },
+        { "id": "SOL-2398", "client": "Pedro Martín", "service": "Pipe repair", "city": "Seville", "status": "completed", "urgency": "none", "quotes": "4", "date": "22/08/2026" },
+        { "id": "SOL-2397", "client": "Laura Sánchez", "service": "Garden mowing & design", "city": "Bilbao", "status": "blocked", "urgency": "week", "quotes": "0", "date": "21/08/2026" },
+        { "id": "SOL-2396", "client": "Javier Díaz", "service": "Interior painting", "city": "Zaragoza", "status": "cancelled", "urgency": "none", "quotes": "1", "date": "20/08/2026" }
+      ],
+      "detail": {
+        "title": "Request detail",
+        "clientInfo": "Customer details",
+        "answers": "Form answers",
+        "location": "Location",
+        "history": "Change history",
+        "professionals": "Assigned professionals",
+        "quotesList": "Received quotes",
+        "conversations": "Conversations",
+        "notes": "Internal notes",
+        "close": "Close",
+        "sampleAnswers": [
+          { "question": "Issue type", "answer": "Repair" },
+          { "question": "Description", "answer": "Water leak in bathroom, continuous tap drip" },
+          { "question": "When it occurred", "answer": "Today" },
+          { "question": "Postcode", "answer": "28001" },
+          { "question": "When service needed", "answer": "ASAP" }
+        ]
+      }
+    },
+    "matching": {
+      "title": "Matching & distribution",
+      "subtitle": "Configure which professionals receive each request and under what conditions",
+      "create": "Create rule",
+      "simulate": "Simulate matching",
+      "table": { "id": "ID", "name": "Name", "criterion": "Criterion", "priority": "Priority", "professionals": "Professionals", "status": "Status", "actions": "Actions" },
+      "criterions": { "service": "Service", "zone": "Zone", "availability": "Availability", "capacity": "Capacity", "quality": "Profile quality", "history": "Response history" },
+      "actions": { "edit": "Edit", "duplicate": "Duplicate", "toggle": "Enable/Disable" },
+      "items": [
+        { "id": "REG-001", "name": "Plumbing Madrid Central", "criterion": "service + zone", "priority": "1", "professionals": "12", "status": "active" },
+        { "id": "REG-002", "name": "Painting north zone", "criterion": "service + zone", "priority": "2", "professionals": "8", "status": "active" },
+        { "id": "REG-003", "name": "24h emergencies", "criterion": "availability", "priority": "1", "professionals": "5", "status": "active" },
+        { "id": "REG-004", "name": "Verified profiles", "criterion": "quality", "priority": "3", "professionals": "34", "status": "active" },
+        { "id": "REG-005", "name": "No response in 48h", "criterion": "history", "priority": "4", "professionals": "0", "status": "inactive" }
+      ],
+      "simulator": {
+        "title": "Matching simulator",
+        "serviceLabel": "Test service",
+        "zoneLabel": "Zone (postcode)",
+        "run": "Run simulation",
+        "results": "Results",
+        "included": "Included",
+        "excluded": "Excluded",
+        "reason": "Reason",
+        "sampleResults": [
+          { "name": "Antonio Pérez — Plumbing Madrid", "status": "Included", "reason": "Offers Pipe repair, covers postcode 28001, availability active" },
+          { "name": "María Fernández — Plumbing", "status": "Included", "reason": "Offers Pipe repair, covers postcode 28001, verified profile" },
+          { "name": "Carlos Ruiz — Electrical", "status": "Excluded", "reason": "Does not offer Plumbing service" },
+          { "name": "Laura Blanco — Plumbing", "status": "Excluded", "reason": "Does not cover zone 28001" }
+        ]
+      }
+    },
+    "profesionales": {
+      "title": "Professionals",
+      "subtitle": "Manage registrations, profiles, verifications and operational status",
+      "approvalQueue": "Approval queue",
+      "pendingCount": "3 pending",
+      "table": { "id": "ID", "name": "Name", "services": "Services", "zone": "Zone", "status": "Status", "verified": "Verified", "rating": "Rating", "quotes": "Quotes", "actions": "Actions" },
+      "statuses": { "pending": "Pending", "active": "Active", "suspended": "Suspended", "rejected": "Rejected" },
+      "actions": { "approve": "Approve", "reject": "Reject", "view": "View profile", "suspend": "Suspend", "edit": "Edit" },
+      "items": [
+        { "id": "PRO-001", "name": "Antonio Pérez", "services": "Plumbing", "zone": "Madrid", "status": "active", "verified": "Yes", "rating": "4.8", "quotes": "45" },
+        { "id": "PRO-002", "name": "María Fernández", "services": "Plumbing", "zone": "Madrid", "status": "active", "verified": "Yes", "rating": "4.6", "quotes": "32" },
+        { "id": "PRO-003", "name": "Carlos Ruiz", "services": "Electrical", "zone": "Barcelona", "status": "active", "verified": "No", "rating": "4.2", "quotes": "18" },
+        { "id": "PRO-004", "name": "Laura Blanco", "services": "Plumbing, Painting", "zone": "Valencia", "status": "pending", "verified": "No", "rating": "—", "quotes": "0" },
+        { "id": "PRO-005", "name": "Pedro Martín", "services": "Gardening", "zone": "Seville", "status": "pending", "verified": "No", "rating": "—", "quotes": "0" },
+        { "id": "PRO-006", "name": "Ana López", "services": "Painting", "zone": "Bilbao", "status": "pending", "verified": "No", "rating": "—", "quotes": "0" },
+        { "id": "PRO-007", "name": "Javier Díaz", "services": "Electrical", "zone": "Zaragoza", "status": "suspended", "verified": "Yes", "rating": "3.1", "quotes": "8" }
+      ],
+      "detail": {
+        "title": "Professional profile",
+        "name": "Business name",
+        "contact": "Contact person",
+        "services": "Services offered",
+        "zone": "Coverage area",
+        "schedule": "Schedule",
+        "experience": "Experience",
+        "description": "Description",
+        "certifications": "Certifications",
+        "balance": "Balance",
+        "conversion": "Historical conversion",
+        "close": "Close"
+      }
+    },
+    "presupuestos": {
+      "title": "Quotes",
+      "subtitle": "Review quotes sent by professionals and their costs",
+      "table": { "id": "ID", "professional": "Professional", "client": "Customer", "service": "Service", "amount": "Amount", "status": "Status", "leadCost": "Lead cost", "date": "Date" },
+      "statuses": { "draft": "Draft", "pending": "Pending", "sent": "Sent", "viewed": "Viewed", "contacted": "Contact initiated", "selected": "Selected", "rejected": "Rejected", "expired": "Expired" },
+      "actions": { "view": "View", "block": "Block", "notify": "Resend notification" },
+      "items": [
+        { "id": "PRE-5001", "professional": "Antonio Pérez", "client": "María García", "service": "Pipe repair", "amount": "€180-220", "status": "sent", "leadCost": "€5", "date": "25/08/2026" },
+        { "id": "PRE-5002", "professional": "María Fernández", "client": "María García", "service": "Pipe repair", "amount": "€150-190", "status": "viewed", "leadCost": "€5", "date": "25/08/2026" },
+        { "id": "PRE-5003", "professional": "Carlos Ruiz", "client": "Carlos Ruiz", "service": "Interior painting", "amount": "€350-400", "status": "selected", "leadCost": "€4", "date": "24/08/2026" },
+        { "id": "PRE-5004", "professional": "Laura Blanco", "client": "Ana López", "service": "Boiler installation", "amount": "€800-1,000", "status": "contacted", "leadCost": "€6", "date": "23/08/2026" },
+        { "id": "PRE-5005", "professional": "Javier Díaz", "client": "Pedro Martín", "service": "Pipe repair", "amount": "€120-160", "status": "rejected", "leadCost": "€5", "date": "22/08/2026" },
+        { "id": "PRE-5006", "professional": "Antonio Pérez", "client": "Laura Sánchez", "service": "Garden mowing & design", "amount": "€250-300", "status": "expired", "leadCost": "€3", "date": "20/08/2026" }
+      ]
+    },
+    "clientes": {
+      "title": "Customers",
+      "subtitle": "View accounts, requests, activity and communications",
+      "table": { "id": "ID", "name": "Name", "email": "Email", "phone": "Phone", "requests": "Requests", "registered": "Registered", "lastAccess": "Last access" },
+      "actions": { "view": "View", "block": "Block", "export": "Export", "merge": "Merge" },
+      "items": [
+        { "id": "CLI-1001", "name": "María García", "email": "maria.g@email.com", "phone": "612 *** 345", "requests": "5", "registered": "15/03/2026", "lastAccess": "25/08/2026" },
+        { "id": "CLI-1002", "name": "Carlos Ruiz", "email": "carlos.r@email.com", "phone": "623 *** 678", "requests": "3", "registered": "22/04/2026", "lastAccess": "24/08/2026" },
+        { "id": "CLI-1003", "name": "Ana López", "email": "ana.l@email.com", "phone": "634 *** 901", "requests": "8", "registered": "10/01/2026", "lastAccess": "23/08/2026" },
+        { "id": "CLI-1004", "name": "Pedro Martín", "email": "pedro.m@email.com", "phone": "645 *** 234", "requests": "2", "registered": "05/07/2026", "lastAccess": "22/08/2026" },
+        { "id": "CLI-1005", "name": "Laura Sánchez", "email": "laura.s@email.com", "phone": "656 *** 567", "requests": "1", "registered": "18/08/2026", "lastAccess": "21/08/2026" }
+      ],
+      "detail": {
+        "title": "Customer detail",
+        "requests": "Requests",
+        "communications": "Communications",
+        "quotesReceived": "Quotes received",
+        "professionalsSelected": "Professionals selected",
+        "reviews": "Reviews",
+        "close": "Close"
+      }
+    },
+    "conversaciones": {
+      "title": "Conversations",
+      "subtitle": "Conversation inbox with search by request, customer and professional",
+      "table": { "id": "ID", "request": "Request", "client": "Customer", "professional": "Professional", "channel": "Channel", "status": "Status", "lastMessage": "Last message", "date": "Date" },
+      "statuses": { "active": "Active", "closed": "Closed", "flagged": "Flagged" },
+      "channels": { "chat": "Chat", "whatsapp": "WhatsApp", "email": "Email" },
+      "actions": { "view": "View", "flag": "Mark spam", "hide": "Hide", "note": "Internal note" },
+      "items": [
+        { "id": "CON-301", "request": "SOL-2400", "client": "Carlos Ruiz", "professional": "Antonio Pérez", "channel": "chat", "status": "active", "lastMessage": "When can you come over?", "date": "25/08/2026" },
+        { "id": "CON-302", "request": "SOL-2399", "client": "Ana López", "professional": "Laura Blanco", "channel": "whatsapp", "status": "active", "lastMessage": "I've sent the photo of the water heater", "date": "24/08/2026" },
+        { "id": "CON-303", "request": "SOL-2398", "client": "Pedro Martín", "professional": "María Fernández", "channel": "chat", "status": "closed", "lastMessage": "Job completed, thank you", "date": "22/08/2026" },
+        { "id": "CON-304", "request": "SOL-2395", "client": "María García", "professional": "—", "channel": "email", "status": "flagged", "lastMessage": "Unsolicited offer for an unrelated service", "date": "20/08/2026" }
+      ]
+    },
+    "trabajos": {
+      "title": "Jobs & agreements",
+      "subtitle": "Track selections, bookings and job statuses",
+      "table": { "id": "ID", "request": "Request", "client": "Customer", "professional": "Professional", "status": "Status", "commission": "Commission", "startDate": "Start", "endDate": "End" },
+      "statuses": { "selected": "Selected", "started": "Started", "inProgress": "In progress", "completed": "Completed", "cancelled": "Cancelled", "disputed": "Disputed" },
+      "actions": { "updateStatus": "Update status", "launchReview": "Request review", "view": "View" },
+      "items": [
+        { "id": "TRB-0801", "request": "SOL-2399", "client": "Ana López", "professional": "Laura Blanco", "status": "inProgress", "commission": "€48", "startDate": "24/08/2026", "endDate": "—" },
+        { "id": "TRB-0800", "request": "SOL-2398", "client": "Pedro Martín", "professional": "María Fernández", "status": "completed", "commission": "€35", "startDate": "22/08/2026", "endDate": "23/08/2026" },
+        { "id": "TRB-0799", "request": "SOL-2395", "client": "María García", "professional": "Antonio Pérez", "status": "selected", "commission": "€40", "startDate": "—", "endDate": "—" },
+        { "id": "TRB-0798", "request": "SOL-2390", "client": "Carlos Ruiz", "professional": "Javier Díaz", "status": "cancelled", "commission": "€0", "startDate": "20/08/2026", "endDate": "21/08/2026" }
+      ]
+    },
+    "resenas": {
+      "title": "Reviews & reputation",
+      "subtitle": "Moderation and professional reputation management",
+      "table": { "id": "ID", "client": "Customer", "professional": "Professional", "rating": "Rating", "status": "Status", "verified": "Verified", "date": "Date" },
+      "statuses": { "pending": "Pending", "published": "Published", "flagged": "Flagged", "hidden": "Hidden", "removed": "Removed" },
+      "actions": { "approve": "Approve", "hide": "Hide", "remove": "Remove", "respond": "Respond" },
+      "items": [
+        { "id": "REV-0201", "client": "Ana López", "professional": "Laura Blanco", "rating": "5", "status": "published", "verified": "Yes", "date": "24/08/2026" },
+        { "id": "REV-0200", "client": "Pedro Martín", "professional": "María Fernández", "rating": "4", "status": "published", "verified": "Yes", "date": "23/08/2026" },
+        { "id": "REV-0199", "client": "María García", "professional": "Antonio Pérez", "rating": "3", "status": "flagged", "verified": "Yes", "date": "22/08/2026" },
+        { "id": "REV-0198", "client": "Carlos Ruiz", "professional": "Javier Díaz", "rating": "2", "status": "pending", "verified": "No", "date": "21/08/2026" }
+      ]
+    },
+    "facturacion": {
+      "title": "Billing & balance",
+      "subtitle": "Manage lead costs, commissions, payments and refunds",
+      "balance": { "total": "Total balance", "amount": "€12,450.00", "monthIncome": "Monthly income", "monthAmount": "€7,190", "pendingCommission": "Pending commissions", "pendingAmount": "€1,840" },
+      "table": { "id": "ID", "professional": "Professional", "type": "Type", "amount": "Amount", "description": "Description", "date": "Date" },
+      "types": { "lead": "Lead cost", "commission": "Commission", "topup": "Top-up", "refund": "Refund", "adjustment": "Adjustment" },
+      "actions": { "export": "Export CSV", "refund": "Refund", "invoice": "Generate invoice" },
+      "items": [
+        { "id": "MOV-7001", "professional": "Antonio Pérez", "type": "lead", "amount": "-€5", "description": "Lead SOL-2401 — Plumbing", "date": "25/08/2026" },
+        { "id": "MOV-7000", "professional": "Antonio Pérez", "type": "topup", "amount": "+€50", "description": "Card top-up ****4523", "date": "25/08/2026" },
+        { "id": "MOV-6999", "professional": "María Fernández", "type": "commission", "amount": "-€35", "description": "Commission TRB-0800 — Completed agreement", "date": "23/08/2026" },
+        { "id": "MOV-6998", "professional": "Carlos Ruiz", "type": "lead", "amount": "-€4", "description": "Lead SOL-2400 — Painting", "date": "24/08/2026" },
+        { "id": "MOV-6997", "professional": "Javier Díaz", "type": "refund", "amount": "+€5", "description": "Refund duplicate lead SOL-2390", "date": "22/08/2026" }
+      ],
+      "config": { "leadCost": "Lead cost", "commission": "Agreement commission", "minBalance": "Minimum balance", "currency": "Currency" }
+    },
+    "marketing": {
+      "title": "Marketing & content",
+      "subtitle": "Manage pages, messages, promotions and SEO",
+      "tabs": { "pages": "Pages", "promotions": "Promotions", "seo": "SEO" },
+      "pages": {
+        "table": { "id": "ID", "title": "Title", "slug": "Slug", "status": "Status", "lastEdit": "Last edited" },
+        "items": [
+          { "id": "PG-001", "title": "Main Landing Page", "slug": "/", "status": "published", "lastEdit": "20/08/2026" },
+          { "id": "PG-002", "title": "Join as a professional", "slug": "/profesional", "status": "published", "lastEdit": "18/08/2026" },
+          { "id": "PG-003", "title": "Terms and Conditions", "slug": "/terminos", "status": "published", "lastEdit": "15/08/2026" }
+        ]
+      },
+      "promotions": {
+        "table": { "id": "ID", "name": "Name", "type": "Type", "discount": "Discount", "status": "Status", "expiry": "Expiry" },
+        "items": [
+          { "id": "PROM-001", "name": "First lead free", "type": "Credit", "discount": "€5", "status": "active", "expiry": "30/09/2026" },
+          { "id": "PROM-002", "name": "Summer 2026", "type": "Discount", "discount": "20%", "status": "scheduled", "expiry": "15/09/2026" }
+        ]
+      },
+      "seo": {
+        "table": { "page": "Page", "title": "Title tag", "description": "Meta description", "score": "Score" },
+        "items": [
+          { "page": "/", "title": "PrecioJusto — Find experts near you", "description": "Professional services marketplace. Compare quotes and hire experts.", "score": "92" },
+          { "page": "/profesional", "title": "Join as a professional — PrecioJusto", "description": "Register your business and receive requests from customers near you.", "score": "85" }
+        ]
+      }
+    },
+    "notificaciones": {
+      "title": "Notifications",
+      "subtitle": "Configure email, SMS, WhatsApp and push notification templates",
+      "create": "Create template",
+      "table": { "id": "ID", "event": "Event", "channel": "Channel", "status": "Status", "lastSent": "Last sent", "deliverability": "Deliverability" },
+      "channels": { "email": "Email", "sms": "SMS", "whatsapp": "WhatsApp", "push": "Push" },
+      "statuses": { "active": "Active", "inactive": "Inactive", "draft": "Draft" },
+      "actions": { "edit": "Edit", "toggle": "Enable/Disable", "test": "Send test", "preview": "Preview" },
+      "items": [
+        { "id": "NTF-001", "event": "Request published", "channel": "email", "status": "active", "lastSent": "25/08/2026", "deliverability": "98%" },
+        { "id": "NTF-002", "event": "New quote", "channel": "email", "status": "active", "lastSent": "25/08/2026", "deliverability": "97%" },
+        { "id": "NTF-003", "event": "Request about to expire", "channel": "push", "status": "active", "lastSent": "24/08/2026", "deliverability": "89%" },
+        { "id": "NTF-004", "event": "Quote selected", "channel": "whatsapp", "status": "active", "lastSent": "23/08/2026", "deliverability": "95%" },
+        { "id": "NTF-005", "event": "Job completed", "channel": "email", "status": "active", "lastSent": "23/08/2026", "deliverability": "96%" },
+        { "id": "NTF-006", "event": "Low balance", "channel": "sms", "status": "active", "lastSent": "22/08/2026", "deliverability": "91%" },
+        { "id": "NTF-007", "event": "Documentation expiring", "channel": "email", "status": "inactive", "lastSent": "15/08/2026", "deliverability": "94%" },
+        { "id": "NTF-008", "event": "Dispute created", "channel": "email", "status": "active", "lastSent": "20/08/2026", "deliverability": "100%" }
+      ]
+    },
+    "soporte": {
+      "title": "Support",
+      "subtitle": "Cases, issues and customer & professional support",
+      "create": "Create ticket",
+      "table": { "id": "ID", "from": "From", "type": "Type", "priority": "Priority", "sla": "SLA", "status": "Status", "assigned": "Assigned", "date": "Date" },
+      "types": { "client": "Customer", "professional": "Professional", "system": "System" },
+      "priorities": { "low": "Low", "medium": "Medium", "high": "High", "urgent": "Urgent" },
+      "statuses": { "open": "Open", "inProgress": "In progress", "waiting": "Waiting", "resolved": "Resolved", "closed": "Closed" },
+      "actions": { "assign": "Assign", "escalate": "Escalate", "resolve": "Resolve", "note": "Internal note" },
+      "items": [
+        { "id": "TKT-0101", "from": "María García", "type": "client", "priority": "high", "sla": "4h", "status": "open", "assigned": "Sofía R.", "date": "25/08/2026" },
+        { "id": "TKT-0100", "from": "Antonio Pérez", "type": "professional", "priority": "medium", "sla": "8h", "status": "inProgress", "assigned": "Sofía R.", "date": "24/08/2026" },
+        { "id": "TKT-0099", "from": "Pedro Martín", "type": "client", "priority": "low", "sla": "24h", "status": "waiting", "assigned": "Luis M.", "date": "23/08/2026" },
+        { "id": "TKT-0098", "from": "System", "type": "system", "priority": "urgent", "sla": "1h", "status": "resolved", "assigned": "Dev Team", "date": "22/08/2026" },
+        { "id": "TKT-0097", "from": "Carlos Ruiz", "type": "professional", "priority": "medium", "sla": "8h", "status": "closed", "assigned": "Luis M.", "date": "21/08/2026" }
+      ]
+    },
+    "analitica": {
+      "title": "Analytics",
+      "subtitle": "Conversion, quality, revenue and operations metrics",
+      "export": "Export CSV",
+      "filters": { "period": "Period", "service": "Service", "location": "Location", "channel": "Channel" },
+      "funnelClient": {
+        "title": "Customer funnel",
+        "steps": [
+          { "step": "Visit", "value": "10,000", "percent": "100%" },
+          { "step": "Search", "value": "7,200", "percent": "72%" },
+          { "step": "Service selected", "value": "4,800", "percent": "48%" },
+          { "step": "Form started", "value": "3,200", "percent": "32%" },
+          { "step": "Form completed", "value": "2,100", "percent": "21%" },
+          { "step": "Contact validated", "value": "1,950", "percent": "19.5%" },
+          { "step": "Request published", "value": "1,800", "percent": "18%" },
+          { "step": "First quote", "value": "1,400", "percent": "14%" },
+          { "step": "Comparison", "value": "1,100", "percent": "11%" },
+          { "step": "Selection", "value": "750", "percent": "7.5%" },
+          { "step": "Job completed", "value": "600", "percent": "6%" },
+          { "step": "Review", "value": "420", "percent": "4.2%" }
+        ]
+      },
+      "funnelProfessional": {
+        "title": "Professional funnel",
+        "steps": [
+          { "step": "Sign-up", "value": "500", "percent": "100%" },
+          { "step": "Profile started", "value": "380", "percent": "76%" },
+          { "step": "Profile approved", "value": "290", "percent": "58%" },
+          { "step": "Service activated", "value": "240", "percent": "48%" },
+          { "step": "Request received", "value": "200", "percent": "40%" },
+          { "step": "Request opened", "value": "170", "percent": "34%" },
+          { "step": "Quote started", "value": "140", "percent": "28%" },
+          { "step": "Quote sent", "value": "120", "percent": "24%" },
+          { "step": "Customer contacted", "value": "85", "percent": "17%" },
+          { "step": "Agreement", "value": "50", "percent": "10%" }
+        ]
+      },
+      "reports": [
+        { "name": "Conversion by service", "description": "Funnel conversion rate segmented by service" },
+        { "name": "Drop-off by step", "description": "Form drop-off points by step and device" },
+        { "name": "Time to first quote", "description": "Average latency between publication and first quote" },
+        { "name": "Quotes per request", "description": "Average number of quotes per request and category" },
+        { "name": "Revenue by channel", "description": "Revenue breakdown by acquisition channel" },
+        { "name": "Performance by zone", "description": "Professional and customer activity by geographical area" }
+      ]
+    },
+    "configuracion": {
+      "title": "Settings",
+      "subtitle": "Users, roles, permissions, security and integrations",
+      "tabs": { "users": "Users", "roles": "Roles", "security": "Security", "integrations": "Integrations" },
+      "users": {
+        "table": { "id": "ID", "name": "Name", "email": "Email", "role": "Role", "status": "Status", "lastLogin": "Last login" },
+        "items": [
+          { "id": "ADM-001", "name": "Main Admin", "email": "admin@preciojusto.com", "role": "Superadmin", "status": "active", "lastLogin": "25/08/2026 09:15" },
+          { "id": "ADM-002", "name": "Sofía Romero", "email": "sofia@preciojusto.com", "role": "Support", "status": "active", "lastLogin": "25/08/2026 08:30" },
+          { "id": "ADM-003", "name": "Luis Moreno", "email": "luis@preciojusto.com", "role": "Moderator", "status": "active", "lastLogin": "24/08/2026 17:45" },
+          { "id": "ADM-004", "name": "Elena Vidal", "email": "elena@preciojusto.com", "role": "Analyst", "status": "inactive", "lastLogin": "15/08/2026 10:00" }
+        ]
+      },
+      "roles": {
+        "table": { "name": "Name", "description": "Description", "users": "Users" },
+        "items": [
+          { "name": "Superadmin", "description": "Full platform access and critical settings", "users": "1" },
+          { "name": "Product manager", "description": "Services, forms, matching and experiments", "users": "0" },
+          { "name": "Request operator", "description": "Requests, distribution and operational fixes", "users": "0" },
+          { "name": "Moderator", "description": "Content, profiles, messages and reviews", "users": "1" },
+          { "name": "Support", "description": "Customers, professionals, requests and tickets", "users": "1" },
+          { "name": "Finance", "description": "Balances, charges, commissions, invoices and refunds", "users": "0" },
+          { "name": "Analyst", "description": "Read-only data access and report exports", "users": "1" },
+          { "name": "Content editor", "description": "Categories, pages, copy and translations", "users": "0" },
+          { "name": "Auditor", "description": "Read-only access and activity logs", "users": "0" }
+        ]
+      },
+      "security": {
+        "mfa": "Multi-factor authentication",
+        "mfaDescription": "Require MFA for all admin accounts",
+        "sessions": "Revocable sessions",
+        "sessionsDescription": "Allow revoking active sessions",
+        "passwordPolicy": "Password policy",
+        "passwordDescription": "Minimum 12 characters, uppercase, number and symbol",
+        "ipControl": "IP-based access control",
+        "ipDescription": "Restrict access to specific IP ranges"
+      },
+      "integrations": {
+        "table": { "name": "Name", "type": "Type", "status": "Status", "lastSync": "Last synced" },
+        "items": [
+          { "name": "Supabase", "type": "Database", "status": "connected", "lastSync": "25/08/2026 09:00" },
+          { "name": "Resend", "type": "Email", "status": "connected", "lastSync": "25/08/2026 09:10" },
+          { "name": "Stripe", "type": "Payments", "status": "connected", "lastSync": "25/08/2026 08:55" },
+          { "name": "WhatsApp Business", "type": "Messaging", "status": "disconnected", "lastSync": "20/08/2026 14:30" }
+        ]
+      }
+    }
   }
 }
