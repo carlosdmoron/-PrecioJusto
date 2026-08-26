@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getDictionary } from "../[lang]/dictionaries";
+import SearchBar from "./SearchBar";
 
 export default async function Hero() {
   const dict = await getDictionary();
@@ -21,18 +22,7 @@ export default async function Hero() {
           {dict.hero.title}
         </h1>
         <form action="#" className="mt-12 flex w-full max-w-[768px] items-stretch">
-          <div className="flex h-[54px] min-w-0 flex-1 items-center rounded-l-lg bg-white">
-            <input
-              type="search"
-              name="service-search"
-              autoComplete="off"
-              autoCapitalize="sentences"
-              inputMode="text"
-              maxLength={524288}
-              placeholder={dict.hero.searchPlaceholder}
-              className="h-full w-full bg-transparent px-4 text-base text-ink outline-none placeholder:text-faint"
-            />
-          </div>
+          <SearchBar placeholder={dict.hero.searchPlaceholder} />
           <button
             type="submit"
             className="h-[54px] w-[82px] shrink-0 rounded-r-lg bg-primary text-base font-semibold text-white transition-colors hover:bg-primary-dark"
