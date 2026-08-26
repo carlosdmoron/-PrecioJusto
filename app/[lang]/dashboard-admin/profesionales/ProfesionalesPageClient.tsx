@@ -5,10 +5,28 @@ import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
-import type { TableRow } from "../../../components/admin/DataTable";
+import { useToast } from "../../../components/admin/Toast";
 
 export default function ProfesionalesPageClient({ data }: { data: any }) {
-  const [selectedRow, setSelectedRow] = useState<TableRow | null>(null);
+  const toast = useToast();
+  const [selectedRow, setSelectedRow] = useState<any | null>(null);
+  const [items, setItems] = useState(data.items.map((i: any) => ({ ...i })));
+
+  const pending = items.filter((i: any) => i.status === "pending");
+
+  function handleApprove(id: number) {
+    setItems((prev: any[]) =>
+      prev.map((i: any) => (i.id === id ? { ...i, status: "active" } : i))
+    );
+    toast.show("Profesional aprobado");
+  }
+
+  function handleReject(id: number) {
+    setItems((prev: any[]) =>
+      prev.map((i: any) => (i.id === id ? { ...i, status: "rejected" } : i))
+    );
+    toast.show("Profesional rechazado");
+  }
 
   const columns = [
     { key: "id", label: data.table.id },
@@ -21,13 +39,12 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
     { key: "quotes", label: data.table.quotes },
   ];
 
-  const pending = data.items.filter((i: any) => i.status === "pending");
-
   return (
     <>
       <AdminSection
         title={data.title}
         subtitle={data.subtitle}
+        description={data.description}
         actions={
           pending.length > 0 ? (
             <span className="rounded-lg bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700">{data.pendingCount}</span>
@@ -45,8 +62,8 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
                     <p className="text-xs text-muted">{p.services} — {p.zone}</p>
                   </div>
                   <div className="flex gap-2">
-                    <button type="button" className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.actions.approve}</button>
-                    <button type="button" className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.reject}</button>
+                    <button type="button" onClick={() => handleApprove(p.id)} className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.actions.approve}</button>
+                    <button type="button" onClick={() => handleReject(p.id)} className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.reject}</button>
                   </div>
                 </div>
               ))}
@@ -55,11 +72,19 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
         )}
         <DataTable
           columns={columns}
-          rows={data.items.map((i: any) => ({ ...i }))}
+          rows={items}
           actions={[
-            { label: data.actions.view, onClick: (row) => setSelectedRow(row) },
-            { label: data.actions.edit, onClick: () => {} },
-            { label: data.actions.suspend, onClick: () => {} },
+            { label: data.actions.view, onClick: (row: any) => setSelectedRow(row) },
+            { label: data.actions.edit, onClick: () => toast.show("Edición no disponible", "info") },
+            {
+              label: data.actions.suspend,
+              onClick: (row: any) => {
+                setItems((prev: any[]) =>
+                  prev.map((i: any) => (i.id === row.id ? { ...i, status: "suspended" } : i))
+                );
+                toast.show("Profesional suspendido");
+              },
+            },
           ]}
         />
       </AdminSection>
@@ -71,14 +96,18 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
               [data.detail.name, selectedRow.name],
               [data.detail.services, selectedRow.services],
               [data.detail.zone, selectedRow.zone],
-              [data.detail.balance, "€1.245"],
-              [data.detail.conversion, "12%"],
+              [data.detail.balance, selectedRow.balance],
+              [data.detail.conversion, selectedRow.conversion],
             ].map(([label, value]) => (
               <div key={String(label)} className="flex justify-between rounded-lg bg-surface px-3 py-2">
                 <span className="text-xs text-muted">{String(label)}</span>
                 <span className="text-xs font-medium text-ink">{String(value)}</span>
               </div>
             ))}
+            <div className="flex justify-between rounded-lg bg-surface px-3 py-2">
+              <span className="text-xs text-muted">{data.detail.status}</span>
+              <StatusBadge status={selectedRow.status} />
+            </div>
           </div>
         )}
       </Modal>

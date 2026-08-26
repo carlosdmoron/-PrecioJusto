@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useToast } from "../../../components/admin/Toast";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
-import StatusBadge from "../../../components/admin/StatusBadge";
 
 export default function MarketingPageClient({ data }: { data: any }) {
   const [tab, setTab] = useState<"pages" | "promotions" | "seo">("pages");
+  const toast = useToast();
 
   function toColumns(obj: Record<string, string>) {
     return Object.entries(obj).map(([key, label]) => ({ key, label }));
   }
 
   return (
-    <AdminSection title={data.title} subtitle={data.subtitle}>
+    <AdminSection title={data.title} subtitle={data.subtitle} description={data.description}>
       <div className="flex gap-1 rounded-lg bg-surface p-1">
         {(["pages", "promotions", "seo"] as const).map((t) => (
           <button
@@ -33,21 +34,21 @@ export default function MarketingPageClient({ data }: { data: any }) {
           <DataTable
             columns={toColumns(data.pages.table)}
             rows={data.pages.items.map((i: any) => ({ ...i }))}
-            actions={[{ label: "Editar", onClick: () => {} }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
           />
         )}
         {tab === "promotions" && (
           <DataTable
             columns={toColumns(data.promotions.table)}
             rows={data.promotions.items.map((i: any) => ({ ...i }))}
-            actions={[{ label: "Editar", onClick: () => {} }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
           />
         )}
         {tab === "seo" && (
           <DataTable
             columns={toColumns(data.seo.table)}
             rows={data.seo.items.map((i: any, idx: number) => ({ id: String(idx), ...i }))}
-            actions={[{ label: "Editar", onClick: () => {} }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
           />
         )}
       </div>

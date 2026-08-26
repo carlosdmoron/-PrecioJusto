@@ -3,11 +3,13 @@ import type { ReactNode } from "react";
 export default function AdminSection({
   title,
   subtitle,
+  description,
   actions,
   children,
 }: {
   title: string;
   subtitle: string;
+  description?: string;
   actions?: ReactNode;
   children: ReactNode;
 }) {
@@ -17,6 +19,7 @@ export default function AdminSection({
         <div>
           <h1 className="font-[family-name:var(--font-figtree)] text-3xl font-semibold tracking-tight text-ink">{title}</h1>
           <p className="mt-2 text-sm text-muted">{subtitle}</p>
+          {description && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-steel">{description}</p>}
         </div>
         {actions && <div className="flex gap-3">{actions}</div>}
       </header>

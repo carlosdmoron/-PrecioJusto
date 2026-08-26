@@ -1397,6 +1397,7 @@
     "resumen": {
       "title": "Resumen ejecutivo",
       "subtitle": "Visión global del marketplace y alertas operativas",
+      "description": "Panel de control principal que muestra los KPIs más importantes del marketplace: solicitudes, presupuestos, ingresos, profesionales activos y alertas operativas que requieren intervención inmediata. Usa los filtros para segmentar por fecha, país, ciudad, categoría o canal de adquisición.",
       "filters": { "fecha": "Rango de fechas", "pais": "País", "ciudad": "Ciudad", "categoria": "Categoría", "servicio": "Servicio", "dispositivo": "Dispositivo", "canal": "Canal de adquisición", "aplicar": "Aplicar", "limpiar": "Limpiar" },
       "stats": [
         { "label": "Solicitudes nuevas", "value": "247", "change": "+12%", "trend": "up" },
@@ -1423,6 +1424,7 @@
     "servicios": {
       "title": "Servicios",
       "subtitle": "Gestiona categorías, servicios y configuración del catálogo",
+      "description": "Administra el catálogo completo de servicios de la plataforma. Crea, edita, duplica, pausa o archiva servicios. Controla estados (borrador → revisión → publicado → pausado → archivado), categorías, variantes regionales y visualiza estadísticas de solicitud e ingresos por servicio.",
       "create": "Crear servicio",
       "createCategory": "Crear categoría",
       "table": { "id": "ID", "name": "Nombre", "category": "Categoría", "status": "Estado", "requests": "Solicitudes", "revenue": "Ingresos", "actions": "Acciones" },
@@ -1443,15 +1445,24 @@
         { "id": "CAT-004", "name": "Electricidad", "services": 0, "status": "active" },
         { "id": "CAT-005", "name": "Limpieza", "services": 0, "status": "draft" }
       ],
-      "modal": { "editTitle": "Editar servicio", "createTitle": "Crear servicio", "name": "Nombre del servicio", "namePh": "Ej: Reparación de tuberías", "category": "Categoría", "description": "Descripción", "descriptionPh": "Describe el servicio...", "status": "Estado", "slug": "Slug", "slugPh": "reparacion-tuberias", "save": "Guardar", "cancel": "Cancelar" }
+      "modal": { "editTitle": "Editar servicio", "createTitle": "Crear servicio", "name": "Nombre del servicio", "namePh": "Ej: Reparación de tuberías", "category": "Categoría", "description": "Descripción", "descriptionPh": "Describe el servicio...", "status": "Estado", "slug": "Slug", "slugPh": "reparacion-tuberias", "save": "Guardar", "cancel": "Cancelar", "categoryPlaceholder": "Seleccionar categoría" }
     },
     "formularios": {
       "title": "Constructor de formularios",
       "subtitle": "Diseña los cuestionarios dinámicos de cada servicio",
+      "description": "Crea y gestiona los formularios dinámicos que los clientes completan al solicitar un servicio. Soporta 11 tipos de pregunta, reglas condicionales, validaciones y versionado. Analiza tasas de abandono por paso para optimizar la conversión.",
       "create": "Crear formulario",
       "table": { "id": "ID", "service": "Servicio", "version": "Versión", "questions": "Preguntas", "abandonment": "Abandono", "status": "Estado", "actions": "Acciones" },
       "statuses": { "draft": "Borrador", "active": "Activo", "archived": "Archivado" },
       "actions": { "edit": "Editar", "preview": "Vista previa", "duplicate": "Duplicar", "versions": "Versiones" },
+      "modal": { "createTitle": "Crear formulario", "editTitle": "Editar formulario", "service": "Servicio", "servicePlaceholder": "Seleccionar servicio", "save": "Crear", "cancel": "Cancelar" },
+      "categories": [
+        { "id": "CAT-001", "name": "Plomería" },
+        { "id": "CAT-002", "name": "Pintura" },
+        { "id": "CAT-003", "name": "Jardinería" },
+        { "id": "CAT-004", "name": "Electricidad" },
+        { "id": "CAT-005", "name": "Limpieza" }
+      ],
       "items": [
         { "id": "FRM-001", "service": "Reparación de tuberías", "version": "v3.1", "questions": "12", "abandonment": "18%", "status": "active" },
         { "id": "FRM-002", "service": "Instalación de caldera", "version": "v2.0", "questions": "9", "abandonment": "12%", "status": "active" },
@@ -1473,6 +1484,7 @@
         ],
         "save": "Guardar borrador",
         "publish": "Publicar",
+        "required": "Obligatoria",
         "previewClient": "Vista previa como cliente",
         "condition": "Condición",
         "conditionPh": "Mostrar si..."
@@ -1481,6 +1493,8 @@
     "solicitudes": {
       "title": "Solicitudes",
       "subtitle": "Consulta, edita y distribuye las solicitudes de clientes",
+      "description": "Gestiona todas las solicitudes de servicio recibidas de clientes. Visualiza respuestas del formulario, edita datos, redistribuye, pausa, reabre o cancela solicitudes. Cada solicitud incluye historial de cambios, profesional asignado y conversaciones vinculadas.",
+      "filters": { "fields": [{ "key": "id", "label": "ID", "type": "text", "placeholder": "SOL-XXXX" }, { "key": "client", "label": "Cliente", "type": "text", "placeholder": "Nombre del cliente" }, { "key": "city", "label": "Ciudad", "type": "text", "placeholder": "Ciudad" }, { "key": "status", "label": "Estado", "type": "select", "options": [{ "value": "new", "label": "Nueva" }, { "value": "published", "label": "Publicada" }, { "value": "inProgress", "label": "En curso" }, { "value": "completed", "label": "Completada" }, { "value": "cancelled", "label": "Cancelada" }, { "value": "blocked", "label": "Bloqueada" }], "placeholder": "Todos" }], "labels": { "apply": "Aplicar", "clear": "Limpiar" } },
       "table": { "id": "ID", "client": "Cliente", "service": "Servicio", "city": "Ciudad", "status": "Estado", "urgency": "Urgencia", "quotes": "Presupuestos", "date": "Fecha" },
       "statuses": { "new": "Nueva", "published": "Publicada", "inProgress": "En curso", "completed": "Completada", "cancelled": "Cancelada", "blocked": "Bloqueada" },
       "urgency": { "asap": "Lo antes posible", "week": "1-2 semanas", "month": "1 mes", "none": "Sin prisa" },
@@ -1495,6 +1509,10 @@
       ],
       "detail": {
         "title": "Detalle de solicitud",
+        "id": "ID",
+        "client": "Cliente",
+        "service": "Servicio",
+        "city": "Ciudad",
         "clientInfo": "Datos del cliente",
         "answers": "Respuestas del formulario",
         "location": "Ubicación",
@@ -1516,11 +1534,14 @@
     "matching": {
       "title": "Matching y distribución",
       "subtitle": "Configura qué profesionales reciben cada solicitud y en qué condiciones",
+      "description": "Define las reglas que determinan qué profesionales reciben cada solicitud de cliente. Configura criterios como servicio, zona, disponibilidad, capacidad y calidad del perfil. Usa el simulador para verificar cómo se comportan las reglas con datos de prueba.",
       "create": "Crear regla",
       "simulate": "Simular matching",
+      "categories": ["Plomería", "Pintura", "Jardinería", "Electricidad", "Limpieza"],
       "table": { "id": "ID", "name": "Nombre", "criterion": "Criterio", "priority": "Prioridad", "professionals": "Profesionales", "status": "Estado", "actions": "Acciones" },
       "criterions": { "service": "Servicio", "zone": "Zona", "availability": "Disponibilidad", "capacity": "Capacidad", "quality": "Calidad del perfil", "history": "Historial de respuesta" },
       "actions": { "edit": "Editar", "duplicate": "Duplicar", "toggle": "Activar/Desactivar" },
+      "createModal": { "title": "Crear regla de matching", "name": "Nombre de la regla", "namePh": "Ej: Plomería Madrid Centro", "criterion": "Criterio principal", "criterionPlaceholder": "Seleccionar criterio", "zone": "Zona (código postal)", "zonePh": "Ej: 28001", "priority": "Prioridad", "priorityPlaceholder": "Seleccionar prioridad", "priorities": { "1": "Alta", "2": "Media", "3": "Baja", "4": "Muy baja" }, "create": "Crear", "cancel": "Cancelar", "created": "Regla creada correctamente" },
       "items": [
         { "id": "REG-001", "name": "Plomería Madrid Centro", "criterion": "service + zone", "priority": "1", "professionals": "12", "status": "active" },
         { "id": "REG-002", "name": "Pintura zona norte", "criterion": "service + zone", "priority": "2", "professionals": "8", "status": "active" },
@@ -1548,6 +1569,7 @@
     "profesionales": {
       "title": "Profesionales",
       "subtitle": "Gestiona registros, perfiles, verificaciones y estado operativo",
+      "description": "Administra el ciclo de vida completo de los profesionales: desde el registro y aprobación hasta la suspensión. Revisa documentación, verifica perfiles, gestiona saldos, historial de trabajos y sanciones. La cola de aprobación muestra los registros pendientes de revisión.",
       "approvalQueue": "Cola de aprobación",
       "pendingCount": "3 pendientes",
       "table": { "id": "ID", "name": "Nombre", "services": "Servicios", "zone": "Zona", "status": "Estado", "verified": "Verificado", "rating": "Valoración", "quotes": "Presupuestos", "actions": "Acciones" },
@@ -1580,9 +1602,11 @@
     "presupuestos": {
       "title": "Presupuestos",
       "subtitle": "Supervisa las ofertas enviadas por profesionales y sus costes",
+      "description": "Supervisa todos los presupuestos enviados por profesionales a clientes. Sigue el ciclo de vida: borrador → pendiente → enviado → visto → contacto → seleccionado/rechazado/expirado. Visualiza costes de lead por cada presupuesto y el historial de interacciones.",
       "table": { "id": "ID", "professional": "Profesional", "client": "Cliente", "service": "Servicio", "amount": "Importe", "status": "Estado", "leadCost": "Coste lead", "date": "Fecha" },
       "statuses": { "draft": "Borrador", "pending": "Pendiente", "sent": "Enviado", "viewed": "Visto", "contacted": "Contacto iniciado", "selected": "Seleccionado", "rejected": "Rechazado", "expired": "Expirado" },
       "actions": { "view": "Ver", "block": "Bloquear", "notify": "Reenviar notificación" },
+      "detail": { "title": "Detalle de presupuesto", "professional": "Profesional", "client": "Cliente", "service": "Servicio", "amount": "Importe", "status": "Estado", "leadCost": "Coste lead", "date": "Fecha", "close": "Cerrar" },
       "items": [
         { "id": "PRE-5001", "professional": "Antonio Pérez", "client": "María García", "service": "Reparación de tuberías", "amount": "€180-220", "status": "sent", "leadCost": "€5", "date": "25/08/2026" },
         { "id": "PRE-5002", "professional": "María Fernández", "client": "María García", "service": "Reparación de tuberías", "amount": "€150-190", "status": "viewed", "leadCost": "€5", "date": "25/08/2026" },
@@ -1595,6 +1619,7 @@
     "clientes": {
       "title": "Clientes",
       "subtitle": "Consulta cuentas, solicitudes, actividad y comunicaciones",
+      "description": "Consulta y gestiona las cuentas de clientes de la plataforma. Visualiza historial de solicitudes, comunicaciones, presupuestos recibidos, profesionales seleccionados y reseñas. Bloquea cuentas problemáticas o exporta datos para análisis externo.",
       "table": { "id": "ID", "name": "Nombre", "email": "Email", "phone": "Teléfono", "requests": "Solicitudes", "registered": "Registro", "lastAccess": "Último acceso" },
       "actions": { "view": "Ver", "block": "Bloquear", "export": "Exportar", "merge": "Fusionar" },
       "items": [
@@ -1606,7 +1631,10 @@
       ],
       "detail": {
         "title": "Detalle del cliente",
+        "name": "Nombre",
+        "email": "Email",
         "requests": "Solicitudes",
+        "lastAccess": "Último acceso",
         "communications": "Comunicaciones",
         "quotesReceived": "Presupuestos recibidos",
         "professionalsSelected": "Profesionales seleccionados",
@@ -1617,10 +1645,12 @@
     "conversaciones": {
       "title": "Conversaciones",
       "subtitle": "Bandeja de conversaciones con búsqueda por solicitud, cliente y profesional",
+      "description": "Monitorea todas las conversaciones entre clientes y profesionales a través de chat, WhatsApp y email. Marca spam, oculta contenido inapropiado y añade notas internas para seguimiento. Cada conversación está vinculada a una solicitud específica.",
       "table": { "id": "ID", "request": "Solicitud", "client": "Cliente", "professional": "Profesional", "channel": "Canal", "status": "Estado", "lastMessage": "Último mensaje", "date": "Fecha" },
       "statuses": { "active": "Activa", "closed": "Cerrada", "flagged": "Marcada" },
       "channels": { "chat": "Chat", "whatsapp": "WhatsApp", "email": "Email" },
       "actions": { "view": "Ver", "flag": "Marcar spam", "hide": "Ocultar", "note": "Nota interna" },
+      "detail": { "title": "Detalle de conversación", "client": "Cliente", "professional": "Profesional", "channel": "Canal", "status": "Estado", "lastMessage": "Último mensaje", "close": "Cerrar" },
       "items": [
         { "id": "CON-301", "request": "SOL-2400", "client": "Carlos Ruiz", "professional": "Antonio Pérez", "channel": "chat", "status": "active", "lastMessage": "¿Cuándo puede pasar?", "date": "25/08/2026" },
         { "id": "CON-302", "request": "SOL-2399", "client": "Ana López", "professional": "Laura Blanco", "channel": "whatsapp", "status": "active", "lastMessage": "He enviado la foto del calentador", "date": "24/08/2026" },
@@ -1631,9 +1661,11 @@
     "trabajos": {
       "title": "Trabajos y acuerdos",
       "subtitle": "Controla selecciones, contrataciones y estados de trabajo",
+      "description": "Supervisa los acuerdos de trabajo entre clientes y profesionales seleccionados. Sigue el ciclo: seleccionado → iniciado → en curso → completado/cancelado/disputado. Controla comisiones, fechas y dispara encuestas de satisfacción al completar.",
       "table": { "id": "ID", "request": "Solicitud", "client": "Cliente", "professional": "Profesional", "status": "Estado", "commission": "Comisión", "startDate": "Inicio", "endDate": "Fin" },
       "statuses": { "selected": "Seleccionado", "started": "Iniciado", "inProgress": "En curso", "completed": "Completado", "cancelled": "Cancelado", "disputed": "Disputado" },
       "actions": { "updateStatus": "Actualizar estado", "launchReview": "Solicitar reseña", "view": "Ver" },
+      "detail": { "title": "Detalle de trabajo", "request": "Solicitud", "client": "Cliente", "professional": "Profesional", "status": "Estado", "commission": "Comisión", "startDate": "Inicio", "endDate": "Fin", "close": "Cerrar" },
       "items": [
         { "id": "TRB-0801", "request": "SOL-2399", "client": "Ana López", "professional": "Laura Blanco", "status": "inProgress", "commission": "€48", "startDate": "24/08/2026", "endDate": "—" },
         { "id": "TRB-0800", "request": "SOL-2398", "client": "Pedro Martín", "professional": "María Fernández", "status": "completed", "commission": "€35", "startDate": "22/08/2026", "endDate": "23/08/2026" },
@@ -1644,9 +1676,11 @@
     "resenas": {
       "title": "Reseñas y reputación",
       "subtitle": "Moderación y gestión de la reputación de profesionales",
+      "description": "Gestiona las reseñas publicadas por clientes sobre profesionales. Aprueba, oculta o elimina reseñas según las políticas de contenido. Separa reseñas verificadas (asociadas a trabajo completado) de reseñas sin acuerdo formal. Detecta intentos de manipulación.",
       "table": { "id": "ID", "client": "Cliente", "professional": "Profesional", "rating": "Puntuación", "status": "Estado", "verified": "Verificada", "date": "Fecha" },
       "statuses": { "pending": "Pendiente", "published": "Publicada", "flagged": "Denunciada", "hidden": "Oculta", "removed": "Eliminada" },
       "actions": { "approve": "Aprobar", "hide": "Ocultar", "remove": "Eliminar", "respond": "Responder" },
+      "detail": { "title": "Detalle de reseña", "client": "Cliente", "professional": "Profesional", "rating": "Puntuación", "status": "Estado", "close": "Cerrar" },
       "items": [
         { "id": "REV-0201", "client": "Ana López", "professional": "Laura Blanco", "rating": "5", "status": "published", "verified": "Sí", "date": "24/08/2026" },
         { "id": "REV-0200", "client": "Pedro Martín", "professional": "María Fernández", "rating": "4", "status": "published", "verified": "Sí", "date": "23/08/2026" },
@@ -1657,6 +1691,7 @@
     "facturacion": {
       "title": "Facturación y saldo",
       "subtitle": "Gestiona costes de leads, comisiones, pagos y reembolsos",
+      "description": "Administra el ledger financiero de la plataforma: costes de lead, comisiones por acuerdo, recargas de saldo, reembolsos y ajustes. Configura tarifas globales y exporta movimientos para contabilidad. El ledger es inmutable — los ajustes se realizan con entradas compensatorias.",
       "balance": { "total": "Saldo total", "amount": "€12.450,00", "monthIncome": "Ingresos del mes", "monthAmount": "€7.190", "pendingCommission": "Comisiones pendientes", "pendingAmount": "€1.840" },
       "table": { "id": "ID", "professional": "Profesional", "type": "Tipo", "amount": "Monto", "description": "Descripción", "date": "Fecha" },
       "types": { "lead": "Coste de lead", "commission": "Comisión", "topup": "Recarga", "refund": "Reembolso", "adjustment": "Ajuste" },
@@ -1668,11 +1703,14 @@
         { "id": "MOV-6998", "professional": "Carlos Ruiz", "type": "lead", "amount": "-€4", "description": "Lead SOL-2400 — Pintura", "date": "24/08/2026" },
         { "id": "MOV-6997", "professional": "Javier Díaz", "type": "refund", "amount": "+€5", "description": "Reembolso lead duplicado SOL-2390", "date": "22/08/2026" }
       ],
-      "config": { "leadCost": "Coste de lead", "commission": "Comisión por acuerdo", "minBalance": "Saldo mínimo", "currency": "Moneda" }
+      "config": { "leadCost": "Coste de lead", "commission": "Comisión por acuerdo", "minBalance": "Saldo mínimo", "currency": "Moneda" },
+      "configModal": { "title": "Configuración de facturación", "leadCostPh": "Ej: 5", "commissionPh": "Ej: 15", "minBalancePh": "Ej: 10", "currencyPh": "EUR", "save": "Guardar", "cancel": "Cancelar", "saved": "Configuración guardada" }
     },
     "marketing": {
       "title": "Marketing y contenido",
       "subtitle": "Gestiona páginas, mensajes, promociones y SEO",
+      "description": "Administra el contenido de marketing de la plataforma: páginas de aterrizaje, campañas promocionales y optimización SEO. Edita textos, configura descuentos y monitorea el rendimiento de las páginas con puntuaciones de calidad SEO.",
+      "actions": { "edit": "Editar" },
       "tabs": { "pages": "Páginas", "promotions": "Promociones", "seo": "SEO" },
       "pages": {
         "table": { "id": "ID", "title": "Título", "slug": "Slug", "status": "Estado", "lastEdit": "Última edición" },
@@ -1700,11 +1738,13 @@
     "notificaciones": {
       "title": "Notificaciones",
       "subtitle": "Configura plantillas de email, SMS, WhatsApp y push",
+      "description": "Configura las plantillas de notificación multi-canal (email, SMS, WhatsApp, push) que se envían automáticamente ante eventos como nueva solicitud, presupuesto recibido, saldo bajo o documentación por caducar. Controla activación, envío de prueba y tasas de entregabilidad.",
       "create": "Crear plantilla",
       "table": { "id": "ID", "event": "Evento", "channel": "Canal", "status": "Estado", "lastSent": "Último envío", "deliverability": "Entregabilidad" },
       "channels": { "email": "Email", "sms": "SMS", "whatsapp": "WhatsApp", "push": "Push" },
       "statuses": { "active": "Activa", "inactive": "Inactiva", "draft": "Borrador" },
       "actions": { "edit": "Editar", "toggle": "Activar/Desactivar", "test": "Prueba de envío", "preview": "Vista previa" },
+      "modal": { "title": "Crear plantilla", "event": "Evento", "eventPlaceholder": "Seleccionar evento", "channel": "Canal", "channelPlaceholder": "Seleccionar canal", "subject": "Asunto / Cabecera", "subjectPh": "Asunto del email o cabecera del SMS", "body": "Cuerpo del mensaje", "bodyPh": "Escribe el contenido de la notificación...", "create": "Crear", "cancel": "Cancelar", "created": "Plantilla creada correctamente" },
       "items": [
         { "id": "NTF-001", "event": "Solicitud publicada", "channel": "email", "status": "active", "lastSent": "25/08/2026", "deliverability": "98%" },
         { "id": "NTF-002", "event": "Nuevo presupuesto", "channel": "email", "status": "active", "lastSent": "25/08/2026", "deliverability": "97%" },
@@ -1719,12 +1759,15 @@
     "soporte": {
       "title": "Soporte",
       "subtitle": "Casos, incidencias y atención al cliente y profesional",
+      "description": "Centraliza los tickets de soporte de clientes y profesionales. Asigna agentes, gestiona prioridades, SLA, estados y escalamientos. Cada ticket se vincula a cuentas, solicitudes, presupuestos, acuerdos y conversaciones para contexto completo.",
       "create": "Crear ticket",
       "table": { "id": "ID", "from": "Remitente", "type": "Tipo", "priority": "Prioridad", "sla": "SLA", "status": "Estado", "assigned": "Asignado", "date": "Fecha" },
       "types": { "client": "Cliente", "professional": "Profesional", "system": "Sistema" },
       "priorities": { "low": "Baja", "medium": "Media", "high": "Alta", "urgent": "Urgente" },
       "statuses": { "open": "Abierto", "inProgress": "En progreso", "waiting": "Esperando", "resolved": "Resuelto", "closed": "Cerrado" },
       "actions": { "assign": "Asignar", "escalate": "Escalar", "resolve": "Resolver", "note": "Nota interna" },
+      "detail": { "title": "Detalle de ticket", "note": "Nota interna", "notePh": "Escribe una nota...", "assign": "Asignar", "escalate": "Escalar", "resolve": "Resolver", "close": "Cerrar" },
+      "createModal": { "title": "Crear ticket", "sender": "Remitente", "senderPh": "Nombre o email", "type": "Tipo", "typePlaceholder": "Seleccionar tipo", "priority": "Prioridad", "priorityPlaceholder": "Seleccionar prioridad", "description": "Descripción", "descriptionPh": "Describe el problema...", "create": "Crear", "cancel": "Cancelar", "created": "Ticket creado correctamente" },
       "items": [
         { "id": "TKT-0101", "from": "María García", "type": "client", "priority": "high", "sla": "4h", "status": "open", "assigned": "Sofía R.", "date": "25/08/2026" },
         { "id": "TKT-0100", "from": "Antonio Pérez", "type": "professional", "priority": "medium", "sla": "8h", "status": "inProgress", "assigned": "Sofía R.", "date": "24/08/2026" },
@@ -1736,7 +1779,10 @@
     "analitica": {
       "title": "Analítica",
       "subtitle": "Métricas de conversión, calidad, ingresos y operación",
+      "description": "Visualiza los embudos de conversión de clientes (12 pasos) y profesionales (10 pasos). Analiza reportes de conversión por servicio, abandono por paso, tiempos de respuesta y rendimiento por zona. Exporta datos en CSV para análisis externo.",
       "export": "Exportar CSV",
+      "viewReport": "Ver reporte →",
+      "tabs": { "funnels": "Embudos", "reports": "Reportes" },
       "filters": { "period": "Período", "service": "Servicio", "location": "Ubicación", "channel": "Canal" },
       "funnelClient": {
         "title": "Embudo del cliente",
@@ -1782,9 +1828,13 @@
     "configuracion": {
       "title": "Configuración",
       "subtitle": "Usuarios, roles, permisos, seguridad e integraciones",
+      "description": "Administra los usuarios administradores, roles con permisos por módulo, políticas de seguridad (MFA, sesiones, contraseñas, control IP) e integraciones externas (base de datos, email, pagos, mensajería). Cada acción genera un registro de auditoría.",
+      "actions": { "edit": "Editar" },
+      "actions": { "edit": "Editar" },
       "tabs": { "users": "Usuarios", "roles": "Roles", "security": "Seguridad", "integrations": "Integraciones" },
       "users": {
         "table": { "id": "ID", "name": "Nombre", "email": "Email", "role": "Rol", "status": "Estado", "lastLogin": "Último acceso" },
+        "modal": { "title": "Crear usuario administrador", "name": "Nombre", "namePh": "Nombre completo", "email": "Email", "emailPh": "admin@preciojusto.com", "role": "Rol", "rolePlaceholder": "Seleccionar rol", "create": "Crear", "cancel": "Cancelar", "created": "Usuario creado correctamente" },
         "items": [
           { "id": "ADM-001", "name": "Admin Principal", "email": "admin@preciojusto.com", "role": "Superadministrador", "status": "activo", "lastLogin": "25/08/2026 09:15" },
           { "id": "ADM-002", "name": "Sofía Romero", "email": "sofia@preciojusto.com", "role": "Soporte", "status": "activo", "lastLogin": "25/08/2026 08:30" },

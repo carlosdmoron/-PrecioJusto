@@ -1,6 +1,7 @@
 import { lang } from "next/root-params";
 import { getDictionary } from "../dictionaries";
 import DashboardSidebar from "../../components/dashboard/DashboardSidebar";
+import AdminToastWrapper from "./AdminToastWrapper";
 
 export default async function AdminDashboardLayout({
   children,
@@ -39,7 +40,7 @@ export default async function AdminDashboardLayout({
         logoutLabels={dict.sesion}
         loginHref={`/${current}/iniciar-sesion`}
       />
-      <main className="min-w-0 flex-1">{children}</main>
+      <main className="min-w-0 flex-1"><AdminToastWrapper>{children}</AdminToastWrapper></main>
     </div>
   );
 }

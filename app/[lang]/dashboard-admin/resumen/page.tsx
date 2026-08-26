@@ -31,7 +31,7 @@ export default async function ResumenPage() {
   ];
 
   return (
-    <AdminSection title={resumen.title} subtitle={resumen.subtitle}>
+    <AdminSection title={resumen.title} subtitle={resumen.subtitle} description={resumen.description}>
       <FilterBar fields={filters} labels={{ apply: resumen.filters.aplicar, clear: resumen.filters.limpiar }} />
       <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {resumen.stats.map((stat, i) => (
