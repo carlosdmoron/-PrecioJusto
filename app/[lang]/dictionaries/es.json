@@ -73,11 +73,11 @@
     ]
   },
   "profBuscados": {
-    "title": "Los 3 profesionales que estamos buscando",
+    "title": "Los 3 servicios que estamos buscando",
     "items": {
-      "electricista": "Electricista",
-      "carpintero": "Carpintero",
-      "fontanero": "Fontanero"
+      "limpieza": "Limpieza",
+      "construccion": "Construcción",
+      "carpintero": "Carpintero"
     },
     "comingSoon": "Próximamente",
     "presupuestar": "Presupuestar"
