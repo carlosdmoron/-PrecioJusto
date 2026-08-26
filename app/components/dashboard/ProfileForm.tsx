@@ -1,19 +1,9 @@
 "use client";
 
-import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 
 type ProfileKey = "nombre" | "apellido" | "email" | "ubicacion" | "telefono";
 type ProfileValues = Record<ProfileKey, string>;
-
-const DEFAULT_STORAGE_KEY = "pj-perfil-profesional";
-
-const DEMO_VALUES: ProfileValues = {
-  nombre: "Carlos",
-  apellido: "Morón",
-  email: "carlos@preciojusto.com",
-  ubicacion: "Santiago, Chile",
-  telefono: "+56 9 1234 5678",
-};
 
 const FIELDS: { key: ProfileKey; type: string; autoComplete: string }[] = [
   { key: "nombre", type: "text", autoComplete: "given-name" },
@@ -23,56 +13,39 @@ const FIELDS: { key: ProfileKey; type: string; autoComplete: string }[] = [
   { key: "telefono", type: "tel", autoComplete: "tel" },
 ];
 
-function subscribe(callback: () => void) {
-  window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
-}
-
-function getServerSnapshot(): string | null {
-  return null;
-}
-
 export default function ProfileForm({
   form,
-  storageKey = DEFAULT_STORAGE_KEY,
-  defaultValues = DEMO_VALUES,
+  defaultValues = { nombre: "", apellido: "", email: "", ubicacion: "", telefono: "" },
+  onSave,
 }: {
   form: Record<string, string>;
-  storageKey?: string;
   defaultValues?: ProfileValues;
+  onSave?: (values: ProfileValues) => Promise<void>;
 }) {
-  const getSnapshot = useCallback(
-    () => window.localStorage.getItem(storageKey),
-    [storageKey],
-  );
-  const raw = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-
-  const stored = useMemo<Partial<ProfileValues>>(() => {
-    try {
-      return JSON.parse(raw ?? "{}") as Partial<ProfileValues>;
-    } catch {
-      return {};
-    }
-  }, [raw]);
-
   const [draft, setDraft] = useState<Partial<ProfileValues>>({});
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const values: ProfileValues = { ...defaultValues, ...stored, ...draft };
+  const values: ProfileValues = { ...defaultValues, ...draft };
 
   function update(key: ProfileKey, value: string) {
     setSaved(false);
     setDraft((prev) => ({ ...prev, [key]: value }));
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSaving(true);
     try {
-      window.localStorage.setItem(storageKey, JSON.stringify(values));
+      if (onSave) {
+        await onSave(values);
+      }
       setDraft({});
       setSaved(true);
     } catch {
       setSaved(false);
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -106,9 +79,10 @@ export default function ProfileForm({
       <div className="mt-7 flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          className="h-12 rounded-lg bg-primary px-6 text-sm font-semibold text-white transition hover:bg-primary-dark"
+          disabled={saving}
+          className="h-12 rounded-lg bg-primary px-6 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-50"
         >
-          {form.guardar}
+          {saving ? "Guardando..." : form.guardar}
         </button>
         <span
           aria-live="polite"

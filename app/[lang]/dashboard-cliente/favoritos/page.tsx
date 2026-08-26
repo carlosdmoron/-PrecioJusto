@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
-import FavoritesSection from "../../../components/customer/FavoritesSection";
+import { getFavorites } from "../../../actions/favorites";
+import FavoritesReal from "../../../components/customer/FavoritesReal";
 
 export async function generateMetadata({
   params,
@@ -15,5 +16,8 @@ export async function generateMetadata({
 
 export default async function FavoritosPage() {
   const dict = await getDictionary();
-  return <FavoritesSection data={dict.dashboardCliente.sections.favoritos} />;
+  const favorites = (await getFavorites()) as any[];
+  const data = dict.dashboardCliente.sections.favoritos;
+
+  return <FavoritesReal data={data} favorites={favorites} />;
 }

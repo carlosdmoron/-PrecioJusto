@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
-import CustomerRequestsSection from "../../../components/customer/CustomerRequestsSection";
+import { getRequests } from "../../../actions/requests";
+import { getServices } from "../../../actions/services";
+import CustomerRequestsReal from "../../../components/customer/CustomerRequestsReal";
 
 export async function generateMetadata({
   params,
@@ -15,5 +17,15 @@ export async function generateMetadata({
 
 export default async function SolicitudesPage() {
   const dict = await getDictionary();
-  return <CustomerRequestsSection data={dict.dashboardCliente.sections.solicitudes} />;
+  const requests = await getRequests();
+  const services = await getServices();
+  const data = dict.dashboardCliente.sections.solicitudes;
+
+  return (
+    <CustomerRequestsReal
+      data={data}
+      requests={requests}
+      services={services}
+    />
+  );
 }

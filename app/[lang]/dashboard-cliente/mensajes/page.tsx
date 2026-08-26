@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
-import MessagesSection from "../../../components/customer/MessagesSection";
+import { getConversations } from "../../../actions/messages";
+import MessagesReal from "../../../components/customer/MessagesReal";
 
 export async function generateMetadata({
   params,
@@ -15,5 +16,8 @@ export async function generateMetadata({
 
 export default async function MensajesPage() {
   const dict = await getDictionary();
-  return <MessagesSection data={dict.dashboardCliente.sections.mensajes} />;
+  const conversations = await getConversations();
+  const data = dict.dashboardCliente.sections.mensajes;
+
+  return <MessagesReal data={data} conversations={conversations} />;
 }
