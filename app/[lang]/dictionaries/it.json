@@ -73,13 +73,22 @@
     ]
   },
   "profBuscados": {
+    "title": "I 3 professionisti che stiamo cercando",
+    "items": {
+      "electricista": "Elettricista",
+      "carpintero": "Falegname",
+      "fontanero": "Idraulico"
+    },
+    "comingSoon": "Prossimamente",
+    "presupuestar": "Preventivare"
+  },
+  "serviciosBuscados": {
     "title": "I 3 servizi che stiamo cercando",
     "items": {
       "limpieza": "Pulizia",
       "construccion": "Costruzione",
       "carpintero": "Falegname"
     },
-    "comingSoon": "Prossimamente",
     "presupuestar": "Preventivare"
   },
   "featuresSection": {

@@ -73,13 +73,22 @@
     ]
   },
   "profBuscados": {
+    "title": "The 3 professionals we're looking for",
+    "items": {
+      "electricista": "Electrician",
+      "carpintero": "Carpenter",
+      "fontanero": "Plumber"
+    },
+    "comingSoon": "Coming soon",
+    "presupuestar": "Get a quote"
+  },
+  "serviciosBuscados": {
     "title": "The 3 services we are looking for",
     "items": {
       "limpieza": "Cleaning",
       "construccion": "Construction",
       "carpintero": "Carpentry"
     },
-    "comingSoon": "Coming soon",
     "presupuestar": "Get a quote"
   },
   "featuresSection": {
