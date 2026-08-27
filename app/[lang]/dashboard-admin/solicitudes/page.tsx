@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
+import { listRequests } from "../../../actions/admin";
 import SolicitudesPageClient from "./SolicitudesPageClient";
 
 export async function generateMetadata({
@@ -15,5 +16,8 @@ export async function generateMetadata({
 
 export default async function SolicitudesPage() {
   const dict = await getDictionary();
-  return <SolicitudesPageClient data={dict.dashboardAdmin.solicitudes} />;
+  const items = await listRequests();
+  return (
+    <SolicitudesPageClient data={{ ...dict.dashboardAdmin.solicitudes, items }} />
+  );
 }

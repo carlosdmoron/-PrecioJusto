@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
@@ -9,17 +10,19 @@ import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
 import type { TableRow } from "../../../components/admin/DataTable";
 import type { FilterField } from "../../../components/admin/FilterBar";
+import { setRequestStatus } from "../../../actions/admin";
 
 export default function SolicitudesPageClient({ data }: { data: any }) {
   const toast = useToast();
+  const router = useRouter();
+  const [items, setItems] = useState(data.items ?? []);
   const [selectedRow, setSelectedRow] = useState<TableRow | null>(null);
 
   const filterFields: FilterField[] = data.filters.fields;
 
   const columns = [
-    { key: "id", label: data.table.id },
+    { key: "title", label: data.table.service },
     { key: "client", label: data.table.client },
-    { key: "service", label: data.table.service },
     { key: "city", label: data.table.city },
     {
       key: "status",
@@ -30,6 +33,19 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
     { key: "quotes", label: data.table.quotes },
     { key: "date", label: data.table.date },
   ];
+
+  async function handleStatus(row: TableRow, status: string, msg: string) {
+    try {
+      await setRequestStatus(String(row.id), status);
+      setItems((prev: any[]) =>
+        prev.map((i: any) => (i.id === row.id ? { ...i, status } : i))
+      );
+      toast.show(msg);
+      router.refresh();
+    } catch (e: any) {
+      toast.show(e?.message ?? "Error", "info");
+    }
+  }
 
   return (
     <>
@@ -46,7 +62,7 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
         </div>
         <DataTable
           columns={columns}
-          rows={data.items.map((i: any) => ({ ...i }))}
+          rows={items}
           actions={[
             {
               label: data.actions.edit,
@@ -56,9 +72,8 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
             },
             {
               label: data.actions.pause,
-              onClick: () => {
-                toast.show("Solicitud pausada");
-              },
+              onClick: (row) =>
+                handleStatus(row, "cancelled", "Solicitud pausada"),
             },
             {
               label: data.actions.detail,
@@ -78,9 +93,9 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
           <div className="mt-4 space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-lg bg-surface p-3">
-                <p className="text-xs text-muted">{data.detail.id}</p>
+                <p className="text-xs text-muted">{data.detail.service}</p>
                 <p className="text-sm font-semibold text-ink">
-                  {selectedRow.id}
+                  {selectedRow.service}
                 </p>
               </div>
               <div className="rounded-lg bg-surface p-3">
@@ -90,16 +105,14 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
                 </p>
               </div>
               <div className="rounded-lg bg-surface p-3">
-                <p className="text-xs text-muted">{data.detail.service}</p>
-                <p className="text-sm font-semibold text-ink">
-                  {selectedRow.service}
-                </p>
-              </div>
-              <div className="rounded-lg bg-surface p-3">
                 <p className="text-xs text-muted">{data.detail.city}</p>
                 <p className="text-sm font-semibold text-ink">
                   {selectedRow.city}
                 </p>
+              </div>
+              <div className="rounded-lg bg-surface p-3">
+                <p className="text-xs text-muted">{data.table.status}</p>
+                <StatusBadge status={selectedRow.status} />
               </div>
             </div>
             <div>
@@ -133,7 +146,8 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
               <button
                 type="button"
                 onClick={() => {
-                  toast.show("Solicitud pausada");
+                  handleStatus(selectedRow, "cancelled", "Solicitud pausada");
+                  setSelectedRow(null);
                 }}
                 className="rounded-lg bg-amber-50 px-4 py-2 text-xs font-semibold text-amber-700 transition hover:bg-amber-100"
               >
@@ -151,7 +165,8 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
               <button
                 type="button"
                 onClick={() => {
-                  toast.show("Solicitud bloqueada");
+                  handleStatus(selectedRow, "blocked", "Solicitud bloqueada");
+                  setSelectedRow(null);
                 }}
                 className="rounded-lg bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100"
               >

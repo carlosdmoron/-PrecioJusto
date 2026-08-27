@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
+import { listTickets } from "../../../actions/admin";
 import SoportePageClient from "./SoportePageClient";
 
 export async function generateMetadata({
@@ -15,5 +16,8 @@ export async function generateMetadata({
 
 export default async function SoportePage() {
   const dict = await getDictionary();
-  return <SoportePageClient data={dict.dashboardAdmin.soporte} />;
+  const items = await listTickets();
+  return (
+    <SoportePageClient data={{ ...dict.dashboardAdmin.soporte, items }} />
+  );
 }

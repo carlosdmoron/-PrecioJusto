@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
+import { listProfessionals } from "../../../actions/admin";
 import ProfesionalesPageClient from "./ProfesionalesPageClient";
 
 export async function generateMetadata({
@@ -15,5 +16,8 @@ export async function generateMetadata({
 
 export default async function ProfesionalesPage() {
   const dict = await getDictionary();
-  return <ProfesionalesPageClient data={dict.dashboardAdmin.profesionales} />;
+  const items = await listProfessionals();
+  return (
+    <ProfesionalesPageClient data={{ ...dict.dashboardAdmin.profesionales, items }} />
+  );
 }

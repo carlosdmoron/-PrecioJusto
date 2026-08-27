@@ -1,51 +1,79 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useToast } from "../../../components/admin/Toast";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
+import { setTicketStatus, createTicket } from "../../../actions/admin";
 
 export default function SoportePageClient({ data }: { data: any }) {
   const [showCreate, setShowCreate] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any>(null);
-  const [items, setItems] = useState(data.items);
+  const [items, setItems] = useState(data.items ?? []);
   const [sender, setSender] = useState("");
   const [type, setType] = useState("");
   const [priority, setPriority] = useState("");
   const [description, setDescription] = useState("");
   const toast = useToast();
+  const router = useRouter();
 
   const columns = [
     { key: "id", label: data.table.id },
     { key: "from", label: data.table.from },
     { key: "type", label: data.table.type },
-    { key: "priority", label: data.table.priority },
+    { key: "priority", label: data.table.priority, render: (r: any) => <StatusBadge status={r.priority} /> },
     { key: "sla", label: data.table.sla },
-    { key: "status", label: data.table.status },
+    { key: "status", label: data.table.status, render: (r: any) => <StatusBadge status={r.status} /> },
     { key: "assigned", label: data.table.assigned },
     { key: "date", label: data.table.date },
   ];
 
-  function handleCreate() {
-    const newItem = {
-      id: `TKT-${String(items.length + 101).padStart(4, "0")}`,
-      from: sender,
-      type,
-      priority,
-      sla: "8h",
-      status: "open",
-      assigned: "—",
-      date: new Date().toLocaleDateString("es-ES"),
-    };
-    setItems([...items, newItem]);
-    toast.show(data.createModal.created);
-    setSender("");
-    setType("");
-    setPriority("");
-    setDescription("");
-    setShowCreate(false);
+  async function handleCreate() {
+    if (!sender.trim()) return;
+    try {
+      await createTicket({
+        sender_id: sender.trim(),
+        sender_type: type || "client",
+        priority: priority || "medium",
+        description,
+      });
+      const newItem = {
+        id: `TKT-${String(items.length + 101).padStart(4, "0")}`,
+        from: sender,
+        type: type || "client",
+        priority: priority || "medium",
+        sla: "8h",
+        status: "open",
+        assigned: "—",
+        date: new Date().toLocaleDateString("es-ES"),
+      };
+      setItems((prev: any[]) => [...prev, newItem]);
+      toast.show(data.createModal.created);
+      setSender("");
+      setType("");
+      setPriority("");
+      setDescription("");
+      setShowCreate(false);
+      router.refresh();
+    } catch (e: any) {
+      toast.show(e?.message ?? "Error", "info");
+    }
+  }
+
+  async function handleResolve(row: any) {
+    try {
+      await setTicketStatus(String(row.id), "resolved");
+      setItems((prev: any[]) =>
+        prev.map((i: any) => (i.id === row.id ? { ...i, status: "resolved" } : i))
+      );
+      toast.show("Ticket resuelto");
+      router.refresh();
+    } catch (e: any) {
+      toast.show(e?.message ?? "Error", "info");
+    }
   }
 
   return (
@@ -60,11 +88,11 @@ export default function SoportePageClient({ data }: { data: any }) {
       >
         <DataTable
           columns={columns}
-          rows={items.map((i: any) => ({ ...i, status: <StatusBadge status={i.status} />, priority: <StatusBadge status={i.priority} /> }))}
+          rows={items}
           actions={[
             { label: data.actions.assign, onClick: (row) => setSelectedRow(row) },
             { label: data.actions.escalate, onClick: () => toast.show("Ticket escalado") },
-            { label: data.actions.resolve, onClick: () => toast.show("Ticket resuelto") },
+            { label: data.actions.resolve, onClick: (row) => handleResolve(row) },
           ]}
         />
       </AdminSection>
@@ -73,21 +101,23 @@ export default function SoportePageClient({ data }: { data: any }) {
         {selectedRow && (
           <div className="mt-4 space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              {Object.entries(selectedRow).filter(([k]) => k !== "id").map(([key, val]) => (
+              {Object.entries(selectedRow).filter(([k]) => k !== "id" && k !== "description").map(([key, val]) => (
                 <div key={key} className="rounded-lg bg-surface p-3">
                   <p className="text-xs text-muted capitalize">{key}</p>
                   <p className="text-sm font-semibold text-ink">{String(val)}</p>
                 </div>
               ))}
             </div>
-            <div>
-              <label className="text-xs font-medium text-muted">{data.detail.note}</label>
-              <textarea rows={3} placeholder={data.detail.notePh} className="mt-1 w-full rounded-lg bg-field px-3 py-2 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40" />
-            </div>
+            {selectedRow.description && (
+              <div>
+                <p className="text-xs font-medium text-muted">{data.detail.note}</p>
+                <p className="mt-1 rounded-lg bg-surface px-3 py-2 text-sm text-ink">{selectedRow.description}</p>
+              </div>
+            )}
             <div className="flex flex-wrap gap-2 pt-2">
               <button type="button" onClick={() => { toast.show("Ticket asignado"); setSelectedRow(null); }} className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20">{data.detail.assign}</button>
               <button type="button" onClick={() => { toast.show("Ticket escalado"); setSelectedRow(null); }} className="rounded-lg bg-amber-50 px-4 py-2 text-xs font-semibold text-amber-700 transition hover:bg-amber-100">{data.detail.escalate}</button>
-              <button type="button" onClick={() => { toast.show("Ticket resuelto"); setSelectedRow(null); }} className="rounded-lg bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.detail.resolve}</button>
+              <button type="button" onClick={() => { handleResolve(selectedRow); setSelectedRow(null); }} className="rounded-lg bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.detail.resolve}</button>
             </div>
           </div>
         )}

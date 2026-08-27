@@ -122,3 +122,209 @@ export async function deleteService(id: string) {
   revalidatePath("/dashboard-admin/servicios");
   return { success: true };
 }
+
+// ===== SOLICITUDES (requests) =====
+export async function listRequests() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("requests")
+    .select(
+      "id, title, description, city, urgency, status, quotes_count, budget, created_at, client:profiles!requests_client_id_fkey(email), service:services!requests_service_id_fkey(name)"
+    )
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  const rows = (data ?? []) as Array<Record<string, any>>;
+  return rows.map((r) => ({
+    id: r.id,
+    title: r.title,
+    service: Array.isArray(r.service) ? r.service[0]?.name : r.service?.name ?? "—",
+    client: Array.isArray(r.client) ? r.client[0]?.email : r.client?.email ?? "—",
+    city: r.city ?? "—",
+    urgency: r.urgency ?? "none",
+    status: r.status ?? "new",
+    quotes: r.quotes_count ?? 0,
+    date: r.created_at ? new Date(r.created_at).toLocaleDateString("es-ES") : "—",
+  }));
+}
+
+export async function setRequestStatus(id: string, status: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("requests")
+    .update({ status })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/dashboard-admin/solicitudes");
+  return { success: true };
+}
+
+// ===== MATCHING (matching_rules) =====
+export async function listMatchingRules() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("matching_rules")
+    .select("*")
+    .order("priority", { ascending: true });
+  if (error) throw new Error(error.message);
+  return data ?? [];
+}
+
+export async function toggleMatchingRule(id: string, status: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("matching_rules")
+    .update({ status })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/dashboard-admin/matching");
+  return { success: true };
+}
+
+export async function createMatchingRule(input: {
+  name: string;
+  criterion: string;
+  zone_postal_code: string;
+  priority: number;
+}) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("matching_rules").insert({
+    name: input.name,
+    criterion: input.criterion,
+    zone_postal_code: input.zone_postal_code || null,
+    priority: input.priority,
+    status: "active",
+  });
+  if (error) throw new Error(error.message);
+  revalidatePath("/dashboard-admin/matching");
+  return { success: true };
+}
+
+// ===== PROFESIONALES (professionals) =====
+export async function listProfessionals() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("professionals")
+    .select("*, profile:profiles!professionals_id_fkey(first_name, last_name, email)")
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  const rows = (data ?? []) as Array<Record<string, any>>;
+  return rows.map((p) => {
+    const prof = Array.isArray(p.profile) ? p.profile[0] : p.profile;
+    return {
+      id: p.id,
+      name: prof?.first_name
+        ? `${prof.first_name} ${prof.last_name ?? ""}`.trim()
+        : prof?.email ?? p.id,
+      services: p.total_jobs_completed ?? 0,
+      zone: [p.province, p.municipality].filter(Boolean).join(", ") || "—",
+      status: p.admin_status ?? "pending",
+      verified: p.verification_status ?? "pending",
+      rating: p.rating ?? 0,
+      quotes: p.total_jobs_completed ?? 0,
+      balance: p.balance ?? 0,
+      conversion: `${Math.round((p.rating ?? 0) * 20)}%`,
+    };
+  });
+}
+
+export async function setProfessionalAdminStatus(id: string, status: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("professionals")
+    .update({ admin_status: status })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/dashboard-admin/profesionales");
+  return { success: true };
+}
+
+// ===== RESEÑAS (reviews) =====
+export async function listReviews() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("reviews")
+    .select(
+      "id, rating, comment, verified, status, created_at, client:profiles!reviews_client_id_fkey(email), professional:profiles!reviews_professional_id_fkey(email)"
+    )
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  const rows = (data ?? []) as Array<Record<string, any>>;
+  return rows.map((r) => {
+    const cl = Array.isArray(r.client) ? r.client[0] : r.client;
+    const pr = Array.isArray(r.professional) ? r.professional[0] : r.professional;
+    return {
+      id: r.id,
+      client: cl?.email ?? "—",
+      professional: pr?.email ?? "—",
+      rating: r.rating ?? 0,
+      status: r.status ?? "pending",
+      verified: r.verified ? "Sí" : "No",
+      date: r.created_at ? new Date(r.created_at).toLocaleDateString("es-ES") : "—",
+      comment: r.comment ?? "",
+    };
+  });
+}
+
+export async function setReviewStatus(id: string, status: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("reviews")
+    .update({ status })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/dashboard-admin/resenas");
+  return { success: true };
+}
+
+// ===== SOPORTE (support_tickets) =====
+export async function listTickets() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("support_tickets")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  const rows = (data ?? []) as Array<Record<string, any>>;
+  return rows.map((t) => ({
+    id: t.id,
+    from: t.sender_id ?? "—",
+    type: t.sender_type ?? "client",
+    priority: t.priority ?? "medium",
+    sla: `${t.sla_hours ?? 8}h`,
+    status: t.status ?? "open",
+    assigned: t.assigned_to ?? "—",
+    date: t.created_at ? new Date(t.created_at).toLocaleDateString("es-ES") : "—",
+    description: t.description ?? "",
+  }));
+}
+
+export async function setTicketStatus(id: string, status: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("support_tickets")
+    .update({ status })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/dashboard-admin/soporte");
+  return { success: true };
+}
+
+export async function createTicket(input: {
+  sender_id: string;
+  sender_type: string;
+  priority: string;
+  description: string;
+}) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("support_tickets").insert({
+    sender_id: input.sender_id || null,
+    sender_type: input.sender_type || "client",
+    priority: input.priority || "medium",
+    sla_hours: 8,
+    description: input.description || null,
+    status: "open",
+  });
+  if (error) throw new Error(error.message);
+  revalidatePath("/dashboard-admin/soporte");
+  return { success: true };
+}

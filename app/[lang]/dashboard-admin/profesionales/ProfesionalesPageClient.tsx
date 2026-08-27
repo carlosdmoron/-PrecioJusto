@@ -1,31 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
+import { setProfessionalAdminStatus } from "../../../actions/admin";
 
 export default function ProfesionalesPageClient({ data }: { data: any }) {
   const toast = useToast();
+  const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<any | null>(null);
-  const [items, setItems] = useState(data.items.map((i: any) => ({ ...i })));
+  const [items, setItems] = useState(data.items ?? []);
 
   const pending = items.filter((i: any) => i.status === "pending");
 
-  function handleApprove(id: number) {
-    setItems((prev: any[]) =>
-      prev.map((i: any) => (i.id === id ? { ...i, status: "active" } : i))
-    );
-    toast.show("Profesional aprobado");
-  }
-
-  function handleReject(id: number) {
-    setItems((prev: any[]) =>
-      prev.map((i: any) => (i.id === id ? { ...i, status: "rejected" } : i))
-    );
-    toast.show("Profesional rechazado");
+  async function handleSetStatus(id: string, status: string, msg: string) {
+    try {
+      await setProfessionalAdminStatus(id, status);
+      setItems((prev: any[]) =>
+        prev.map((i: any) => (i.id === id ? { ...i, status } : i))
+      );
+      toast.show(msg);
+      router.refresh();
+    } catch (e: any) {
+      toast.show(e?.message ?? "Error", "info");
+    }
   }
 
   const columns = [
@@ -33,7 +35,7 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
     { key: "name", label: data.table.name },
     { key: "services", label: data.table.services },
     { key: "zone", label: data.table.zone },
-    { key: "status", label: data.table.status },
+    { key: "status", label: data.table.status, render: (row: any) => <StatusBadge status={row.status} /> },
     { key: "verified", label: data.table.verified },
     { key: "rating", label: data.table.rating },
     { key: "quotes", label: data.table.quotes },
@@ -62,8 +64,8 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
                     <p className="text-xs text-muted">{p.services} — {p.zone}</p>
                   </div>
                   <div className="flex gap-2">
-                    <button type="button" onClick={() => handleApprove(p.id)} className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.actions.approve}</button>
-                    <button type="button" onClick={() => handleReject(p.id)} className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.reject}</button>
+                    <button type="button" onClick={() => handleSetStatus(p.id, "active", "Profesional aprobado")} className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.actions.approve}</button>
+                    <button type="button" onClick={() => handleSetStatus(p.id, "rejected", "Profesional rechazado")} className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.reject}</button>
                   </div>
                 </div>
               ))}
@@ -78,12 +80,8 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
             { label: data.actions.edit, onClick: () => toast.show("Edición no disponible", "info") },
             {
               label: data.actions.suspend,
-              onClick: (row: any) => {
-                setItems((prev: any[]) =>
-                  prev.map((i: any) => (i.id === row.id ? { ...i, status: "suspended" } : i))
-                );
-                toast.show("Profesional suspendido");
-              },
+              onClick: (row: any) =>
+                handleSetStatus(row.id, "suspended", "Profesional suspendido"),
             },
           ]}
         />
@@ -105,7 +103,7 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
               </div>
             ))}
             <div className="flex justify-between rounded-lg bg-surface px-3 py-2">
-              <span className="text-xs text-muted">{data.detail.status}</span>
+              <span className="text-xs text-muted">{data.table.status}</span>
               <StatusBadge status={selectedRow.status} />
             </div>
           </div>

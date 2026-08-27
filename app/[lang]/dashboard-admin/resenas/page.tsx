@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
+import { listReviews } from "../../../actions/admin";
 import ResenasPageClient from "./ResenasPageClient";
 
 export async function generateMetadata({
@@ -15,5 +16,8 @@ export async function generateMetadata({
 
 export default async function ResenasPage() {
   const dict = await getDictionary();
-  return <ResenasPageClient data={dict.dashboardAdmin.resenas} />;
+  const items = await listReviews();
+  return (
+    <ResenasPageClient data={{ ...dict.dashboardAdmin.resenas, items }} />
+  );
 }

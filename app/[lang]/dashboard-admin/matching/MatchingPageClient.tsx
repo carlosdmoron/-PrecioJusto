@@ -1,17 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
+import { toggleMatchingRule, createMatchingRule } from "../../../actions/admin";
 
 export default function MatchingPageClient({ data }: { data: any }) {
   const toast = useToast();
+  const router = useRouter();
   const [showSimulator, setShowSimulator] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
-  const [items, setItems] = useState(data.items.map((i: any) => ({ ...i })));
+  const [items, setItems] = useState(
+    (data.items ?? []).map((i: any) => ({
+      id: i.id,
+      name: i.name,
+      criterion: i.criterion,
+      priority: String(i.priority ?? ""),
+      professionals: i.professionals_count ?? 0,
+      status: i.status ?? "active",
+    }))
+  );
 
   const [simService, setSimService] = useState("");
   const [simZone, setSimZone] = useState("");
@@ -30,23 +42,50 @@ export default function MatchingPageClient({ data }: { data: any }) {
     { key: "status", label: data.table.status, render: (row: any) => <StatusBadge status={row.status} /> },
   ];
 
-  function handleCreate() {
+  async function handleCreate() {
     if (!ruleName.trim()) return;
-    const newItem = {
-      id: `REG-${String(items.length + 1).padStart(3, "0")}`,
-      name: ruleName,
-      criterion: ruleCriterion,
-      priority: rulePriority,
-      professionals: "0",
-      status: "active",
-    };
-    setItems((prev: any[]) => [...prev, newItem]);
-    toast.show(data.createModal.created);
-    setRuleName("");
-    setRuleCriterion("");
-    setRuleZone("");
-    setRulePriority("");
-    setShowCreate(false);
+    try {
+      await createMatchingRule({
+        name: ruleName,
+        criterion: ruleCriterion || "zone",
+        zone_postal_code: ruleZone,
+        priority: Number(rulePriority) || 1,
+      });
+      const newItem = {
+        id: String(Date.now()),
+        name: ruleName,
+        criterion: ruleCriterion || "zone",
+        priority: rulePriority || "1",
+        professionals: "0",
+        status: "active",
+      };
+      setItems((prev: any[]) => [...prev, newItem]);
+      toast.show(data.createModal.created);
+      setRuleName("");
+      setRuleCriterion("");
+      setRuleZone("");
+      setRulePriority("");
+      setShowCreate(false);
+      router.refresh();
+    } catch (e: any) {
+      toast.show(e?.message ?? "Error", "info");
+    }
+  }
+
+  async function handleToggle(row: any) {
+    const next = row.status === "active" ? "inactive" : "active";
+    try {
+      await toggleMatchingRule(String(row.id), next);
+      setItems((prev: any[]) =>
+        prev.map((i: any) =>
+          i.id === row.id ? { ...i, status: next } : i
+        )
+      );
+      toast.show(next === "active" ? "Regla activada" : "Regla desactivada");
+      router.refresh();
+    } catch (e: any) {
+      toast.show(e?.message ?? "Error", "info");
+    }
   }
 
   return (
@@ -69,14 +108,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
             { label: data.actions.edit, onClick: () => toast.show("Edición no disponible", "info") },
             {
               label: data.actions.toggle,
-              onClick: (row: any) => {
-                setItems((prev: any[]) =>
-                  prev.map((i: any) =>
-                    i.id === row.id ? { ...i, status: i.status === "active" ? "inactive" : "active" } : i
-                  )
-                );
-                toast.show(row.status === "active" ? "Regla desactivada" : "Regla activada");
-              },
+              onClick: (row: any) => handleToggle(row),
             },
           ]}
         />
@@ -95,7 +127,13 @@ export default function MatchingPageClient({ data }: { data: any }) {
             <label className="text-xs font-medium text-muted">{data.simulator.zoneLabel}</label>
             <input value={simZone} onChange={(e) => setSimZone(e.target.value)} placeholder="28001" className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40" />
           </div>
-          <button type="button" className="h-10 w-full rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark">{data.simulator.run}</button>
+          <button
+            type="button"
+            onClick={() => toast.show("Simulación ejecutada", "info")}
+            className="h-10 w-full rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark"
+          >
+            {data.simulator.run}
+          </button>
           <div>
             <p className="text-xs font-semibold text-muted">{data.simulator.results}</p>
             <div className="mt-2 space-y-2">
