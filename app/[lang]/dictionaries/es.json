@@ -357,16 +357,137 @@
         "titulo": "Revisa tu registro",
         "ayuda": "Comprueba que todo está correcto antes de finalizar.",
         "resumen": {
-          "perfil": "Tipo de perfil",
-          "nombre": "Nombre",
-          "telefono": "Teléfono",
-          "zona": "Zona de trabajo",
-          "servicios": "Servicios",
-          "propuesta": "Propuesta de valor",
-          "fotos": "Fotos de portfolio",
-          "pago": "Método de pago"
-        },
-        "confirmar": "Finalizar registro"
+            "title": "Resumen ejecutivo",
+            "subtitle": "Visión global del marketplace y alertas operativas",
+            "description": "Panel de control principal que muestra los KPIs más importantes del marketplace: solicitudes, presupuestos, ingresos, profesionales activos y alertas operativas que requieren intervención inmediata. Usa los filtros para segmentar por fecha, país, ciudad, categoría o canal de adquisición.",
+            "filters": {
+              "fecha": "Rango de fechas",
+              "pais": "País",
+              "ciudad": "Ciudad",
+              "categoria": "Categoría",
+              "servicio": "Servicio",
+              "dispositivo": "Dispositivo",
+              "canal": "Canal de adquisición",
+              "aplicar": "Aplicar",
+              "limpiar": "Limpiar",
+              "placeholderTodos": "Todos",
+              "placeholderTodas": "Todas",
+              "placeholderCiudad": "Ciudad",
+              "optionEspana": "España",
+              "optionItalia": "Italia",
+              "optionPlomeria": "Plomería",
+              "optionPintura": "Pintura",
+              "optionJardineria": "Jardinería",
+              "optionMovil": "Móvil",
+              "optionEscritorio": "Escritorio",
+              "optionOrganico": "Orgánico",
+              "optionPago": "Pago",
+              "optionDirecto": "Directo"
+            },
+            "stats": [
+              {
+                "label": "Solicitudes nuevas",
+                "value": "247",
+                "change": "+12%",
+                "trend": "up"
+              },
+              {
+                "label": "Solicitudes completas",
+                "value": "198",
+                "change": "+8%",
+                "trend": "up"
+              },
+              {
+                "label": "Tasa de abandono",
+                "value": "18.4%",
+                "change": "-2.1%",
+                "trend": "down"
+              },
+              {
+                "label": "Presupuestos enviados",
+                "value": "583",
+                "change": "+15%",
+                "trend": "up"
+              },
+              {
+                "label": "Promedio presupuestos/solicitud",
+                "value": "2.9",
+                "change": "+0.3",
+                "trend": "up"
+              },
+              {
+                "label": "Tiempo primer presupuesto",
+                "value": "4.2h",
+                "change": "-0.8h",
+                "trend": "down"
+              },
+              {
+                "label": "Tasa de selección",
+                "value": "62%",
+                "change": "+3%",
+                "trend": "up"
+              },
+              {
+                "label": "Tasa de acuerdo",
+                "value": "41%",
+                "change": "+5%",
+                "trend": "up"
+              },
+              {
+                "label": "Ingresos por leads",
+                "value": "€4.850",
+                "change": "+18%",
+                "trend": "up"
+              },
+              {
+                "label": "Ingresos por comisiones",
+                "value": "€2.340",
+                "change": "+22%",
+                "trend": "up"
+              },
+              {
+                "label": "Profesionales activos",
+                "value": "156",
+                "change": "+7",
+                "trend": "up"
+              },
+              {
+                "label": "Solicitudes sin respuesta",
+                "value": "14",
+                "change": "+3",
+                "trend": "up"
+              }
+            ],
+            "alerts": [
+              {
+                "type": "warning",
+                "title": "Abandono anormal en formulario",
+                "description": "El formulario de Plomería tiene 34% de abandono en el paso 3."
+              },
+              {
+                "type": "danger",
+                "title": "Servicio sin profesionales",
+                "description": "Electricidad en Bilbao no tiene profesionales disponibles."
+              },
+              {
+                "type": "warning",
+                "title": "Solicitudes sin respuesta",
+                "description": "14 leads no han recibido ninguna cotización en 48h."
+              },
+              {
+                "type": "info",
+                "title": "Errores de notificación",
+                "description": "3 emails de notificación fallaron ayer."
+              },
+              {
+                "type": "danger",
+                "title": "Saldos negativos",
+                "description": "2 profesionales tienen saldo negativo."
+              }
+            ],
+            "alertsTitle": "Alertas operativas"
+          },
+          "confirmar": "Finalizar registro"
       },
       "exito": {
         "titulo": "¡Tu perfil profesional está listo!",
@@ -755,6 +876,7 @@
       "oportunidades": {
         "title": "Oportunidades",
         "subtitle": "Solicitudes recientes de clientes que buscan tus servicios",
+    "alertsTitle": "Alertas operativas",
         "items": [
           {
             "title": "Instalación de aire acondicionado",
@@ -1382,6 +1504,58 @@
     ]
   },
   "dashboardAdmin": {
+    "feedback": {
+      "exporting": "Exportando datos...",
+      "openingReport": "Abriendo reporte...",
+      "blockedUser": "Cliente bloqueado",
+      "editing": "Editando...",
+      "editingUser": "Editando usuario",
+      "editingRequest": "Editando solicitud",
+      "editUnavailable": "Edición no disponible",
+      "config": "Configurar",
+      "exportingCsv": "Exportando CSV...",
+      "invoiceGenerated": "Factura generada",
+      "refundProcessed": "Reembolso procesado",
+      "formPreview": "Vista previa",
+      "formDuplicated": "Formulario duplicado",
+      "formCreated": "Formulario creado",
+      "statusUpdated": "Estado actualizado",
+      "testSent": "Prueba de envío enviada",
+      "blockedQuote": "Presupuesto bloqueado",
+      "notificationResent": "Notificación reenviada",
+      "simulationRun": "Simulación ejecutada",
+      "assignedTicket": "Ticket asignado",
+      "escalatedTicket": "Ticket escalado",
+      "reviewRequestSent": "Solicitud de reseña enviada",
+      "flaggedSpam": "Conversación marcada como spam",
+      "hiddenConversation": "Conversación ocultada",
+      "noteSaved": "Nota guardada",
+      "created": "Registro creado",
+      "updated": "Registro actualizado",
+      "deleted": "Registro eliminado",
+      "ruleCreated": "Regla creada",
+      "ruleActivated": "Regla activada",
+      "ruleDeactivated": "Regla desactivada",
+      "requestPaused": "Solicitud pausada",
+      "requestBlocked": "Solicitud bloqueada",
+      "professionalApproved": "Profesional aprobado",
+      "professionalRejected": "Profesional rechazado",
+      "professionalSuspended": "Profesional suspendido",
+      "reviewApproved": "Reseña aprobada",
+      "reviewHidden": "Reseña ocultada",
+      "reviewRemoved": "Reseña eliminada",
+      "ticketCreated": "Ticket creado",
+      "ticketResolved": "Ticket resuelto",
+      "verified": "Cambio verificado en la base de datos",
+      "verifyError": "No se pudo verificar la operación en la base de datos",
+      "createVerifyError": "No se pudo verificar la creación en la base de datos",
+      "deleteVerifyError": "No se pudo verificar la eliminación en la base de datos",
+      "confirmDeleteTitle": "¿Eliminar este registro?",
+      "confirmDeleteText": "Esta acción no se puede deshacer.",
+      "confirmYes": "Sí, eliminar",
+      "confirmCancel": "Cancelar",
+      "close": "Cerrar"
+    },
     "meta": { "title": "Panel de administración — PrecioJusto", "description": "Gestiona servicios, solicitudes, profesionales y configuración de la plataforma." },
     "nav": {
       "resumen": "Resumen",
@@ -1408,6 +1582,19 @@
       "subtitle": "Visión global del marketplace y alertas operativas",
       "description": "Panel de control principal que muestra los KPIs más importantes del marketplace: solicitudes, presupuestos, ingresos, profesionales activos y alertas operativas que requieren intervención inmediata. Usa los filtros para segmentar por fecha, país, ciudad, categoría o canal de adquisición.",
       "filters": { "fecha": "Rango de fechas", "pais": "País", "ciudad": "Ciudad", "categoria": "Categoría", "servicio": "Servicio", "dispositivo": "Dispositivo", "canal": "Canal de adquisición", "aplicar": "Aplicar", "limpiar": "Limpiar" },
+    "placeholderTodos": "Todos",
+      "placeholderTodas": "Todas",
+      "placeholderCiudad": "Ciudad",
+      "optionEspana": "España",
+      "optionItalia": "Italia",
+      "optionPlomeria": "Plomería",
+      "optionPintura": "Pintura",
+      "optionJardineria": "Jardinería",
+      "optionMovil": "Móvil",
+      "optionEscritorio": "Escritorio",
+      "optionOrganico": "Orgánico",
+      "optionPago": "Pago",
+      "optionDirecto": "Directo",
       "stats": [
         { "label": "Solicitudes nuevas", "value": "247", "change": "+12%", "trend": "up" },
         { "label": "Solicitudes completas", "value": "198", "change": "+8%", "trend": "up" },
