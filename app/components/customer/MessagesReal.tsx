@@ -45,9 +45,11 @@ function formatTime(iso: string | null) {
 export default function MessagesReal({
   data,
   conversations: initialConversations,
+  currentUserId,
 }: {
   data: MessagesData;
   conversations: Conversation[];
+  currentUserId: string | null;
 }) {
   const [conversations] = useState(initialConversations);
   const [openIdx, setOpenIdx] = useState<number | null>(null);
@@ -73,7 +75,10 @@ export default function MessagesReal({
     const text = draft.trim();
     if (!text || !conv) return;
     setDraft("");
-    setThread((prev) => [...prev, { id: "temp", sender_id: "me", text, read: false, created_at: new Date().toISOString() }]);
+    setThread((prev) => [
+      ...prev,
+      { id: "temp", sender_id: currentUserId ?? "me", text, read: false, created_at: new Date().toISOString() },
+    ]);
     try {
       await sendMessage(conv.id, text);
     } catch {
@@ -127,10 +132,10 @@ export default function MessagesReal({
                 <p className="py-4 text-center text-sm text-muted">No hay mensajes todavia.</p>
               ) : (
                 thread.map((m) => (
-                  <div key={m.id} className={`flex ${m.sender_id === "me" ? "justify-end" : "justify-start"}`}>
+                  <div key={m.id} className={`flex ${m.sender_id === currentUserId ? "justify-end" : "justify-start"}`}>
                     <p
                       className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                        m.sender_id === "me"
+                        m.sender_id === currentUserId
                           ? "rounded-br-sm bg-primary text-white"
                           : "rounded-bl-sm bg-panel text-ink"
                       }`}

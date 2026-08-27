@@ -1,9 +1,7 @@
 import Image from "next/image";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import { lang } from "next/root-params";
 import { getDictionary, locales } from "../../[lang]/dictionaries";
-import PasswordInput from "./PasswordInput";
+import LoginForm from "./LoginForm";
 
 const languageLabels: Record<string, string> = {
   es: "ES",
@@ -15,17 +13,6 @@ export default async function LoginSection() {
   const dict = await getDictionary();
   const t = dict.login;
   const current = (await lang()) ?? "es";
-
-  async function loginToDashboard() {
-    "use server";
-    const store = await cookies();
-    store.set("pj-session", "1", {
-      httpOnly: true,
-      path: "/",
-      maxAge: 60 * 60 * 24 * 30,
-    });
-    redirect(`/${current}/dashboard-profesional`);
-  }
 
   return (
     <main className="relative flex-1 overflow-hidden bg-field">
@@ -72,64 +59,17 @@ export default async function LoginSection() {
           <p className="mt-2 text-center text-sm leading-relaxed text-steel">
             {t.subtitle}
           </p>
-          <form action={loginToDashboard} className="mt-10 space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block text-sm font-medium text-ink"
-              >
-                {t.emailLabel}
-              </label>
-              <div className="relative">
-                <svg
-                  className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <rect width="20" height="16" x="2" y="4" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  placeholder={t.emailPlaceholder}
-                  className="h-12 w-full rounded-lg bg-field pl-11 pr-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
-                />
-              </div>
-            </div>
-            <PasswordInput
-              label={t.passwordLabel}
-              placeholder={t.passwordPlaceholder}
-              showLabel={t.showPassword}
-              hideLabel={t.hidePassword}
-            />
-            <button
-              type="submit"
-              className="h-12 w-full rounded-lg bg-primary-dark text-sm font-medium text-white transition hover:bg-primary"
-            >
-              {t.submitButton}
-            </button>
-          </form>
+          <LoginForm
+            lang={current}
+            emailLabel={t.emailLabel}
+            emailPlaceholder={t.emailPlaceholder}
+            passwordLabel={t.passwordLabel}
+            passwordPlaceholder={t.passwordPlaceholder}
+            showPassword={t.showPassword}
+            hidePassword={t.hidePassword}
+            submitButton={t.submitButton}
+          />
           <div className="my-8 h-px w-full bg-line/60" />
-          <p className="text-center text-sm text-steel">
-            {t.noAccount}{" "}
-            <a
-              href={`/${current}/registro-profesional`}
-              className="font-medium text-primary-dark transition hover:text-primary"
-            >
-              {t.registerLink}
-            </a>
-          </p>
           <button
             type="button"
             className="mt-6 flex h-12 w-full items-center justify-center gap-3 rounded-lg border border-line/60 bg-white text-sm font-medium text-ink transition hover:border-primary"
@@ -142,6 +82,15 @@ export default async function LoginSection() {
             </svg>
             {t.googleButton}
           </button>
+          <p className="mt-6 text-center text-sm text-muted">
+            ¿No tienes cuenta?{" "}
+            <a
+              href={`/${current}/registro`}
+              className="font-medium text-primary transition hover:underline"
+            >
+              Regístrate como cliente
+            </a>
+          </p>
         </div>
       </div>
     </main>

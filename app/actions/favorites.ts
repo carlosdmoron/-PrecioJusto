@@ -13,17 +13,39 @@ export async function getFavorites() {
     .select(`
       id,
       created_at,
+      professional_id,
       professional:profiles!favorites_professional_id_fkey(
         id, first_name, last_name, avatar_url
-      ),
-      professional_detail:professionals(
-        province, municipality, experience_years, rating, description
       )
     `)
     .eq("client_id", user.id)
     .order("created_at", { ascending: false });
 
-  return data ?? [];
+  if (!data) return [];
+
+  const profIds = data
+    .map((f) => f.professional_id as string)
+    .filter((id): id is string => Boolean(id));
+
+  let detailMap: Record<string, Record<string, unknown>> = {};
+  if (profIds.length > 0) {
+    const { data: details } = await supabase
+      .from("professionals")
+      .select("id, province, municipality, experience_years, rating, description")
+      .in("id", profIds);
+    detailMap = (details ?? []).reduce<Record<string, Record<string, unknown>>>(
+      (acc, d) => {
+        acc[d.id] = d;
+        return acc;
+      },
+      {},
+    );
+  }
+
+  return data.map((f) => ({
+    ...f,
+    professional_detail: detailMap[f.professional_id as string] ?? null,
+  }));
 }
 
 export async function removeFavorite(favoriteId: string) {

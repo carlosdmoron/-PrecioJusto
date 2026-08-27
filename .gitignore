@@ -42,6 +42,7 @@ next-env.d.ts
 
 # logs locales
 dev.log
+dev-server.log
 
 # capturas de referencia guardadas desde el navegador
 design/*_files/

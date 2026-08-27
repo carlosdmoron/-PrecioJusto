@@ -443,6 +443,23 @@ CREATE TRIGGER on_auth_user_created
 -- 10. ROW LEVEL SECURITY (RLS)
 -- =============================================================================
 
+-- Funcion is_admin: evita recursion infinita al validar admins.
+-- SECURITY DEFINER no re-aplica RLS de forma recursiva sobre el owner.
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.admin_users WHERE id = auth.uid() AND status = 'activo'
+  );
+$$;
+
+REVOKE ALL ON FUNCTION public.is_admin() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.is_admin() TO authenticated, anon, service_role;
+
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE professionals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
@@ -477,27 +494,27 @@ ALTER TABLE billing_config ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view own profile" ON profiles FOR SELECT USING (auth.uid() = id);
 CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
 CREATE POLICY "Admins can view all profiles" ON profiles FOR SELECT USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can update all profiles" ON profiles FOR UPDATE USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Professionals
 CREATE POLICY "Anyone can view active professionals" ON professionals FOR SELECT USING (admin_status = 'active');
 CREATE POLICY "Professionals can update own profile" ON professionals FOR UPDATE USING (auth.uid() = id);
 CREATE POLICY "Admins can manage all professionals" ON professionals FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Categories & Services (public read)
 CREATE POLICY "Anyone can view categories" ON categories FOR SELECT USING (true);
 CREATE POLICY "Admins can manage categories" ON categories FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Anyone can view published services" ON services FOR SELECT USING (status = 'published');
 CREATE POLICY "Admins can manage all services" ON services FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Professional Services
@@ -511,7 +528,7 @@ CREATE POLICY "Clients can update own requests" ON requests FOR UPDATE USING (au
 CREATE POLICY "Clients can delete own requests" ON requests FOR DELETE USING (auth.uid() = client_id);
 CREATE POLICY "Professionals can view published requests" ON requests FOR SELECT USING (status = 'published');
 CREATE POLICY "Admins can manage all requests" ON requests FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Quotes
@@ -521,7 +538,7 @@ CREATE POLICY "Clients can view quotes for own requests" ON quotes FOR SELECT US
   EXISTS (SELECT 1 FROM requests WHERE id = request_id AND client_id = auth.uid())
 );
 CREATE POLICY "Admins can manage all quotes" ON quotes FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Jobs
@@ -529,7 +546,7 @@ CREATE POLICY "Users can view own jobs" ON jobs FOR SELECT USING (
   auth.uid() = client_id OR auth.uid() = professional_id
 );
 CREATE POLICY "Admins can manage all jobs" ON jobs FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Conversations
@@ -570,13 +587,13 @@ CREATE POLICY "Clients can create reviews for own jobs" ON reviews FOR INSERT WI
   EXISTS (SELECT 1 FROM jobs WHERE id = job_id AND client_id = auth.uid())
 );
 CREATE POLICY "Admins can manage all reviews" ON reviews FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Forms
 CREATE POLICY "Anyone can view active forms" ON forms FOR SELECT USING (status = 'active');
 CREATE POLICY "Admins can manage all forms" ON forms FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Form Questions
@@ -584,7 +601,7 @@ CREATE POLICY "Anyone can view questions for active forms" ON form_questions FOR
   EXISTS (SELECT 1 FROM forms WHERE id = form_id AND status = 'active')
 );
 CREATE POLICY "Admins can manage all form questions" ON form_questions FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Form Responses
@@ -595,13 +612,13 @@ CREATE POLICY "Users can create responses" ON form_responses FOR INSERT WITH CHE
   EXISTS (SELECT 1 FROM requests WHERE id = request_id AND client_id = auth.uid())
 );
 CREATE POLICY "Admins can manage all responses" ON form_responses FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Wallet
 CREATE POLICY "Professionals can view own transactions" ON wallet_transactions FOR SELECT USING (auth.uid() = professional_id);
 CREATE POLICY "Admins can manage all transactions" ON wallet_transactions FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Payment Methods
@@ -611,47 +628,47 @@ CREATE POLICY "Professionals can manage own payment methods" ON payment_methods 
 CREATE POLICY "Users can view own tickets" ON support_tickets FOR SELECT USING (auth.uid() = sender_id);
 CREATE POLICY "Users can create tickets" ON support_tickets FOR INSERT WITH CHECK (auth.uid() = sender_id);
 CREATE POLICY "Admins can manage all tickets" ON support_tickets FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Users can view notes for own tickets" ON support_notes FOR SELECT USING (
   EXISTS (SELECT 1 FROM support_tickets WHERE id = ticket_id AND sender_id = auth.uid())
 );
 CREATE POLICY "Admins can manage all notes" ON support_notes FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- POLICIES: Admin tables (admin-only)
 CREATE POLICY "Admins can manage matching rules" ON matching_rules FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can manage admin users" ON admin_users FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can manage marketing pages" ON marketing_pages FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can manage promotions" ON promotions FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can manage notification templates" ON notification_templates FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Anyone can view SEO settings" ON seo_settings FOR SELECT USING (true);
 CREATE POLICY "Admins can manage SEO settings" ON seo_settings FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can manage security settings" ON security_settings FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can view audit logs" ON audit_logs FOR SELECT USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "System can insert audit logs" ON audit_logs FOR INSERT WITH CHECK (true);
 CREATE POLICY "Admins can manage integrations" ON integrations FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 CREATE POLICY "Admins can manage billing config" ON billing_config FOR ALL USING (
-  EXISTS (SELECT 1 FROM admin_users WHERE id = auth.uid() AND status = 'activo')
+  public.is_admin()
 );
 
 -- =============================================================================

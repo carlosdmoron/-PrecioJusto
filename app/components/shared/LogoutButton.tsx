@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Modal from "../dashboard/Modal";
+import { logout } from "../../actions/auth";
 
 export type LogoutLabels = {
   cerrar: string;
@@ -29,9 +30,14 @@ export default function LogoutButton({
   compact?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   function handleLogout() {
-    window.location.assign(loginHref);
+    const parts = loginHref.split("/").filter(Boolean);
+    const lang = parts[0] ?? "es";
+    startTransition(async () => {
+      await logout(lang);
+    });
   }
 
   return (
@@ -86,9 +92,10 @@ export default function LogoutButton({
           <button
             type="button"
             onClick={handleLogout}
-            className="h-12 flex-1 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark"
+            disabled={isPending}
+            className="h-12 flex-1 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
           >
-            {labels.salir}
+            {isPending ? labels.cerrar : labels.salir}
           </button>
           <button
             type="button"

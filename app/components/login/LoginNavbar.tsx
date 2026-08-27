@@ -34,19 +34,13 @@ export default async function LoginNavbar() {
         </nav>
         <div className="ml-auto flex items-center gap-5 sm:gap-6">
           <a
-            href={`/${current}/profesional`}
-            className="inline-flex h-10 items-center rounded-lg bg-primary-dark px-5 text-sm font-semibold text-white transition hover:bg-primary"
-          >
-            {nav.register}
-          </a>
-          <a
-            href="#"
+            href={`/${current}/registro`}
             className="hidden text-sm font-medium text-steel transition hover:text-primary sm:block"
           >
             {nav.signup}
           </a>
           <a
-            href="#"
+            href={`/${current}/iniciar-sesion`}
             className="hidden text-sm font-medium text-primary-dark transition hover:text-primary sm:block"
           >
             {nav.signin}
