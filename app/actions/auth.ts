@@ -33,7 +33,10 @@ export async function login(
 
   const role = (profile?.role as string) ?? "client";
 
-  if (role === "professional" || role === "admin") {
+  if (role === "admin") {
+    redirect(`/${lang}/dashboard-admin`);
+  }
+  if (role === "professional") {
     redirect(`/${lang}/dashboard-profesional`);
   }
   redirect(`/${lang}/dashboard-cliente`);

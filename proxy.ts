@@ -78,6 +78,27 @@ export async function proxy(request: NextRequest) {
     );
   }
 
+  // /dashboard-admin exige rol admin
+  if (user && pathname.includes("/dashboard-admin")) {
+    const locale = pathname.split("/")[1] || defaultLocale;
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .maybeSingle();
+    const role = (profile?.role as string) ?? "client";
+    if (role !== "admin") {
+      if (role === "professional") {
+        return NextResponse.redirect(
+          new URL(`/${locale}/dashboard-profesional`, request.url),
+        );
+      }
+      return NextResponse.redirect(
+        new URL(`/${locale}/dashboard-cliente`, request.url),
+      );
+    }
+  }
+
   return response;
 }
 
