@@ -7,6 +7,7 @@ import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
+import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
 import type { TableRow } from "../../../components/admin/DataTable";
 import { setReviewStatus } from "../../../actions/admin";
 
@@ -39,11 +40,11 @@ export default function ResenasPageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === row.id ? { ...i, status } : i))
       );
-      toast.show(msg);
+      await sweetSuccess(msg, "Cambio verificado en la base de datos");
       if (selectedRow?.id === row.id) setSelectedRow({ ...row, status });
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
     }
   }
 

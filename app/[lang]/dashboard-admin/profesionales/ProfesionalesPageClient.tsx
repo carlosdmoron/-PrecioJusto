@@ -7,6 +7,7 @@ import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
+import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
 import { setProfessionalAdminStatus } from "../../../actions/admin";
 
 export default function ProfesionalesPageClient({ data }: { data: any }) {
@@ -23,10 +24,10 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === id ? { ...i, status } : i))
       );
-      toast.show(msg);
+      await sweetSuccess(msg, "Cambio verificado en la base de datos");
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
     }
   }
 

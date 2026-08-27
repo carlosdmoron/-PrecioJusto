@@ -7,6 +7,7 @@ import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
+import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
 import { toggleMatchingRule, createMatchingRule } from "../../../actions/admin";
 
 export default function MatchingPageClient({ data }: { data: any }) {
@@ -60,7 +61,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
         status: "active",
       };
       setItems((prev: any[]) => [...prev, newItem]);
-      toast.show(data.createModal.created);
+      await sweetSuccess(data.createModal.created ?? "Regla creada", "Verificada en la base de datos");
       setRuleName("");
       setRuleCriterion("");
       setRuleZone("");
@@ -68,7 +69,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
       setShowCreate(false);
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error al crear", "No se pudo verificar la creación en la base de datos");
     }
   }
 
@@ -81,10 +82,13 @@ export default function MatchingPageClient({ data }: { data: any }) {
           i.id === row.id ? { ...i, status: next } : i
         )
       );
-      toast.show(next === "active" ? "Regla activada" : "Regla desactivada");
+      await sweetSuccess(
+        next === "active" ? "Regla activada" : "Regla desactivada",
+        "Cambio verificado en la base de datos"
+      );
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
     }
   }
 

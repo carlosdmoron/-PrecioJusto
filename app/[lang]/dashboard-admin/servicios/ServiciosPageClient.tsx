@@ -7,6 +7,7 @@ import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
+import { sweetSuccess, sweetError, sweetConfirmDelete } from "../../../components/admin/sweetAlert";
 import type { TableRow } from "../../../components/admin/DataTable";
 import {
   createService,
@@ -80,28 +81,33 @@ export default function ServiciosPageClient({ data }: { data: any }) {
       };
       if (editingItem) {
         await updateService(String(editingItem.id), payload);
-        toast.show(data.modal.updated ?? "Servicio actualizado");
+        await sweetSuccess(data.modal.updated ?? "Servicio actualizado");
       } else {
         await createService(payload);
-        toast.show(data.modal.created ?? "Servicio creado");
+        await sweetSuccess(data.modal.created ?? "Servicio creado en la base de datos");
       }
       router.refresh();
       setShowModal(false);
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error al guardar", "No se pudo verificar la operación en la base de datos");
     } finally {
       setSaving(false);
     }
   }
 
   async function handleDelete(row: TableRow) {
+    const confirmed = await sweetConfirmDelete(
+      data.modal.deleteTitle ?? "¿Eliminar este servicio?",
+      data.modal.deleted ?? "Esta acción no se puede deshacer."
+    );
+    if (!confirmed) return;
     try {
       await deleteService(String(row.id));
       setItems((prev: any[]) => prev.filter((it: any) => it.id !== row.id));
-      toast.show(data.modal.deleted ?? "Servicio eliminado", "info");
+      await sweetSuccess(data.modal.deleted ?? "Servicio eliminado", "Se eliminó de la base de datos");
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error al eliminar", "No se pudo verificar la eliminación en la base de datos");
     }
   }
 

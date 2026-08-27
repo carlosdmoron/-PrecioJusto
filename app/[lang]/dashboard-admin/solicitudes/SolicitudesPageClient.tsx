@@ -8,6 +8,7 @@ import StatusBadge from "../../../components/admin/StatusBadge";
 import FilterBar from "../../../components/admin/FilterBar";
 import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
+import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
 import type { TableRow } from "../../../components/admin/DataTable";
 import type { FilterField } from "../../../components/admin/FilterBar";
 import { setRequestStatus } from "../../../actions/admin";
@@ -40,10 +41,10 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === row.id ? { ...i, status } : i))
       );
-      toast.show(msg);
+      await sweetSuccess(msg, "Cambio verificado en la base de datos");
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
     }
   }
 

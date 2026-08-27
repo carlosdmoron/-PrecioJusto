@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "../../../components/admin/Toast";
+import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
@@ -51,7 +52,7 @@ export default function SoportePageClient({ data }: { data: any }) {
         date: new Date().toLocaleDateString("es-ES"),
       };
       setItems((prev: any[]) => [...prev, newItem]);
-      toast.show(data.createModal.created);
+      await sweetSuccess(data.createModal.created ?? "Ticket creado", "Verificado en la base de datos");
       setSender("");
       setType("");
       setPriority("");
@@ -59,7 +60,7 @@ export default function SoportePageClient({ data }: { data: any }) {
       setShowCreate(false);
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error al crear", "No se pudo verificar la creación en la base de datos");
     }
   }
 
@@ -69,10 +70,10 @@ export default function SoportePageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === row.id ? { ...i, status: "resolved" } : i))
       );
-      toast.show("Ticket resuelto");
+      await sweetSuccess("Ticket resuelto", "Cambio verificado en la base de datos");
       router.refresh();
     } catch (e: any) {
-      toast.show(e?.message ?? "Error", "info");
+      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
     }
   }
 

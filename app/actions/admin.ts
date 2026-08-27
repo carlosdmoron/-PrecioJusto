@@ -75,16 +75,21 @@ export async function listServices(): Promise<AdminServiceRow[]> {
 
 export async function createService(input: AdminServiceInput) {
   const supabase = await createClient();
-  const { error } = await supabase.from("services").insert({
-    name: input.name,
-    slug: input.slug,
-    description: input.description ?? "",
-    status: input.status,
-    category_id: input.category_id ?? null,
-  });
+  const { data, error } = await supabase
+    .from("services")
+    .insert({
+      name: input.name,
+      slug: input.slug,
+      description: input.description ?? "",
+      status: input.status,
+      category_id: input.category_id ?? null,
+    })
+    .select("id")
+    .single();
   if (error) throw new Error(error.message);
+  if (!data?.id) throw new Error("No se pudo verificar la creación en la base de datos");
   revalidatePath("/dashboard-admin/servicios");
-  return { success: true };
+  return { success: true, id: data.id };
 }
 
 export async function updateService(id: string, input: AdminServiceInput) {
@@ -100,6 +105,15 @@ export async function updateService(id: string, input: AdminServiceInput) {
     })
     .eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("services")
+    .select("id, name, status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== input.status) {
+    throw new Error("No se pudo verificar la actualización en la base de datos");
+  }
   revalidatePath("/dashboard-admin/servicios");
   return { success: true };
 }
@@ -111,6 +125,15 @@ export async function setServiceStatus(id: string, status: string) {
     .update({ status })
     .eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("services")
+    .select("status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== status) {
+    throw new Error("No se pudo verificar el cambio de estado en la base de datos");
+  }
   revalidatePath("/dashboard-admin/servicios");
   return { success: true };
 }
@@ -119,6 +142,14 @@ export async function deleteService(id: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("services").delete().eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("services")
+    .select("id")
+    .eq("id", id);
+  if (checkErr) throw new Error(checkErr.message);
+  if (check && check.length > 0) {
+    throw new Error("No se pudo verificar la eliminación en la base de datos");
+  }
   revalidatePath("/dashboard-admin/servicios");
   return { success: true };
 }
@@ -154,6 +185,15 @@ export async function setRequestStatus(id: string, status: string) {
     .update({ status })
     .eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("requests")
+    .select("status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== status) {
+    throw new Error("No se pudo verificar el cambio de estado en la base de datos");
+  }
   revalidatePath("/dashboard-admin/solicitudes");
   return { success: true };
 }
@@ -176,6 +216,15 @@ export async function toggleMatchingRule(id: string, status: string) {
     .update({ status })
     .eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("matching_rules")
+    .select("status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== status) {
+    throw new Error("No se pudo verificar el cambio de estado en la base de datos");
+  }
   revalidatePath("/dashboard-admin/matching");
   return { success: true };
 }
@@ -187,16 +236,21 @@ export async function createMatchingRule(input: {
   priority: number;
 }) {
   const supabase = await createClient();
-  const { error } = await supabase.from("matching_rules").insert({
-    name: input.name,
-    criterion: input.criterion,
-    zone_postal_code: input.zone_postal_code || null,
-    priority: input.priority,
-    status: "active",
-  });
+  const { data, error } = await supabase
+    .from("matching_rules")
+    .insert({
+      name: input.name,
+      criterion: input.criterion,
+      zone_postal_code: input.zone_postal_code || null,
+      priority: input.priority,
+      status: "active",
+    })
+    .select("id")
+    .single();
   if (error) throw new Error(error.message);
+  if (!data?.id) throw new Error("No se pudo verificar la creación en la base de datos");
   revalidatePath("/dashboard-admin/matching");
-  return { success: true };
+  return { success: true, id: data.id };
 }
 
 // ===== PROFESIONALES (professionals) =====
@@ -234,6 +288,15 @@ export async function setProfessionalAdminStatus(id: string, status: string) {
     .update({ admin_status: status })
     .eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("professionals")
+    .select("admin_status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.admin_status !== status) {
+    throw new Error("No se pudo verificar el cambio de estado en la base de datos");
+  }
   revalidatePath("/dashboard-admin/profesionales");
   return { success: true };
 }
@@ -272,6 +335,15 @@ export async function setReviewStatus(id: string, status: string) {
     .update({ status })
     .eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("reviews")
+    .select("status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== status) {
+    throw new Error("No se pudo verificar el cambio de estado en la base de datos");
+  }
   revalidatePath("/dashboard-admin/resenas");
   return { success: true };
 }
@@ -305,6 +377,15 @@ export async function setTicketStatus(id: string, status: string) {
     .update({ status })
     .eq("id", id);
   if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await supabase
+    .from("support_tickets")
+    .select("status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== status) {
+    throw new Error("No se pudo verificar el cambio de estado en la base de datos");
+  }
   revalidatePath("/dashboard-admin/soporte");
   return { success: true };
 }
@@ -316,15 +397,20 @@ export async function createTicket(input: {
   description: string;
 }) {
   const supabase = await createClient();
-  const { error } = await supabase.from("support_tickets").insert({
-    sender_id: input.sender_id || null,
-    sender_type: input.sender_type || "client",
-    priority: input.priority || "medium",
-    sla_hours: 8,
-    description: input.description || null,
-    status: "open",
-  });
+  const { data, error } = await supabase
+    .from("support_tickets")
+    .insert({
+      sender_id: input.sender_id || null,
+      sender_type: input.sender_type || "client",
+      priority: input.priority || "medium",
+      sla_hours: 8,
+      description: input.description || null,
+      status: "open",
+    })
+    .select("id")
+    .single();
   if (error) throw new Error(error.message);
+  if (!data?.id) throw new Error("No se pudo verificar la creación en la base de datos");
   revalidatePath("/dashboard-admin/soporte");
   return { success: true };
 }
