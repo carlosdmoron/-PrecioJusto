@@ -15,5 +15,5 @@ export async function generateMetadata({
 
 export default async function AnaliticaPage() {
   const dict = await getDictionary();
-  return <AnaliticaPageClient data={dict.dashboardAdmin.analitica} />;
+  return <AnaliticaPageClient data={{ ...dict.dashboardAdmin.analitica, feedback: dict.dashboardAdmin.feedback }} />;
 }

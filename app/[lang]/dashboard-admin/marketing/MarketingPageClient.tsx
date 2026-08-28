@@ -34,21 +34,21 @@ export default function MarketingPageClient({ data }: { data: any }) {
           <DataTable
             columns={toColumns(data.pages.table)}
             rows={data.pages.items.map((i: any) => ({ ...i }))}
-            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show(data.feedback.editing) }]}
           />
         )}
         {tab === "promotions" && (
           <DataTable
             columns={toColumns(data.promotions.table)}
             rows={data.promotions.items.map((i: any) => ({ ...i }))}
-            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show(data.feedback.editing) }]}
           />
         )}
         {tab === "seo" && (
           <DataTable
             columns={toColumns(data.seo.table)}
             rows={data.seo.items.map((i: any, idx: number) => ({ id: String(idx), ...i }))}
-            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show(data.feedback.editing) }]}
           />
         )}
       </div>

@@ -40,11 +40,11 @@ export default function ResenasPageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === row.id ? { ...i, status } : i))
       );
-      await sweetSuccess(msg, "Cambio verificado en la base de datos");
+      await sweetSuccess(msg, data.feedback.verified);
       if (selectedRow?.id === row.id) setSelectedRow({ ...row, status });
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.verifyError);
     }
   }
 
@@ -55,8 +55,8 @@ export default function ResenasPageClient({ data }: { data: any }) {
           columns={columns}
           rows={items}
           actions={[
-            { label: data.actions.approve, onClick: (row) => handleStatus(row, "published", "Reseña aprobada") },
-            { label: data.actions.hide, onClick: (row) => handleStatus(row, "hidden", "Reseña ocultada") },
+            { label: data.actions.approve, onClick: (row) => handleStatus(row, "published", data.feedback.reviewApproved) },
+            { label: data.actions.hide, onClick: (row) => handleStatus(row, "hidden", data.feedback.reviewHidden) },
             { label: data.actions.respond, onClick: (row) => setSelectedRow(row) },
           ]}
         />
@@ -84,21 +84,21 @@ export default function ResenasPageClient({ data }: { data: any }) {
             <div className="flex flex-wrap gap-2 pt-2">
               <button
                 type="button"
-                onClick={() => { handleStatus(selectedRow, "published", "Reseña aprobada"); setSelectedRow(null); }}
+                onClick={() => { handleStatus(selectedRow, "published", data.feedback.reviewApproved); setSelectedRow(null); }}
                 className="rounded-lg bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100"
               >
                 {data.actions.approve}
               </button>
               <button
                 type="button"
-                onClick={() => { handleStatus(selectedRow, "hidden", "Reseña ocultada"); setSelectedRow(null); }}
+                onClick={() => { handleStatus(selectedRow, "hidden", data.feedback.reviewHidden); setSelectedRow(null); }}
                 className="rounded-lg bg-orange-50 px-4 py-2 text-xs font-semibold text-orange-700 transition hover:bg-orange-100"
               >
                 {data.actions.hide}
               </button>
               <button
                 type="button"
-                onClick={() => { handleStatus(selectedRow, "removed", "Reseña eliminada"); setSelectedRow(null); }}
+                onClick={() => { handleStatus(selectedRow, "removed", data.feedback.reviewRemoved); setSelectedRow(null); }}
                 className="rounded-lg bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100"
               >
                 {data.actions.remove}

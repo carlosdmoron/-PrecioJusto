@@ -61,7 +61,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
         status: "active",
       };
       setItems((prev: any[]) => [...prev, newItem]);
-      await sweetSuccess(data.createModal.created ?? "Regla creada", "Verificada en la base de datos");
+      await sweetSuccess(data.feedback.ruleCreated, data.feedback.verified);
       setRuleName("");
       setRuleCriterion("");
       setRuleZone("");
@@ -69,7 +69,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
       setShowCreate(false);
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error al crear", "No se pudo verificar la creación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.createVerifyError);
     }
   }
 
@@ -83,12 +83,12 @@ export default function MatchingPageClient({ data }: { data: any }) {
         )
       );
       await sweetSuccess(
-        next === "active" ? "Regla activada" : "Regla desactivada",
-        "Cambio verificado en la base de datos"
+        next === "active" ? data.feedback.ruleActivated : data.feedback.ruleDeactivated,
+        data.feedback.verified
       );
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.verifyError);
     }
   }
 
@@ -109,7 +109,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
           columns={columns}
           rows={items}
           actions={[
-            { label: data.actions.edit, onClick: () => toast.show("Edición no disponible", "info") },
+            { label: data.actions.edit, onClick: () => toast.show(data.feedback.editUnavailable, "info") },
             {
               label: data.actions.toggle,
               onClick: (row: any) => handleToggle(row),
@@ -118,7 +118,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
         />
       </AdminSection>
 
-      <Modal open={showSimulator} onClose={() => setShowSimulator(false)} title={data.simulator.title} closeLabel="Cerrar">
+      <Modal open={showSimulator} onClose={() => setShowSimulator(false)} title={data.simulator.title} closeLabel={data.feedback.close}>
         <div className="mt-4 space-y-4">
           <div>
             <label className="text-xs font-medium text-muted">{data.simulator.serviceLabel}</label>
@@ -133,7 +133,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
           </div>
           <button
             type="button"
-            onClick={() => toast.show("Simulación ejecutada", "info")}
+            onClick={() => toast.show(data.feedback.simulationRun, "info")}
             className="h-10 w-full rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark"
           >
             {data.simulator.run}

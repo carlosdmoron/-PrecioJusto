@@ -18,6 +18,6 @@ export default async function ProfesionalesPage() {
   const dict = await getDictionary();
   const items = await listProfessionals();
   return (
-    <ProfesionalesPageClient data={{ ...dict.dashboardAdmin.profesionales, items }} />
+    <ProfesionalesPageClient data={{ ...dict.dashboardAdmin.profesionales, items, feedback: dict.dashboardAdmin.feedback }} />
   );
 }

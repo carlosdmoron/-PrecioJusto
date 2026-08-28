@@ -14,7 +14,7 @@ export default function AnaliticaPageClient({ data }: { data: any }) {
       subtitle={data.subtitle}
       description={data.description}
       actions={
-        <button type="button" onClick={() => toast.show("Exportando datos...")} className="h-10 rounded-lg bg-primary px-5 text-sm font-semibold text-white transition hover:bg-primary-dark">{data.export}</button>
+        <button type="button" onClick={() => toast.show(data.feedback.exporting)} className="h-10 rounded-lg bg-primary px-5 text-sm font-semibold text-white transition hover:bg-primary-dark">{data.export}</button>
       }
     >
       <div className="flex gap-1 rounded-lg bg-surface p-1">
@@ -64,7 +64,7 @@ export default function AnaliticaPageClient({ data }: { data: any }) {
             <div key={i} className="rounded-xl border border-line/40 bg-white p-5 shadow-sm transition hover:border-primary/40 hover:shadow-md">
               <p className="text-sm font-semibold text-ink">{report.name}</p>
               <p className="mt-1 text-xs text-muted">{report.description}</p>
-              <button type="button" onClick={() => toast.show("Abriendo reporte...")} className="mt-3 text-xs font-semibold text-primary-dark transition hover:underline">{data.viewReport}</button>
+              <button type="button" onClick={() => toast.show(data.feedback.openingReport)} className="mt-3 text-xs font-semibold text-primary-dark transition hover:underline">{data.viewReport}</button>
             </div>
           ))}
         </div>

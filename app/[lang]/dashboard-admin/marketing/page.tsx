@@ -15,5 +15,5 @@ export async function generateMetadata({
 
 export default async function MarketingPage() {
   const dict = await getDictionary();
-  return <MarketingPageClient data={dict.dashboardAdmin.marketing} />;
+  return <MarketingPageClient data={{ ...dict.dashboardAdmin.marketing, feedback: dict.dashboardAdmin.feedback }} />;
 }

@@ -18,6 +18,6 @@ export default async function SolicitudesPage() {
   const dict = await getDictionary();
   const items = await listRequests();
   return (
-    <SolicitudesPageClient data={{ ...dict.dashboardAdmin.solicitudes, items }} />
+    <SolicitudesPageClient data={{ ...dict.dashboardAdmin.solicitudes, items, feedback: dict.dashboardAdmin.feedback }} />
   );
 }

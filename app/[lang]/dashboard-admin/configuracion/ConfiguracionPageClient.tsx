@@ -74,7 +74,7 @@ export default function ConfiguracionPageClient({ data }: { data: any }) {
             <DataTable
               columns={toColumns(data.users.table)}
               rows={users.map((i: any) => ({ ...i, status: <StatusBadge status={i.status} /> }))}
-              actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando usuario") }]}
+              actions={[{ label: data.actions.edit, onClick: () => toast.show(data.feedback.editingUser) }]}
             />
           </>
         )}
@@ -82,7 +82,7 @@ export default function ConfiguracionPageClient({ data }: { data: any }) {
           <DataTable
             columns={toColumns(data.roles.table)}
             rows={data.roles.items.map((i: any, idx: number) => ({ ...i, id: String(idx) }))}
-            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show(data.feedback.editing) }]}
           />
         )}
         {tab === "security" && (
@@ -104,7 +104,7 @@ export default function ConfiguracionPageClient({ data }: { data: any }) {
           <DataTable
             columns={toColumns(data.integrations.table)}
             rows={data.integrations.items.map((i: any) => ({ ...i, status: <StatusBadge status={i.status} /> }))}
-            actions={[{ label: data.actions.edit, onClick: () => toast.show("Editando...") }]}
+            actions={[{ label: data.actions.edit, onClick: () => toast.show(data.feedback.editing) }]}
           />
         )}
       </div>

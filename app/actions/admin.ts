@@ -3,6 +3,19 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "../../lib/supabase/server";
 
+async function requireUser() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    throw new Error(
+      "Tu sesión ha expirado o no has iniciado sesión. Vuelve a iniciar sesión."
+    );
+  }
+  return user;
+}
+
 export type AdminServiceRow = {
   id: string;
   name: string;
@@ -74,6 +87,7 @@ export async function listServices(): Promise<AdminServiceRow[]> {
 }
 
 export async function createService(input: AdminServiceInput) {
+  await requireUser();
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("services")
@@ -93,6 +107,7 @@ export async function createService(input: AdminServiceInput) {
 }
 
 export async function updateService(id: string, input: AdminServiceInput) {
+  await requireUser();
   const supabase = await createClient();
   const { error } = await supabase
     .from("services")
@@ -119,6 +134,7 @@ export async function updateService(id: string, input: AdminServiceInput) {
 }
 
 export async function setServiceStatus(id: string, status: string) {
+  await requireUser();
   const supabase = await createClient();
   const { error } = await supabase
     .from("services")
@@ -139,6 +155,7 @@ export async function setServiceStatus(id: string, status: string) {
 }
 
 export async function deleteService(id: string) {
+  await requireUser();
   const supabase = await createClient();
   const { error } = await supabase.from("services").delete().eq("id", id);
   if (error) throw new Error(error.message);

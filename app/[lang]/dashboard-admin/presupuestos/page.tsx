@@ -15,5 +15,5 @@ export async function generateMetadata({
 
 export default async function PresupuestosPage() {
   const dict = await getDictionary();
-  return <PresupuestosPageClient data={dict.dashboardAdmin.presupuestos} />;
+  return <PresupuestosPageClient data={{ ...dict.dashboardAdmin.presupuestos, feedback: dict.dashboardAdmin.feedback }} />;
 }

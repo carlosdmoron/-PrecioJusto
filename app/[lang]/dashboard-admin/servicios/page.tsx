@@ -24,6 +24,7 @@ export default async function ServiciosPage() {
     <ServiciosPageClient
       data={{
         ...dict.dashboardAdmin.servicios,
+        feedback: dict.dashboardAdmin.feedback,
         items: services,
         categories,
       }}

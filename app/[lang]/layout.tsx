@@ -40,6 +40,7 @@ export default async function RootLayout({
     <html
       lang={lang}
       className={`${inter.variable} ${figtree.variable} h-full antialiased`}
+      data-scribe-recorder-ready="true"
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>

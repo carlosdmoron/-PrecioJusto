@@ -15,5 +15,5 @@ export async function generateMetadata({
 
 export default async function FacturacionPage() {
   const dict = await getDictionary();
-  return <FacturacionPageClient data={dict.dashboardAdmin.facturacion} />;
+  return <FacturacionPageClient data={{ ...dict.dashboardAdmin.facturacion, feedback: dict.dashboardAdmin.feedback }} />;
 }

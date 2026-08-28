@@ -41,8 +41,8 @@ export default function TrabajosPageClient({ data }: { data: any }) {
           rows={data.items.map((i: any) => ({ ...i }))}
           actions={[
             { label: data.actions.view, onClick: (row) => setSelectedRow(row) },
-            { label: data.actions.updateStatus, onClick: () => toast.show("Estado actualizado") },
-            { label: data.actions.launchReview, onClick: () => toast.show("Solicitud de reseña enviada") },
+            { label: data.actions.updateStatus, onClick: () => toast.show(data.feedback.statusUpdated) },
+            { label: data.actions.launchReview, onClick: () => toast.show(data.feedback.reviewRequestSent) },
           ]}
         />
       </AdminSection>
@@ -65,14 +65,14 @@ export default function TrabajosPageClient({ data }: { data: any }) {
             <div className="flex flex-wrap gap-2 pt-2">
               <button
                 type="button"
-                onClick={() => { toast.show("Estado actualizado"); setSelectedRow(null); }}
+                onClick={() => { toast.show(data.feedback.statusUpdated); setSelectedRow(null); }}
                 className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20"
               >
                 {data.actions.updateStatus}
               </button>
               <button
                 type="button"
-                onClick={() => { toast.show("Solicitud de reseña enviada"); setSelectedRow(null); }}
+                onClick={() => { toast.show(data.feedback.reviewRequestSent); setSelectedRow(null); }}
                 className="rounded-lg bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100"
               >
                 {data.actions.launchReview}

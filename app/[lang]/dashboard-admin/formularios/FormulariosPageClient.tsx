@@ -58,13 +58,13 @@ export default function FormulariosPageClient({ data }: { data: any }) {
             {
               label: data.actions.preview,
               onClick: () => {
-                toast.show("Vista previa");
+                toast.show(data.feedback.formPreview);
               },
             },
             {
               label: data.actions.duplicate,
               onClick: () => {
-                toast.show("Formulario duplicado");
+                toast.show(data.feedback.formDuplicated);
               },
             },
           ]}
@@ -101,7 +101,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               onClick={() => {
                 setShowModal(false);
                 setShowBuilder(true);
-                toast.show("Formulario creado");
+                toast.show(data.feedback.formCreated);
               }}
               className="h-10 flex-1 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark"
             >

@@ -81,15 +81,15 @@ export default function ServiciosPageClient({ data }: { data: any }) {
       };
       if (editingItem) {
         await updateService(String(editingItem.id), payload);
-        await sweetSuccess(data.modal.updated ?? "Servicio actualizado");
+        await sweetSuccess(data.feedback.updated);
       } else {
         await createService(payload);
-        await sweetSuccess(data.modal.created ?? "Servicio creado en la base de datos");
+        await sweetSuccess(data.feedback.created);
       }
       router.refresh();
       setShowModal(false);
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error al guardar", "No se pudo verificar la operación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.verifyError);
     } finally {
       setSaving(false);
     }
@@ -97,17 +97,19 @@ export default function ServiciosPageClient({ data }: { data: any }) {
 
   async function handleDelete(row: TableRow) {
     const confirmed = await sweetConfirmDelete(
-      data.modal.deleteTitle ?? "¿Eliminar este servicio?",
-      data.modal.deleted ?? "Esta acción no se puede deshacer."
+      data.feedback.confirmDeleteTitle,
+      data.feedback.confirmDeleteText,
+      data.feedback.confirmYes,
+      data.feedback.confirmCancel
     );
     if (!confirmed) return;
     try {
       await deleteService(String(row.id));
       setItems((prev: any[]) => prev.filter((it: any) => it.id !== row.id));
-      await sweetSuccess(data.modal.deleted ?? "Servicio eliminado", "Se eliminó de la base de datos");
+      await sweetSuccess(data.feedback.deleted);
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error al eliminar", "No se pudo verificar la eliminación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.deleteVerifyError);
     }
   }
 
@@ -131,9 +133,9 @@ export default function ServiciosPageClient({ data }: { data: any }) {
           columns={columns}
           rows={items.map((i: any) => ({ ...i }))}
           actions={[
-            { label: data.actions?.edit ?? "Editar", onClick: (row) => openEdit(row) },
+            { label: data.actions?.edit ?? "Edit", onClick: (row) => openEdit(row) },
             {
-              label: data.actions?.delete ?? "Eliminar",
+              label: data.actions?.delete ?? "Delete",
               onClick: (row) => handleDelete(row),
             },
           ]}

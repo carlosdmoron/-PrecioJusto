@@ -18,6 +18,6 @@ export default async function MatchingPage() {
   const dict = await getDictionary();
   const items = await listMatchingRules();
   return (
-    <MatchingPageClient data={{ ...dict.dashboardAdmin.matching, items }} />
+    <MatchingPageClient data={{ ...dict.dashboardAdmin.matching, items, feedback: dict.dashboardAdmin.feedback }} />
   );
 }

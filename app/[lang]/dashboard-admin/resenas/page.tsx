@@ -18,6 +18,6 @@ export default async function ResenasPage() {
   const dict = await getDictionary();
   const items = await listReviews();
   return (
-    <ResenasPageClient data={{ ...dict.dashboardAdmin.resenas, items }} />
+    <ResenasPageClient data={{ ...dict.dashboardAdmin.resenas, items, feedback: dict.dashboardAdmin.feedback }} />
   );
 }

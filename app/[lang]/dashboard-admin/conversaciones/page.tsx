@@ -15,5 +15,5 @@ export async function generateMetadata({
 
 export default async function ConversacionesPage() {
   const dict = await getDictionary();
-  return <ConversacionesPageClient data={dict.dashboardAdmin.conversaciones} />;
+  return <ConversacionesPageClient data={{ ...dict.dashboardAdmin.conversaciones, feedback: dict.dashboardAdmin.feedback }} />;
 }

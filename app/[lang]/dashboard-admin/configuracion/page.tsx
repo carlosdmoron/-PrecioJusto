@@ -15,5 +15,5 @@ export async function generateMetadata({
 
 export default async function ConfiguracionPage() {
   const dict = await getDictionary();
-  return <ConfiguracionPageClient data={dict.dashboardAdmin.configuracion} />;
+  return <ConfiguracionPageClient data={{ ...dict.dashboardAdmin.configuracion, feedback: dict.dashboardAdmin.feedback }} />;
 }

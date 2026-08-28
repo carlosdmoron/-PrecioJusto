@@ -38,9 +38,9 @@ export default function ConversacionesPageClient({ data }: { data: any }) {
           rows={data.items.map((i: any) => ({ ...i }))}
           actions={[
             { label: data.actions.view, onClick: (row) => setSelectedRow(row) },
-            { label: data.actions.flag, onClick: () => toast.show("Conversación marcada como spam") },
-            { label: data.actions.hide, onClick: () => toast.show("Conversación ocultada") },
-            { label: data.actions.note, onClick: () => toast.show("Nota guardada") },
+            { label: data.actions.flag, onClick: () => toast.show(data.feedback.flaggedSpam) },
+            { label: data.actions.hide, onClick: () => toast.show(data.feedback.hiddenConversation) },
+            { label: data.actions.note, onClick: () => toast.show(data.feedback.noteSaved) },
           ]}
         />
       </AdminSection>
@@ -65,9 +65,9 @@ export default function ConversacionesPageClient({ data }: { data: any }) {
               <p className="mt-1 text-sm text-ink">{selectedRow.lastMessage}</p>
             </div>
             <div className="flex flex-wrap gap-2 pt-2">
-              <button type="button" onClick={() => toast.show("Conversación marcada como spam")} className="rounded-lg bg-orange-50 px-4 py-2 text-xs font-semibold text-orange-700 transition hover:bg-orange-100">{data.actions.flag}</button>
-              <button type="button" onClick={() => toast.show("Conversación ocultada")} className="rounded-lg bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.hide}</button>
-              <button type="button" onClick={() => toast.show("Nota guardada")} className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20">{data.actions.note}</button>
+              <button type="button" onClick={() => toast.show(data.feedback.flaggedSpam)} className="rounded-lg bg-orange-50 px-4 py-2 text-xs font-semibold text-orange-700 transition hover:bg-orange-100">{data.actions.flag}</button>
+              <button type="button" onClick={() => toast.show(data.feedback.hiddenConversation)} className="rounded-lg bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.hide}</button>
+              <button type="button" onClick={() => toast.show(data.feedback.noteSaved)} className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20">{data.actions.note}</button>
             </div>
           </div>
         )}

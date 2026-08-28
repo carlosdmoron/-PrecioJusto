@@ -38,8 +38,8 @@ export default function FacturacionPageClient({ data }: { data: any }) {
         description={data.description}
         actions={
           <>
-            <button type="button" onClick={() => setShowConfig(true)} className="h-10 rounded-lg border border-line/60 px-5 text-sm font-medium text-steel transition hover:text-ink">Configurar</button>
-            <button type="button" onClick={() => toast.show("Exportando CSV...")} className="h-10 rounded-lg bg-primary px-5 text-sm font-semibold text-white transition hover:bg-primary-dark">{data.actions.export}</button>
+            <button type="button" onClick={() => setShowConfig(true)} className="h-10 rounded-lg border border-line/60 px-5 text-sm font-medium text-steel transition hover:text-ink">{data.feedback.config}</button>
+            <button type="button" onClick={() => toast.show(data.feedback.exportingCsv)} className="h-10 rounded-lg bg-primary px-5 text-sm font-semibold text-white transition hover:bg-primary-dark">{data.actions.export}</button>
           </>
         }
       >
@@ -53,8 +53,8 @@ export default function FacturacionPageClient({ data }: { data: any }) {
             columns={columns}
             rows={data.items.map((i: any) => ({ ...i }))}
             actions={[
-              { label: data.actions.invoice, onClick: () => toast.show("Factura generada") },
-              { label: data.actions.refund, onClick: () => toast.show("Reembolso procesado") },
+              { label: data.actions.invoice, onClick: () => toast.show(data.feedback.invoiceGenerated) },
+              { label: data.actions.refund, onClick: () => toast.show(data.feedback.refundProcessed) },
             ]}
           />
         </div>

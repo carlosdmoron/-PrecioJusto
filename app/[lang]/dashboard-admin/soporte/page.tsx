@@ -18,6 +18,6 @@ export default async function SoportePage() {
   const dict = await getDictionary();
   const items = await listTickets();
   return (
-    <SoportePageClient data={{ ...dict.dashboardAdmin.soporte, items }} />
+    <SoportePageClient data={{ ...dict.dashboardAdmin.soporte, items, feedback: dict.dashboardAdmin.feedback }} />
   );
 }

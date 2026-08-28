@@ -59,9 +59,9 @@ export default function NotificacionesPageClient({ data }: { data: any }) {
           columns={columns}
           rows={items.map((i: any) => ({ ...i, status: <StatusBadge status={i.status} /> }))}
           actions={[
-            { label: data.actions.edit, onClick: () => toast.show("Editando...") },
-            { label: data.actions.toggle, onClick: () => toast.show("Estado actualizado") },
-            { label: data.actions.test, onClick: () => toast.show("Prueba de envío enviada") },
+            { label: data.actions.edit, onClick: () => toast.show(data.feedback.editing) },
+            { label: data.actions.toggle, onClick: () => toast.show(data.feedback.statusUpdated) },
+            { label: data.actions.test, onClick: () => toast.show(data.feedback.testSent) },
           ]}
         />
       </AdminSection>

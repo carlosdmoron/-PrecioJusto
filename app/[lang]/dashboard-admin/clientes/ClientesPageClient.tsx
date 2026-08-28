@@ -36,8 +36,8 @@ export default function ClientesPageClient({ data }: { data: any }) {
           rows={data.items.map((i: any) => ({ ...i }))}
           actions={[
             { label: data.actions.view, onClick: (row) => setSelectedRow(row) },
-            { label: data.actions.block, onClick: () => toast.show("Cliente bloqueado") },
-            { label: data.actions.export, onClick: () => toast.show("Exportando datos...") },
+            { label: data.actions.block, onClick: () => toast.show(data.feedback.blockedUser) },
+            { label: data.actions.export, onClick: () => toast.show(data.feedback.exporting) },
           ]}
         />
       </AdminSection>
@@ -54,8 +54,8 @@ export default function ClientesPageClient({ data }: { data: any }) {
               ))}
             </div>
             <div className="flex flex-wrap gap-2 pt-2">
-              <button type="button" onClick={() => toast.show("Cliente bloqueado")} className="rounded-lg bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.block}</button>
-              <button type="button" onClick={() => toast.show("Exportando datos...")} className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20">{data.actions.export}</button>
+              <button type="button" onClick={() => toast.show(data.feedback.blockedUser)} className="rounded-lg bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.block}</button>
+              <button type="button" onClick={() => toast.show(data.feedback.exporting)} className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20">{data.actions.export}</button>
             </div>
           </div>
         )}

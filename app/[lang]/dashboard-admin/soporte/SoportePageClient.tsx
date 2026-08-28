@@ -52,7 +52,7 @@ export default function SoportePageClient({ data }: { data: any }) {
         date: new Date().toLocaleDateString("es-ES"),
       };
       setItems((prev: any[]) => [...prev, newItem]);
-      await sweetSuccess(data.createModal.created ?? "Ticket creado", "Verificado en la base de datos");
+      await sweetSuccess(data.feedback.ticketCreated, data.feedback.verified);
       setSender("");
       setType("");
       setPriority("");
@@ -60,7 +60,7 @@ export default function SoportePageClient({ data }: { data: any }) {
       setShowCreate(false);
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error al crear", "No se pudo verificar la creación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.createVerifyError);
     }
   }
 
@@ -70,10 +70,10 @@ export default function SoportePageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === row.id ? { ...i, status: "resolved" } : i))
       );
-      await sweetSuccess("Ticket resuelto", "Cambio verificado en la base de datos");
+      await sweetSuccess(data.feedback.ticketResolved, data.feedback.verified);
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.verifyError);
     }
   }
 
@@ -92,7 +92,7 @@ export default function SoportePageClient({ data }: { data: any }) {
           rows={items}
           actions={[
             { label: data.actions.assign, onClick: (row) => setSelectedRow(row) },
-            { label: data.actions.escalate, onClick: () => toast.show("Ticket escalado") },
+            { label: data.actions.escalate, onClick: () => toast.show(data.feedback.escalatedTicket) },
             { label: data.actions.resolve, onClick: (row) => handleResolve(row) },
           ]}
         />
@@ -116,8 +116,8 @@ export default function SoportePageClient({ data }: { data: any }) {
               </div>
             )}
             <div className="flex flex-wrap gap-2 pt-2">
-              <button type="button" onClick={() => { toast.show("Ticket asignado"); setSelectedRow(null); }} className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20">{data.detail.assign}</button>
-              <button type="button" onClick={() => { toast.show("Ticket escalado"); setSelectedRow(null); }} className="rounded-lg bg-amber-50 px-4 py-2 text-xs font-semibold text-amber-700 transition hover:bg-amber-100">{data.detail.escalate}</button>
+              <button type="button" onClick={() => { toast.show(data.feedback.assignedTicket); setSelectedRow(null); }} className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20">{data.detail.assign}</button>
+              <button type="button" onClick={() => { toast.show(data.feedback.escalatedTicket); setSelectedRow(null); }} className="rounded-lg bg-amber-50 px-4 py-2 text-xs font-semibold text-amber-700 transition hover:bg-amber-100">{data.detail.escalate}</button>
               <button type="button" onClick={() => { handleResolve(selectedRow); setSelectedRow(null); }} className="rounded-lg bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.detail.resolve}</button>
             </div>
           </div>

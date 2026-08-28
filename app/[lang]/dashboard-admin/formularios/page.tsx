@@ -15,5 +15,5 @@ export async function generateMetadata({
 
 export default async function FormulariosPage() {
   const dict = await getDictionary();
-  return <FormulariosPageClient data={dict.dashboardAdmin.formularios} />;
+  return <FormulariosPageClient data={{ ...dict.dashboardAdmin.formularios, feedback: dict.dashboardAdmin.feedback }} />;
 }

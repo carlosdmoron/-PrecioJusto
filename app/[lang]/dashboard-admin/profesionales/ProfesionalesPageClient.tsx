@@ -24,10 +24,10 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === id ? { ...i, status } : i))
       );
-      await sweetSuccess(msg, "Cambio verificado en la base de datos");
+      await sweetSuccess(msg, data.feedback.verified);
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.verifyError);
     }
   }
 
@@ -65,8 +65,8 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
                     <p className="text-xs text-muted">{p.services} — {p.zone}</p>
                   </div>
                   <div className="flex gap-2">
-                    <button type="button" onClick={() => handleSetStatus(p.id, "active", "Profesional aprobado")} className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.actions.approve}</button>
-                    <button type="button" onClick={() => handleSetStatus(p.id, "rejected", "Profesional rechazado")} className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.reject}</button>
+                    <button type="button" onClick={() => handleSetStatus(p.id, "active", data.feedback.professionalApproved)} className="rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-100">{data.actions.approve}</button>
+                    <button type="button" onClick={() => handleSetStatus(p.id, "rejected", data.feedback.professionalRejected)} className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-100">{data.actions.reject}</button>
                   </div>
                 </div>
               ))}
@@ -78,11 +78,11 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
           rows={items}
           actions={[
             { label: data.actions.view, onClick: (row: any) => setSelectedRow(row) },
-            { label: data.actions.edit, onClick: () => toast.show("Edición no disponible", "info") },
+            { label: data.actions.edit, onClick: () => toast.show(data.feedback.editUnavailable, "info") },
             {
               label: data.actions.suspend,
               onClick: (row: any) =>
-                handleSetStatus(row.id, "suspended", "Profesional suspendido"),
+                handleSetStatus(row.id, "suspended", data.feedback.professionalSuspended),
             },
           ]}
         />

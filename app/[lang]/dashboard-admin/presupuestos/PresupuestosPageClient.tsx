@@ -42,8 +42,8 @@ export default function PresupuestosPageClient({ data }: { data: any }) {
           rows={data.items.map((i: any) => ({ ...i }))}
           actions={[
             { label: data.actions.view, onClick: (row) => setSelectedRow(row) },
-            { label: data.actions.block, onClick: () => toast.show("Presupuesto bloqueado") },
-            { label: data.actions.notify, onClick: () => toast.show("Notificación reenviada") },
+            { label: data.actions.block, onClick: () => toast.show(data.feedback.blockedQuote) },
+            { label: data.actions.notify, onClick: () => toast.show(data.feedback.notificationResent) },
           ]}
         />
       </AdminSection>

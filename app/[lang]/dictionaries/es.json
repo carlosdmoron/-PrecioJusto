@@ -141,10 +141,22 @@
       {
         "title": "Legal",
         "links": [
-          { "label": "Términos y condiciones", "href": "/{lang}/terminos-y-condiciones" },
-          { "label": "Privacidad", "href": "/{lang}/privacidad" },
-          { "label": "Cookies", "href": "#" },
-          { "label": "Transparencia de precios", "href": "#" }
+          {
+            "label": "Términos y condiciones",
+            "href": "/{lang}/terminos-y-condiciones"
+          },
+          {
+            "label": "Privacidad",
+            "href": "/{lang}/privacidad"
+          },
+          {
+            "label": "Cookies",
+            "href": "#"
+          },
+          {
+            "label": "Transparencia de precios",
+            "href": "#"
+          }
         ]
       }
     ],
@@ -177,7 +189,7 @@
         }
       ]
     },
-  "features": [
+    "features": [
       {
         "title": "Visibilidad real",
         "desc": "Aparece cuando alguien busca un servicio que ofreces."
@@ -357,137 +369,16 @@
         "titulo": "Revisa tu registro",
         "ayuda": "Comprueba que todo está correcto antes de finalizar.",
         "resumen": {
-            "title": "Resumen ejecutivo",
-            "subtitle": "Visión global del marketplace y alertas operativas",
-            "description": "Panel de control principal que muestra los KPIs más importantes del marketplace: solicitudes, presupuestos, ingresos, profesionales activos y alertas operativas que requieren intervención inmediata. Usa los filtros para segmentar por fecha, país, ciudad, categoría o canal de adquisición.",
-            "filters": {
-              "fecha": "Rango de fechas",
-              "pais": "País",
-              "ciudad": "Ciudad",
-              "categoria": "Categoría",
-              "servicio": "Servicio",
-              "dispositivo": "Dispositivo",
-              "canal": "Canal de adquisición",
-              "aplicar": "Aplicar",
-              "limpiar": "Limpiar",
-              "placeholderTodos": "Todos",
-              "placeholderTodas": "Todas",
-              "placeholderCiudad": "Ciudad",
-              "optionEspana": "España",
-              "optionItalia": "Italia",
-              "optionPlomeria": "Plomería",
-              "optionPintura": "Pintura",
-              "optionJardineria": "Jardinería",
-              "optionMovil": "Móvil",
-              "optionEscritorio": "Escritorio",
-              "optionOrganico": "Orgánico",
-              "optionPago": "Pago",
-              "optionDirecto": "Directo"
-            },
-            "stats": [
-              {
-                "label": "Solicitudes nuevas",
-                "value": "247",
-                "change": "+12%",
-                "trend": "up"
-              },
-              {
-                "label": "Solicitudes completas",
-                "value": "198",
-                "change": "+8%",
-                "trend": "up"
-              },
-              {
-                "label": "Tasa de abandono",
-                "value": "18.4%",
-                "change": "-2.1%",
-                "trend": "down"
-              },
-              {
-                "label": "Presupuestos enviados",
-                "value": "583",
-                "change": "+15%",
-                "trend": "up"
-              },
-              {
-                "label": "Promedio presupuestos/solicitud",
-                "value": "2.9",
-                "change": "+0.3",
-                "trend": "up"
-              },
-              {
-                "label": "Tiempo primer presupuesto",
-                "value": "4.2h",
-                "change": "-0.8h",
-                "trend": "down"
-              },
-              {
-                "label": "Tasa de selección",
-                "value": "62%",
-                "change": "+3%",
-                "trend": "up"
-              },
-              {
-                "label": "Tasa de acuerdo",
-                "value": "41%",
-                "change": "+5%",
-                "trend": "up"
-              },
-              {
-                "label": "Ingresos por leads",
-                "value": "€4.850",
-                "change": "+18%",
-                "trend": "up"
-              },
-              {
-                "label": "Ingresos por comisiones",
-                "value": "€2.340",
-                "change": "+22%",
-                "trend": "up"
-              },
-              {
-                "label": "Profesionales activos",
-                "value": "156",
-                "change": "+7",
-                "trend": "up"
-              },
-              {
-                "label": "Solicitudes sin respuesta",
-                "value": "14",
-                "change": "+3",
-                "trend": "up"
-              }
-            ],
-            "alerts": [
-              {
-                "type": "warning",
-                "title": "Abandono anormal en formulario",
-                "description": "El formulario de Plomería tiene 34% de abandono en el paso 3."
-              },
-              {
-                "type": "danger",
-                "title": "Servicio sin profesionales",
-                "description": "Electricidad en Bilbao no tiene profesionales disponibles."
-              },
-              {
-                "type": "warning",
-                "title": "Solicitudes sin respuesta",
-                "description": "14 leads no han recibido ninguna cotización en 48h."
-              },
-              {
-                "type": "info",
-                "title": "Errores de notificación",
-                "description": "3 emails de notificación fallaron ayer."
-              },
-              {
-                "type": "danger",
-                "title": "Saldos negativos",
-                "description": "2 profesionales tienen saldo negativo."
-              }
-            ],
-            "alertsTitle": "Alertas operativas"
-          },
-          "confirmar": "Finalizar registro"
+          "perfil": "Tipo de perfil",
+          "nombre": "Nombre",
+          "telefono": "Teléfono",
+          "zona": "Zona de trabajo",
+          "servicios": "Servicios",
+          "propuesta": "Propuesta de valor",
+          "fotos": "Fotos de portfolio",
+          "pago": "Método de pago"
+        },
+        "confirmar": "Finalizar registro"
       },
       "exito": {
         "titulo": "¡Tu perfil profesional está listo!",
@@ -876,7 +767,7 @@
       "oportunidades": {
         "title": "Oportunidades",
         "subtitle": "Solicitudes recientes de clientes que buscan tus servicios",
-    "alertsTitle": "Alertas operativas",
+        "alertsTitle": "Alertas operativas",
         "items": [
           {
             "title": "Instalación de aire acondicionado",
@@ -1299,14 +1190,38 @@
       {
         "heading": "Términos clave",
         "definitions": [
-          { "term": "«Plataforma»", "definition": "Significa el sitio web de PrecioJusto, sus subdominios y las aplicaciones asociadas operadas por PrecioJusto." },
-          { "term": "«Usuario»", "definition": "Significa cualquier persona o entidad que acceda o utilice la Plataforma para cualquier propósito." },
-          { "term": "«Miembro»", "definition": "Significa una persona o entidad que crea una cuenta con un correo electrónico y una contraseña mediante la aceptación de estos Términos." },
-          { "term": "«Profesional»", "definition": "Significa un Miembro registrado para publicar sus servicios en la Plataforma, recibir Solicitudes de Clientes y enviar Presupuestos." },
-          { "term": "«Cliente»", "definition": "Significa un Miembro registrado para encontrar Profesionales y recibir Presupuestos para su Solicitud de Servicio." },
-          { "term": "«Solicitud de Servicio»", "definition": "Significa una solicitud enviada en la Plataforma por un Cliente para recibir uno o varios Presupuestos de Profesionales." },
-          { "term": "«Presupuesto»", "definition": "Significa el precio del servicio que el Profesional envía al Cliente como oferta para su Solicitud de Servicio." },
-          { "term": "«Contratación»", "definition": "Significa el acuerdo alcanzado entre el Cliente y el Profesional a partir de un Presupuesto aceptado." }
+          {
+            "term": "«Plataforma»",
+            "definition": "Significa el sitio web de PrecioJusto, sus subdominios y las aplicaciones asociadas operadas por PrecioJusto."
+          },
+          {
+            "term": "«Usuario»",
+            "definition": "Significa cualquier persona o entidad que acceda o utilice la Plataforma para cualquier propósito."
+          },
+          {
+            "term": "«Miembro»",
+            "definition": "Significa una persona o entidad que crea una cuenta con un correo electrónico y una contraseña mediante la aceptación de estos Términos."
+          },
+          {
+            "term": "«Profesional»",
+            "definition": "Significa un Miembro registrado para publicar sus servicios en la Plataforma, recibir Solicitudes de Clientes y enviar Presupuestos."
+          },
+          {
+            "term": "«Cliente»",
+            "definition": "Significa un Miembro registrado para encontrar Profesionales y recibir Presupuestos para su Solicitud de Servicio."
+          },
+          {
+            "term": "«Solicitud de Servicio»",
+            "definition": "Significa una solicitud enviada en la Plataforma por un Cliente para recibir uno o varios Presupuestos de Profesionales."
+          },
+          {
+            "term": "«Presupuesto»",
+            "definition": "Significa el precio del servicio que el Profesional envía al Cliente como oferta para su Solicitud de Servicio."
+          },
+          {
+            "term": "«Contratación»",
+            "definition": "Significa el acuerdo alcanzado entre el Cliente y el Profesional a partir de un Presupuesto aceptado."
+          }
         ]
       },
       {
@@ -1556,7 +1471,10 @@
       "confirmCancel": "Cancelar",
       "close": "Cerrar"
     },
-    "meta": { "title": "Panel de administración — PrecioJusto", "description": "Gestiona servicios, solicitudes, profesionales y configuración de la plataforma." },
+    "meta": {
+      "title": "Panel de administración — PrecioJusto",
+      "description": "Gestiona servicios, solicitudes, profesionales y configuración de la plataforma."
+    },
     "nav": {
       "resumen": "Resumen",
       "servicios": "Servicios",
@@ -1581,8 +1499,18 @@
       "title": "Resumen ejecutivo",
       "subtitle": "Visión global del marketplace y alertas operativas",
       "description": "Panel de control principal que muestra los KPIs más importantes del marketplace: solicitudes, presupuestos, ingresos, profesionales activos y alertas operativas que requieren intervención inmediata. Usa los filtros para segmentar por fecha, país, ciudad, categoría o canal de adquisición.",
-      "filters": { "fecha": "Rango de fechas", "pais": "País", "ciudad": "Ciudad", "categoria": "Categoría", "servicio": "Servicio", "dispositivo": "Dispositivo", "canal": "Canal de adquisición", "aplicar": "Aplicar", "limpiar": "Limpiar" },
-    "placeholderTodos": "Todos",
+      "filters": {
+        "fecha": "Rango de fechas",
+        "pais": "País",
+        "ciudad": "Ciudad",
+        "categoria": "Categoría",
+        "servicio": "Servicio",
+        "dispositivo": "Dispositivo",
+        "canal": "Canal de adquisición",
+        "aplicar": "Aplicar",
+        "limpiar": "Limpiar"
+      },
+      "placeholderTodos": "Todos",
       "placeholderTodas": "Todas",
       "placeholderCiudad": "Ciudad",
       "optionEspana": "España",
@@ -1596,25 +1524,105 @@
       "optionPago": "Pago",
       "optionDirecto": "Directo",
       "stats": [
-        { "label": "Solicitudes nuevas", "value": "247", "change": "+12%", "trend": "up" },
-        { "label": "Solicitudes completas", "value": "198", "change": "+8%", "trend": "up" },
-        { "label": "Tasa de abandono", "value": "18.4%", "change": "-2.1%", "trend": "down" },
-        { "label": "Presupuestos enviados", "value": "583", "change": "+15%", "trend": "up" },
-        { "label": "Promedio presupuestos/solicitud", "value": "2.9", "change": "+0.3", "trend": "up" },
-        { "label": "Tiempo primer presupuesto", "value": "4.2h", "change": "-0.8h", "trend": "down" },
-        { "label": "Tasa de selección", "value": "62%", "change": "+3%", "trend": "up" },
-        { "label": "Tasa de acuerdo", "value": "41%", "change": "+5%", "trend": "up" },
-        { "label": "Ingresos por leads", "value": "€4.850", "change": "+18%", "trend": "up" },
-        { "label": "Ingresos por comisiones", "value": "€2.340", "change": "+22%", "trend": "up" },
-        { "label": "Profesionales activos", "value": "156", "change": "+7", "trend": "up" },
-        { "label": "Solicitudes sin respuesta", "value": "14", "change": "+3", "trend": "up" }
+        {
+          "label": "Solicitudes nuevas",
+          "value": "247",
+          "change": "+12%",
+          "trend": "up"
+        },
+        {
+          "label": "Solicitudes completas",
+          "value": "198",
+          "change": "+8%",
+          "trend": "up"
+        },
+        {
+          "label": "Tasa de abandono",
+          "value": "18.4%",
+          "change": "-2.1%",
+          "trend": "down"
+        },
+        {
+          "label": "Presupuestos enviados",
+          "value": "583",
+          "change": "+15%",
+          "trend": "up"
+        },
+        {
+          "label": "Promedio presupuestos/solicitud",
+          "value": "2.9",
+          "change": "+0.3",
+          "trend": "up"
+        },
+        {
+          "label": "Tiempo primer presupuesto",
+          "value": "4.2h",
+          "change": "-0.8h",
+          "trend": "down"
+        },
+        {
+          "label": "Tasa de selección",
+          "value": "62%",
+          "change": "+3%",
+          "trend": "up"
+        },
+        {
+          "label": "Tasa de acuerdo",
+          "value": "41%",
+          "change": "+5%",
+          "trend": "up"
+        },
+        {
+          "label": "Ingresos por leads",
+          "value": "€4.850",
+          "change": "+18%",
+          "trend": "up"
+        },
+        {
+          "label": "Ingresos por comisiones",
+          "value": "€2.340",
+          "change": "+22%",
+          "trend": "up"
+        },
+        {
+          "label": "Profesionales activos",
+          "value": "156",
+          "change": "+7",
+          "trend": "up"
+        },
+        {
+          "label": "Solicitudes sin respuesta",
+          "value": "14",
+          "change": "+3",
+          "trend": "up"
+        }
       ],
       "alerts": [
-        { "type": "warning", "title": "Abandono anormal en formulario", "description": "El formulario de Plomería tiene 34% de abandono en el paso 3." },
-        { "type": "danger", "title": "Servicio sin profesionales", "description": "Electricidad en Bilbao no tiene profesionales disponibles." },
-        { "type": "warning", "title": "Solicitudes sin respuesta", "description": "14 leads no han recibido ninguna cotización en 48h." },
-        { "type": "info", "title": "Errores de notificación", "description": "3 emails de notificación fallaron ayer." },
-        { "type": "danger", "title": "Saldos negativos", "description": "2 profesionales tienen saldo negativo." }
+        {
+          "type": "warning",
+          "title": "Abandono anormal en formulario",
+          "description": "El formulario de Plomería tiene 34% de abandono en el paso 3."
+        },
+        {
+          "type": "danger",
+          "title": "Servicio sin profesionales",
+          "description": "Electricidad en Bilbao no tiene profesionales disponibles."
+        },
+        {
+          "type": "warning",
+          "title": "Solicitudes sin respuesta",
+          "description": "14 leads no han recibido ninguna cotización en 48h."
+        },
+        {
+          "type": "info",
+          "title": "Errores de notificación",
+          "description": "3 emails de notificación fallaron ayer."
+        },
+        {
+          "type": "danger",
+          "title": "Saldos negativos",
+          "description": "2 profesionales tienen saldo negativo."
+        }
       ]
     },
     "servicios": {
@@ -1623,60 +1631,298 @@
       "description": "Administra el catálogo completo de servicios de la plataforma. Crea, edita, duplica, pausa o archiva servicios. Controla estados (borrador → revisión → publicado → pausado → archivado), categorías, variantes regionales y visualiza estadísticas de solicitud e ingresos por servicio.",
       "create": "Crear servicio",
       "createCategory": "Crear categoría",
-      "table": { "id": "ID", "name": "Nombre", "category": "Categoría", "status": "Estado", "requests": "Solicitudes", "revenue": "Ingresos", "actions": "Acciones" },
-      "statuses": { "draft": "Borrador", "review": "Revisión", "published": "Publicado", "paused": "Pausado", "archived": "Archivado" },
-      "actions": { "edit": "Editar", "duplicate": "Duplicar", "archive": "Archivar", "preview": "Previsualizar" },
+      "table": {
+        "id": "ID",
+        "name": "Nombre",
+        "category": "Categoría",
+        "status": "Estado",
+        "requests": "Solicitudes",
+        "revenue": "Ingresos",
+        "actions": "Acciones"
+      },
+      "statuses": {
+        "draft": "Borrador",
+        "review": "Revisión",
+        "published": "Publicado",
+        "paused": "Pausado",
+        "archived": "Archivado"
+      },
+      "actions": {
+        "edit": "Editar",
+        "duplicate": "Duplicar",
+        "archive": "Archivar",
+        "preview": "Previsualizar"
+      },
       "items": [
-        { "id": "SRV-001", "name": "Reparación de tuberías", "category": "Plomería", "status": "published", "requests": "89", "revenue": "€1.240" },
-        { "id": "SRV-002", "name": "Instalación de caldera", "category": "Plomería", "status": "published", "requests": "34", "revenue": "€890" },
-        { "id": "SRV-003", "name": "Pintura de interiores", "category": "Pintura", "status": "published", "requests": "67", "revenue": "€980" },
-        { "id": "SRV-004", "name": "Reparación de fachada", "category": "Pintura", "status": "draft", "requests": "0", "revenue": "€0" },
-        { "id": "SRV-005", "name": "Corte y diseño de jardín", "category": "Jardinería", "status": "review", "requests": "0", "revenue": "€0" },
-        { "id": "SRV-006", "name": "Fontanería urgente", "category": "Plomería", "status": "paused", "requests": "12", "revenue": "€180" }
+        {
+          "id": "SRV-001",
+          "name": "Reparación de tuberías",
+          "category": "Plomería",
+          "status": "published",
+          "requests": "89",
+          "revenue": "€1.240"
+        },
+        {
+          "id": "SRV-002",
+          "name": "Instalación de caldera",
+          "category": "Plomería",
+          "status": "published",
+          "requests": "34",
+          "revenue": "€890"
+        },
+        {
+          "id": "SRV-003",
+          "name": "Pintura de interiores",
+          "category": "Pintura",
+          "status": "published",
+          "requests": "67",
+          "revenue": "€980"
+        },
+        {
+          "id": "SRV-004",
+          "name": "Reparación de fachada",
+          "category": "Pintura",
+          "status": "draft",
+          "requests": "0",
+          "revenue": "€0"
+        },
+        {
+          "id": "SRV-005",
+          "name": "Corte y diseño de jardín",
+          "category": "Jardinería",
+          "status": "review",
+          "requests": "0",
+          "revenue": "€0"
+        },
+        {
+          "id": "SRV-006",
+          "name": "Fontanería urgente",
+          "category": "Plomería",
+          "status": "paused",
+          "requests": "12",
+          "revenue": "€180"
+        }
       ],
       "categories": [
-        { "id": "CAT-001", "name": "Plomería", "services": 3, "status": "active" },
-        { "id": "CAT-002", "name": "Pintura", "services": 2, "status": "active" },
-        { "id": "CAT-003", "name": "Jardinería", "services": 1, "status": "active" },
-        { "id": "CAT-004", "name": "Electricidad", "services": 0, "status": "active" },
-        { "id": "CAT-005", "name": "Limpieza", "services": 0, "status": "draft" }
+        {
+          "id": "CAT-001",
+          "name": "Plomería",
+          "services": 3,
+          "status": "active"
+        },
+        {
+          "id": "CAT-002",
+          "name": "Pintura",
+          "services": 2,
+          "status": "active"
+        },
+        {
+          "id": "CAT-003",
+          "name": "Jardinería",
+          "services": 1,
+          "status": "active"
+        },
+        {
+          "id": "CAT-004",
+          "name": "Electricidad",
+          "services": 0,
+          "status": "active"
+        },
+        {
+          "id": "CAT-005",
+          "name": "Limpieza",
+          "services": 0,
+          "status": "draft"
+        }
       ],
-      "modal": { "editTitle": "Editar servicio", "createTitle": "Crear servicio", "name": "Nombre del servicio", "namePh": "Ej: Reparación de tuberías", "category": "Categoría", "description": "Descripción", "descriptionPh": "Describe el servicio...", "status": "Estado", "slug": "Slug", "slugPh": "reparacion-tuberias", "save": "Guardar", "cancel": "Cancelar", "categoryPlaceholder": "Seleccionar categoría" }
+      "modal": {
+        "editTitle": "Editar servicio",
+        "createTitle": "Crear servicio",
+        "name": "Nombre del servicio",
+        "namePh": "Ej: Reparación de tuberías",
+        "category": "Categoría",
+        "description": "Descripción",
+        "descriptionPh": "Describe el servicio...",
+        "status": "Estado",
+        "slug": "Slug",
+        "slugPh": "reparacion-tuberias",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "categoryPlaceholder": "Seleccionar categoría"
+      }
     },
     "formularios": {
       "title": "Constructor de formularios",
       "subtitle": "Diseña los cuestionarios dinámicos de cada servicio",
       "description": "Crea y gestiona los formularios dinámicos que los clientes completan al solicitar un servicio. Soporta 11 tipos de pregunta, reglas condicionales, validaciones y versionado. Analiza tasas de abandono por paso para optimizar la conversión.",
       "create": "Crear formulario",
-      "table": { "id": "ID", "service": "Servicio", "version": "Versión", "questions": "Preguntas", "abandonment": "Abandono", "status": "Estado", "actions": "Acciones" },
-      "statuses": { "draft": "Borrador", "active": "Activo", "archived": "Archivado" },
-      "actions": { "edit": "Editar", "preview": "Vista previa", "duplicate": "Duplicar", "versions": "Versiones" },
-      "modal": { "createTitle": "Crear formulario", "editTitle": "Editar formulario", "service": "Servicio", "servicePlaceholder": "Seleccionar servicio", "save": "Crear", "cancel": "Cancelar" },
+      "table": {
+        "id": "ID",
+        "service": "Servicio",
+        "version": "Versión",
+        "questions": "Preguntas",
+        "abandonment": "Abandono",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "statuses": {
+        "draft": "Borrador",
+        "active": "Activo",
+        "archived": "Archivado"
+      },
+      "actions": {
+        "edit": "Editar",
+        "preview": "Vista previa",
+        "duplicate": "Duplicar",
+        "versions": "Versiones"
+      },
+      "modal": {
+        "createTitle": "Crear formulario",
+        "editTitle": "Editar formulario",
+        "service": "Servicio",
+        "servicePlaceholder": "Seleccionar servicio",
+        "save": "Crear",
+        "cancel": "Cancelar"
+      },
       "categories": [
-        { "id": "CAT-001", "name": "Plomería" },
-        { "id": "CAT-002", "name": "Pintura" },
-        { "id": "CAT-003", "name": "Jardinería" },
-        { "id": "CAT-004", "name": "Electricidad" },
-        { "id": "CAT-005", "name": "Limpieza" }
+        {
+          "id": "CAT-001",
+          "name": "Plomería"
+        },
+        {
+          "id": "CAT-002",
+          "name": "Pintura"
+        },
+        {
+          "id": "CAT-003",
+          "name": "Jardinería"
+        },
+        {
+          "id": "CAT-004",
+          "name": "Electricidad"
+        },
+        {
+          "id": "CAT-005",
+          "name": "Limpieza"
+        }
       ],
       "items": [
-        { "id": "FRM-001", "service": "Reparación de tuberías", "version": "v3.1", "questions": "12", "abandonment": "18%", "status": "active" },
-        { "id": "FRM-002", "service": "Instalación de caldera", "version": "v2.0", "questions": "9", "abandonment": "12%", "status": "active" },
-        { "id": "FRM-003", "service": "Pintura de interiores", "version": "v1.2", "questions": "15", "abandonment": "24%", "status": "active" },
-        { "id": "FRM-004", "service": "Corte y diseño de jardín", "version": "v1.0", "questions": "8", "abandonment": "0%", "status": "draft" }
+        {
+          "id": "FRM-001",
+          "service": "Reparación de tuberías",
+          "version": "v3.1",
+          "questions": "12",
+          "abandonment": "18%",
+          "status": "active"
+        },
+        {
+          "id": "FRM-002",
+          "service": "Instalación de caldera",
+          "version": "v2.0",
+          "questions": "9",
+          "abandonment": "12%",
+          "status": "active"
+        },
+        {
+          "id": "FRM-003",
+          "service": "Pintura de interiores",
+          "version": "v1.2",
+          "questions": "15",
+          "abandonment": "24%",
+          "status": "active"
+        },
+        {
+          "id": "FRM-004",
+          "service": "Corte y diseño de jardín",
+          "version": "v1.0",
+          "questions": "8",
+          "abandonment": "0%",
+          "status": "draft"
+        }
       ],
       "builder": {
         "title": "Constructor de formulario",
         "addQuestion": "Añadir pregunta",
-        "questionTypes": { "radio": "Opción única", "checkbox": "Selección múltiple", "text": "Texto corto", "textarea": "Texto largo", "number": "Cantidad", "date": "Fecha", "select": "Selector", "phone": "Teléfono", "email": "Email", "file": "Archivo", "scale": "Escala 1-10" },
+        "questionTypes": {
+          "radio": "Opción única",
+          "checkbox": "Selección múltiple",
+          "text": "Texto corto",
+          "textarea": "Texto largo",
+          "number": "Cantidad",
+          "date": "Fecha",
+          "select": "Selector",
+          "phone": "Teléfono",
+          "email": "Email",
+          "file": "Archivo",
+          "scale": "Escala 1-10"
+        },
         "questions": [
-          { "id": "q1", "label": "¿Qué tipo de problema tiene?", "type": "radio", "required": true, "options": ["Reparación", "Instalación", "Mantenimiento", "Urgencia"] },
-          { "id": "q2", "label": "Describa el problema", "type": "textarea", "required": true },
-          { "id": "q3", "label": "¿Cuándo ocurrió?", "type": "radio", "required": false, "options": ["Hoy", "Esta semana", "Este mes", "Hace más de un mes"] },
-          { "id": "q4", "label": "¿Tiene fotografías del problema?", "type": "file", "required": false },
-          { "id": "q5", "label": "Código postal", "type": "text", "required": true },
-          { "id": "q6", "label": "¿Cuándo necesita el servicio?", "type": "radio", "required": true, "options": ["Lo antes posible", "En 1-2 semanas", "En 1 mes", "Sin prisa"] },
-          { "id": "q7", "label": "Presupuesto orientativo", "type": "select", "required": false, "options": ["Menos de €100", "€100-300", "€300-500", "Más de €500"] }
+          {
+            "id": "q1",
+            "label": "¿Qué tipo de problema tiene?",
+            "type": "radio",
+            "required": true,
+            "options": [
+              "Reparación",
+              "Instalación",
+              "Mantenimiento",
+              "Urgencia"
+            ]
+          },
+          {
+            "id": "q2",
+            "label": "Describa el problema",
+            "type": "textarea",
+            "required": true
+          },
+          {
+            "id": "q3",
+            "label": "¿Cuándo ocurrió?",
+            "type": "radio",
+            "required": false,
+            "options": [
+              "Hoy",
+              "Esta semana",
+              "Este mes",
+              "Hace más de un mes"
+            ]
+          },
+          {
+            "id": "q4",
+            "label": "¿Tiene fotografías del problema?",
+            "type": "file",
+            "required": false
+          },
+          {
+            "id": "q5",
+            "label": "Código postal",
+            "type": "text",
+            "required": true
+          },
+          {
+            "id": "q6",
+            "label": "¿Cuándo necesita el servicio?",
+            "type": "radio",
+            "required": true,
+            "options": [
+              "Lo antes posible",
+              "En 1-2 semanas",
+              "En 1 mes",
+              "Sin prisa"
+            ]
+          },
+          {
+            "id": "q7",
+            "label": "Presupuesto orientativo",
+            "type": "select",
+            "required": false,
+            "options": [
+              "Menos de €100",
+              "€100-300",
+              "€300-500",
+              "Más de €500"
+            ]
+          }
         ],
         "save": "Guardar borrador",
         "publish": "Publicar",
@@ -1690,18 +1936,158 @@
       "title": "Solicitudes",
       "subtitle": "Consulta, edita y distribuye las solicitudes de clientes",
       "description": "Gestiona todas las solicitudes de servicio recibidas de clientes. Visualiza respuestas del formulario, edita datos, redistribuye, pausa, reabre o cancela solicitudes. Cada solicitud incluye historial de cambios, profesional asignado y conversaciones vinculadas.",
-      "filters": { "fields": [{ "key": "id", "label": "ID", "type": "text", "placeholder": "SOL-XXXX" }, { "key": "client", "label": "Cliente", "type": "text", "placeholder": "Nombre del cliente" }, { "key": "city", "label": "Ciudad", "type": "text", "placeholder": "Ciudad" }, { "key": "status", "label": "Estado", "type": "select", "options": [{ "value": "new", "label": "Nueva" }, { "value": "published", "label": "Publicada" }, { "value": "inProgress", "label": "En curso" }, { "value": "completed", "label": "Completada" }, { "value": "cancelled", "label": "Cancelada" }, { "value": "blocked", "label": "Bloqueada" }], "placeholder": "Todos" }], "labels": { "apply": "Aplicar", "clear": "Limpiar" } },
-      "table": { "id": "ID", "client": "Cliente", "service": "Servicio", "city": "Ciudad", "status": "Estado", "urgency": "Urgencia", "quotes": "Presupuestos", "date": "Fecha" },
-      "statuses": { "new": "Nueva", "published": "Publicada", "inProgress": "En curso", "completed": "Completada", "cancelled": "Cancelada", "blocked": "Bloqueada" },
-      "urgency": { "asap": "Lo antes posible", "week": "1-2 semanas", "month": "1 mes", "none": "Sin prisa" },
-      "actions": { "edit": "Editar", "pause": "Pausar", "reopen": "Reabrir", "cancel": "Cancelar", "resend": "Reenviar", "block": "Bloquear", "detail": "Ver detalle" },
+      "filters": {
+        "fields": [
+          {
+            "key": "id",
+            "label": "ID",
+            "type": "text",
+            "placeholder": "SOL-XXXX"
+          },
+          {
+            "key": "client",
+            "label": "Cliente",
+            "type": "text",
+            "placeholder": "Nombre del cliente"
+          },
+          {
+            "key": "city",
+            "label": "Ciudad",
+            "type": "text",
+            "placeholder": "Ciudad"
+          },
+          {
+            "key": "status",
+            "label": "Estado",
+            "type": "select",
+            "options": [
+              {
+                "value": "new",
+                "label": "Nueva"
+              },
+              {
+                "value": "published",
+                "label": "Publicada"
+              },
+              {
+                "value": "inProgress",
+                "label": "En curso"
+              },
+              {
+                "value": "completed",
+                "label": "Completada"
+              },
+              {
+                "value": "cancelled",
+                "label": "Cancelada"
+              },
+              {
+                "value": "blocked",
+                "label": "Bloqueada"
+              }
+            ],
+            "placeholder": "Todos"
+          }
+        ],
+        "labels": {
+          "apply": "Aplicar",
+          "clear": "Limpiar"
+        }
+      },
+      "table": {
+        "id": "ID",
+        "client": "Cliente",
+        "service": "Servicio",
+        "city": "Ciudad",
+        "status": "Estado",
+        "urgency": "Urgencia",
+        "quotes": "Presupuestos",
+        "date": "Fecha"
+      },
+      "statuses": {
+        "new": "Nueva",
+        "published": "Publicada",
+        "inProgress": "En curso",
+        "completed": "Completada",
+        "cancelled": "Cancelada",
+        "blocked": "Bloqueada"
+      },
+      "urgency": {
+        "asap": "Lo antes posible",
+        "week": "1-2 semanas",
+        "month": "1 mes",
+        "none": "Sin prisa"
+      },
+      "actions": {
+        "edit": "Editar",
+        "pause": "Pausar",
+        "reopen": "Reabrir",
+        "cancel": "Cancelar",
+        "resend": "Reenviar",
+        "block": "Bloquear",
+        "detail": "Ver detalle"
+      },
       "items": [
-        { "id": "SOL-2401", "client": "María García", "service": "Reparación de tuberías", "city": "Madrid", "status": "new", "urgency": "asap", "quotes": "0", "date": "25/08/2026" },
-        { "id": "SOL-2400", "client": "Carlos Ruiz", "service": "Pintura de interiores", "city": "Barcelona", "status": "published", "urgency": "week", "quotes": "3", "date": "24/08/2026" },
-        { "id": "SOL-2399", "client": "Ana López", "service": "Instalación de caldera", "city": "Valencia", "status": "inProgress", "urgency": "month", "quotes": "5", "date": "23/08/2026" },
-        { "id": "SOL-2398", "client": "Pedro Martín", "service": "Reparación de tuberías", "city": "Sevilla", "status": "completed", "urgency": "none", "quotes": "4", "date": "22/08/2026" },
-        { "id": "SOL-2397", "client": "Laura Sánchez", "service": "Corte y diseño de jardín", "city": "Bilbao", "status": "blocked", "urgency": "week", "quotes": "0", "date": "21/08/2026" },
-        { "id": "SOL-2396", "client": "Javier Díaz", "service": "Pintura de interiores", "city": "Zaragoza", "status": "cancelled", "urgency": "none", "quotes": "1", "date": "20/08/2026" }
+        {
+          "id": "SOL-2401",
+          "client": "María García",
+          "service": "Reparación de tuberías",
+          "city": "Madrid",
+          "status": "new",
+          "urgency": "asap",
+          "quotes": "0",
+          "date": "25/08/2026"
+        },
+        {
+          "id": "SOL-2400",
+          "client": "Carlos Ruiz",
+          "service": "Pintura de interiores",
+          "city": "Barcelona",
+          "status": "published",
+          "urgency": "week",
+          "quotes": "3",
+          "date": "24/08/2026"
+        },
+        {
+          "id": "SOL-2399",
+          "client": "Ana López",
+          "service": "Instalación de caldera",
+          "city": "Valencia",
+          "status": "inProgress",
+          "urgency": "month",
+          "quotes": "5",
+          "date": "23/08/2026"
+        },
+        {
+          "id": "SOL-2398",
+          "client": "Pedro Martín",
+          "service": "Reparación de tuberías",
+          "city": "Sevilla",
+          "status": "completed",
+          "urgency": "none",
+          "quotes": "4",
+          "date": "22/08/2026"
+        },
+        {
+          "id": "SOL-2397",
+          "client": "Laura Sánchez",
+          "service": "Corte y diseño de jardín",
+          "city": "Bilbao",
+          "status": "blocked",
+          "urgency": "week",
+          "quotes": "0",
+          "date": "21/08/2026"
+        },
+        {
+          "id": "SOL-2396",
+          "client": "Javier Díaz",
+          "service": "Pintura de interiores",
+          "city": "Zaragoza",
+          "status": "cancelled",
+          "urgency": "none",
+          "quotes": "1",
+          "date": "20/08/2026"
+        }
       ],
       "detail": {
         "title": "Detalle de solicitud",
@@ -1719,11 +2105,26 @@
         "notes": "Notas internas",
         "close": "Cerrar",
         "sampleAnswers": [
-          { "question": "Tipo de problema", "answer": "Reparación" },
-          { "question": "Descripción", "answer": "Fuga de agua en el baño, gotera continua del grifo" },
-          { "question": "Cuándo ocurrió", "answer": "Hoy" },
-          { "question": "Código postal", "answer": "28001" },
-          { "question": "Cuándo necesita el servicio", "answer": "Lo antes posible" }
+          {
+            "question": "Tipo de problema",
+            "answer": "Reparación"
+          },
+          {
+            "question": "Descripción",
+            "answer": "Fuga de agua en el baño, gotera continua del grifo"
+          },
+          {
+            "question": "Cuándo ocurrió",
+            "answer": "Hoy"
+          },
+          {
+            "question": "Código postal",
+            "answer": "28001"
+          },
+          {
+            "question": "Cuándo necesita el servicio",
+            "answer": "Lo antes posible"
+          }
         ]
       }
     },
@@ -1733,17 +2134,96 @@
       "description": "Define las reglas que determinan qué profesionales reciben cada solicitud de cliente. Configura criterios como servicio, zona, disponibilidad, capacidad y calidad del perfil. Usa el simulador para verificar cómo se comportan las reglas con datos de prueba.",
       "create": "Crear regla",
       "simulate": "Simular matching",
-      "categories": ["Plomería", "Pintura", "Jardinería", "Electricidad", "Limpieza"],
-      "table": { "id": "ID", "name": "Nombre", "criterion": "Criterio", "priority": "Prioridad", "professionals": "Profesionales", "status": "Estado", "actions": "Acciones" },
-      "criterions": { "service": "Servicio", "zone": "Zona", "availability": "Disponibilidad", "capacity": "Capacidad", "quality": "Calidad del perfil", "history": "Historial de respuesta" },
-      "actions": { "edit": "Editar", "duplicate": "Duplicar", "toggle": "Activar/Desactivar" },
-      "createModal": { "title": "Crear regla de matching", "name": "Nombre de la regla", "namePh": "Ej: Plomería Madrid Centro", "criterion": "Criterio principal", "criterionPlaceholder": "Seleccionar criterio", "zone": "Zona (código postal)", "zonePh": "Ej: 28001", "priority": "Prioridad", "priorityPlaceholder": "Seleccionar prioridad", "priorities": { "1": "Alta", "2": "Media", "3": "Baja", "4": "Muy baja" }, "create": "Crear", "cancel": "Cancelar", "created": "Regla creada correctamente" },
+      "categories": [
+        "Plomería",
+        "Pintura",
+        "Jardinería",
+        "Electricidad",
+        "Limpieza"
+      ],
+      "table": {
+        "id": "ID",
+        "name": "Nombre",
+        "criterion": "Criterio",
+        "priority": "Prioridad",
+        "professionals": "Profesionales",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "criterions": {
+        "service": "Servicio",
+        "zone": "Zona",
+        "availability": "Disponibilidad",
+        "capacity": "Capacidad",
+        "quality": "Calidad del perfil",
+        "history": "Historial de respuesta"
+      },
+      "actions": {
+        "edit": "Editar",
+        "duplicate": "Duplicar",
+        "toggle": "Activar/Desactivar"
+      },
+      "createModal": {
+        "title": "Crear regla de matching",
+        "name": "Nombre de la regla",
+        "namePh": "Ej: Plomería Madrid Centro",
+        "criterion": "Criterio principal",
+        "criterionPlaceholder": "Seleccionar criterio",
+        "zone": "Zona (código postal)",
+        "zonePh": "Ej: 28001",
+        "priority": "Prioridad",
+        "priorityPlaceholder": "Seleccionar prioridad",
+        "priorities": {
+          "1": "Alta",
+          "2": "Media",
+          "3": "Baja",
+          "4": "Muy baja"
+        },
+        "create": "Crear",
+        "cancel": "Cancelar",
+        "created": "Regla creada correctamente"
+      },
       "items": [
-        { "id": "REG-001", "name": "Plomería Madrid Centro", "criterion": "service + zone", "priority": "1", "professionals": "12", "status": "active" },
-        { "id": "REG-002", "name": "Pintura zona norte", "criterion": "service + zone", "priority": "2", "professionals": "8", "status": "active" },
-        { "id": "REG-003", "name": "Urgencias 24h", "criterion": "availability", "priority": "1", "professionals": "5", "status": "active" },
-        { "id": "REG-004", "name": "Perfiles verificados", "criterion": "quality", "priority": "3", "professionals": "34", "status": "active" },
-        { "id": "REG-005", "name": "Sin respuesta en 48h", "criterion": "history", "priority": "4", "professionals": "0", "status": "inactive" }
+        {
+          "id": "REG-001",
+          "name": "Plomería Madrid Centro",
+          "criterion": "service + zone",
+          "priority": "1",
+          "professionals": "12",
+          "status": "active"
+        },
+        {
+          "id": "REG-002",
+          "name": "Pintura zona norte",
+          "criterion": "service + zone",
+          "priority": "2",
+          "professionals": "8",
+          "status": "active"
+        },
+        {
+          "id": "REG-003",
+          "name": "Urgencias 24h",
+          "criterion": "availability",
+          "priority": "1",
+          "professionals": "5",
+          "status": "active"
+        },
+        {
+          "id": "REG-004",
+          "name": "Perfiles verificados",
+          "criterion": "quality",
+          "priority": "3",
+          "professionals": "34",
+          "status": "active"
+        },
+        {
+          "id": "REG-005",
+          "name": "Sin respuesta en 48h",
+          "criterion": "history",
+          "priority": "4",
+          "professionals": "0",
+          "status": "inactive"
+        }
       ],
       "simulator": {
         "title": "Simulador de matching",
@@ -1755,10 +2235,26 @@
         "excluded": "Excluidos",
         "reason": "Motivo",
         "sampleResults": [
-          { "name": "Antonio Pérez — Plomería Madrid", "status": "Incluido", "reason": "Ofrece Reparación de tuberías, cubre CP 28001, disponibilidad activa" },
-          { "name": "María Fernández — Fontanería", "status": "Incluido", "reason": "Ofrece Reparación de tuberías, cubre CP 28001, perfil verificado" },
-          { "name": "Carlos Ruiz — Electricidad", "status": "Excluido", "reason": "No ofrece servicio de Plomería" },
-          { "name": "Laura Blanco — Plomería", "status": "Excluido", "reason": "No cubre la zona 28001" }
+          {
+            "name": "Antonio Pérez — Plomería Madrid",
+            "status": "Incluido",
+            "reason": "Ofrece Reparación de tuberías, cubre CP 28001, disponibilidad activa"
+          },
+          {
+            "name": "María Fernández — Fontanería",
+            "status": "Incluido",
+            "reason": "Ofrece Reparación de tuberías, cubre CP 28001, perfil verificado"
+          },
+          {
+            "name": "Carlos Ruiz — Electricidad",
+            "status": "Excluido",
+            "reason": "No ofrece servicio de Plomería"
+          },
+          {
+            "name": "Laura Blanco — Plomería",
+            "status": "Excluido",
+            "reason": "No cubre la zona 28001"
+          }
         ]
       }
     },
@@ -1768,17 +2264,101 @@
       "description": "Administra el ciclo de vida completo de los profesionales: desde el registro y aprobación hasta la suspensión. Revisa documentación, verifica perfiles, gestiona saldos, historial de trabajos y sanciones. La cola de aprobación muestra los registros pendientes de revisión.",
       "approvalQueue": "Cola de aprobación",
       "pendingCount": "3 pendientes",
-      "table": { "id": "ID", "name": "Nombre", "services": "Servicios", "zone": "Zona", "status": "Estado", "verified": "Verificado", "rating": "Valoración", "quotes": "Presupuestos", "actions": "Acciones" },
-      "statuses": { "pending": "Pendiente", "active": "Activo", "suspended": "Suspendido", "rejected": "Rechazado" },
-      "actions": { "approve": "Aprobar", "reject": "Rechazar", "view": "Ver perfil", "suspend": "Suspender", "edit": "Editar" },
+      "table": {
+        "id": "ID",
+        "name": "Nombre",
+        "services": "Servicios",
+        "zone": "Zona",
+        "status": "Estado",
+        "verified": "Verificado",
+        "rating": "Valoración",
+        "quotes": "Presupuestos",
+        "actions": "Acciones"
+      },
+      "statuses": {
+        "pending": "Pendiente",
+        "active": "Activo",
+        "suspended": "Suspendido",
+        "rejected": "Rechazado"
+      },
+      "actions": {
+        "approve": "Aprobar",
+        "reject": "Rechazar",
+        "view": "Ver perfil",
+        "suspend": "Suspender",
+        "edit": "Editar"
+      },
       "items": [
-        { "id": "PRO-001", "name": "Antonio Pérez", "services": "Plomería", "zone": "Madrid", "status": "active", "verified": "Sí", "rating": "4.8", "quotes": "45" },
-        { "id": "PRO-002", "name": "María Fernández", "services": "Fontanería", "zone": "Madrid", "status": "active", "verified": "Sí", "rating": "4.6", "quotes": "32" },
-        { "id": "PRO-003", "name": "Carlos Ruiz", "services": "Electricidad", "zone": "Barcelona", "status": "active", "verified": "No", "rating": "4.2", "quotes": "18" },
-        { "id": "PRO-004", "name": "Laura Blanco", "services": "Plomería, Pintura", "zone": "Valencia", "status": "pending", "verified": "No", "rating": "—", "quotes": "0" },
-        { "id": "PRO-005", "name": "Pedro Martín", "services": "Jardinería", "zone": "Sevilla", "status": "pending", "verified": "No", "rating": "—", "quotes": "0" },
-        { "id": "PRO-006", "name": "Ana López", "services": "Pintura", "zone": "Bilbao", "status": "pending", "verified": "No", "rating": "—", "quotes": "0" },
-        { "id": "PRO-007", "name": "Javier Díaz", "services": "Electricidad", "zone": "Zaragoza", "status": "suspended", "verified": "Sí", "rating": "3.1", "quotes": "8" }
+        {
+          "id": "PRO-001",
+          "name": "Antonio Pérez",
+          "services": "Plomería",
+          "zone": "Madrid",
+          "status": "active",
+          "verified": "Sí",
+          "rating": "4.8",
+          "quotes": "45"
+        },
+        {
+          "id": "PRO-002",
+          "name": "María Fernández",
+          "services": "Fontanería",
+          "zone": "Madrid",
+          "status": "active",
+          "verified": "Sí",
+          "rating": "4.6",
+          "quotes": "32"
+        },
+        {
+          "id": "PRO-003",
+          "name": "Carlos Ruiz",
+          "services": "Electricidad",
+          "zone": "Barcelona",
+          "status": "active",
+          "verified": "No",
+          "rating": "4.2",
+          "quotes": "18"
+        },
+        {
+          "id": "PRO-004",
+          "name": "Laura Blanco",
+          "services": "Plomería, Pintura",
+          "zone": "Valencia",
+          "status": "pending",
+          "verified": "No",
+          "rating": "—",
+          "quotes": "0"
+        },
+        {
+          "id": "PRO-005",
+          "name": "Pedro Martín",
+          "services": "Jardinería",
+          "zone": "Sevilla",
+          "status": "pending",
+          "verified": "No",
+          "rating": "—",
+          "quotes": "0"
+        },
+        {
+          "id": "PRO-006",
+          "name": "Ana López",
+          "services": "Pintura",
+          "zone": "Bilbao",
+          "status": "pending",
+          "verified": "No",
+          "rating": "—",
+          "quotes": "0"
+        },
+        {
+          "id": "PRO-007",
+          "name": "Javier Díaz",
+          "services": "Electricidad",
+          "zone": "Zaragoza",
+          "status": "suspended",
+          "verified": "Sí",
+          "rating": "3.1",
+          "quotes": "8"
+        }
       ],
       "detail": {
         "title": "Perfil profesional",
@@ -1799,31 +2379,170 @@
       "title": "Presupuestos",
       "subtitle": "Supervisa las ofertas enviadas por profesionales y sus costes",
       "description": "Supervisa todos los presupuestos enviados por profesionales a clientes. Sigue el ciclo de vida: borrador → pendiente → enviado → visto → contacto → seleccionado/rechazado/expirado. Visualiza costes de lead por cada presupuesto y el historial de interacciones.",
-      "table": { "id": "ID", "professional": "Profesional", "client": "Cliente", "service": "Servicio", "amount": "Importe", "status": "Estado", "leadCost": "Coste lead", "date": "Fecha" },
-      "statuses": { "draft": "Borrador", "pending": "Pendiente", "sent": "Enviado", "viewed": "Visto", "contacted": "Contacto iniciado", "selected": "Seleccionado", "rejected": "Rechazado", "expired": "Expirado" },
-      "actions": { "view": "Ver", "block": "Bloquear", "notify": "Reenviar notificación" },
-      "detail": { "title": "Detalle de presupuesto", "professional": "Profesional", "client": "Cliente", "service": "Servicio", "amount": "Importe", "status": "Estado", "leadCost": "Coste lead", "date": "Fecha", "close": "Cerrar" },
+      "table": {
+        "id": "ID",
+        "professional": "Profesional",
+        "client": "Cliente",
+        "service": "Servicio",
+        "amount": "Importe",
+        "status": "Estado",
+        "leadCost": "Coste lead",
+        "date": "Fecha"
+      },
+      "statuses": {
+        "draft": "Borrador",
+        "pending": "Pendiente",
+        "sent": "Enviado",
+        "viewed": "Visto",
+        "contacted": "Contacto iniciado",
+        "selected": "Seleccionado",
+        "rejected": "Rechazado",
+        "expired": "Expirado"
+      },
+      "actions": {
+        "view": "Ver",
+        "block": "Bloquear",
+        "notify": "Reenviar notificación"
+      },
+      "detail": {
+        "title": "Detalle de presupuesto",
+        "professional": "Profesional",
+        "client": "Cliente",
+        "service": "Servicio",
+        "amount": "Importe",
+        "status": "Estado",
+        "leadCost": "Coste lead",
+        "date": "Fecha",
+        "close": "Cerrar"
+      },
       "items": [
-        { "id": "PRE-5001", "professional": "Antonio Pérez", "client": "María García", "service": "Reparación de tuberías", "amount": "€180-220", "status": "sent", "leadCost": "€5", "date": "25/08/2026" },
-        { "id": "PRE-5002", "professional": "María Fernández", "client": "María García", "service": "Reparación de tuberías", "amount": "€150-190", "status": "viewed", "leadCost": "€5", "date": "25/08/2026" },
-        { "id": "PRE-5003", "professional": "Carlos Ruiz", "client": "Carlos Ruiz", "service": "Pintura de interiores", "amount": "€350-400", "status": "selected", "leadCost": "€4", "date": "24/08/2026" },
-        { "id": "PRE-5004", "professional": "Laura Blanco", "client": "Ana López", "service": "Instalación de caldera", "amount": "€800-1.000", "status": "contacted", "leadCost": "€6", "date": "23/08/2026" },
-        { "id": "PRE-5005", "professional": "Javier Díaz", "client": "Pedro Martín", "service": "Reparación de tuberías", "amount": "€120-160", "status": "rejected", "leadCost": "€5", "date": "22/08/2026" },
-        { "id": "PRE-5006", "professional": "Antonio Pérez", "client": "Laura Sánchez", "service": "Corte y diseño de jardín", "amount": "€250-300", "status": "expired", "leadCost": "€3", "date": "20/08/2026" }
+        {
+          "id": "PRE-5001",
+          "professional": "Antonio Pérez",
+          "client": "María García",
+          "service": "Reparación de tuberías",
+          "amount": "€180-220",
+          "status": "sent",
+          "leadCost": "€5",
+          "date": "25/08/2026"
+        },
+        {
+          "id": "PRE-5002",
+          "professional": "María Fernández",
+          "client": "María García",
+          "service": "Reparación de tuberías",
+          "amount": "€150-190",
+          "status": "viewed",
+          "leadCost": "€5",
+          "date": "25/08/2026"
+        },
+        {
+          "id": "PRE-5003",
+          "professional": "Carlos Ruiz",
+          "client": "Carlos Ruiz",
+          "service": "Pintura de interiores",
+          "amount": "€350-400",
+          "status": "selected",
+          "leadCost": "€4",
+          "date": "24/08/2026"
+        },
+        {
+          "id": "PRE-5004",
+          "professional": "Laura Blanco",
+          "client": "Ana López",
+          "service": "Instalación de caldera",
+          "amount": "€800-1.000",
+          "status": "contacted",
+          "leadCost": "€6",
+          "date": "23/08/2026"
+        },
+        {
+          "id": "PRE-5005",
+          "professional": "Javier Díaz",
+          "client": "Pedro Martín",
+          "service": "Reparación de tuberías",
+          "amount": "€120-160",
+          "status": "rejected",
+          "leadCost": "€5",
+          "date": "22/08/2026"
+        },
+        {
+          "id": "PRE-5006",
+          "professional": "Antonio Pérez",
+          "client": "Laura Sánchez",
+          "service": "Corte y diseño de jardín",
+          "amount": "€250-300",
+          "status": "expired",
+          "leadCost": "€3",
+          "date": "20/08/2026"
+        }
       ]
     },
     "clientes": {
       "title": "Clientes",
       "subtitle": "Consulta cuentas, solicitudes, actividad y comunicaciones",
       "description": "Consulta y gestiona las cuentas de clientes de la plataforma. Visualiza historial de solicitudes, comunicaciones, presupuestos recibidos, profesionales seleccionados y reseñas. Bloquea cuentas problemáticas o exporta datos para análisis externo.",
-      "table": { "id": "ID", "name": "Nombre", "email": "Email", "phone": "Teléfono", "requests": "Solicitudes", "registered": "Registro", "lastAccess": "Último acceso" },
-      "actions": { "view": "Ver", "block": "Bloquear", "export": "Exportar", "merge": "Fusionar" },
+      "table": {
+        "id": "ID",
+        "name": "Nombre",
+        "email": "Email",
+        "phone": "Teléfono",
+        "requests": "Solicitudes",
+        "registered": "Registro",
+        "lastAccess": "Último acceso"
+      },
+      "actions": {
+        "view": "Ver",
+        "block": "Bloquear",
+        "export": "Exportar",
+        "merge": "Fusionar"
+      },
       "items": [
-        { "id": "CLI-1001", "name": "María García", "email": "maria.g@email.com", "phone": "612 *** 345", "requests": "5", "registered": "15/03/2026", "lastAccess": "25/08/2026" },
-        { "id": "CLI-1002", "name": "Carlos Ruiz", "email": "carlos.r@email.com", "phone": "623 *** 678", "requests": "3", "registered": "22/04/2026", "lastAccess": "24/08/2026" },
-        { "id": "CLI-1003", "name": "Ana López", "email": "ana.l@email.com", "phone": "634 *** 901", "requests": "8", "registered": "10/01/2026", "lastAccess": "23/08/2026" },
-        { "id": "CLI-1004", "name": "Pedro Martín", "email": "pedro.m@email.com", "phone": "645 *** 234", "requests": "2", "registered": "05/07/2026", "lastAccess": "22/08/2026" },
-        { "id": "CLI-1005", "name": "Laura Sánchez", "email": "laura.s@email.com", "phone": "656 *** 567", "requests": "1", "registered": "18/08/2026", "lastAccess": "21/08/2026" }
+        {
+          "id": "CLI-1001",
+          "name": "María García",
+          "email": "maria.g@email.com",
+          "phone": "612 *** 345",
+          "requests": "5",
+          "registered": "15/03/2026",
+          "lastAccess": "25/08/2026"
+        },
+        {
+          "id": "CLI-1002",
+          "name": "Carlos Ruiz",
+          "email": "carlos.r@email.com",
+          "phone": "623 *** 678",
+          "requests": "3",
+          "registered": "22/04/2026",
+          "lastAccess": "24/08/2026"
+        },
+        {
+          "id": "CLI-1003",
+          "name": "Ana López",
+          "email": "ana.l@email.com",
+          "phone": "634 *** 901",
+          "requests": "8",
+          "registered": "10/01/2026",
+          "lastAccess": "23/08/2026"
+        },
+        {
+          "id": "CLI-1004",
+          "name": "Pedro Martín",
+          "email": "pedro.m@email.com",
+          "phone": "645 *** 234",
+          "requests": "2",
+          "registered": "05/07/2026",
+          "lastAccess": "22/08/2026"
+        },
+        {
+          "id": "CLI-1005",
+          "name": "Laura Sánchez",
+          "email": "laura.s@email.com",
+          "phone": "656 *** 567",
+          "requests": "1",
+          "registered": "18/08/2026",
+          "lastAccess": "21/08/2026"
+        }
       ],
       "detail": {
         "title": "Detalle del cliente",
@@ -1842,92 +2561,421 @@
       "title": "Conversaciones",
       "subtitle": "Bandeja de conversaciones con búsqueda por solicitud, cliente y profesional",
       "description": "Monitorea todas las conversaciones entre clientes y profesionales a través de chat, WhatsApp y email. Marca spam, oculta contenido inapropiado y añade notas internas para seguimiento. Cada conversación está vinculada a una solicitud específica.",
-      "table": { "id": "ID", "request": "Solicitud", "client": "Cliente", "professional": "Profesional", "channel": "Canal", "status": "Estado", "lastMessage": "Último mensaje", "date": "Fecha" },
-      "statuses": { "active": "Activa", "closed": "Cerrada", "flagged": "Marcada" },
-      "channels": { "chat": "Chat", "whatsapp": "WhatsApp", "email": "Email" },
-      "actions": { "view": "Ver", "flag": "Marcar spam", "hide": "Ocultar", "note": "Nota interna" },
-      "detail": { "title": "Detalle de conversación", "client": "Cliente", "professional": "Profesional", "channel": "Canal", "status": "Estado", "lastMessage": "Último mensaje", "close": "Cerrar" },
+      "table": {
+        "id": "ID",
+        "request": "Solicitud",
+        "client": "Cliente",
+        "professional": "Profesional",
+        "channel": "Canal",
+        "status": "Estado",
+        "lastMessage": "Último mensaje",
+        "date": "Fecha"
+      },
+      "statuses": {
+        "active": "Activa",
+        "closed": "Cerrada",
+        "flagged": "Marcada"
+      },
+      "channels": {
+        "chat": "Chat",
+        "whatsapp": "WhatsApp",
+        "email": "Email"
+      },
+      "actions": {
+        "view": "Ver",
+        "flag": "Marcar spam",
+        "hide": "Ocultar",
+        "note": "Nota interna"
+      },
+      "detail": {
+        "title": "Detalle de conversación",
+        "client": "Cliente",
+        "professional": "Profesional",
+        "channel": "Canal",
+        "status": "Estado",
+        "lastMessage": "Último mensaje",
+        "close": "Cerrar"
+      },
       "items": [
-        { "id": "CON-301", "request": "SOL-2400", "client": "Carlos Ruiz", "professional": "Antonio Pérez", "channel": "chat", "status": "active", "lastMessage": "¿Cuándo puede pasar?", "date": "25/08/2026" },
-        { "id": "CON-302", "request": "SOL-2399", "client": "Ana López", "professional": "Laura Blanco", "channel": "whatsapp", "status": "active", "lastMessage": "He enviado la foto del calentador", "date": "24/08/2026" },
-        { "id": "CON-303", "request": "SOL-2398", "client": "Pedro Martín", "professional": "María Fernández", "channel": "chat", "status": "closed", "lastMessage": "Trabajo completado, gracias", "date": "22/08/2026" },
-        { "id": "CON-304", "request": "SOL-2395", "client": "María García", "professional": "—", "channel": "email", "status": "flagged", "lastMessage": "Oferta no solicitada de servicio no relacionado", "date": "20/08/2026" }
+        {
+          "id": "CON-301",
+          "request": "SOL-2400",
+          "client": "Carlos Ruiz",
+          "professional": "Antonio Pérez",
+          "channel": "chat",
+          "status": "active",
+          "lastMessage": "¿Cuándo puede pasar?",
+          "date": "25/08/2026"
+        },
+        {
+          "id": "CON-302",
+          "request": "SOL-2399",
+          "client": "Ana López",
+          "professional": "Laura Blanco",
+          "channel": "whatsapp",
+          "status": "active",
+          "lastMessage": "He enviado la foto del calentador",
+          "date": "24/08/2026"
+        },
+        {
+          "id": "CON-303",
+          "request": "SOL-2398",
+          "client": "Pedro Martín",
+          "professional": "María Fernández",
+          "channel": "chat",
+          "status": "closed",
+          "lastMessage": "Trabajo completado, gracias",
+          "date": "22/08/2026"
+        },
+        {
+          "id": "CON-304",
+          "request": "SOL-2395",
+          "client": "María García",
+          "professional": "—",
+          "channel": "email",
+          "status": "flagged",
+          "lastMessage": "Oferta no solicitada de servicio no relacionado",
+          "date": "20/08/2026"
+        }
       ]
     },
     "trabajos": {
       "title": "Trabajos y acuerdos",
       "subtitle": "Controla selecciones, contrataciones y estados de trabajo",
       "description": "Supervisa los acuerdos de trabajo entre clientes y profesionales seleccionados. Sigue el ciclo: seleccionado → iniciado → en curso → completado/cancelado/disputado. Controla comisiones, fechas y dispara encuestas de satisfacción al completar.",
-      "table": { "id": "ID", "request": "Solicitud", "client": "Cliente", "professional": "Profesional", "status": "Estado", "commission": "Comisión", "startDate": "Inicio", "endDate": "Fin" },
-      "statuses": { "selected": "Seleccionado", "started": "Iniciado", "inProgress": "En curso", "completed": "Completado", "cancelled": "Cancelado", "disputed": "Disputado" },
-      "actions": { "updateStatus": "Actualizar estado", "launchReview": "Solicitar reseña", "view": "Ver" },
-      "detail": { "title": "Detalle de trabajo", "request": "Solicitud", "client": "Cliente", "professional": "Profesional", "status": "Estado", "commission": "Comisión", "startDate": "Inicio", "endDate": "Fin", "close": "Cerrar" },
+      "table": {
+        "id": "ID",
+        "request": "Solicitud",
+        "client": "Cliente",
+        "professional": "Profesional",
+        "status": "Estado",
+        "commission": "Comisión",
+        "startDate": "Inicio",
+        "endDate": "Fin"
+      },
+      "statuses": {
+        "selected": "Seleccionado",
+        "started": "Iniciado",
+        "inProgress": "En curso",
+        "completed": "Completado",
+        "cancelled": "Cancelado",
+        "disputed": "Disputado"
+      },
+      "actions": {
+        "updateStatus": "Actualizar estado",
+        "launchReview": "Solicitar reseña",
+        "view": "Ver"
+      },
+      "detail": {
+        "title": "Detalle de trabajo",
+        "request": "Solicitud",
+        "client": "Cliente",
+        "professional": "Profesional",
+        "status": "Estado",
+        "commission": "Comisión",
+        "startDate": "Inicio",
+        "endDate": "Fin",
+        "close": "Cerrar"
+      },
       "items": [
-        { "id": "TRB-0801", "request": "SOL-2399", "client": "Ana López", "professional": "Laura Blanco", "status": "inProgress", "commission": "€48", "startDate": "24/08/2026", "endDate": "—" },
-        { "id": "TRB-0800", "request": "SOL-2398", "client": "Pedro Martín", "professional": "María Fernández", "status": "completed", "commission": "€35", "startDate": "22/08/2026", "endDate": "23/08/2026" },
-        { "id": "TRB-0799", "request": "SOL-2395", "client": "María García", "professional": "Antonio Pérez", "status": "selected", "commission": "€40", "startDate": "—", "endDate": "—" },
-        { "id": "TRB-0798", "request": "SOL-2390", "client": "Carlos Ruiz", "professional": "Javier Díaz", "status": "cancelled", "commission": "€0", "startDate": "20/08/2026", "endDate": "21/08/2026" }
+        {
+          "id": "TRB-0801",
+          "request": "SOL-2399",
+          "client": "Ana López",
+          "professional": "Laura Blanco",
+          "status": "inProgress",
+          "commission": "€48",
+          "startDate": "24/08/2026",
+          "endDate": "—"
+        },
+        {
+          "id": "TRB-0800",
+          "request": "SOL-2398",
+          "client": "Pedro Martín",
+          "professional": "María Fernández",
+          "status": "completed",
+          "commission": "€35",
+          "startDate": "22/08/2026",
+          "endDate": "23/08/2026"
+        },
+        {
+          "id": "TRB-0799",
+          "request": "SOL-2395",
+          "client": "María García",
+          "professional": "Antonio Pérez",
+          "status": "selected",
+          "commission": "€40",
+          "startDate": "—",
+          "endDate": "—"
+        },
+        {
+          "id": "TRB-0798",
+          "request": "SOL-2390",
+          "client": "Carlos Ruiz",
+          "professional": "Javier Díaz",
+          "status": "cancelled",
+          "commission": "€0",
+          "startDate": "20/08/2026",
+          "endDate": "21/08/2026"
+        }
       ]
     },
     "resenas": {
       "title": "Reseñas y reputación",
       "subtitle": "Moderación y gestión de la reputación de profesionales",
       "description": "Gestiona las reseñas publicadas por clientes sobre profesionales. Aprueba, oculta o elimina reseñas según las políticas de contenido. Separa reseñas verificadas (asociadas a trabajo completado) de reseñas sin acuerdo formal. Detecta intentos de manipulación.",
-      "table": { "id": "ID", "client": "Cliente", "professional": "Profesional", "rating": "Puntuación", "status": "Estado", "verified": "Verificada", "date": "Fecha" },
-      "statuses": { "pending": "Pendiente", "published": "Publicada", "flagged": "Denunciada", "hidden": "Oculta", "removed": "Eliminada" },
-      "actions": { "approve": "Aprobar", "hide": "Ocultar", "remove": "Eliminar", "respond": "Responder" },
-      "detail": { "title": "Detalle de reseña", "client": "Cliente", "professional": "Profesional", "rating": "Puntuación", "status": "Estado", "close": "Cerrar" },
+      "table": {
+        "id": "ID",
+        "client": "Cliente",
+        "professional": "Profesional",
+        "rating": "Puntuación",
+        "status": "Estado",
+        "verified": "Verificada",
+        "date": "Fecha"
+      },
+      "statuses": {
+        "pending": "Pendiente",
+        "published": "Publicada",
+        "flagged": "Denunciada",
+        "hidden": "Oculta",
+        "removed": "Eliminada"
+      },
+      "actions": {
+        "approve": "Aprobar",
+        "hide": "Ocultar",
+        "remove": "Eliminar",
+        "respond": "Responder"
+      },
+      "detail": {
+        "title": "Detalle de reseña",
+        "client": "Cliente",
+        "professional": "Profesional",
+        "rating": "Puntuación",
+        "status": "Estado",
+        "close": "Cerrar"
+      },
       "items": [
-        { "id": "REV-0201", "client": "Ana López", "professional": "Laura Blanco", "rating": "5", "status": "published", "verified": "Sí", "date": "24/08/2026" },
-        { "id": "REV-0200", "client": "Pedro Martín", "professional": "María Fernández", "rating": "4", "status": "published", "verified": "Sí", "date": "23/08/2026" },
-        { "id": "REV-0199", "client": "María García", "professional": "Antonio Pérez", "rating": "3", "status": "flagged", "verified": "Sí", "date": "22/08/2026" },
-        { "id": "REV-0198", "client": "Carlos Ruiz", "professional": "Javier Díaz", "rating": "2", "status": "pending", "verified": "No", "date": "21/08/2026" }
+        {
+          "id": "REV-0201",
+          "client": "Ana López",
+          "professional": "Laura Blanco",
+          "rating": "5",
+          "status": "published",
+          "verified": "Sí",
+          "date": "24/08/2026"
+        },
+        {
+          "id": "REV-0200",
+          "client": "Pedro Martín",
+          "professional": "María Fernández",
+          "rating": "4",
+          "status": "published",
+          "verified": "Sí",
+          "date": "23/08/2026"
+        },
+        {
+          "id": "REV-0199",
+          "client": "María García",
+          "professional": "Antonio Pérez",
+          "rating": "3",
+          "status": "flagged",
+          "verified": "Sí",
+          "date": "22/08/2026"
+        },
+        {
+          "id": "REV-0198",
+          "client": "Carlos Ruiz",
+          "professional": "Javier Díaz",
+          "rating": "2",
+          "status": "pending",
+          "verified": "No",
+          "date": "21/08/2026"
+        }
       ]
     },
     "facturacion": {
       "title": "Facturación y saldo",
       "subtitle": "Gestiona costes de leads, comisiones, pagos y reembolsos",
       "description": "Administra el ledger financiero de la plataforma: costes de lead, comisiones por acuerdo, recargas de saldo, reembolsos y ajustes. Configura tarifas globales y exporta movimientos para contabilidad. El ledger es inmutable — los ajustes se realizan con entradas compensatorias.",
-      "balance": { "total": "Saldo total", "amount": "€12.450,00", "monthIncome": "Ingresos del mes", "monthAmount": "€7.190", "pendingCommission": "Comisiones pendientes", "pendingAmount": "€1.840" },
-      "table": { "id": "ID", "professional": "Profesional", "type": "Tipo", "amount": "Monto", "description": "Descripción", "date": "Fecha" },
-      "types": { "lead": "Coste de lead", "commission": "Comisión", "topup": "Recarga", "refund": "Reembolso", "adjustment": "Ajuste" },
-      "actions": { "export": "Exportar CSV", "refund": "Reembolsar", "invoice": "Generar factura" },
+      "balance": {
+        "total": "Saldo total",
+        "amount": "€12.450,00",
+        "monthIncome": "Ingresos del mes",
+        "monthAmount": "€7.190",
+        "pendingCommission": "Comisiones pendientes",
+        "pendingAmount": "€1.840"
+      },
+      "table": {
+        "id": "ID",
+        "professional": "Profesional",
+        "type": "Tipo",
+        "amount": "Monto",
+        "description": "Descripción",
+        "date": "Fecha"
+      },
+      "types": {
+        "lead": "Coste de lead",
+        "commission": "Comisión",
+        "topup": "Recarga",
+        "refund": "Reembolso",
+        "adjustment": "Ajuste"
+      },
+      "actions": {
+        "export": "Exportar CSV",
+        "refund": "Reembolsar",
+        "invoice": "Generar factura"
+      },
       "items": [
-        { "id": "MOV-7001", "professional": "Antonio Pérez", "type": "lead", "amount": "-€5", "description": "Lead SOL-2401 — Plomería", "date": "25/08/2026" },
-        { "id": "MOV-7000", "professional": "Antonio Pérez", "type": "topup", "amount": "+€50", "description": "Recarga tarjeta ****4523", "date": "25/08/2026" },
-        { "id": "MOV-6999", "professional": "María Fernández", "type": "commission", "amount": "-€35", "description": "Comisión TRB-0800 — Acuerdo completado", "date": "23/08/2026" },
-        { "id": "MOV-6998", "professional": "Carlos Ruiz", "type": "lead", "amount": "-€4", "description": "Lead SOL-2400 — Pintura", "date": "24/08/2026" },
-        { "id": "MOV-6997", "professional": "Javier Díaz", "type": "refund", "amount": "+€5", "description": "Reembolso lead duplicado SOL-2390", "date": "22/08/2026" }
+        {
+          "id": "MOV-7001",
+          "professional": "Antonio Pérez",
+          "type": "lead",
+          "amount": "-€5",
+          "description": "Lead SOL-2401 — Plomería",
+          "date": "25/08/2026"
+        },
+        {
+          "id": "MOV-7000",
+          "professional": "Antonio Pérez",
+          "type": "topup",
+          "amount": "+€50",
+          "description": "Recarga tarjeta ****4523",
+          "date": "25/08/2026"
+        },
+        {
+          "id": "MOV-6999",
+          "professional": "María Fernández",
+          "type": "commission",
+          "amount": "-€35",
+          "description": "Comisión TRB-0800 — Acuerdo completado",
+          "date": "23/08/2026"
+        },
+        {
+          "id": "MOV-6998",
+          "professional": "Carlos Ruiz",
+          "type": "lead",
+          "amount": "-€4",
+          "description": "Lead SOL-2400 — Pintura",
+          "date": "24/08/2026"
+        },
+        {
+          "id": "MOV-6997",
+          "professional": "Javier Díaz",
+          "type": "refund",
+          "amount": "+€5",
+          "description": "Reembolso lead duplicado SOL-2390",
+          "date": "22/08/2026"
+        }
       ],
-      "config": { "leadCost": "Coste de lead", "commission": "Comisión por acuerdo", "minBalance": "Saldo mínimo", "currency": "Moneda" },
-      "configModal": { "title": "Configuración de facturación", "leadCostPh": "Ej: 5", "commissionPh": "Ej: 15", "minBalancePh": "Ej: 10", "currencyPh": "EUR", "save": "Guardar", "cancel": "Cancelar", "saved": "Configuración guardada" }
+      "config": {
+        "leadCost": "Coste de lead",
+        "commission": "Comisión por acuerdo",
+        "minBalance": "Saldo mínimo",
+        "currency": "Moneda"
+      },
+      "configModal": {
+        "title": "Configuración de facturación",
+        "leadCostPh": "Ej: 5",
+        "commissionPh": "Ej: 15",
+        "minBalancePh": "Ej: 10",
+        "currencyPh": "EUR",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "saved": "Configuración guardada"
+      }
     },
     "marketing": {
       "title": "Marketing y contenido",
       "subtitle": "Gestiona páginas, mensajes, promociones y SEO",
       "description": "Administra el contenido de marketing de la plataforma: páginas de aterrizaje, campañas promocionales y optimización SEO. Edita textos, configura descuentos y monitorea el rendimiento de las páginas con puntuaciones de calidad SEO.",
-      "actions": { "edit": "Editar" },
-      "tabs": { "pages": "Páginas", "promotions": "Promociones", "seo": "SEO" },
+      "actions": {
+        "edit": "Editar"
+      },
+      "tabs": {
+        "pages": "Páginas",
+        "promotions": "Promociones",
+        "seo": "SEO"
+      },
       "pages": {
-        "table": { "id": "ID", "title": "Título", "slug": "Slug", "status": "Estado", "lastEdit": "Última edición" },
+        "table": {
+          "id": "ID",
+          "title": "Título",
+          "slug": "Slug",
+          "status": "Estado",
+          "lastEdit": "Última edición"
+        },
         "items": [
-          { "id": "PG-001", "title": " Landing Principal", "slug": "/", "status": "publicada", "lastEdit": "20/08/2026" },
-          { "id": "PG-002", "title": "Únete como profesional", "slug": "/profesional", "status": "publicada", "lastEdit": "18/08/2026" },
-          { "id": "PG-003", "title": "Términos y Condiciones", "slug": "/terminos", "status": "publicada", "lastEdit": "15/08/2026" }
+          {
+            "id": "PG-001",
+            "title": " Landing Principal",
+            "slug": "/",
+            "status": "publicada",
+            "lastEdit": "20/08/2026"
+          },
+          {
+            "id": "PG-002",
+            "title": "Únete como profesional",
+            "slug": "/profesional",
+            "status": "publicada",
+            "lastEdit": "18/08/2026"
+          },
+          {
+            "id": "PG-003",
+            "title": "Términos y Condiciones",
+            "slug": "/terminos",
+            "status": "publicada",
+            "lastEdit": "15/08/2026"
+          }
         ]
       },
       "promotions": {
-        "table": { "id": "ID", "name": "Nombre", "type": "Tipo", "discount": "Descuento", "status": "Estado", "expiry": "Vencimiento" },
+        "table": {
+          "id": "ID",
+          "name": "Nombre",
+          "type": "Tipo",
+          "discount": "Descuento",
+          "status": "Estado",
+          "expiry": "Vencimiento"
+        },
         "items": [
-          { "id": "PROM-001", "name": "Primer lead gratis", "type": "Crédito", "discount": "€5", "status": "activa", "expiry": "30/09/2026" },
-          { "id": "PROM-002", "name": "Verano 2026", "type": "Descuento", "discount": "20%", "status": "programada", "expiry": "15/09/2026" }
+          {
+            "id": "PROM-001",
+            "name": "Primer lead gratis",
+            "type": "Crédito",
+            "discount": "€5",
+            "status": "activa",
+            "expiry": "30/09/2026"
+          },
+          {
+            "id": "PROM-002",
+            "name": "Verano 2026",
+            "type": "Descuento",
+            "discount": "20%",
+            "status": "programada",
+            "expiry": "15/09/2026"
+          }
         ]
       },
       "seo": {
-        "table": { "page": "Página", "title": "Title tag", "description": "Meta description", "score": "Puntuación" },
+        "table": {
+          "page": "Página",
+          "title": "Title tag",
+          "description": "Meta description",
+          "score": "Puntuación"
+        },
         "items": [
-          { "page": "/", "title": "PrecioJusto — Encuentra expertos cerca de ti", "description": "Plataforma de servicios profesionales. Compara presupuestos y contrata expertos.", "score": "92" },
-          { "page": "/profesional", "title": "Únete como profesional — PrecioJusto", "description": "Registra tu negocio y recibe solicitudes de clientes cerca de ti.", "score": "85" }
+          {
+            "page": "/",
+            "title": "PrecioJusto — Encuentra expertos cerca de ti",
+            "description": "Plataforma de servicios profesionales. Compara presupuestos y contrata expertos.",
+            "score": "92"
+          },
+          {
+            "page": "/profesional",
+            "title": "Únete como profesional — PrecioJusto",
+            "description": "Registra tu negocio y recibe solicitudes de clientes cerca de ti.",
+            "score": "85"
+          }
         ]
       }
     },
@@ -1936,20 +2984,110 @@
       "subtitle": "Configura plantillas de email, SMS, WhatsApp y push",
       "description": "Configura las plantillas de notificación multi-canal (email, SMS, WhatsApp, push) que se envían automáticamente ante eventos como nueva solicitud, presupuesto recibido, saldo bajo o documentación por caducar. Controla activación, envío de prueba y tasas de entregabilidad.",
       "create": "Crear plantilla",
-      "table": { "id": "ID", "event": "Evento", "channel": "Canal", "status": "Estado", "lastSent": "Último envío", "deliverability": "Entregabilidad" },
-      "channels": { "email": "Email", "sms": "SMS", "whatsapp": "WhatsApp", "push": "Push" },
-      "statuses": { "active": "Activa", "inactive": "Inactiva", "draft": "Borrador" },
-      "actions": { "edit": "Editar", "toggle": "Activar/Desactivar", "test": "Prueba de envío", "preview": "Vista previa" },
-      "modal": { "title": "Crear plantilla", "event": "Evento", "eventPlaceholder": "Seleccionar evento", "channel": "Canal", "channelPlaceholder": "Seleccionar canal", "subject": "Asunto / Cabecera", "subjectPh": "Asunto del email o cabecera del SMS", "body": "Cuerpo del mensaje", "bodyPh": "Escribe el contenido de la notificación...", "create": "Crear", "cancel": "Cancelar", "created": "Plantilla creada correctamente" },
+      "table": {
+        "id": "ID",
+        "event": "Evento",
+        "channel": "Canal",
+        "status": "Estado",
+        "lastSent": "Último envío",
+        "deliverability": "Entregabilidad"
+      },
+      "channels": {
+        "email": "Email",
+        "sms": "SMS",
+        "whatsapp": "WhatsApp",
+        "push": "Push"
+      },
+      "statuses": {
+        "active": "Activa",
+        "inactive": "Inactiva",
+        "draft": "Borrador"
+      },
+      "actions": {
+        "edit": "Editar",
+        "toggle": "Activar/Desactivar",
+        "test": "Prueba de envío",
+        "preview": "Vista previa"
+      },
+      "modal": {
+        "title": "Crear plantilla",
+        "event": "Evento",
+        "eventPlaceholder": "Seleccionar evento",
+        "channel": "Canal",
+        "channelPlaceholder": "Seleccionar canal",
+        "subject": "Asunto / Cabecera",
+        "subjectPh": "Asunto del email o cabecera del SMS",
+        "body": "Cuerpo del mensaje",
+        "bodyPh": "Escribe el contenido de la notificación...",
+        "create": "Crear",
+        "cancel": "Cancelar",
+        "created": "Plantilla creada correctamente"
+      },
       "items": [
-        { "id": "NTF-001", "event": "Solicitud publicada", "channel": "email", "status": "active", "lastSent": "25/08/2026", "deliverability": "98%" },
-        { "id": "NTF-002", "event": "Nuevo presupuesto", "channel": "email", "status": "active", "lastSent": "25/08/2026", "deliverability": "97%" },
-        { "id": "NTF-003", "event": "Solicitud próxima a vencer", "channel": "push", "status": "active", "lastSent": "24/08/2026", "deliverability": "89%" },
-        { "id": "NTF-004", "event": "Presupuesto seleccionado", "channel": "whatsapp", "status": "active", "lastSent": "23/08/2026", "deliverability": "95%" },
-        { "id": "NTF-005", "event": "Trabajo completado", "channel": "email", "status": "active", "lastSent": "23/08/2026", "deliverability": "96%" },
-        { "id": "NTF-006", "event": "Saldo bajo", "channel": "sms", "status": "active", "lastSent": "22/08/2026", "deliverability": "91%" },
-        { "id": "NTF-007", "event": "Documentación por caducar", "channel": "email", "status": "inactive", "lastSent": "15/08/2026", "deliverability": "94%" },
-        { "id": "NTF-008", "event": "Reclamación creada", "channel": "email", "status": "active", "lastSent": "20/08/2026", "deliverability": "100%" }
+        {
+          "id": "NTF-001",
+          "event": "Solicitud publicada",
+          "channel": "email",
+          "status": "active",
+          "lastSent": "25/08/2026",
+          "deliverability": "98%"
+        },
+        {
+          "id": "NTF-002",
+          "event": "Nuevo presupuesto",
+          "channel": "email",
+          "status": "active",
+          "lastSent": "25/08/2026",
+          "deliverability": "97%"
+        },
+        {
+          "id": "NTF-003",
+          "event": "Solicitud próxima a vencer",
+          "channel": "push",
+          "status": "active",
+          "lastSent": "24/08/2026",
+          "deliverability": "89%"
+        },
+        {
+          "id": "NTF-004",
+          "event": "Presupuesto seleccionado",
+          "channel": "whatsapp",
+          "status": "active",
+          "lastSent": "23/08/2026",
+          "deliverability": "95%"
+        },
+        {
+          "id": "NTF-005",
+          "event": "Trabajo completado",
+          "channel": "email",
+          "status": "active",
+          "lastSent": "23/08/2026",
+          "deliverability": "96%"
+        },
+        {
+          "id": "NTF-006",
+          "event": "Saldo bajo",
+          "channel": "sms",
+          "status": "active",
+          "lastSent": "22/08/2026",
+          "deliverability": "91%"
+        },
+        {
+          "id": "NTF-007",
+          "event": "Documentación por caducar",
+          "channel": "email",
+          "status": "inactive",
+          "lastSent": "15/08/2026",
+          "deliverability": "94%"
+        },
+        {
+          "id": "NTF-008",
+          "event": "Reclamación creada",
+          "channel": "email",
+          "status": "active",
+          "lastSent": "20/08/2026",
+          "deliverability": "100%"
+        }
       ]
     },
     "soporte": {
@@ -1957,19 +3095,114 @@
       "subtitle": "Casos, incidencias y atención al cliente y profesional",
       "description": "Centraliza los tickets de soporte de clientes y profesionales. Asigna agentes, gestiona prioridades, SLA, estados y escalamientos. Cada ticket se vincula a cuentas, solicitudes, presupuestos, acuerdos y conversaciones para contexto completo.",
       "create": "Crear ticket",
-      "table": { "id": "ID", "from": "Remitente", "type": "Tipo", "priority": "Prioridad", "sla": "SLA", "status": "Estado", "assigned": "Asignado", "date": "Fecha" },
-      "types": { "client": "Cliente", "professional": "Profesional", "system": "Sistema" },
-      "priorities": { "low": "Baja", "medium": "Media", "high": "Alta", "urgent": "Urgente" },
-      "statuses": { "open": "Abierto", "inProgress": "En progreso", "waiting": "Esperando", "resolved": "Resuelto", "closed": "Cerrado" },
-      "actions": { "assign": "Asignar", "escalate": "Escalar", "resolve": "Resolver", "note": "Nota interna" },
-      "detail": { "title": "Detalle de ticket", "note": "Nota interna", "notePh": "Escribe una nota...", "assign": "Asignar", "escalate": "Escalar", "resolve": "Resolver", "close": "Cerrar" },
-      "createModal": { "title": "Crear ticket", "sender": "Remitente", "senderPh": "Nombre o email", "type": "Tipo", "typePlaceholder": "Seleccionar tipo", "priority": "Prioridad", "priorityPlaceholder": "Seleccionar prioridad", "description": "Descripción", "descriptionPh": "Describe el problema...", "create": "Crear", "cancel": "Cancelar", "created": "Ticket creado correctamente" },
+      "table": {
+        "id": "ID",
+        "from": "Remitente",
+        "type": "Tipo",
+        "priority": "Prioridad",
+        "sla": "SLA",
+        "status": "Estado",
+        "assigned": "Asignado",
+        "date": "Fecha"
+      },
+      "types": {
+        "client": "Cliente",
+        "professional": "Profesional",
+        "system": "Sistema"
+      },
+      "priorities": {
+        "low": "Baja",
+        "medium": "Media",
+        "high": "Alta",
+        "urgent": "Urgente"
+      },
+      "statuses": {
+        "open": "Abierto",
+        "inProgress": "En progreso",
+        "waiting": "Esperando",
+        "resolved": "Resuelto",
+        "closed": "Cerrado"
+      },
+      "actions": {
+        "assign": "Asignar",
+        "escalate": "Escalar",
+        "resolve": "Resolver",
+        "note": "Nota interna"
+      },
+      "detail": {
+        "title": "Detalle de ticket",
+        "note": "Nota interna",
+        "notePh": "Escribe una nota...",
+        "assign": "Asignar",
+        "escalate": "Escalar",
+        "resolve": "Resolver",
+        "close": "Cerrar"
+      },
+      "createModal": {
+        "title": "Crear ticket",
+        "sender": "Remitente",
+        "senderPh": "Nombre o email",
+        "type": "Tipo",
+        "typePlaceholder": "Seleccionar tipo",
+        "priority": "Prioridad",
+        "priorityPlaceholder": "Seleccionar prioridad",
+        "description": "Descripción",
+        "descriptionPh": "Describe el problema...",
+        "create": "Crear",
+        "cancel": "Cancelar",
+        "created": "Ticket creado correctamente"
+      },
       "items": [
-        { "id": "TKT-0101", "from": "María García", "type": "client", "priority": "high", "sla": "4h", "status": "open", "assigned": "Sofía R.", "date": "25/08/2026" },
-        { "id": "TKT-0100", "from": "Antonio Pérez", "type": "professional", "priority": "medium", "sla": "8h", "status": "inProgress", "assigned": "Sofía R.", "date": "24/08/2026" },
-        { "id": "TKT-0099", "from": "Pedro Martín", "type": "client", "priority": "low", "sla": "24h", "status": "waiting", "assigned": "Luis M.", "date": "23/08/2026" },
-        { "id": "TKT-0098", "from": "Sistema", "type": "system", "priority": "urgent", "sla": "1h", "status": "resolved", "assigned": "Dev Team", "date": "22/08/2026" },
-        { "id": "TKT-0097", "from": "Carlos Ruiz", "type": "professional", "priority": "medium", "sla": "8h", "status": "closed", "assigned": "Luis M.", "date": "21/08/2026" }
+        {
+          "id": "TKT-0101",
+          "from": "María García",
+          "type": "client",
+          "priority": "high",
+          "sla": "4h",
+          "status": "open",
+          "assigned": "Sofía R.",
+          "date": "25/08/2026"
+        },
+        {
+          "id": "TKT-0100",
+          "from": "Antonio Pérez",
+          "type": "professional",
+          "priority": "medium",
+          "sla": "8h",
+          "status": "inProgress",
+          "assigned": "Sofía R.",
+          "date": "24/08/2026"
+        },
+        {
+          "id": "TKT-0099",
+          "from": "Pedro Martín",
+          "type": "client",
+          "priority": "low",
+          "sla": "24h",
+          "status": "waiting",
+          "assigned": "Luis M.",
+          "date": "23/08/2026"
+        },
+        {
+          "id": "TKT-0098",
+          "from": "Sistema",
+          "type": "system",
+          "priority": "urgent",
+          "sla": "1h",
+          "status": "resolved",
+          "assigned": "Dev Team",
+          "date": "22/08/2026"
+        },
+        {
+          "id": "TKT-0097",
+          "from": "Carlos Ruiz",
+          "type": "professional",
+          "priority": "medium",
+          "sla": "8h",
+          "status": "closed",
+          "assigned": "Luis M.",
+          "date": "21/08/2026"
+        }
       ]
     },
     "analitica": {
@@ -1978,78 +3211,284 @@
       "description": "Visualiza los embudos de conversión de clientes (12 pasos) y profesionales (10 pasos). Analiza reportes de conversión por servicio, abandono por paso, tiempos de respuesta y rendimiento por zona. Exporta datos en CSV para análisis externo.",
       "export": "Exportar CSV",
       "viewReport": "Ver reporte →",
-      "tabs": { "funnels": "Embudos", "reports": "Reportes" },
-      "filters": { "period": "Período", "service": "Servicio", "location": "Ubicación", "channel": "Canal" },
+      "tabs": {
+        "funnels": "Embudos",
+        "reports": "Reportes"
+      },
+      "filters": {
+        "period": "Período",
+        "service": "Servicio",
+        "location": "Ubicación",
+        "channel": "Canal"
+      },
       "funnelClient": {
         "title": "Embudo del cliente",
         "steps": [
-          { "step": "Visita", "value": "10.000", "percent": "100%" },
-          { "step": "Búsqueda", "value": "7.200", "percent": "72%" },
-          { "step": "Servicio seleccionado", "value": "4.800", "percent": "48%" },
-          { "step": "Formulario iniciado", "value": "3.200", "percent": "32%" },
-          { "step": "Formulario completado", "value": "2.100", "percent": "21%" },
-          { "step": "Contacto validado", "value": "1.950", "percent": "19.5%" },
-          { "step": "Solicitud publicada", "value": "1.800", "percent": "18%" },
-          { "step": "Primer presupuesto", "value": "1.400", "percent": "14%" },
-          { "step": "Comparación", "value": "1.100", "percent": "11%" },
-          { "step": "Selección", "value": "750", "percent": "7.5%" },
-          { "step": "Trabajo completado", "value": "600", "percent": "6%" },
-          { "step": "Reseña", "value": "420", "percent": "4.2%" }
+          {
+            "step": "Visita",
+            "value": "10.000",
+            "percent": "100%"
+          },
+          {
+            "step": "Búsqueda",
+            "value": "7.200",
+            "percent": "72%"
+          },
+          {
+            "step": "Servicio seleccionado",
+            "value": "4.800",
+            "percent": "48%"
+          },
+          {
+            "step": "Formulario iniciado",
+            "value": "3.200",
+            "percent": "32%"
+          },
+          {
+            "step": "Formulario completado",
+            "value": "2.100",
+            "percent": "21%"
+          },
+          {
+            "step": "Contacto validado",
+            "value": "1.950",
+            "percent": "19.5%"
+          },
+          {
+            "step": "Solicitud publicada",
+            "value": "1.800",
+            "percent": "18%"
+          },
+          {
+            "step": "Primer presupuesto",
+            "value": "1.400",
+            "percent": "14%"
+          },
+          {
+            "step": "Comparación",
+            "value": "1.100",
+            "percent": "11%"
+          },
+          {
+            "step": "Selección",
+            "value": "750",
+            "percent": "7.5%"
+          },
+          {
+            "step": "Trabajo completado",
+            "value": "600",
+            "percent": "6%"
+          },
+          {
+            "step": "Reseña",
+            "value": "420",
+            "percent": "4.2%"
+          }
         ]
       },
       "funnelProfessional": {
         "title": "Embudo del profesional",
         "steps": [
-          { "step": "Registro", "value": "500", "percent": "100%" },
-          { "step": "Perfil iniciado", "value": "380", "percent": "76%" },
-          { "step": "Perfil aprobado", "value": "290", "percent": "58%" },
-          { "step": "Servicio activado", "value": "240", "percent": "48%" },
-          { "step": "Solicitud recibida", "value": "200", "percent": "40%" },
-          { "step": "Solicitud abierta", "value": "170", "percent": "34%" },
-          { "step": "Presupuesto iniciado", "value": "140", "percent": "28%" },
-          { "step": "Presupuesto enviado", "value": "120", "percent": "24%" },
-          { "step": "Cliente contactado", "value": "85", "percent": "17%" },
-          { "step": "Acuerdo", "value": "50", "percent": "10%" }
+          {
+            "step": "Registro",
+            "value": "500",
+            "percent": "100%"
+          },
+          {
+            "step": "Perfil iniciado",
+            "value": "380",
+            "percent": "76%"
+          },
+          {
+            "step": "Perfil aprobado",
+            "value": "290",
+            "percent": "58%"
+          },
+          {
+            "step": "Servicio activado",
+            "value": "240",
+            "percent": "48%"
+          },
+          {
+            "step": "Solicitud recibida",
+            "value": "200",
+            "percent": "40%"
+          },
+          {
+            "step": "Solicitud abierta",
+            "value": "170",
+            "percent": "34%"
+          },
+          {
+            "step": "Presupuesto iniciado",
+            "value": "140",
+            "percent": "28%"
+          },
+          {
+            "step": "Presupuesto enviado",
+            "value": "120",
+            "percent": "24%"
+          },
+          {
+            "step": "Cliente contactado",
+            "value": "85",
+            "percent": "17%"
+          },
+          {
+            "step": "Acuerdo",
+            "value": "50",
+            "percent": "10%"
+          }
         ]
       },
       "reports": [
-        { "name": "Conversión por servicio", "description": "Tasa de conversión del embudo segmentada por servicio" },
-        { "name": "Abandono por paso", "description": "Puntos de abandono del formulario por paso y dispositivo" },
-        { "name": "Tiempo hasta primer presupuesto", "description": "Latencia media entre publicación y primera cotización" },
-        { "name": "Cotizaciones por solicitud", "description": "Número medio de presupuestos por solicitud y categoría" },
-        { "name": "Ingresos por canal", "description": "Desglose de ingresos por canal de adquisición" },
-        { "name": "Rendimiento por zona", "description": "Actividad de profesionales y clientes por zona geográfica" }
+        {
+          "name": "Conversión por servicio",
+          "description": "Tasa de conversión del embudo segmentada por servicio"
+        },
+        {
+          "name": "Abandono por paso",
+          "description": "Puntos de abandono del formulario por paso y dispositivo"
+        },
+        {
+          "name": "Tiempo hasta primer presupuesto",
+          "description": "Latencia media entre publicación y primera cotización"
+        },
+        {
+          "name": "Cotizaciones por solicitud",
+          "description": "Número medio de presupuestos por solicitud y categoría"
+        },
+        {
+          "name": "Ingresos por canal",
+          "description": "Desglose de ingresos por canal de adquisición"
+        },
+        {
+          "name": "Rendimiento por zona",
+          "description": "Actividad de profesionales y clientes por zona geográfica"
+        }
       ]
     },
     "configuracion": {
       "title": "Configuración",
       "subtitle": "Usuarios, roles, permisos, seguridad e integraciones",
       "description": "Administra los usuarios administradores, roles con permisos por módulo, políticas de seguridad (MFA, sesiones, contraseñas, control IP) e integraciones externas (base de datos, email, pagos, mensajería). Cada acción genera un registro de auditoría.",
-      "actions": { "edit": "Editar" },
-      "actions": { "edit": "Editar" },
-      "tabs": { "users": "Usuarios", "roles": "Roles", "security": "Seguridad", "integrations": "Integraciones" },
+      "actions": {
+        "edit": "Editar"
+      },
+      "tabs": {
+        "users": "Usuarios",
+        "roles": "Roles",
+        "security": "Seguridad",
+        "integrations": "Integraciones"
+      },
       "users": {
-        "table": { "id": "ID", "name": "Nombre", "email": "Email", "role": "Rol", "status": "Estado", "lastLogin": "Último acceso" },
-        "modal": { "title": "Crear usuario administrador", "name": "Nombre", "namePh": "Nombre completo", "email": "Email", "emailPh": "admin@preciojusto.com", "role": "Rol", "rolePlaceholder": "Seleccionar rol", "create": "Crear", "cancel": "Cancelar", "created": "Usuario creado correctamente" },
+        "table": {
+          "id": "ID",
+          "name": "Nombre",
+          "email": "Email",
+          "role": "Rol",
+          "status": "Estado",
+          "lastLogin": "Último acceso"
+        },
+        "modal": {
+          "title": "Crear usuario administrador",
+          "name": "Nombre",
+          "namePh": "Nombre completo",
+          "email": "Email",
+          "emailPh": "admin@preciojusto.com",
+          "role": "Rol",
+          "rolePlaceholder": "Seleccionar rol",
+          "create": "Crear",
+          "cancel": "Cancelar",
+          "created": "Usuario creado correctamente"
+        },
         "items": [
-          { "id": "ADM-001", "name": "Admin Principal", "email": "admin@preciojusto.com", "role": "Superadministrador", "status": "activo", "lastLogin": "25/08/2026 09:15" },
-          { "id": "ADM-002", "name": "Sofía Romero", "email": "sofia@preciojusto.com", "role": "Soporte", "status": "activo", "lastLogin": "25/08/2026 08:30" },
-          { "id": "ADM-003", "name": "Luis Moreno", "email": "luis@preciojusto.com", "role": "Moderador", "status": "activo", "lastLogin": "24/08/2026 17:45" },
-          { "id": "ADM-004", "name": "Elena Vidal", "email": "elena@preciojusto.com", "role": "Analista", "status": "inactivo", "lastLogin": "15/08/2026 10:00" }
+          {
+            "id": "ADM-001",
+            "name": "Admin Principal",
+            "email": "admin@preciojusto.com",
+            "role": "Superadministrador",
+            "status": "activo",
+            "lastLogin": "25/08/2026 09:15"
+          },
+          {
+            "id": "ADM-002",
+            "name": "Sofía Romero",
+            "email": "sofia@preciojusto.com",
+            "role": "Soporte",
+            "status": "activo",
+            "lastLogin": "25/08/2026 08:30"
+          },
+          {
+            "id": "ADM-003",
+            "name": "Luis Moreno",
+            "email": "luis@preciojusto.com",
+            "role": "Moderador",
+            "status": "activo",
+            "lastLogin": "24/08/2026 17:45"
+          },
+          {
+            "id": "ADM-004",
+            "name": "Elena Vidal",
+            "email": "elena@preciojusto.com",
+            "role": "Analista",
+            "status": "inactivo",
+            "lastLogin": "15/08/2026 10:00"
+          }
         ]
       },
       "roles": {
-        "table": { "name": "Nombre", "description": "Descripción", "users": "Usuarios" },
+        "table": {
+          "name": "Nombre",
+          "description": "Descripción",
+          "users": "Usuarios"
+        },
         "items": [
-          { "name": "Superadministrador", "description": "Toda la plataforma y configuración crítica", "users": "1" },
-          { "name": "Administrador de producto", "description": "Servicios, formularios, matching y experimentos", "users": "0" },
-          { "name": "Operador de solicitudes", "description": "Solicitudes, distribución y correcciones operativas", "users": "0" },
-          { "name": "Moderador", "description": "Contenido, perfiles, mensajes y reseñas", "users": "1" },
-          { "name": "Soporte", "description": "Clientes, profesionales, solicitudes y tickets", "users": "1" },
-          { "name": "Finanzas", "description": "Saldos, cargos, comisiones, facturas y reembolsos", "users": "0" },
-          { "name": "Analista", "description": "Lectura de datos y exportación de reportes", "users": "1" },
-          { "name": "Editor de contenido", "description": "Categorías, páginas, textos y traducciones", "users": "0" },
-          { "name": "Auditor", "description": "Acceso de solo lectura y registros de actividad", "users": "0" }
+          {
+            "name": "Superadministrador",
+            "description": "Toda la plataforma y configuración crítica",
+            "users": "1"
+          },
+          {
+            "name": "Administrador de producto",
+            "description": "Servicios, formularios, matching y experimentos",
+            "users": "0"
+          },
+          {
+            "name": "Operador de solicitudes",
+            "description": "Solicitudes, distribución y correcciones operativas",
+            "users": "0"
+          },
+          {
+            "name": "Moderador",
+            "description": "Contenido, perfiles, mensajes y reseñas",
+            "users": "1"
+          },
+          {
+            "name": "Soporte",
+            "description": "Clientes, profesionales, solicitudes y tickets",
+            "users": "1"
+          },
+          {
+            "name": "Finanzas",
+            "description": "Saldos, cargos, comisiones, facturas y reembolsos",
+            "users": "0"
+          },
+          {
+            "name": "Analista",
+            "description": "Lectura de datos y exportación de reportes",
+            "users": "1"
+          },
+          {
+            "name": "Editor de contenido",
+            "description": "Categorías, páginas, textos y traducciones",
+            "users": "0"
+          },
+          {
+            "name": "Auditor",
+            "description": "Acceso de solo lectura y registros de actividad",
+            "users": "0"
+          }
         ]
       },
       "security": {
@@ -2063,12 +3502,37 @@
         "ipDescription": "Restringir acceso a rangos de IP específicos"
       },
       "integrations": {
-        "table": { "name": "Nombre", "type": "Tipo", "status": "Estado", "lastSync": "Última sincronización" },
+        "table": {
+          "name": "Nombre",
+          "type": "Tipo",
+          "status": "Estado",
+          "lastSync": "Última sincronización"
+        },
         "items": [
-          { "name": "Supabase", "type": "Base de datos", "status": "conectado", "lastSync": "25/08/2026 09:00" },
-          { "name": "Resend", "type": "Email", "status": "conectado", "lastSync": "25/08/2026 09:10" },
-          { "name": "Stripe", "type": "Pagos", "status": "conectado", "lastSync": "25/08/2026 08:55" },
-          { "name": "WhatsApp Business", "type": "Mensajería", "status": "desconectado", "lastSync": "20/08/2026 14:30" }
+          {
+            "name": "Supabase",
+            "type": "Base de datos",
+            "status": "conectado",
+            "lastSync": "25/08/2026 09:00"
+          },
+          {
+            "name": "Resend",
+            "type": "Email",
+            "status": "conectado",
+            "lastSync": "25/08/2026 09:10"
+          },
+          {
+            "name": "Stripe",
+            "type": "Pagos",
+            "status": "conectado",
+            "lastSync": "25/08/2026 08:55"
+          },
+          {
+            "name": "WhatsApp Business",
+            "type": "Mensajería",
+            "status": "desconectado",
+            "lastSync": "20/08/2026 14:30"
+          }
         ]
       }
     }

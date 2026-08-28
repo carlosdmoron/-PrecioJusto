@@ -41,10 +41,10 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
       setItems((prev: any[]) =>
         prev.map((i: any) => (i.id === row.id ? { ...i, status } : i))
       );
-      await sweetSuccess(msg, "Cambio verificado en la base de datos");
+      await sweetSuccess(msg, data.feedback.verified);
       router.refresh();
     } catch (e: any) {
-      await sweetError(e?.message ?? "Error", "No se pudo verificar la operación en la base de datos");
+      await sweetError(e?.message ?? "Error", data.feedback.verifyError);
     }
   }
 
@@ -68,13 +68,13 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
             {
               label: data.actions.edit,
               onClick: () => {
-                toast.show("Editando solicitud");
+                toast.show(data.feedback.editingRequest);
               },
             },
             {
               label: data.actions.pause,
               onClick: (row) =>
-                handleStatus(row, "cancelled", "Solicitud pausada"),
+                handleStatus(row, "cancelled", data.feedback.requestPaused),
             },
             {
               label: data.actions.detail,
@@ -138,7 +138,7 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
               <button
                 type="button"
                 onClick={() => {
-                  toast.show("Editando solicitud");
+                  toast.show(data.feedback.editingRequest);
                 }}
                 className="rounded-lg bg-primary/10 px-4 py-2 text-xs font-semibold text-primary-dark transition hover:bg-primary/20"
               >
@@ -147,7 +147,7 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
               <button
                 type="button"
                 onClick={() => {
-                  handleStatus(selectedRow, "cancelled", "Solicitud pausada");
+                  handleStatus(selectedRow, "cancelled", data.feedback.requestPaused);
                   setSelectedRow(null);
                 }}
                 className="rounded-lg bg-amber-50 px-4 py-2 text-xs font-semibold text-amber-700 transition hover:bg-amber-100"
@@ -166,7 +166,7 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
               <button
                 type="button"
                 onClick={() => {
-                  handleStatus(selectedRow, "blocked", "Solicitud bloqueada");
+                  handleStatus(selectedRow, "blocked", data.feedback.requestBlocked);
                   setSelectedRow(null);
                 }}
                 className="rounded-lg bg-red-50 px-4 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100"
