@@ -20,6 +20,23 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
   const [selectedRow, setSelectedRow] = useState<TableRow | null>(null);
 
   const filterFields: FilterField[] = data.filters.fields;
+  const [filtered, setFiltered] = useState<Record<string, string> | null>(null);
+
+  function applyFilters(values: Record<string, string>) {
+    setFiltered(values);
+  }
+
+  const visibleItems = filtered
+    ? items.filter((item: any) =>
+        filterFields.every((field) => {
+          const v = (filtered[field.key] ?? "").trim().toLowerCase();
+          if (!v) return true;
+          const cell = String(item[field.key] ?? "").toLowerCase();
+          if (field.type === "select") return cell === v;
+          return cell.includes(v);
+        })
+      )
+    : items;
 
   const columns = [
     { key: "title", label: data.table.service },
@@ -59,11 +76,12 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
           <FilterBar
             fields={filterFields}
             labels={data.filters.labels}
+            onApply={applyFilters}
           />
         </div>
         <DataTable
           columns={columns}
-          rows={items}
+          rows={visibleItems}
           actions={[
             {
               label: data.actions.edit,

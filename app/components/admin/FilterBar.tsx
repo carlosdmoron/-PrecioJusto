@@ -29,6 +29,7 @@ export default function FilterBar({
     const empty: Record<string, string> = {};
     fields.forEach((f) => (empty[f.key] = ""));
     setValues(empty);
+    onApply?.(empty);
   }
 
   return (
