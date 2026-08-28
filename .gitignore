@@ -50,3 +50,12 @@ design/*_files/
 
 # logs de despliegue local
 vercel-deploy.log
+
+# artifacts de investigación / debug locales (no son código fuente)
+.dev-resumen-en.html
+.prod-theta-en.html
+.prod-main.html
+.investigacion-dev.png
+.pw-shoot.js
+.devserver.log
+.devserver.err
