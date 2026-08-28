@@ -1434,6 +1434,10 @@
       "formPreview": "Anteprima",
       "formDuplicated": "Modulo duplicato",
       "formCreated": "Modulo creato",
+      "formSaved": "Modulo salvato",
+      "formPublished": "Modulo pubblicato",
+      "formDeleted": "Modulo eliminato",
+      "formError": "Si è verificato un errore. Riprova.",
       "statusUpdated": "Stato aggiornato",
       "testSent": "Test di invio inviato",
       "blockedQuote": "Preventivo bloccato",
@@ -1774,6 +1778,7 @@
         "edit": "Modifica",
         "preview": "Anteprima",
         "duplicate": "Duplica",
+        "delete": "Elimina",
         "versions": "Versioni"
       },
       "modal": {
@@ -1843,6 +1848,9 @@
       "builder": {
         "title": "Costruttore di modulo",
         "addQuestion": "Aggiungi domanda",
+        "newQuestionLabel": "Nuova domanda",
+        "removeQuestion": "Rimuovi domanda",
+        "empty": "Questo modulo non ha ancora domande. Aggiungi la prima.",
         "questionTypes": {
           "radio": "Scelta singola",
           "checkbox": "Scelta multipla",

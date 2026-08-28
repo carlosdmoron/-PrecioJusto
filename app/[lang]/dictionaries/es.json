@@ -1434,6 +1434,10 @@
       "formPreview": "Vista previa",
       "formDuplicated": "Formulario duplicado",
       "formCreated": "Formulario creado",
+      "formSaved": "Formulario guardado",
+      "formPublished": "Formulario publicado",
+      "formDeleted": "Formulario eliminado",
+      "formError": "Ocurrió un error. Inténtalo de nuevo.",
       "statusUpdated": "Estado actualizado",
       "testSent": "Prueba de envío enviada",
       "blockedQuote": "Presupuesto bloqueado",
@@ -1774,6 +1778,7 @@
         "edit": "Editar",
         "preview": "Vista previa",
         "duplicate": "Duplicar",
+        "delete": "Eliminar",
         "versions": "Versiones"
       },
       "modal": {
@@ -1843,6 +1848,9 @@
       "builder": {
         "title": "Constructor de formulario",
         "addQuestion": "Añadir pregunta",
+        "newQuestionLabel": "Nueva pregunta",
+        "removeQuestion": "Eliminar pregunta",
+        "empty": "Este formulario aún no tiene preguntas. Añade la primera.",
         "questionTypes": {
           "radio": "Opción única",
           "checkbox": "Selección múltiple",

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
 import FormulariosPageClient from "./FormulariosPageClient";
+import { listForms } from "../../../actions/forms";
+import { listCategories } from "../../../actions/admin";
 
 export async function generateMetadata({
   params,
@@ -15,5 +17,28 @@ export async function generateMetadata({
 
 export default async function FormulariosPage() {
   const dict = await getDictionary();
-  return <FormulariosPageClient data={{ ...dict.dashboardAdmin.formularios, feedback: dict.dashboardAdmin.feedback }} />;
+  const [forms, categories] = await Promise.all([
+    listForms(),
+    listCategories(),
+  ]);
+
+  const items = forms.map((f) => ({
+    id: f.id,
+    service: f.service_name ?? "—",
+    version: f.version,
+    questions: String(f.question_count),
+    abandonment: `${f.abandonment_rate}%`,
+    status: f.status,
+  }));
+
+  return (
+    <FormulariosPageClient
+      data={{
+        ...dict.dashboardAdmin.formularios,
+        feedback: dict.dashboardAdmin.feedback,
+        items,
+        categories,
+      }}
+    />
+  );
 }

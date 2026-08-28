@@ -1434,6 +1434,10 @@
       "formPreview": "Preview",
       "formDuplicated": "Form duplicated",
       "formCreated": "Form created",
+      "formSaved": "Form saved",
+      "formPublished": "Form published",
+      "formDeleted": "Form deleted",
+      "formError": "Something went wrong. Please try again.",
       "statusUpdated": "Status updated",
       "testSent": "Send test sent",
       "blockedQuote": "Quote blocked",
@@ -1774,6 +1778,7 @@
         "edit": "Edit",
         "preview": "Preview",
         "duplicate": "Duplicate",
+        "delete": "Delete",
         "versions": "Versions"
       },
       "modal": {
@@ -1843,6 +1848,9 @@
       "builder": {
         "title": "Form builder",
         "addQuestion": "Add question",
+        "newQuestionLabel": "New question",
+        "removeQuestion": "Remove question",
+        "empty": "This form has no questions yet. Add the first one.",
         "questionTypes": {
           "radio": "Single choice",
           "checkbox": "Multiple choice",
