@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 
 export type FilterField = {
   key: string;
@@ -32,15 +32,15 @@ export default function FilterBar({
   }
 
   return (
-    <div className="flex flex-wrap items-end gap-3 rounded-xl border border-line/40 bg-white p-4 shadow-sm">
+    <div className="flex flex-wrap items-end gap-3 rounded-xl border border-pj-border bg-white p-4 shadow-pj-card">
       {fields.map((field) => (
         <div key={field.key} className="flex flex-col gap-1">
-          <label className="text-xs font-medium text-muted">{field.label}</label>
+          <label className="text-xs font-medium text-pj-steel">{field.label}</label>
           {field.type === "select" ? (
             <select
               value={values[field.key] ?? ""}
               onChange={(e) => handleChange(field.key, e.target.value)}
-              className="h-10 rounded-lg bg-field px-3 text-sm text-ink outline-none focus:ring-2 focus:ring-primary/40"
+              className="h-10 rounded-lg border border-pj-border bg-white px-3 text-sm text-pj-ink outline-none transition focus:border-pj-primary focus:ring-2 focus:ring-pj-primary/20"
             >
               <option value="">{field.placeholder ?? "—"}</option>
               {field.options?.map((opt) => (
@@ -53,7 +53,7 @@ export default function FilterBar({
               value={values[field.key] ?? ""}
               onChange={(e) => handleChange(field.key, e.target.value)}
               placeholder={field.placeholder}
-              className="h-10 rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
+              className="h-10 rounded-lg border border-pj-border bg-white px-3 text-sm text-pj-ink outline-none transition placeholder:text-pj-faint focus:border-pj-primary focus:ring-2 focus:ring-pj-primary/20"
             />
           )}
         </div>
@@ -62,14 +62,14 @@ export default function FilterBar({
         <button
           type="button"
           onClick={() => onApply?.(values)}
-          className="h-10 rounded-lg bg-primary px-5 text-sm font-semibold text-white transition hover:bg-primary-dark"
+          className="h-10 rounded-lg bg-pj-primary px-5 text-sm font-semibold text-white shadow-sm shadow-pj-primary/25 transition hover:bg-pj-primary-hover"
         >
           {labels.apply}
         </button>
         <button
           type="button"
           onClick={handleClear}
-          className="h-10 rounded-lg border border-line/60 px-5 text-sm font-medium text-steel transition hover:text-ink"
+          className="h-10 rounded-lg border border-pj-border bg-white px-5 text-sm font-medium text-pj-steel transition hover:bg-pj-bg hover:text-pj-ink"
         >
           {labels.clear}
         </button>

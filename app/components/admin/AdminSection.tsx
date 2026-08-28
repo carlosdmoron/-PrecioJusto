@@ -14,16 +14,16 @@ export default function AdminSection({
   children: ReactNode;
 }) {
   return (
-    <div className="mx-auto w-full max-w-[1200px] px-6 py-10 lg:px-10">
+    <div className="w-full">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-[family-name:var(--font-figtree)] text-3xl font-semibold tracking-tight text-ink">{title}</h1>
-          <p className="mt-2 text-sm text-muted">{subtitle}</p>
-          {description && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-steel">{description}</p>}
+          <h1 className="text-2xl font-semibold tracking-tight text-pj-ink">{title}</h1>
+          <p className="mt-1 text-sm text-pj-steel">{subtitle}</p>
+          {description && <p className="mt-2 max-w-2xl text-sm leading-relaxed text-pj-steel">{description}</p>}
         </div>
         {actions && <div className="flex gap-3">{actions}</div>}
       </header>
-      <div className="mt-8">{children}</div>
+      <div className="mt-6">{children}</div>
     </div>
   );
 }

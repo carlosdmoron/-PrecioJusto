@@ -34,21 +34,21 @@ export default function DataTable({
 
   return (
     <>
-      <div className="overflow-x-auto rounded-xl border border-line/40 bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-xl border border-pj-border bg-white shadow-pj-card">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-line/30 bg-surface">
+            <tr className="border-b border-pj-border bg-pj-bg">
               {visibleCols.map((col) => (
-                <th key={col.key} className="px-4 py-3 text-xs font-semibold text-muted">{col.label}</th>
+                <th key={col.key} className="px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-pj-faint">{col.label}</th>
               ))}
-              {actions && actions.length > 0 && <th className="px-4 py-3 text-xs font-semibold text-muted">Acciones</th>}
+              {actions && actions.length > 0 && <th className="px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-pj-faint">Acciones</th>}
             </tr>
           </thead>
           <tbody>
             {visible.map((row) => (
-              <tr key={row.id} className="border-b border-line/20 transition hover:bg-surface/50">
+              <tr key={row.id} className="border-b border-pj-border/60 transition hover:bg-pj-bg last:border-0">
                 {visibleCols.map((col) => (
-                  <td key={col.key} className="px-4 py-3 text-sm text-ink">{row[col.key]}</td>
+                  <td key={col.key} className="px-4 py-3 text-sm text-pj-ink">{row[col.key]}</td>
                 ))}
                 {actions && actions.length > 0 && (
                   <td className="px-4 py-3">
@@ -64,7 +64,7 @@ export default function DataTable({
                               action.onClick(row);
                             }
                           }}
-                          className="rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary-dark transition hover:bg-primary/20"
+                          className="rounded-lg bg-pj-active-bg px-3 py-1.5 text-xs font-semibold text-pj-primary transition hover:bg-blue-100"
                         >
                           {action.label}
                         </button>
@@ -76,7 +76,7 @@ export default function DataTable({
             ))}
             {visible.length === 0 && (
               <tr>
-                <td colSpan={visibleCols.length + (actions ? 1 : 0)} className="px-4 py-10 text-center text-sm text-muted">
+                <td colSpan={visibleCols.length + (actions ? 1 : 0)} className="px-4 py-12 text-center text-sm text-pj-faint">
                   Sin resultados
                 </td>
               </tr>
@@ -86,13 +86,13 @@ export default function DataTable({
       </div>
       {totalPages > 1 && (
         <div className="mt-4 flex items-center justify-between">
-          <p className="text-xs text-muted">Página {page + 1} de {totalPages}</p>
+          <p className="text-xs text-pj-steel">Página {page + 1} de {totalPages}</p>
           <div className="flex gap-2">
             <button
               type="button"
               disabled={page === 0}
               onClick={() => setPage((p) => p - 1)}
-              className="rounded-lg border border-line/60 px-3 py-1.5 text-xs font-medium text-steel transition hover:text-ink disabled:opacity-40"
+              className="rounded-lg border border-pj-border bg-white px-3 py-1.5 text-xs font-medium text-pj-steel transition hover:bg-pj-bg hover:text-pj-ink disabled:opacity-40"
             >
               Anterior
             </button>
@@ -100,7 +100,7 @@ export default function DataTable({
               type="button"
               disabled={page >= totalPages - 1}
               onClick={() => setPage((p) => p + 1)}
-              className="rounded-lg border border-line/60 px-3 py-1.5 text-xs font-medium text-steel transition hover:text-ink disabled:opacity-40"
+              className="rounded-lg border border-pj-border bg-white px-3 py-1.5 text-xs font-medium text-pj-steel transition hover:bg-pj-bg hover:text-pj-ink disabled:opacity-40"
             >
               Siguiente
             </button>

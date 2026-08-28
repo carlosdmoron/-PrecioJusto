@@ -3534,6 +3534,187 @@
           }
         ]
       }
+    },
+    "ui": {
+      "rootLabel": "Marketplace",
+      "help": "Aiuto e supporto",
+      "notifications": "Notifiche",
+      "notificationsEmpty": "Nessuna nuova notifica",
+      "account": "Account",
+      "settings": "Impostazioni",
+      "logout": "Esci",
+      "filtersButton": "Filtri",
+      "drawerTitle": "Filtri avanzati",
+      "greetingMorning": "Buongiorno",
+      "greetingAfternoon": "Buon pomeriggio",
+      "greetingEvening": "Buonasera",
+      "greetingSubtitle": "Riepilogo esecutivo — panoramica sulle prestazioni del tuo marketplace.",
+      "notificationItems": [
+        {
+          "title": "Nuova richiesta di Elettricista a Milano",
+          "time": "2 min fa"
+        },
+        {
+          "title": "Preventivo accettato — €280",
+          "time": "8 min fa"
+        },
+        {
+          "title": "14 preventivi in attesa di risposta",
+          "time": "1 h fa"
+        },
+        {
+          "title": "Nuovo professionista registrato",
+          "time": "14 min fa"
+        }
+      ],
+      "period": {
+        "label": "Periodo",
+        "today": "Oggi",
+        "d7": "7 giorni",
+        "d30": "30 giorni",
+        "d90": "90 giorni",
+        "custom": "Personalizzato"
+      },
+      "chartRanges": {
+        "d7": "7G",
+        "d30": "30G",
+        "d90": "90G",
+        "y1": "1A"
+      },
+      "kpis": {
+        "revenue": "Ricavi generati",
+        "revenueValue": "€48.290",
+        "revenueChange": "+18%",
+        "activePros": "Professionisti attivi",
+        "activeProsValue": "1.284",
+        "activeProsChange": "+7%",
+        "conversion": "Tasso di conversione",
+        "conversionValue": "34,8%",
+        "conversionChange": "+3,1%",
+        "avgResponse": "Tempo medio di risposta",
+        "avgResponseValue": "12 min",
+        "avgResponseChange": "-4 min",
+        "vsPrev": "vs. periodo precedente"
+      },
+      "chart": {
+        "title": "Richieste",
+        "units": {
+          "solicitudes": "richieste",
+          "presupuestos": "preventivi",
+          "trabajos": "lavori"
+        },
+        "tabs": {
+          "solicitudes": "Richieste",
+          "presupuestos": "Preventivi",
+          "trabajos": "Lavori"
+        }
+      },
+      "funnel": {
+        "title": "Funnel di conversione",
+        "steps": [
+          {
+            "label": "Richieste",
+            "value": "1.284"
+          },
+          {
+            "label": "Preventivi",
+            "value": "583"
+          },
+          {
+            "label": "Lavori",
+            "value": "327"
+          },
+          {
+            "label": "Completati",
+            "value": "291"
+          }
+        ]
+      },
+      "attention": {
+        "title": "Richiede attenzione",
+        "viewAll": "Vedi tutto",
+        "view": "Vedi"
+      },
+      "topPros": {
+        "title": "Top professionisti",
+        "colPro": "Professionista",
+        "colJobs": "Lavori",
+        "colRating": "Valutazione",
+        "colConv": "Conversione",
+        "items": [
+          {
+            "name": "Mario Rossi",
+            "specialty": "Elettricista · Milano",
+            "jobs": "42",
+            "rating": "4.9",
+            "conversion": "82%"
+          },
+          {
+            "name": "Luca Bianchi",
+            "specialty": "Idraulico · Roma",
+            "jobs": "38",
+            "rating": "4.8",
+            "conversion": "79%"
+          },
+          {
+            "name": "Marco Ferrari",
+            "specialty": "Falegname · Torino",
+            "jobs": "31",
+            "rating": "4.7",
+            "conversion": "74%"
+          },
+          {
+            "name": "Giulia Romano",
+            "specialty": "Impitratrice · Milano",
+            "jobs": "27",
+            "rating": "4.8",
+            "conversion": "71%"
+          },
+          {
+            "name": "Andrea Conti",
+            "specialty": "Giardiniere · Napoli",
+            "jobs": "24",
+            "rating": "4.6",
+            "conversion": "68%"
+          }
+        ]
+      },
+      "activity": {
+        "title": "Attività recente",
+        "items": [
+          {
+            "title": "Nuova richiesta ricevuta",
+            "meta": "Elettricista · Milano",
+            "time": "2 min fa"
+          },
+          {
+            "title": "Preventivo accettato",
+            "meta": "€280 · Ristrutturazione bagno",
+            "time": "8 min fa"
+          },
+          {
+            "title": "Nuovo professionista registrato",
+            "meta": "Falegname · Torino",
+            "time": "14 min fa"
+          },
+          {
+            "title": "Pagamento rilasciato al professionista",
+            "meta": "€410 · Lavoro #1287",
+            "time": "26 min fa"
+          },
+          {
+            "title": "Recensione pubblicata",
+            "meta": "5 stelle · Idraulico Roma",
+            "time": "41 min fa"
+          }
+        ]
+      },
+      "sections": {
+        "general": "Generale",
+        "operaciones": "Operazioni",
+        "clientes": "Clienti",
+        "profesionales": "Professionisti"
+      }
     }
   }
 }

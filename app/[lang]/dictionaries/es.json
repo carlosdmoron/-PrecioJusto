@@ -3535,6 +3535,187 @@
           }
         ]
       }
+    },
+    "ui": {
+      "rootLabel": "Marketplace",
+      "help": "Ayuda y soporte",
+      "notifications": "Notificaciones",
+      "notificationsEmpty": "No hay notificaciones nuevas",
+      "account": "Cuenta",
+      "settings": "Configuración",
+      "logout": "Cerrar sesión",
+      "filtersButton": "Filtros",
+      "drawerTitle": "Filtros avanzados",
+      "greetingMorning": "Buenos días",
+      "greetingAfternoon": "Buenas tardes",
+      "greetingEvening": "Buenas noches",
+      "greetingSubtitle": "Resumen ejecutivo — visión general del rendimiento de tu marketplace.",
+      "notificationItems": [
+        {
+          "title": "Nueva solicitud de Electricidad en Milano",
+          "time": "hace 2 min"
+        },
+        {
+          "title": "Presupuesto aceptado — €280",
+          "time": "hace 8 min"
+        },
+        {
+          "title": "14 presupuestos esperando respuesta",
+          "time": "hace 1 h"
+        },
+        {
+          "title": "Nuevo profesional registrado",
+          "time": "hace 14 min"
+        }
+      ],
+      "period": {
+        "label": "Periodo",
+        "today": "Hoy",
+        "d7": "7 días",
+        "d30": "30 días",
+        "d90": "90 días",
+        "custom": "Personalizado"
+      },
+      "chartRanges": {
+        "d7": "7D",
+        "d30": "30D",
+        "d90": "90D",
+        "y1": "1A"
+      },
+      "kpis": {
+        "revenue": "Ingresos generados",
+        "revenueValue": "€48.290",
+        "revenueChange": "+18%",
+        "activePros": "Profesionales activos",
+        "activeProsValue": "1.284",
+        "activeProsChange": "+7%",
+        "conversion": "Tasa de conversión",
+        "conversionValue": "34,8%",
+        "conversionChange": "+3,1%",
+        "avgResponse": "Tiempo medio de respuesta",
+        "avgResponseValue": "12 min",
+        "avgResponseChange": "-4 min",
+        "vsPrev": "vs. periodo anterior"
+      },
+      "chart": {
+        "title": "Solicitudes",
+        "units": {
+          "solicitudes": "solicitudes",
+          "presupuestos": "presupuestos",
+          "trabajos": "trabajos"
+        },
+        "tabs": {
+          "solicitudes": "Solicitudes",
+          "presupuestos": "Presupuestos",
+          "trabajos": "Trabajos"
+        }
+      },
+      "funnel": {
+        "title": "Funnel de conversión",
+        "steps": [
+          {
+            "label": "Solicitudes",
+            "value": "1.284"
+          },
+          {
+            "label": "Presupuestos",
+            "value": "583"
+          },
+          {
+            "label": "Trabajos",
+            "value": "327"
+          },
+          {
+            "label": "Completados",
+            "value": "291"
+          }
+        ]
+      },
+      "attention": {
+        "title": "Requiere atención",
+        "viewAll": "Ver todo",
+        "view": "Ver"
+      },
+      "topPros": {
+        "title": "Top profesionales",
+        "colPro": "Profesional",
+        "colJobs": "Trabajos",
+        "colRating": "Rating",
+        "colConv": "Conversión",
+        "items": [
+          {
+            "name": "Mario Rossi",
+            "specialty": "Electricista · Milano",
+            "jobs": "42",
+            "rating": "4.9",
+            "conversion": "82%"
+          },
+          {
+            "name": "Luca Bianchi",
+            "specialty": "Fontanero · Roma",
+            "jobs": "38",
+            "rating": "4.8",
+            "conversion": "79%"
+          },
+          {
+            "name": "Marco Ferrari",
+            "specialty": "Carpintero · Torino",
+            "jobs": "31",
+            "rating": "4.7",
+            "conversion": "74%"
+          },
+          {
+            "name": "Giulia Romano",
+            "specialty": "Pintora · Milano",
+            "jobs": "27",
+            "rating": "4.8",
+            "conversion": "71%"
+          },
+          {
+            "name": "Andrea Conti",
+            "specialty": "Jardinero · Napoli",
+            "jobs": "24",
+            "rating": "4.6",
+            "conversion": "68%"
+          }
+        ]
+      },
+      "activity": {
+        "title": "Actividad reciente",
+        "items": [
+          {
+            "title": "Nueva solicitud recibida",
+            "meta": "Electricista · Milano",
+            "time": "hace 2 min"
+          },
+          {
+            "title": "Presupuesto aceptado",
+            "meta": "€280 · Reforma baño",
+            "time": "hace 8 min"
+          },
+          {
+            "title": "Nuevo profesional registrado",
+            "meta": "Carpintero · Torino",
+            "time": "hace 14 min"
+          },
+          {
+            "title": "Pago liberado a profesional",
+            "meta": "€410 · Trabajo #1287",
+            "time": "hace 26 min"
+          },
+          {
+            "title": "Reseña publicada",
+            "meta": "5 estrellas · Fontanero Roma",
+            "time": "hace 41 min"
+          }
+        ]
+      },
+      "sections": {
+        "general": "General",
+        "operaciones": "Operaciones",
+        "clientes": "Clientes",
+        "profesionales": "Profesionales"
+      }
     }
   }
 }

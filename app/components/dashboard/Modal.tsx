@@ -34,7 +34,7 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-navy/50 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-pj-ink/45 p-4 backdrop-blur-[4px]"
       onMouseDown={(e) => {
         if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
           onClose();
@@ -46,12 +46,12 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-2xl sm:p-8"
+        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-pj-border bg-white p-6 shadow-pj-pop sm:p-8"
       >
         <div className="flex items-start justify-between gap-4">
           <h2
             id="modal-title"
-            className="font-[family-name:var(--font-figtree)] text-xl font-semibold tracking-tight text-ink"
+            className="text-lg font-semibold tracking-tight text-pj-ink"
           >
             {title}
           </h2>
@@ -59,7 +59,7 @@ export default function Modal({
             type="button"
             onClick={onClose}
             aria-label={closeLabel}
-            className="grid size-8 shrink-0 place-items-center rounded-full bg-surface-alt text-muted transition hover:bg-line/40 hover:text-ink"
+            className="grid size-8 shrink-0 place-items-center rounded-lg bg-pj-bg text-pj-steel transition hover:bg-pj-border/60 hover:text-pj-ink"
           >
             <svg
               width="14"

@@ -3534,6 +3534,187 @@
           }
         ]
       }
+    },
+    "ui": {
+      "rootLabel": "Marketplace",
+      "help": "Help & support",
+      "notifications": "Notifications",
+      "notificationsEmpty": "No new notifications",
+      "account": "Account",
+      "settings": "Settings",
+      "logout": "Sign out",
+      "filtersButton": "Filters",
+      "drawerTitle": "Advanced filters",
+      "greetingMorning": "Good morning",
+      "greetingAfternoon": "Good afternoon",
+      "greetingEvening": "Good evening",
+      "greetingSubtitle": "Executive summary — an overview of your marketplace performance.",
+      "notificationItems": [
+        {
+          "title": "New Electricity request in Milan",
+          "time": "2 min ago"
+        },
+        {
+          "title": "Quote accepted — €280",
+          "time": "8 min ago"
+        },
+        {
+          "title": "14 quotes awaiting response",
+          "time": "1 h ago"
+        },
+        {
+          "title": "New professional registered",
+          "time": "14 min ago"
+        }
+      ],
+      "period": {
+        "label": "Period",
+        "today": "Today",
+        "d7": "7 days",
+        "d30": "30 days",
+        "d90": "90 days",
+        "custom": "Custom"
+      },
+      "chartRanges": {
+        "d7": "7D",
+        "d30": "30D",
+        "d90": "90D",
+        "y1": "1Y"
+      },
+      "kpis": {
+        "revenue": "Revenue generated",
+        "revenueValue": "€48,290",
+        "revenueChange": "+18%",
+        "activePros": "Active professionals",
+        "activeProsValue": "1,284",
+        "activeProsChange": "+7%",
+        "conversion": "Conversion rate",
+        "conversionValue": "34.8%",
+        "conversionChange": "+3.1%",
+        "avgResponse": "Avg. response time",
+        "avgResponseValue": "12 min",
+        "avgResponseChange": "-4 min",
+        "vsPrev": "vs. previous period"
+      },
+      "chart": {
+        "title": "Requests",
+        "units": {
+          "solicitudes": "requests",
+          "presupuestos": "quotes",
+          "trabajos": "jobs"
+        },
+        "tabs": {
+          "solicitudes": "Requests",
+          "presupuestos": "Quotes",
+          "trabajos": "Jobs"
+        }
+      },
+      "funnel": {
+        "title": "Conversion funnel",
+        "steps": [
+          {
+            "label": "Requests",
+            "value": "1,284"
+          },
+          {
+            "label": "Quotes",
+            "value": "583"
+          },
+          {
+            "label": "Jobs",
+            "value": "327"
+          },
+          {
+            "label": "Completed",
+            "value": "291"
+          }
+        ]
+      },
+      "attention": {
+        "title": "Needs attention",
+        "viewAll": "View all",
+        "view": "View"
+      },
+      "topPros": {
+        "title": "Top professionals",
+        "colPro": "Professional",
+        "colJobs": "Jobs",
+        "colRating": "Rating",
+        "colConv": "Conversion",
+        "items": [
+          {
+            "name": "Mario Rossi",
+            "specialty": "Electrician · Milan",
+            "jobs": "42",
+            "rating": "4.9",
+            "conversion": "82%"
+          },
+          {
+            "name": "Luca Bianchi",
+            "specialty": "Plumber · Rome",
+            "jobs": "38",
+            "rating": "4.8",
+            "conversion": "79%"
+          },
+          {
+            "name": "Marco Ferrari",
+            "specialty": "Carpenter · Turin",
+            "jobs": "31",
+            "rating": "4.7",
+            "conversion": "74%"
+          },
+          {
+            "name": "Giulia Romano",
+            "specialty": "Painter · Milan",
+            "jobs": "27",
+            "rating": "4.8",
+            "conversion": "71%"
+          },
+          {
+            "name": "Andrea Conti",
+            "specialty": "Gardener · Naples",
+            "jobs": "24",
+            "rating": "4.6",
+            "conversion": "68%"
+          }
+        ]
+      },
+      "activity": {
+        "title": "Recent activity",
+        "items": [
+          {
+            "title": "New request received",
+            "meta": "Electrician · Milan",
+            "time": "2 min ago"
+          },
+          {
+            "title": "Quote accepted",
+            "meta": "€280 · Bathroom renovation",
+            "time": "8 min ago"
+          },
+          {
+            "title": "New professional registered",
+            "meta": "Carpenter · Turin",
+            "time": "14 min ago"
+          },
+          {
+            "title": "Payment released to professional",
+            "meta": "€410 · Job #1287",
+            "time": "26 min ago"
+          },
+          {
+            "title": "Review published",
+            "meta": "5 stars · Plumber Rome",
+            "time": "41 min ago"
+          }
+        ]
+      },
+      "sections": {
+        "general": "General",
+        "operaciones": "Operations",
+        "clientes": "Clients",
+        "profesionales": "Professionals"
+      }
     }
   }
 }

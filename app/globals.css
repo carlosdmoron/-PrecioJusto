@@ -23,6 +23,27 @@
   --color-badge: #d0e1fb;
   --color-cardimg: #e2e7ff;
   --font-sans: var(--font-inter);
+
+  /* ── Command Center (dashboard admin) ── */
+  --color-pj-primary: #2563eb;
+  --color-pj-primary-hover: #1d4ed8;
+  --color-pj-bg: #f8fafc;
+  --color-pj-border: #e2e8f0;
+  --color-pj-ink: #0f172a;
+  --color-pj-steel: #64748b;
+  --color-pj-faint: #94a3b8;
+  --color-pj-success: #16a34a;
+  --color-pj-warning: #d97706;
+  --color-pj-danger: #dc2626;
+  --color-pj-info: #0891b2;
+  --color-pj-active-bg: #eff6ff;
+  --color-pj-success-bg: #f0fdf4;
+  --color-pj-warning-bg: #fffbeb;
+  --color-pj-danger-bg: #fef2f2;
+  --color-pj-info-bg: #ecfeff;
+  --color-pj-neutral-bg: #f1f5f9;
+  --shadow-pj-card: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-pj-pop: 0 12px 32px -8px rgba(15, 23, 42, 0.16);
 }
 
 body {

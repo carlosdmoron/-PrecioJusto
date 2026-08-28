@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
+import { lang } from "next/root-params";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
-import AdminSection from "../../../components/admin/AdminSection";
-import StatCard, { type StatCardData } from "../../../components/admin/StatCard";
-import AlertCard, { type AlertCardData } from "../../../components/admin/AlertCard";
-import FilterBar from "../../../components/admin/FilterBar";
+import { createClient } from "../../../../lib/supabase/server";
+import ResumenPageClient from "./ResumenPageClient";
 import type { FilterField } from "../../../components/admin/FilterBar";
 
 export async function generateMetadata({
@@ -19,7 +18,8 @@ export async function generateMetadata({
 
 export default async function ResumenPage() {
   const dict = await getDictionary();
-  const { resumen } = dict.dashboardAdmin;
+  const current = (await lang()) ?? "es";
+  const { resumen, ui } = dict.dashboardAdmin;
 
   const filters: FilterField[] = [
     { key: "fecha", label: resumen.filters.fecha, type: "date" },
@@ -30,20 +30,26 @@ export default async function ResumenPage() {
     { key: "canal", label: resumen.filters.canal, type: "select", options: [{ value: "organic", label: "Orgánico" }, { value: "paid", label: "Pago" }, { value: "direct", label: "Directo" }], placeholder: "Todos" },
   ];
 
+  let userName: string | null = null;
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    userName = user?.user_metadata?.name ?? user?.email?.split("@")[0] ?? null;
+  } catch {
+    // sin sesión: saludo genérico
+  }
+
   return (
-    <AdminSection title={resumen.title} subtitle={resumen.subtitle} description={resumen.description}>
-      <FilterBar fields={filters} labels={{ apply: resumen.filters.aplicar, clear: resumen.filters.limpiar }} />
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {resumen.stats.map((stat, i) => (
-          <StatCard key={i} label={stat.label} value={stat.value} change={stat.change} trend={stat.trend as "up" | "down"} />
-        ))}
-      </div>
-      <h2 className="mt-10 font-[family-name:var(--font-figtree)] text-lg font-semibold text-ink">Alertas operativas</h2>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {resumen.alerts.map((alert, i) => (
-          <AlertCard key={i} type={alert.type as "warning" | "danger" | "info"} title={alert.title} description={alert.description} />
-        ))}
-      </div>
-    </AdminSection>
+    <ResumenPageClient
+      userName={userName}
+      stats={resumen.stats}
+      alerts={resumen.alerts}
+      filters={filters}
+      filterLabels={{ apply: resumen.filters.aplicar, clear: resumen.filters.limpiar }}
+      ui={ui}
+      solicitudesHref={`/${current}/dashboard-admin/solicitudes`}
+    />
   );
 }
