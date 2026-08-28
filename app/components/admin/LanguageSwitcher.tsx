@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const LANGUAGES = [
-  { code: "es", label: "ES" },
-  { code: "en", label: "EN" },
-  { code: "it", label: "IT" },
+  { code: "es", label: "ES", flag: "🇪🇸", name: "Español" },
+  { code: "en", label: "EN", flag: "🇬🇧", name: "English" },
+  { code: "it", label: "IT", flag: "🇮🇹", name: "Italiano" },
 ] as const;
 
 export default function LanguageSwitcher() {
@@ -19,39 +19,28 @@ export default function LanguageSwitcher() {
   return (
     <nav
       aria-label="Cambiar idioma"
-      className="flex h-10 items-center gap-1 rounded-full bg-white p-1 shadow-sm ring-1 ring-gray-200"
+      className="flex h-9 items-center gap-0.5 rounded-full border border-pj-border bg-white/70 p-1 shadow-sm backdrop-blur transition"
     >
-      <svg
-        className="ml-2 text-gray-400"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20" />
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-      </svg>
-      {LANGUAGES.map(({ code, label }) => (
-        <Link
-          key={code}
-          href={pathname.replace(/^\/[a-z]{2}(?=\/|$)/, `/${code}`)}
-          hrefLang={code}
-          aria-current={current === code ? "true" : undefined}
-          className={
-            current === code
-              ? "flex h-8 items-center rounded-full bg-primary px-3 text-xs font-semibold text-white shadow-sm transition"
-              : "flex h-8 items-center rounded-full px-3 text-xs font-semibold text-gray-600 transition hover:text-primary"
-          }
-        >
-          {label}
-        </Link>
-      ))}
+      {LANGUAGES.map(({ code, label, flag, name }) => {
+        const active = current === code;
+        return (
+          <Link
+            key={code}
+            href={pathname.replace(/^\/[a-z]{2}(?=\/|$)/, `/${code}`)}
+            hrefLang={code}
+            title={name}
+            aria-current={active ? "true" : undefined}
+            className={
+              active
+                ? "flex h-7 items-center gap-1.5 rounded-full bg-pj-primary px-2.5 text-xs font-semibold text-white shadow-sm transition"
+                : "flex h-7 items-center gap-1.5 rounded-full px-2.5 text-xs font-semibold text-pj-steel transition hover:bg-pj-bg hover:text-pj-ink"
+            }
+          >
+            <span aria-hidden="true" className="text-sm leading-none">{flag}</span>
+            <span>{label}</span>
+          </Link>
+        );
+      })}
     </nav>
   );
 }
