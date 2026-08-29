@@ -1947,7 +1947,7 @@
       "filters": {
         "fields": [
           {
-            "key": "id",
+            "key": "code",
             "label": "ID",
             "type": "text",
             "placeholder": "SOL-XXXX"

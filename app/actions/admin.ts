@@ -177,22 +177,31 @@ export async function listRequests() {
   const { data, error } = await supabase
     .from("requests")
     .select(
-      "id, title, description, city, urgency, status, quotes_count, budget, created_at, client:profiles!requests_client_id_fkey(email), service:services!requests_service_id_fkey(name)"
+      "id, title, description, city, urgency, status, quotes_count, budget, created_at, client:profiles!requests_client_id_fkey(first_name, last_name, email), service:services!requests_service_id_fkey(name)"
     )
     .order("created_at", { ascending: false });
   if (error) throw new Error(error.message);
   const rows = (data ?? []) as Array<Record<string, any>>;
-  return rows.map((r) => ({
-    id: r.id,
-    title: r.title,
-    service: Array.isArray(r.service) ? r.service[0]?.name : r.service?.name ?? "—",
-    client: Array.isArray(r.client) ? r.client[0]?.email : r.client?.email ?? "—",
-    city: r.city ?? "—",
-    urgency: r.urgency ?? "none",
-    status: r.status ?? "new",
-    quotes: r.quotes_count ?? 0,
-    date: r.created_at ? new Date(r.created_at).toLocaleDateString("es-ES") : "—",
-  }));
+  return rows.map((r) => {
+    const clientRow = Array.isArray(r.client) ? r.client[0] : r.client;
+    const firstName = clientRow?.first_name?.trim() ?? "";
+    const lastName = clientRow?.last_name?.trim() ?? "";
+    const clientName = `${firstName} ${lastName}`.trim();
+    const clientEmail = clientRow?.email ?? "—";
+    return {
+      id: r.id,
+      code: `SOL-${(r.id ?? "").slice(0, 4).toUpperCase()}`,
+      title: r.title,
+      service: Array.isArray(r.service) ? r.service[0]?.name : r.service?.name ?? "—",
+      client: clientName || clientEmail,
+      clientEmail,
+      city: r.city ?? "—",
+      urgency: r.urgency ?? "none",
+      status: r.status ?? "new",
+      quotes: r.quotes_count ?? 0,
+      date: r.created_at ? new Date(r.created_at).toLocaleDateString("es-ES") : "—",
+    };
+  });
 }
 
 export async function setRequestStatus(id: string, status: string) {

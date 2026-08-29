@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
 import FormulariosPageClient from "./FormulariosPageClient";
 import { listForms } from "../../../actions/forms";
-import { listCategories } from "../../../actions/admin";
+import { listServices } from "../../../actions/admin";
 
 export async function generateMetadata({
   params,
@@ -17,9 +17,9 @@ export async function generateMetadata({
 
 export default async function FormulariosPage() {
   const dict = await getDictionary();
-  const [forms, categories] = await Promise.all([
+  const [forms, services] = await Promise.all([
     listForms(),
-    listCategories(),
+    listServices(),
   ]);
 
   const items = forms.map((f) => ({
@@ -37,7 +37,7 @@ export default async function FormulariosPage() {
         ...dict.dashboardAdmin.formularios,
         feedback: dict.dashboardAdmin.feedback,
         items,
-        categories,
+        services,
       }}
     />
   );

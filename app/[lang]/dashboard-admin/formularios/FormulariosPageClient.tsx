@@ -226,9 +226,9 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none focus:ring-2 focus:ring-primary/40"
             >
               <option value="">{data.modal.servicePlaceholder}</option>
-              {data.categories.map((cat: any) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
+              {data.services.map((svc: any) => (
+                <option key={svc.id} value={svc.id}>
+                  {svc.name}
                 </option>
               ))}
             </select>

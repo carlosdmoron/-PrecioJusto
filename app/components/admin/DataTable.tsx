@@ -29,7 +29,8 @@ export default function DataTable({
   const [page, setPage] = useState(0);
   const [selectedRow, setSelectedRow] = useState<TableRow | null>(null);
   const totalPages = Math.ceil(rows.length / pageSize);
-  const visible = rows.slice(page * pageSize, (page + 1) * pageSize);
+  const safePage = Math.min(page, Math.max(totalPages - 1, 0));
+  const visible = rows.slice(safePage * pageSize, (safePage + 1) * pageSize);
   const visibleCols = columns.filter((c) => !c.hidden);
 
   return (
@@ -86,20 +87,20 @@ export default function DataTable({
       </div>
       {totalPages > 1 && (
         <div className="mt-4 flex items-center justify-between">
-          <p className="text-xs text-pj-steel">Página {page + 1} de {totalPages}</p>
+          <p className="text-xs text-pj-steel">Página {safePage + 1} de {totalPages}</p>
           <div className="flex gap-2">
             <button
               type="button"
-              disabled={page === 0}
-              onClick={() => setPage((p) => p - 1)}
+              disabled={safePage === 0}
+              onClick={() => setPage((p) => Math.max(p - 1, 0))}
               className="rounded-lg border border-pj-border bg-white px-3 py-1.5 text-xs font-medium text-pj-steel transition hover:bg-pj-bg hover:text-pj-ink disabled:opacity-40"
             >
               Anterior
             </button>
             <button
               type="button"
-              disabled={page >= totalPages - 1}
-              onClick={() => setPage((p) => p + 1)}
+              disabled={safePage >= totalPages - 1}
+              onClick={() => setPage((p) => Math.min(p + 1, Math.max(totalPages - 1, 0)))}
               className="rounded-lg border border-pj-border bg-white px-3 py-1.5 text-xs font-medium text-pj-steel transition hover:bg-pj-bg hover:text-pj-ink disabled:opacity-40"
             >
               Siguiente

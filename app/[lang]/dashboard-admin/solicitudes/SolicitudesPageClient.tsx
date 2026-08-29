@@ -21,9 +21,11 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
 
   const filterFields: FilterField[] = data.filters.fields;
   const [filtered, setFiltered] = useState<Record<string, string> | null>(null);
+  const [filterKey, setFilterKey] = useState(0);
 
   function applyFilters(values: Record<string, string>) {
     setFiltered(values);
+    setFilterKey((k) => k + 1);
   }
 
   const visibleItems = filtered
@@ -31,7 +33,10 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
         filterFields.every((field) => {
           const v = (filtered[field.key] ?? "").trim().toLowerCase();
           if (!v) return true;
-          const cell = String(item[field.key] ?? "").toLowerCase();
+          let cell = String(item[field.key] ?? "").toLowerCase();
+          if (field.key === "client") {
+            cell = `${cell} ${(item.clientEmail ?? "").toLowerCase()}`;
+          }
           if (field.type === "select") return cell === v;
           return cell.includes(v);
         })
@@ -39,7 +44,8 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
     : items;
 
   const columns = [
-    { key: "title", label: data.table.service },
+    { key: "code", label: data.table.id },
+    { key: "service", label: data.table.service },
     { key: "client", label: data.table.client },
     { key: "city", label: data.table.city },
     {
@@ -80,6 +86,7 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
           />
         </div>
         <DataTable
+          key={filterKey}
           columns={columns}
           rows={visibleItems}
           actions={[
