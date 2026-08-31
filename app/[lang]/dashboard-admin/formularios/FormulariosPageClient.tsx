@@ -180,6 +180,17 @@ export default function FormulariosPageClient({ data }: { data: any }) {
     setQuestions((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const publishWithSave = async (formId: string) => {
+    if (editingForm) {
+      await updateFormService(formId, editingServiceId);
+    }
+    const saved = await updateFormQuestions(formId, questions);
+    if (!saved) {
+      throw new Error(data.feedback.formError);
+    }
+    await publishForm(formId);
+  };
+
   const saveQuestions = async () => {
     if (!selectedFormId) return;
     setSaving(true);
@@ -214,13 +225,16 @@ export default function FormulariosPageClient({ data }: { data: any }) {
 
   const handlePublish = async () => {
     if (!selectedFormId) return;
+    setSaving(true);
     try {
-      await publishForm(selectedFormId);
+      await publishWithSave(selectedFormId);
       toast.show(data.feedback.formPublished);
       setShowBuilder(false);
       router.refresh();
     } catch (e: any) {
       toast.show(e.message ?? data.feedback.formError);
+    } finally {
+      setSaving(false);
     }
   };
 
