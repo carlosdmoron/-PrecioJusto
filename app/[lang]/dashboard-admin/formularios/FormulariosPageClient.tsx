@@ -12,6 +12,7 @@ import {
   createForm,
   getForm,
   updateFormQuestions,
+  updateFormService,
   publishForm,
   duplicateForm,
   deleteForm,
@@ -32,7 +33,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
   const [showBuilder, setShowBuilder] = useState(false);
   const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
   const [editingForm, setEditingForm] = useState(false);
-  const [editingService, setEditingService] = useState<string | null>(null);
+  const [editingServiceId, setEditingServiceId] = useState<string>("");
   const [loadingQuestions, setLoadingQuestions] = useState(false);
   const [serviceId, setServiceId] = useState("");
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -55,7 +56,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
   const openBuilderForNew = async (id: string) => {
     setSelectedFormId(id);
     setEditingForm(false);
-    setEditingService(null);
+    setEditingServiceId("");
     setQuestions([]);
     setShowModal(false);
     setShowBuilder(true);
@@ -74,7 +75,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
         setShowBuilder(false);
         return;
       }
-      setEditingService(detail.form.service_name);
+      setEditingServiceId(detail.form.service_id ?? "");
       setQuestions(normalizeQuestions(detail.questions ?? []));
     } catch (e: any) {
       toast.show(e.message ?? data.feedback.formError);
@@ -183,6 +184,9 @@ export default function FormulariosPageClient({ data }: { data: any }) {
     if (!selectedFormId) return;
     setSaving(true);
     try {
+      if (editingForm) {
+        await updateFormService(selectedFormId, editingServiceId);
+      }
       const saved = await updateFormQuestions(selectedFormId, questions);
       if (!saved) {
         toast.show(data.feedback.formError);
@@ -345,11 +349,24 @@ export default function FormulariosPageClient({ data }: { data: any }) {
         closeLabel={data.modal.cancel}
       >
         <div className="mt-4 space-y-3">
-          {editingForm && editingService && (
-            <p className="text-xs font-medium text-muted">
-              {data.modal.service}:{" "}
-              <span className="text-ink">{editingService}</span>
-            </p>
+          {editingForm && (
+            <div>
+              <label className="text-xs font-medium text-muted">
+                {data.modal.service}
+              </label>
+              <select
+                value={editingServiceId}
+                onChange={(e) => setEditingServiceId(e.target.value)}
+                className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none focus:ring-2 focus:ring-primary/40"
+              >
+                <option value="">{data.modal.servicePlaceholder}</option>
+                {data.services.map((svc: any) => (
+                  <option key={svc.id} value={svc.id}>
+                    {svc.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           )}
           {loadingQuestions && (
             <p className="text-sm text-muted">{data.builder.loading}</p>

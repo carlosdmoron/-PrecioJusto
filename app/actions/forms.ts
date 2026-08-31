@@ -120,6 +120,22 @@ export async function createForm(serviceId: string): Promise<string> {
   return data.id;
 }
 
+export async function updateFormService(
+  formId: string,
+  serviceId: string
+): Promise<boolean> {
+  await requireUser();
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("forms")
+    .update({ service_id: serviceId || null, updated_at: new Date().toISOString() })
+    .eq("id", formId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/[lang]/dashboard-admin/formularios", "page");
+  return true;
+}
+
 export async function updateFormQuestions(
   formId: string,
   questions: FormQuestion[]
