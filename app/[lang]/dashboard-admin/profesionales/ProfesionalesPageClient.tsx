@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
@@ -15,6 +15,14 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
   const router = useRouter();
   const [selectedRow, setSelectedRow] = useState<any | null>(null);
   const [items, setItems] = useState(data.items ?? []);
+
+  useEffect(() => {
+    setItems((prev: any[]) => {
+      const next = data.items ?? [];
+      if (JSON.stringify(prev) === JSON.stringify(next)) return prev;
+      return next;
+    });
+  }, [data.items]);
 
   const pending = items.filter((i: any) => i.status === "pending");
 

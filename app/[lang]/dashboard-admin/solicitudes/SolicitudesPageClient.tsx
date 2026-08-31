@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
@@ -18,6 +18,14 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
   const router = useRouter();
   const [items, setItems] = useState(data.items ?? []);
   const [selectedRow, setSelectedRow] = useState<TableRow | null>(null);
+
+  useEffect(() => {
+    setItems((prev: any[]) => {
+      const next = data.items ?? [];
+      if (JSON.stringify(prev) === JSON.stringify(next)) return prev;
+      return next;
+    });
+  }, [data.items]);
 
   const filterFields: FilterField[] = data.filters.fields;
   const [filtered, setFiltered] = useState<Record<string, string> | null>(null);

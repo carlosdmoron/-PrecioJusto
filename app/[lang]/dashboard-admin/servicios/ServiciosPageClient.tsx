@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
@@ -24,6 +24,14 @@ export default function ServiciosPageClient({ data }: { data: any }) {
   const [editingItem, setEditingItem] = useState<TableRow | null>(null);
   const [items, setItems] = useState(data.items ?? []);
   const categories: Cat[] = data.categories ?? [];
+
+  useEffect(() => {
+    setItems((prev: any[]) => {
+      const next = data.items ?? [];
+      if (JSON.stringify(prev) === JSON.stringify(next)) return prev;
+      return next;
+    });
+  }, [data.items]);
   const [form, setForm] = useState({
     name: "",
     category_id: "",

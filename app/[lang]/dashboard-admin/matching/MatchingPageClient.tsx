@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
@@ -25,6 +25,23 @@ export default function MatchingPageClient({ data }: { data: any }) {
       status: i.status ?? "active",
     }))
   );
+
+  useEffect(() => {
+    const mapItems = (rows: any[]) =>
+      (rows ?? []).map((i: any) => ({
+        id: i.id,
+        name: i.name,
+        criterion: i.criterion,
+        priority: String(i.priority ?? ""),
+        professionals: i.professionals_count ?? 0,
+        status: i.status ?? "active",
+      }));
+    setItems((prev: any[]) => {
+      const next = mapItems(data.items);
+      if (JSON.stringify(prev) === JSON.stringify(next)) return prev;
+      return next;
+    });
+  }, [data.items]);
 
   const [simService, setSimService] = useState("");
   const [simZone, setSimZone] = useState("");

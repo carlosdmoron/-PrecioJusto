@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
@@ -16,6 +16,14 @@ export default function ResenasPageClient({ data }: { data: any }) {
   const toast = useToast();
   const router = useRouter();
   const [items, setItems] = useState(data.items ?? []);
+
+  useEffect(() => {
+    setItems((prev: any[]) => {
+      const next = data.items ?? [];
+      if (JSON.stringify(prev) === JSON.stringify(next)) return prev;
+      return next;
+    });
+  }, [data.items]);
 
   const columns = [
     { key: "id", label: data.table.id },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "../../../components/admin/Toast";
 import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
@@ -15,6 +15,14 @@ export default function SoportePageClient({ data }: { data: any }) {
   const [selectedRow, setSelectedRow] = useState<any>(null);
   const [items, setItems] = useState(data.items ?? []);
   const [sender, setSender] = useState("");
+
+  useEffect(() => {
+    setItems((prev: any[]) => {
+      const next = data.items ?? [];
+      if (JSON.stringify(prev) === JSON.stringify(next)) return prev;
+      return next;
+    });
+  }, [data.items]);
   const [type, setType] = useState("");
   const [priority, setPriority] = useState("");
   const [description, setDescription] = useState("");
