@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "../../lib/supabase/server";
+import { shouldShowDashboardChooser } from "../../lib/guards";
 
 export async function getSession() {
   const supabase = await createClient();
@@ -24,6 +25,10 @@ export async function login(
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     return { error: error.message };
+  }
+
+  if (shouldShowDashboardChooser(email)) {
+    redirect(`/${lang}/dashboard-elegir`);
   }
 
   const { data: profile } = await supabase

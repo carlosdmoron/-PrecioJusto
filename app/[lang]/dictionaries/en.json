@@ -248,6 +248,17 @@
       "button": "Create my account"
     }
   },
+  "dashboardChooser": {
+    "title": "Choose your dashboard",
+    "subtitle": "Which control panel do you want to enter?",
+    "admin": "Admin Dashboard",
+    "adminDesc": "Manage requests, services, clients and more.",
+    "customer": "Customer Dashboard",
+    "customerDesc": "Your customer space.",
+    "professional": "Professional Dashboard",
+    "professionalDesc": "Manage your services and opportunities.",
+    "logout": "Sign out"
+  },
   "login": {
     "meta": {
       "title": "Log in | PrecioJusto",

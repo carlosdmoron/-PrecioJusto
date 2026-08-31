@@ -248,6 +248,17 @@
       "button": "Crear mi cuenta"
     }
   },
+  "dashboardChooser": {
+    "title": "Elige tu dashboard",
+    "subtitle": "¿A qué panel de control quieres ingresar?",
+    "admin": "Dashboard Admin",
+    "adminDesc": "Gestión de solicitudes, servicios, clientes y más.",
+    "customer": "Dashboard Customer",
+    "customerDesc": "Tu espacio como cliente.",
+    "professional": "Dashboard Profesional",
+    "professionalDesc": "Gestiona tus servicios y oportunidades.",
+    "logout": "Cerrar sesión"
+  },
   "login": {
     "meta": {
       "title": "Inicia sesión | PrecioJusto",
