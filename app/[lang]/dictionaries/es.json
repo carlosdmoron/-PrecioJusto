@@ -1858,6 +1858,10 @@
       ],
       "builder": {
         "title": "Constructor de formulario",
+        "editTitle": "Editar formulario",
+        "createTitle": "Nuevo formulario",
+        "loading": "Cargando preguntas...",
+        "notFound": "Formulario no encontrado",
         "addQuestion": "Añadir pregunta",
         "newQuestionLabel": "Nueva pregunta",
         "removeQuestion": "Eliminar pregunta",

@@ -116,14 +116,14 @@ export async function createForm(serviceId: string): Promise<string> {
     .single();
 
   if (error) throw new Error(error.message);
-  revalidatePath("/[lang]/dashboard-admin/formularios");
+  revalidatePath("/[lang]/dashboard-admin/formularios", "page");
   return data.id;
 }
 
 export async function updateFormQuestions(
   formId: string,
   questions: FormQuestion[]
-): Promise<void> {
+): Promise<boolean> {
   await requireUser();
   const supabase = await createClient();
 
@@ -154,7 +154,14 @@ export async function updateFormQuestions(
     .eq("id", formId);
   if (updError) throw new Error(updError.message);
 
-  revalidatePath("/[lang]/dashboard-admin/formularios");
+  const { data: verify, error: verifyError } = await supabase
+    .from("form_questions")
+    .select("id")
+    .eq("form_id", formId);
+  if (verifyError) throw new Error(verifyError.message);
+
+  revalidatePath("/[lang]/dashboard-admin/formularios", "page");
+  return verify?.length === questions.length;
 }
 
 export async function publishForm(formId: string): Promise<void> {
@@ -165,7 +172,7 @@ export async function publishForm(formId: string): Promise<void> {
     .update({ status: "active", updated_at: new Date().toISOString() })
     .eq("id", formId);
   if (error) throw new Error(error.message);
-  revalidatePath("/[lang]/dashboard-admin/formularios");
+  revalidatePath("/[lang]/dashboard-admin/formularios", "page");
 }
 
 export async function duplicateForm(formId: string): Promise<string> {
@@ -201,7 +208,7 @@ export async function duplicateForm(formId: string): Promise<string> {
     if (insError) throw new Error(insError.message);
   }
 
-  revalidatePath("/[lang]/dashboard-admin/formularios");
+  revalidatePath("/[lang]/dashboard-admin/formularios", "page");
   return newForm.id;
 }
 
@@ -210,5 +217,5 @@ export async function deleteForm(formId: string): Promise<void> {
   const supabase = await createClient();
   const { error } = await supabase.from("forms").delete().eq("id", formId);
   if (error) throw new Error(error.message);
-  revalidatePath("/[lang]/dashboard-admin/formularios");
+  revalidatePath("/[lang]/dashboard-admin/formularios", "page");
 }

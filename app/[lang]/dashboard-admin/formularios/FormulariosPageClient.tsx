@@ -31,13 +31,31 @@ export default function FormulariosPageClient({ data }: { data: any }) {
   const [showModal, setShowModal] = useState(false);
   const [showBuilder, setShowBuilder] = useState(false);
   const [selectedFormId, setSelectedFormId] = useState<string | null>(null);
+  const [editingForm, setEditingForm] = useState(false);
+  const [editingService, setEditingService] = useState<string | null>(null);
+  const [loadingQuestions, setLoadingQuestions] = useState(false);
   const [serviceId, setServiceId] = useState("");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [saving, setSaving] = useState(false);
   const dragIndex = useRef<number | null>(null);
 
+  const defaultChoiceOptions = () => ["A", "B", "C", "D"];
+
+  const normalizeQuestions = (qs: Question[]): Question[] =>
+    qs.map((q) => {
+      const isChoice = q.type === "radio" || q.type === "checkbox" || q.type === "select";
+      return {
+        ...q,
+        options: isChoice && (!q.options || q.options.length === 0)
+          ? defaultChoiceOptions()
+          : q.options ?? [],
+      };
+    });
+
   const openBuilderForNew = async (id: string) => {
     setSelectedFormId(id);
+    setEditingForm(false);
+    setEditingService(null);
     setQuestions([]);
     setShowModal(false);
     setShowBuilder(true);
@@ -45,14 +63,25 @@ export default function FormulariosPageClient({ data }: { data: any }) {
 
   const openBuilderForEdit = async (id: string) => {
     setSelectedFormId(id);
+    setEditingForm(true);
+    setLoadingQuestions(true);
+    setQuestions([]);
+    setShowBuilder(true);
     try {
       const detail = await getForm(id);
-      setQuestions(detail?.questions ?? []);
+      if (!detail) {
+        toast.show(data.builder.notFound);
+        setShowBuilder(false);
+        return;
+      }
+      setEditingService(detail.form.service_name);
+      setQuestions(normalizeQuestions(detail.questions ?? []));
     } catch (e: any) {
       toast.show(e.message ?? data.feedback.formError);
-      return;
+      setShowBuilder(false);
+    } finally {
+      setLoadingQuestions(false);
     }
-    setShowBuilder(true);
   };
 
   const handleDragStart = (index: number) => {
@@ -74,8 +103,6 @@ export default function FormulariosPageClient({ data }: { data: any }) {
     });
     dragIndex.current = null;
   };
-
-  const defaultChoiceOptions = () => ["A", "B", "C", "D"];
 
   const addQuestion = (typeOverride?: string) => {
     setQuestions((prev) => {
@@ -156,7 +183,11 @@ export default function FormulariosPageClient({ data }: { data: any }) {
     if (!selectedFormId) return;
     setSaving(true);
     try {
-      await updateFormQuestions(selectedFormId, questions);
+      const saved = await updateFormQuestions(selectedFormId, questions);
+      if (!saved) {
+        toast.show(data.feedback.formError);
+        return;
+      }
       toast.show(data.feedback.formSaved);
       setShowBuilder(false);
       router.refresh();
@@ -310,11 +341,20 @@ export default function FormulariosPageClient({ data }: { data: any }) {
       <Modal
         open={showBuilder}
         onClose={() => setShowBuilder(false)}
-        title={data.builder.title}
+        title={editingForm ? data.builder.editTitle : data.builder.createTitle}
         closeLabel={data.modal.cancel}
       >
         <div className="mt-4 space-y-3">
-          {questions.length === 0 && (
+          {editingForm && editingService && (
+            <p className="text-xs font-medium text-muted">
+              {data.modal.service}:{" "}
+              <span className="text-ink">{editingService}</span>
+            </p>
+          )}
+          {loadingQuestions && (
+            <p className="text-sm text-muted">{data.builder.loading}</p>
+          )}
+          {!loadingQuestions && questions.length === 0 && (
             <p className="text-sm text-muted">{data.builder.empty}</p>
           )}
           {questions.map((q, index) => {

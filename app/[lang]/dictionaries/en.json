@@ -1858,6 +1858,10 @@
       ],
       "builder": {
         "title": "Form builder",
+        "editTitle": "Edit form",
+        "createTitle": "New form",
+        "loading": "Loading questions...",
+        "notFound": "Form not found",
         "addQuestion": "Add question",
         "newQuestionLabel": "New question",
         "removeQuestion": "Remove question",
