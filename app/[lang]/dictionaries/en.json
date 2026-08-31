@@ -1862,6 +1862,13 @@
         "newQuestionLabel": "New question",
         "removeQuestion": "Remove question",
         "empty": "This form has no questions yet. Add the first one.",
+        "questionTypeLabels": {
+          "free": "Free response",
+          "choice": "Multiple choice (a, b, c, d)"
+        },
+        "choicesLabel": "Answers",
+        "addOptionLabel": "Add answer",
+        "removeOptionLabel": "Remove answer",
         "questionTypes": {
           "radio": "Single choice",
           "checkbox": "Multiple choice",

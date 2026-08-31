@@ -1862,6 +1862,13 @@
         "newQuestionLabel": "Nueva pregunta",
         "removeQuestion": "Eliminar pregunta",
         "empty": "Este formulario aún no tiene preguntas. Añade la primera.",
+        "questionTypeLabels": {
+          "free": "Respuesta libre",
+          "choice": "Opción múltiple (a, b, c, d)"
+        },
+        "choicesLabel": "Respuestas",
+        "addOptionLabel": "Añadir respuesta",
+        "removeOptionLabel": "Eliminar respuesta",
         "questionTypes": {
           "radio": "Opción única",
           "checkbox": "Selección múltiple",

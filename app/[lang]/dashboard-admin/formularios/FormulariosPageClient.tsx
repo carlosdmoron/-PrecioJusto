@@ -75,21 +75,76 @@ export default function FormulariosPageClient({ data }: { data: any }) {
     dragIndex.current = null;
   };
 
-  const addQuestion = () => {
-    setQuestions((prev) => [
-      ...prev,
-      {
-        label: data.builder.newQuestionLabel,
-        type: "text",
-        required: false,
-        options: [],
-      },
-    ]);
+  const defaultChoiceOptions = () => ["A", "B", "C", "D"];
+
+  const addQuestion = (typeOverride?: string) => {
+    setQuestions((prev) => {
+      const type = typeOverride ?? "textarea";
+      const isChoice = type === "radio" || type === "checkbox" || type === "select";
+      return [
+        ...prev,
+        {
+          label: data.builder.newQuestionLabel,
+          type,
+          required: false,
+          options: isChoice ? defaultChoiceOptions() : [],
+        },
+      ];
+    });
   };
 
   const updateQuestion = (index: number, patch: Partial<Question>) => {
     setQuestions((prev) =>
       prev.map((q, i) => (i === index ? { ...q, ...patch } : q))
+    );
+  };
+
+  const changeQuestionType = (index: number, type: string) => {
+    setQuestions((prev) =>
+      prev.map((q, i) => {
+        if (i !== index) return q;
+        const isChoice = type === "radio" || type === "checkbox" || type === "select";
+        if (isChoice) {
+          return {
+            ...q,
+            type,
+            options:
+              q.options && q.options.length > 0 ? q.options : defaultChoiceOptions(),
+          };
+        }
+        return { ...q, type, options: [] };
+      })
+    );
+  };
+
+  const updateOption = (index: number, optIndex: number, value: string) => {
+    setQuestions((prev) =>
+      prev.map((q, i) => {
+        if (i !== index) return q;
+        const options = [...(q.options ?? [])];
+        options[optIndex] = value;
+        return { ...q, options };
+      })
+    );
+  };
+
+  const addOption = (index: number) => {
+    setQuestions((prev) =>
+      prev.map((q, i) =>
+        i === index
+          ? { ...q, options: [...(q.options ?? []), `Opción ${(q.options?.length ?? 0) + 1}`] }
+          : q
+      )
+    );
+  };
+
+  const removeOption = (index: number, optIndex: number) => {
+    setQuestions((prev) =>
+      prev.map((q, i) =>
+        i === index
+          ? { ...q, options: (q.options ?? []).filter((_, oi) => oi !== optIndex) }
+          : q
+      )
     );
   };
 
@@ -262,62 +317,123 @@ export default function FormulariosPageClient({ data }: { data: any }) {
           {questions.length === 0 && (
             <p className="text-sm text-muted">{data.builder.empty}</p>
           )}
-          {questions.map((q, index) => (
-            <div
-              key={q.id ?? `new-${index}`}
-              draggable
-              onDragStart={() => handleDragStart(index)}
-              onDragOver={handleDragOver}
-              onDrop={() => handleDrop(index)}
-              className="flex cursor-grab items-start gap-3 rounded-lg border border-line/30 bg-surface p-3 active:cursor-grabbing"
-            >
-              <span className="shrink-0 select-none text-lg leading-none text-faint">
-                ⋮⋮
-              </span>
-              <div className="min-w-0 flex-1">
-                <input
-                  value={q.label}
-                  onChange={(e) => updateQuestion(index, { label: e.target.value })}
-                  className="w-full rounded-md bg-field px-2 py-1 text-sm font-semibold text-ink outline-none focus:ring-2 focus:ring-primary/40"
-                />
-                <p className="mt-1 text-xs text-muted">
-                  {data.builder.questionTypes[q.type]}
-                  {q.required && (
-                    <span className="ml-1 inline-block rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
-                      {data.builder.required}
-                    </span>
-                  )}
-                </p>
-                {q.options && q.options.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-1">
-                    {q.options.map((opt: string) => (
-                      <span
-                        key={opt}
-                        className="rounded-full bg-chip-blue px-2 py-0.5 text-xs text-primary-dark"
-                      >
-                        {opt}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={() => removeQuestion(index)}
-                className="shrink-0 text-xs text-faint transition hover:text-danger"
-                aria-label={data.builder.removeQuestion}
+          {questions.map((q, index) => {
+            const isChoice =
+              q.type === "radio" || q.type === "checkbox" || q.type === "select";
+            return (
+              <div
+                key={q.id ?? `new-${index}`}
+                draggable
+                onDragStart={() => handleDragStart(index)}
+                onDragOver={handleDragOver}
+                onDrop={() => handleDrop(index)}
+                className="flex cursor-grab items-start gap-3 rounded-lg border border-line/30 bg-surface p-3 active:cursor-grabbing"
               >
-                ✕
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={addQuestion}
-            className="w-full rounded-lg border border-dashed border-line/60 py-3 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark"
-          >
-            + {data.builder.addQuestion}
-          </button>
+                <span className="shrink-0 select-none text-lg leading-none text-faint">
+                  ⋮⋮
+                </span>
+                <div className="min-w-0 flex-1 space-y-2">
+                  <div className="flex gap-3">
+                    <input
+                      value={q.label}
+                      onChange={(e) => updateQuestion(index, { label: e.target.value })}
+                      className="min-w-0 flex-1 rounded-md bg-field px-2 py-1 text-sm font-semibold text-ink outline-none focus:ring-2 focus:ring-primary/40"
+                    />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <select
+                      value={isChoice ? "choice" : "free"}
+                      onChange={(e) =>
+                        changeQuestionType(
+                          index,
+                          e.target.value === "choice" ? "radio" : "textarea"
+                        )
+                      }
+                      className="h-8 rounded-md bg-field px-2 text-xs text-ink outline-none focus:ring-2 focus:ring-primary/40"
+                    >
+                      <option value="free">{data.builder.questionTypeLabels.free}</option>
+                      <option value="choice">
+                        {data.builder.questionTypeLabels.choice}
+                      </option>
+                    </select>
+                    <span className="text-xs text-muted">
+                      {data.builder.questionTypes[q.type]}
+                    </span>
+                    <label className="ml-auto flex cursor-pointer items-center gap-1.5 text-xs text-muted">
+                      <input
+                        type="checkbox"
+                        checked={q.required}
+                        onChange={(e) =>
+                          updateQuestion(index, { required: e.target.checked })
+                        }
+                        className="h-3.5 w-3.5 accent-primary"
+                      />
+                      {data.builder.required}
+                    </label>
+                  </div>
+                  {isChoice && (
+                    <div className="space-y-1.5 pl-1">
+                      <p className="text-[11px] font-medium text-faint">
+                        {data.builder.choicesLabel}
+                      </p>
+                      {q.options.map((opt: string, oi: number) => (
+                        <div key={oi} className="flex items-center gap-2">
+                          <span className="w-4 shrink-0 text-xs font-semibold text-primary-dark">
+                            {String.fromCharCode(65 + oi)}.
+                          </span>
+                          <input
+                            value={opt}
+                            onChange={(e) => updateOption(index, oi, e.target.value)}
+                            className="h-8 w-full rounded-md bg-field px-2 text-xs text-ink outline-none focus:ring-2 focus:ring-primary/40"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeOption(index, oi)}
+                            disabled={(q.options?.length ?? 0) <= 2}
+                            className="shrink-0 text-xs text-faint transition hover:text-danger disabled:opacity-30"
+                            aria-label={data.builder.removeOptionLabel}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => addOption(index)}
+                        className="mt-1 text-xs font-medium text-primary-dark transition hover:underline"
+                      >
+                        + {data.builder.addOptionLabel}
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => removeQuestion(index)}
+                  className="shrink-0 text-xs text-faint transition hover:text-danger"
+                  aria-label={data.builder.removeQuestion}
+                >
+                  ✕
+                </button>
+              </div>
+            );
+          })}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => addQuestion("textarea")}
+              className="w-full rounded-lg border border-dashed border-line/60 py-3 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark"
+            >
+              + {data.builder.questionTypeLabels.free}
+            </button>
+            <button
+              type="button"
+              onClick={() => addQuestion("radio")}
+              className="w-full rounded-lg border border-dashed border-line/60 py-3 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark"
+            >
+              + {data.builder.questionTypeLabels.choice}
+            </button>
+          </div>
           <div className="flex gap-3 pt-2">
             <button
               type="button"

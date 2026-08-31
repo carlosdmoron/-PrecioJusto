@@ -1862,6 +1862,13 @@
         "newQuestionLabel": "Nuova domanda",
         "removeQuestion": "Rimuovi domanda",
         "empty": "Questo modulo non ha ancora domande. Aggiungi la prima.",
+        "questionTypeLabels": {
+          "free": "Risposta libera",
+          "choice": "Scelta multipla (a, b, c, d)"
+        },
+        "choicesLabel": "Risposte",
+        "addOptionLabel": "Aggiungi risposta",
+        "removeOptionLabel": "Rimuovi risposta",
         "questionTypes": {
           "radio": "Scelta singola",
           "checkbox": "Scelta multipla",
