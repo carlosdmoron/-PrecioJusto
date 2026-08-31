@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "../../lib/supabase/server";
+import { createAdminClient } from "../../lib/supabase/admin";
 
 export type FormRow = {
   id: string;
@@ -38,6 +39,31 @@ async function requireUser() {
     );
   }
   return user;
+}
+
+// Verifica que el usuario autenticado sea un administrador real y devuelve un
+// cliente de servicio (bypass RLS) para las escrituras. El cliente autenticado
+// puede fallar a nivel RLS en algunos contextos de sesión, por lo que usamos el
+// rol de servicio tras una comprobación explícita de administrador.
+async function requireAdmin() {
+  const user = await requireUser();
+  const supabase = await createClient();
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (error) {
+    throw new Error("No se pudo verificar permisos de administrador.");
+  }
+  const isAdmin =
+    profile?.role === "admin" ||
+    profile?.role === "superadmin" ||
+    profile?.role === "SuperAdmin";
+  if (!isAdmin) {
+    throw new Error("No tienes permisos de administrador para esta acción.");
+  }
+  return createAdminClient();
 }
 
 export async function listForms(): Promise<FormRow[]> {
@@ -107,8 +133,7 @@ export async function getForm(id: string): Promise<FormDetail | null> {
 }
 
 export async function createForm(serviceId: string): Promise<string> {
-  await requireUser();
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const { data, error } = await supabase
     .from("forms")
     .insert({ service_id: serviceId || null, status: "draft", version: "v1.0" })
@@ -124,8 +149,7 @@ export async function updateFormService(
   formId: string,
   serviceId: string
 ): Promise<boolean> {
-  await requireUser();
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const { error } = await supabase
     .from("forms")
     .update({ service_id: serviceId || null, updated_at: new Date().toISOString() })
@@ -140,8 +164,7 @@ export async function updateFormQuestions(
   formId: string,
   questions: FormQuestion[]
 ): Promise<boolean> {
-  await requireUser();
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
 
   const { error: delError } = await supabase
     .from("form_questions")
@@ -181,8 +204,7 @@ export async function updateFormQuestions(
 }
 
 export async function publishForm(formId: string): Promise<void> {
-  await requireUser();
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const { error } = await supabase
     .from("forms")
     .update({ status: "active", updated_at: new Date().toISOString() })
@@ -192,8 +214,7 @@ export async function publishForm(formId: string): Promise<void> {
 }
 
 export async function duplicateForm(formId: string): Promise<string> {
-  await requireUser();
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
 
   const detail = await getForm(formId);
   if (!detail) throw new Error("Formulario no encontrado");
@@ -229,8 +250,7 @@ export async function duplicateForm(formId: string): Promise<string> {
 }
 
 export async function deleteForm(formId: string): Promise<void> {
-  await requireUser();
-  const supabase = await createClient();
+  const supabase = await requireAdmin();
   const { error } = await supabase.from("forms").delete().eq("id", formId);
   if (error) throw new Error(error.message);
   revalidatePath("/[lang]/dashboard-admin/formularios", "page");
