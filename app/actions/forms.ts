@@ -90,7 +90,10 @@ export async function listForms(): Promise<FormRow[]> {
 }
 
 export async function getForm(id: string): Promise<FormDetail | null> {
-  const supabase = await createClient();
+  // Usamos el cliente de servicio (bypass RLS) para la lectura, igual que en las
+  // escrituras: el cliente autenticado puede fallar a nivel RLS en algunos
+  // contextos de sesión y dejaría las preguntas en blanco.
+  const supabase = await requireAdmin();
   const { data: form, error } = await supabase
     .from("forms")
     .select("id, service_id, version, question_count, abandonment_rate, status, created_at, service:services(name)")
