@@ -33,7 +33,7 @@ export async function login(
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role")
+    .select("role, status")
     .maybeSingle();
 
   const role = (profile?.role as string) ?? "client";
@@ -42,9 +42,37 @@ export async function login(
     redirect(`/${lang}/dashboard-admin`);
   }
   if (role === "professional") {
+    // Si el profesional está bloqueado (o su perfil baneado) no se le permite
+    // entrar: se cierra la sesión recién creada y se muestra el error.
+    const status = profile?.status as string | undefined;
+    const isBlocked =
+      status === "banned" ||
+      status === "blocked" ||
+      (await isProfessionalBlocked(supabase));
+
+    if (isBlocked) {
+      await supabase.auth.signOut();
+      return {
+        error:
+          "Tu cuenta ha sido bloqueada. Si crees que es un error, contacta con soporte.",
+      };
+    }
     redirect(`/${lang}/dashboard-profesional`);
   }
   redirect(`/${lang}/dashboard-cliente`);
+}
+
+async function isProfessionalBlocked(supabase: Awaited<ReturnType<typeof createClient>>) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+  const { data: prof } = await supabase
+    .from("professionals")
+    .select("admin_status")
+    .eq("id", user.id)
+    .maybeSingle();
+  return prof?.admin_status === "blocked";
 }
 
 export async function logout(lang: string = "es") {

@@ -92,6 +92,11 @@ export default function ProfesionalesPageClient({ data }: { data: any }) {
               onClick: (row: any) =>
                 handleSetStatus(row.id, "suspended", data.feedback.professionalSuspended),
             },
+            {
+              label: data.actions.block,
+              onClick: (row: any) =>
+                handleSetStatus(row.id, "blocked", data.feedback.professionalBlocked),
+            },
           ]}
         />
       </AdminSection>

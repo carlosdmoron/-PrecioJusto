@@ -1465,6 +1465,7 @@
       "professionalApproved": "Profesional aprobado",
       "professionalRejected": "Profesional rechazado",
       "professionalSuspended": "Profesional suspendido",
+      "professionalBlocked": "Profesional bloqueado",
       "reviewApproved": "Reseña aprobada",
       "reviewHidden": "Reseña ocultada",
       "reviewRemoved": "Reseña eliminada",
@@ -2308,13 +2309,15 @@
         "pending": "Pendiente",
         "active": "Activo",
         "suspended": "Suspendido",
-        "rejected": "Rechazado"
+        "rejected": "Rechazado",
+        "blocked": "Bloqueado"
       },
       "actions": {
         "approve": "Aprobar",
         "reject": "Rechazar",
         "view": "Ver perfil",
         "suspend": "Suspender",
+        "block": "Bloquear",
         "edit": "Editar"
       },
       "items": [

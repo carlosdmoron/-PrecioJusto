@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "../../lib/supabase/server";
+import { createAdminClient } from "../../lib/supabase/admin";
 
 async function requireUser() {
   const supabase = await createClient();
@@ -14,6 +15,29 @@ async function requireUser() {
     );
   }
   return user;
+}
+
+// Valida que el usuario autenticado sea administrador y devuelve un cliente de
+// servicio (bypasea RLS) para operaciones que requieren privilegios de admin.
+async function requireAdmin() {
+  const user = await requireUser();
+  const supabase = await createClient();
+  const { data: profile, error } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (error) {
+    throw new Error("No se pudo verificar permisos de administrador.");
+  }
+  const isAdmin =
+    profile?.role === "admin" ||
+    profile?.role === "superadmin" ||
+    profile?.role === "SuperAdmin";
+  if (!isAdmin) {
+    throw new Error("No tienes permisos de administrador para esta acción.");
+  }
+  return createAdminClient();
 }
 
 export type AdminServiceRow = {
@@ -327,13 +351,24 @@ export async function listProfessionals() {
 }
 
 export async function setProfessionalAdminStatus(id: string, status: string) {
-  const supabase = await createClient();
-  const { error } = await supabase
+  const adminSupabase = await requireAdmin();
+  const { error } = await adminSupabase
     .from("professionals")
     .update({ admin_status: status })
     .eq("id", id);
   if (error) throw new Error(error.message);
-  const { data: check, error: checkErr } = await supabase
+
+  // Bloquear también revoca el acceso: el perfil pasa a 'banned' para que el
+  // profesional no pueda iniciar sesión ni usar la plataforma.
+  if (status === "blocked") {
+    const { error: profileError } = await adminSupabase
+      .from("profiles")
+      .update({ status: "banned" })
+      .eq("id", id);
+    if (profileError) throw new Error(profileError.message);
+  }
+
+  const { data: check, error: checkErr } = await adminSupabase
     .from("professionals")
     .select("admin_status")
     .eq("id", id)
