@@ -504,3 +504,78 @@ export async function createTicket(input: {
   revalidatePath("/[lang]/dashboard-admin/soporte");
   return { success: true };
 }
+
+// ===== CLIENTES =====
+export async function listClients() {
+  const adminSupabase = await requireAdmin();
+  const { data, error } = await adminSupabase
+    .from("profiles")
+    .select(
+      "id, email, first_name, last_name, phone, status, created_at, updated_at, requests:requests!requests_client_id_fkey(id)"
+    )
+    .eq("role", "client")
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  const rows = (data ?? []) as Array<Record<string, any>>;
+  return rows.map((c) => {
+    const reqs = Array.isArray(c.requests) ? c.requests : [];
+    return {
+      id: c.id,
+      name: [c.first_name, c.last_name].filter(Boolean).join(" ") || c.email || c.id,
+      email: c.email ?? "—",
+      phone: c.phone ?? "—",
+      requests: String(reqs.length),
+      registered: c.created_at
+        ? new Date(c.created_at).toLocaleDateString("es-ES")
+        : "—",
+      lastAccess: c.updated_at
+        ? new Date(c.updated_at).toLocaleDateString("es-ES")
+        : "—",
+      status: c.status ?? "active",
+    };
+  });
+}
+
+export async function setClientBlocked(id: string) {
+  const adminSupabase = await requireAdmin();
+  const { error } = await adminSupabase
+    .from("profiles")
+    .update({ status: "banned" })
+    .eq("role", "client")
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await adminSupabase
+    .from("profiles")
+    .select("status")
+    .eq("id", id)
+    .eq("role", "client")
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== "banned") {
+    throw new Error("No se pudo verificar el bloqueo del cliente en la base de datos");
+  }
+  revalidatePath("/[lang]/dashboard-admin/clientes");
+  return { success: true };
+}
+
+export async function setClientActive(id: string) {
+  const adminSupabase = await requireAdmin();
+  const { error } = await adminSupabase
+    .from("profiles")
+    .update({ status: "active" })
+    .eq("role", "client")
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await adminSupabase
+    .from("profiles")
+    .select("status")
+    .eq("id", id)
+    .eq("role", "client")
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== "active") {
+    throw new Error("No se pudo verificar la reactivación del cliente en la base de datos");
+  }
+  revalidatePath("/[lang]/dashboard-admin/clientes");
+  return { success: true };
+}

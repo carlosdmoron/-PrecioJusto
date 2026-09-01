@@ -1428,6 +1428,7 @@
       "exporting": "Exportando datos...",
       "openingReport": "Abriendo reporte...",
       "blockedUser": "Cliente bloqueado",
+      "clientReactivated": "Cliente reactivado",
       "editing": "Editando...",
       "editingUser": "Editando usuario",
       "editingRequest": "Editando solicitud",
@@ -2529,7 +2530,13 @@
         "view": "Ver",
         "block": "Bloquear",
         "export": "Exportar",
-        "merge": "Fusionar"
+        "merge": "Fusionar",
+        "reactivate": "Reactivar"
+      },
+      "export": {
+        "label": "Exportar",
+        "csv": "Exportar CSV",
+        "xls": "Exportar XLS"
       },
       "items": [
         {

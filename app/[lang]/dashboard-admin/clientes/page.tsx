@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
+import { listClients } from "../../../actions/admin";
 import ClientesPageClient from "./ClientesPageClient";
 
 export async function generateMetadata({
@@ -15,5 +16,14 @@ export async function generateMetadata({
 
 export default async function ClientesPage() {
   const dict = await getDictionary();
-  return <ClientesPageClient data={{ ...dict.dashboardAdmin.clientes, feedback: dict.dashboardAdmin.feedback }} />;
+  const clients = await listClients();
+  return (
+    <ClientesPageClient
+      data={{
+        ...dict.dashboardAdmin.clientes,
+        feedback: dict.dashboardAdmin.feedback,
+        items: clients,
+      }}
+    />
+  );
 }
