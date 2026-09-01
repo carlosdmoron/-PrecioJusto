@@ -54,20 +54,33 @@ export async function listCategories() {
 
 export async function listServices(): Promise<AdminServiceRow[]> {
   const supabase = await createClient();
+
+  // La columna image_url puede no existir aún si la migración 0004 no se ha
+  // aplicado en la BD. Se comprueba con un SELECT mínimo: si falla, la columna
+  // no existe y no se referencia, para no romper el render del dashboard. Cuando
+  // se aplique la migración, la columna pasará a existir y se usará automáticamente.
+  const { error: probeError } = await supabase
+    .from("services")
+    .select("image_url")
+    .limit(1);
+  const hasImage = !probeError;
+
+  const select = hasImage
+    ? "id, name, slug, description, image_url, status, requests_count, revenue, category:categories(name)"
+    : "id, name, slug, description, status, requests_count, revenue, category:categories(name)";
+
   const { data, error } = await supabase
     .from("services")
-    .select(
-      "id, name, slug, description, image_url, status, requests_count, revenue, category:categories(name)"
-    )
+    .select(select)
     .order("name");
   if (error) throw new Error(error.message);
 
-  const rows = (data ?? []) as Array<{
+  const rows = (data ?? []) as unknown as Array<{
     id: string;
     name: string;
     slug: string;
     description: string | null;
-    image_url: string | null;
+    image_url?: string | null;
     status: string;
     requests_count: number | null;
     revenue: number | null;

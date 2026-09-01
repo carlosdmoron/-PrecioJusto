@@ -45,9 +45,19 @@ export async function getPublishedServices(): Promise<PublishedService[]> {
 
   if (serviceIds.length === 0) return [];
 
+  // La columna image_url puede no existir aún si la migración 0004 no se ha
+  // aplicado en la BD. Se comprueba con un SELECT mínimo: si falla, la columna
+  // no existe y no debe referenciarse o rompería el render (React #441). Cuando
+  // se aplique la migración, la columna pasará a existir y se usará automáticamente.
+  const { error: probeError } = await supabase
+    .from("services")
+    .select("image_url")
+    .limit(1);
+  const hasImage = !probeError;
+
   const { data, error } = await supabase
     .from("services")
-    .select("id, name, slug, description, image_url")
+    .select(hasImage ? "id, name, slug, description, image_url" : "id, name, slug, description")
     .in("id", serviceIds)
     .eq("status", "published")
     .order("created_at", { ascending: true })
@@ -55,7 +65,15 @@ export async function getPublishedServices(): Promise<PublishedService[]> {
 
   if (error) throw new Error(error.message);
 
-  return (data ?? []).map((s) => ({
+  const rows = (data ?? []) as unknown as Array<{
+    id: string;
+    name: string;
+    slug: string;
+    description: string | null;
+    image_url?: string | null;
+  }>;
+
+  return rows.map((s) => ({
     id: s.id,
     name: s.name,
     slug: s.slug,
