@@ -1654,7 +1654,8 @@
         "review": "Revisión",
         "published": "Publicado",
         "paused": "Pausado",
-        "archived": "Archivado"
+        "archived": "Archivado",
+        "coming_soon": "Próximamente"
       },
       "actions": {
         "edit": "Editar",
@@ -1754,6 +1755,8 @@
         "descriptionPh": "Describe el servicio...",
         "imageUrl": "URL de imagen",
         "imageUrlPh": "/images/prof-electricista.jfif",
+        "imageGallery": "Elegir de la galería",
+        "imageNone": "Sin imagen",
         "status": "Estado",
         "slug": "Slug",
         "slugPh": "reparacion-tuberias",

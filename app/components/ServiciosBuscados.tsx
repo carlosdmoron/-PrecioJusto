@@ -1,12 +1,8 @@
+import Image from "next/image";
 import { cookies } from "next/headers";
 import { lang } from "next/root-params";
 import { getDictionary } from "../[lang]/dictionaries";
-
-const services = [
-  { key: "limpieza" as const, emoji: "🧹", bg: "bg-blue-100" },
-  { key: "construccion" as const, emoji: "🏗️", bg: "bg-orange-100" },
-  { key: "carpintero" as const, emoji: "🪚", bg: "bg-green-100" },
-];
+import { getComingSoonServices } from "../actions/services";
 
 export default async function ServiciosBuscados() {
   const dict = await getDictionary();
@@ -18,6 +14,9 @@ export default async function ServiciosBuscados() {
     ? `/${current}/registro-profesional`
     : `/${current}/iniciar-sesion`;
 
+  const services = await getComingSoonServices();
+  if (services.length === 0) return null;
+
   return (
     <section className="py-20 lg:py-24">
       <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-20">
@@ -27,18 +26,24 @@ export default async function ServiciosBuscados() {
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((svc) => (
+          {services.map((service) => (
             <a
-              key={svc.key}
+              key={service.id}
               href={href}
               className="group relative overflow-hidden rounded-xl border border-line/40 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
-              <div className={`relative flex h-48 items-center justify-center ${svc.bg} overflow-hidden`}>
-                <span className="text-6xl transition duration-300 group-hover:scale-110">{svc.emoji}</span>
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={service.image_url || "/images/prof-service-1.jpg"}
+                  alt={service.name}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition duration-300 group-hover:scale-105"
+                />
               </div>
               <div className="flex flex-col items-center gap-1 px-4 pt-4 pb-16">
                 <h3 className="text-sm font-semibold leading-snug text-ink">
-                  {t.items[svc.key]}
+                  {service.name}
                 </h3>
               </div>
               <div className="absolute bottom-0 left-0 right-0 translate-y-full px-3 pb-3 transition-transform duration-300 ease-out group-hover:translate-y-0">

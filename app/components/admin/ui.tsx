@@ -138,6 +138,8 @@ const STATUS_MAP: Record<string, BadgeVariant> = {
   inactive: "neutral",
   paused: "neutral",
   pausado: "neutral",
+  coming_soon: "info",
+  proximamente: "info",
   cancelado: "danger",
   cancelled: "danger",
   rejected: "danger",

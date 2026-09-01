@@ -12,7 +12,7 @@ CREATE TYPE user_status AS ENUM ('active', 'inactive', 'banned');
 CREATE TYPE entity_type AS ENUM ('individual', 'empresa');
 CREATE TYPE verification_status AS ENUM ('pending', 'verified', 'rejected');
 CREATE TYPE prof_admin_status AS ENUM ('pending', 'active', 'suspended', 'rejected');
-CREATE TYPE service_status AS ENUM ('draft', 'review', 'published', 'paused', 'archived');
+CREATE TYPE service_status AS ENUM ('draft', 'review', 'published', 'paused', 'archived', 'coming_soon');
 CREATE TYPE request_status AS ENUM ('new', 'published', 'inProgress', 'completed', 'cancelled', 'blocked');
 CREATE TYPE request_urgency AS ENUM ('asap', 'week', 'month', 'none');
 CREATE TYPE quote_status AS ENUM ('draft', 'pending', 'sent', 'viewed', 'contacted', 'selected', 'rejected', 'expired');

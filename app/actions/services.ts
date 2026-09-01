@@ -82,6 +82,44 @@ export async function getPublishedServices(): Promise<PublishedService[]> {
   }));
 }
 
+// Servicios en estado 'coming_soon' ("Próximamente") para la sección
+// "Los 3 servicios que estamos buscando". Solo aparecen los que tienen ese
+// estado; el resto de estados queda excluido de esta sección.
+export async function getComingSoonServices(): Promise<PublishedService[]> {
+  const supabase = await createClient();
+
+  const { error: probeError } = await supabase
+    .from("services")
+    .select("image_url")
+    .limit(1);
+  const hasImage = !probeError;
+
+  const { data, error } = await supabase
+    .from("services")
+    .select(hasImage ? "id, name, slug, description, image_url" : "id, name, slug, description")
+    .eq("status", "coming_soon")
+    .order("created_at", { ascending: true })
+    .limit(3);
+
+  if (error) throw new Error(error.message);
+
+  const rows = (data ?? []) as unknown as Array<{
+    id: string;
+    name: string;
+    slug: string;
+    description: string | null;
+    image_url?: string | null;
+  }>;
+
+  return rows.map((s) => ({
+    id: s.id,
+    name: s.name,
+    slug: s.slug,
+    description: s.description ?? null,
+    image_url: s.image_url ?? null,
+  }));
+}
+
 export async function getClientRequestCount() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

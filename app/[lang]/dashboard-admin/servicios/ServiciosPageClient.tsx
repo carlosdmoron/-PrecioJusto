@@ -17,6 +17,18 @@ import {
 
 type Cat = { id: string; name: string; slug: string };
 
+const GALLERY_IMAGES = [
+  "/images/prof-electricista.jfif",
+  "/images/prof-carpintero.jfif",
+  "/images/prof-fontanero.jfif",
+  "/images/prof-service-1.jpg",
+  "/images/prof-service-2.jpg",
+  "/images/prof-service-3.jpg",
+  "/images/prof-service-4.jpg",
+  "/images/prof-service-5.jpg",
+  "/images/prof-service-6.jpg",
+];
+
 export default function ServiciosPageClient({ data }: { data: any }) {
   const toast = useToast();
   const router = useRouter();
@@ -196,12 +208,76 @@ export default function ServiciosPageClient({ data }: { data: any }) {
           </div>
           <div>
             <label className="text-xs font-medium text-muted">{data.modal.imageUrl}</label>
-            <input
-              value={form.image_url}
-              onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-              placeholder={data.modal.imageUrlPh}
-              className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
-            />
+            <div className="mt-2 flex items-center gap-3">
+              <div className="grid h-16 w-24 shrink-0 place-items-center overflow-hidden rounded-lg border border-line/60 bg-field">
+                {form.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={form.image_url}
+                    alt={form.name}
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.opacity = "0.3";
+                    }}
+                  />
+                ) : (
+                  <span className="text-[10px] text-muted">{data.modal.imageNone}</span>
+                )}
+              </div>
+              <input
+                value={form.image_url}
+                onChange={(e) => setForm({ ...form, image_url: e.target.value })}
+                placeholder={data.modal.imageUrlPh}
+                className="h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-muted">{data.modal.imageGallery}</label>
+            <div className="mt-2 grid grid-cols-3 gap-2">
+              {GALLERY_IMAGES.map((src) => (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => setForm({ ...form, image_url: src })}
+                  className={`group relative h-16 overflow-hidden rounded-lg border-2 bg-field transition ${
+                    form.image_url === src
+                      ? "border-primary ring-2 ring-primary/30"
+                      : "border-transparent hover:border-primary/40"
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt={src}
+                    className="h-full w-full object-cover transition group-hover:scale-105"
+                  />
+                  {form.image_url === src && (
+                    <span className="absolute right-1 top-1 grid size-4 place-items-center rounded-full bg-primary text-white">
+                      <svg
+                        width="9"
+                        height="9"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => setForm({ ...form, image_url: "" })}
+              className="mt-2 text-xs font-medium text-steel underline-offset-2 hover:text-ink hover:underline"
+            >
+              {data.modal.imageNone}
+            </button>
           </div>
           <div>
             <label className="text-xs font-medium text-muted">{data.modal.status}</label>

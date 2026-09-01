@@ -1654,7 +1654,8 @@
         "review": "In revisione",
         "published": "Pubblicato",
         "paused": "In pausa",
-        "archived": "Archiviato"
+        "archived": "Archiviato",
+        "coming_soon": "In arrivo"
       },
       "actions": {
         "edit": "Modifica",
@@ -1755,6 +1756,8 @@
         "descriptionPh": "Descrivi il servizio...",
         "imageUrl": "URL immagine",
         "imageUrlPh": "/images/prof-electricista.jfif",
+        "imageGallery": "Scegli dalla galleria",
+        "imageNone": "Nessuna immagine",
         "status": "Stato",
         "slug": "Slug",
         "slugPh": "riparazione-tubazioni",

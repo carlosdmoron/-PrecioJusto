@@ -1654,7 +1654,8 @@
         "review": "In review",
         "published": "Published",
         "paused": "Paused",
-        "archived": "Archived"
+        "archived": "Archived",
+        "coming_soon": "Coming soon"
       },
       "actions": {
         "edit": "Edit",
@@ -1755,6 +1756,8 @@
         "descriptionPh": "Describe the service...",
         "imageUrl": "Image URL",
         "imageUrlPh": "/images/prof-electricista.jfif",
+        "imageGallery": "Choose from gallery",
+        "imageNone": "No image",
         "status": "Status",
         "slug": "Slug",
         "slugPh": "pipe-repair",
