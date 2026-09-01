@@ -73,13 +73,7 @@
     ]
   },
   "profBuscados": {
-    "title": "Los 3 profesionales que estamos buscando",
-    "items": {
-      "electricista": "Electricista",
-      "carpintero": "Carpintero",
-      "fontanero": "Fontanero"
-    },
-    "comingSoon": "Próximamente",
+    "title": "Los 3 servicios que ofrecemos",
     "presupuestar": "Presupuestar"
   },
   "serviciosBuscados": {
@@ -1758,6 +1752,8 @@
         "category": "Categoría",
         "description": "Descripción",
         "descriptionPh": "Describe el servicio...",
+        "imageUrl": "URL de imagen",
+        "imageUrlPh": "/images/prof-electricista.jfif",
         "status": "Estado",
         "slug": "Slug",
         "slugPh": "reparacion-tuberias",

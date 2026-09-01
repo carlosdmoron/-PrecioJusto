@@ -78,6 +78,7 @@ CREATE TABLE services (
   name TEXT NOT NULL,
   slug TEXT NOT NULL UNIQUE,
   description TEXT,
+  image_url TEXT,
   status service_status DEFAULT 'draft',
   requests_count INTEGER DEFAULT 0,
   revenue DECIMAL(10,2) DEFAULT 0,

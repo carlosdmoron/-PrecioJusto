@@ -21,6 +21,7 @@ export type AdminServiceRow = {
   name: string;
   slug: string;
   description: string | null;
+  image_url: string | null;
   status: string;
   category: string | null;
   requests_count: number | null;
@@ -31,6 +32,7 @@ export type AdminServiceInput = {
   name: string;
   slug: string;
   description?: string;
+  image_url?: string;
   status: string;
   category_id?: string | null;
 };
@@ -55,7 +57,7 @@ export async function listServices(): Promise<AdminServiceRow[]> {
   const { data, error } = await supabase
     .from("services")
     .select(
-      "id, name, slug, description, status, requests_count, revenue, category:categories(name)"
+      "id, name, slug, description, image_url, status, requests_count, revenue, category:categories(name)"
     )
     .order("name");
   if (error) throw new Error(error.message);
@@ -65,6 +67,7 @@ export async function listServices(): Promise<AdminServiceRow[]> {
     name: string;
     slug: string;
     description: string | null;
+    image_url: string | null;
     status: string;
     requests_count: number | null;
     revenue: number | null;
@@ -78,6 +81,7 @@ export async function listServices(): Promise<AdminServiceRow[]> {
       name: s.name,
       slug: s.slug,
       description: s.description ?? null,
+      image_url: s.image_url ?? null,
       status: s.status,
       requests_count: s.requests_count ?? 0,
       revenue: s.revenue ?? 0,
@@ -95,6 +99,7 @@ export async function createService(input: AdminServiceInput) {
       name: input.name,
       slug: input.slug,
       description: input.description ?? "",
+      image_url: input.image_url ?? null,
       status: input.status,
       category_id: input.category_id ?? null,
     })
@@ -115,6 +120,7 @@ export async function updateService(id: string, input: AdminServiceInput) {
       name: input.name,
       slug: input.slug,
       description: input.description ?? "",
+      image_url: input.image_url ?? null,
       status: input.status,
       category_id: input.category_id ?? null,
     })

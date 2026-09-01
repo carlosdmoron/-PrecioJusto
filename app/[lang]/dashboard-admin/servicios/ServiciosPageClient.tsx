@@ -36,6 +36,7 @@ export default function ServiciosPageClient({ data }: { data: any }) {
     name: "",
     category_id: "",
     description: "",
+    image_url: "",
     status: "draft",
     slug: "",
   });
@@ -59,7 +60,7 @@ export default function ServiciosPageClient({ data }: { data: any }) {
 
   function openCreate() {
     setEditingItem(null);
-    setForm({ name: "", category_id: "", description: "", status: "draft", slug: "" });
+    setForm({ name: "", category_id: "", description: "", image_url: "", status: "draft", slug: "" });
     setShowModal(true);
   }
 
@@ -70,6 +71,7 @@ export default function ServiciosPageClient({ data }: { data: any }) {
       name: String(row.name ?? ""),
       category_id: selected?.id ?? "",
       description: String(row.description ?? ""),
+      image_url: String(row["image_url"] ?? ""),
       status: String(row.status ?? "draft"),
       slug: String(row.slug ?? ""),
     });
@@ -84,6 +86,7 @@ export default function ServiciosPageClient({ data }: { data: any }) {
         name: form.name,
         slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
         description: form.description,
+        image_url: form.image_url,
         status: form.status,
         category_id: form.category_id || null,
       };
@@ -189,6 +192,15 @@ export default function ServiciosPageClient({ data }: { data: any }) {
               placeholder={data.modal.descriptionPh}
               rows={3}
               className="mt-1 w-full rounded-lg bg-field px-3 py-2 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-medium text-muted">{data.modal.imageUrl}</label>
+            <input
+              value={form.image_url}
+              onChange={(e) => setForm({ ...form, image_url: e.target.value })}
+              placeholder={data.modal.imageUrlPh}
+              className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
             />
           </div>
           <div>

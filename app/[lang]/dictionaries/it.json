@@ -73,13 +73,7 @@
     ]
   },
   "profBuscados": {
-    "title": "I 3 professionisti che stiamo cercando",
-    "items": {
-      "electricista": "Elettricista",
-      "carpintero": "Falegname",
-      "fontanero": "Idraulico"
-    },
-    "comingSoon": "Prossimamente",
+    "title": "I 3 servizi che offriamo",
     "presupuestar": "Preventivare"
   },
   "serviciosBuscados": {
@@ -1759,6 +1753,8 @@
         "categoryPlaceholder": "Seleziona categoria",
         "description": "Descrizione",
         "descriptionPh": "Descrivi il servizio...",
+        "imageUrl": "URL immagine",
+        "imageUrlPh": "/images/prof-electricista.jfif",
         "status": "Stato",
         "slug": "Slug",
         "slugPh": "riparazione-tubazioni",

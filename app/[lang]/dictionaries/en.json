@@ -73,13 +73,7 @@
     ]
   },
   "profBuscados": {
-    "title": "The 3 professionals we're looking for",
-    "items": {
-      "electricista": "Electrician",
-      "carpintero": "Carpenter",
-      "fontanero": "Plumber"
-    },
-    "comingSoon": "Coming soon",
+    "title": "The 3 services we offer",
     "presupuestar": "Get a quote"
   },
   "serviciosBuscados": {
@@ -1759,6 +1753,8 @@
         "categoryPlaceholder": "Select category",
         "description": "Description",
         "descriptionPh": "Describe the service...",
+        "imageUrl": "Image URL",
+        "imageUrlPh": "/images/prof-electricista.jfif",
         "status": "Status",
         "slug": "Slug",
         "slugPh": "pipe-repair",
