@@ -21,7 +21,11 @@ export default function DataTable({
 }: {
   columns: TableColumn[];
   rows: TableRow[];
-  actions?: { label: string; onClick: (row: TableRow) => void }[];
+  actions?: {
+    label: string;
+    onClick: (row: TableRow) => void;
+    show?: (row: TableRow) => boolean;
+  }[];
   modalTitle?: string;
   modalContent?: (row: TableRow) => React.ReactNode;
   pageSize?: number;
@@ -54,7 +58,9 @@ export default function DataTable({
                 {actions && actions.length > 0 && (
                   <td className="px-4 py-3">
                     <div className="flex gap-2">
-                      {actions.map((action) => (
+                      {actions
+                        .filter((action) => action.show?.(row) ?? true)
+                        .map((action) => (
                         <button
                           key={action.label}
                           type="button"

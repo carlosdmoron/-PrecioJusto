@@ -368,6 +368,16 @@ export async function setProfessionalAdminStatus(id: string, status: string) {
     if (profileError) throw new Error(profileError.message);
   }
 
+  // Reactivar restablece el acceso: si el perfil estaba 'banned' (por un bloqueo
+  // previo) vuelve a 'active' para que pueda iniciar sesión y usar la plataforma.
+  if (status === "active") {
+    const { error: restoreError } = await adminSupabase
+      .from("profiles")
+      .update({ status: "active" })
+      .eq("id", id);
+    if (restoreError) throw new Error(restoreError.message);
+  }
+
   const { data: check, error: checkErr } = await adminSupabase
     .from("professionals")
     .select("admin_status")

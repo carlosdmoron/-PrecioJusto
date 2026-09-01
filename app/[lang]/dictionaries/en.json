@@ -1466,6 +1466,7 @@
       "professionalRejected": "Professional rejected",
       "professionalSuspended": "Professional suspended",
       "professionalBlocked": "Professional blocked",
+      "professionalReactivated": "Professional reactivated",
       "reviewApproved": "Review approved",
       "reviewHidden": "Review hidden",
       "reviewRemoved": "Review removed",
@@ -2318,6 +2319,7 @@
         "view": "View profile",
         "suspend": "Suspend",
         "block": "Block",
+        "reactivate": "Reactivate",
         "edit": "Edit"
       },
       "items": [

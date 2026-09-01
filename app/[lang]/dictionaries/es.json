@@ -1466,6 +1466,7 @@
       "professionalRejected": "Profesional rechazado",
       "professionalSuspended": "Profesional suspendido",
       "professionalBlocked": "Profesional bloqueado",
+      "professionalReactivated": "Profesional reactivado",
       "reviewApproved": "Reseña aprobada",
       "reviewHidden": "Reseña ocultada",
       "reviewRemoved": "Reseña eliminada",
@@ -2318,6 +2319,7 @@
         "view": "Ver perfil",
         "suspend": "Suspender",
         "block": "Bloquear",
+        "reactivate": "Reactivar",
         "edit": "Editar"
       },
       "items": [
