@@ -18,7 +18,12 @@ export async function generateMetadata({
 
 export default async function TrabajosPage() {
   const dict = await getDictionary();
-  const items = await listJobs();
+  let items: any[] = [];
+  try {
+    items = await listJobs();
+  } catch (e) {
+    console.error("Error cargando trabajos:", e);
+  }
   return (
     <TrabajosPageClient
       data={{ ...dict.dashboardAdmin.trabajos, feedback: dict.dashboardAdmin.feedback, items }}
