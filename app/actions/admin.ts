@@ -445,7 +445,7 @@ export async function listJobs() {
     .from("jobs")
     .select(
       "id, status, commission, start_date, end_date, created_at, " +
-        "request:requests!jobs_request_id_fkey(id, title, code), " +
+        "request:requests!jobs_request_id_fkey(id, title), " +
         "client:profiles!jobs_client_id_fkey(first_name, last_name, email), " +
         "professional:professionals!jobs_professional_id_fkey(id, profile:profiles!professionals_id_fkey(first_name, last_name, email))"
     )
@@ -459,7 +459,7 @@ export async function listJobs() {
     const proProfile = Array.isArray(pro?.profile) ? pro.profile[0] : pro?.profile;
     return {
       id: j.id,
-      request: req?.code || req?.title || "—",
+      request: req?.title || "—",
       requestTitle: req?.title ?? "—",
       client: cl?.first_name
         ? `${cl.first_name} ${cl.last_name ?? ""}`.trim()
