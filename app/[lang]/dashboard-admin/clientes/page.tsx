@@ -6,8 +6,8 @@ import ClientesPageClient from "./ClientesPageClient";
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/clientes">): Promise<Metadata> {
-  console.log("Generating metadata for ", params.lang, "");
   const { lang } = await params;
+  console.log("Generating metadata for", lang);
   console.log("Fetching dictionary for locale:", lang);
   const dict = await getDictionaryByLocale(lang);
   console.log("Dictionary loaded:", dict ? "OK" : "ERROR");
