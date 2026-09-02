@@ -1971,6 +1971,12 @@
       "title": "Requests",
       "subtitle": "View, edit and distribute customer requests",
       "description": "Manage all service requests received from clients. View form responses, edit data, redistribute, pause, reopen, or cancel requests. Each request includes a change history, assigned professional, and linked conversations.",
+      "howItWorks": {
+        "title": "How it works",
+        "detail": "View detail: opens the panel with all the request information, its quotes, form answers, change history, and conversations.",
+        "edit": "Edit: lets you correct the service, description, location, or urgency. Every change is recorded in the history along with the admin who made it.",
+        "pause": "Pause / Resume: stops receiving new quotes (pause) or resumes them (publish)."
+      },
       "filters": {
         "fields": [
           {

@@ -1971,6 +1971,12 @@
       "title": "Solicitudes",
       "subtitle": "Consulta, edita y distribuye las solicitudes de clientes",
       "description": "Gestiona todas las solicitudes de servicio recibidas de clientes. Visualiza respuestas del formulario, edita datos, redistribuye, pausa, reabre o cancela solicitudes. Cada solicitud incluye historial de cambios, profesional asignado y conversaciones vinculadas.",
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "detail": "Ver detalle: abre el panel con toda la información de la solicitud, sus presupuestos, respuestas del formulario, historial de cambios y conversaciones.",
+        "edit": "Editar: permite corregir el servicio, la descripción, la ubicación o la urgencia. Cada modificación queda registrada en el historial con el administrador que la hizo.",
+        "pause": "Pausar / Reanudar: detiene la recepción de nuevos presupuestos (pausa) o la reanuda (publicar)."
+      },
       "filters": {
         "fields": [
           {

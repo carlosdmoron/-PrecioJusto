@@ -190,6 +190,27 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
         subtitle={data.subtitle}
         description={data.description}
       >
+        <div className="mb-6 rounded-xl border border-pj-border bg-white p-4 shadow-pj-card">
+          <p className="text-xs font-semibold uppercase tracking-wider text-pj-faint">
+            {data.howItWorks.title}
+          </p>
+          <ul className="mt-2 grid gap-2 text-sm text-pj-steel md:grid-cols-3">
+            <li className="rounded-lg bg-pj-bg px-3 py-2">
+              <span className="font-semibold text-pj-ink">{data.actions.detail}: </span>
+              {data.howItWorks.detail}
+            </li>
+            <li className="rounded-lg bg-pj-bg px-3 py-2">
+              <span className="font-semibold text-pj-ink">{data.actions.edit}: </span>
+              {data.howItWorks.edit}
+            </li>
+            <li className="rounded-lg bg-pj-bg px-3 py-2">
+              <span className="font-semibold text-pj-ink">
+                {data.actions.pause} / {data.actions.resume}:{" "}
+              </span>
+              {data.howItWorks.pause}
+            </li>
+          </ul>
+        </div>
         <div className="mb-6">
           <FilterBar
             fields={filterFields}

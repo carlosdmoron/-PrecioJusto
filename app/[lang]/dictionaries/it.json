@@ -1971,6 +1971,12 @@
       "title": "Richieste",
       "subtitle": "Consulta, modifica e distribuisci le richieste dei clienti",
       "description": "Gestisci tutte le richieste di servizio ricevute dai clienti. Visualizza le risposte del modulo, modifica i dati, ridistribuisci, metti in pausa, riapri o annulla le richieste. Ogni richiesta include la cronologia delle modifiche, il professionista assegnato e le conversazioni collegate.",
+      "howItWorks": {
+        "title": "Come funziona",
+        "detail": "Vedi dettaglio: apre il pannello con tutte le informazioni della richiesta, i preventivi, le risposte del modulo, la cronologia e le conversazioni.",
+        "edit": "Modifica: consente di correggere il servizio, la descrizione, la posizione o l'urgenza. Ogni modifica viene registrata nella cronologia con l'amministratore che l'ha effettuata.",
+        "pause": "Pausa / Riprendi: interrompe la ricezione di nuovi preventivi (pausa) o la riprende (pubblica)."
+      },
       "filters": {
         "fields": [
           {

@@ -3,6 +3,8 @@ import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
 import { listRequests } from "../../../actions/admin";
 import SolicitudesPageClient from "./SolicitudesPageClient";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/solicitudes">): Promise<Metadata> {
@@ -16,7 +18,12 @@ export async function generateMetadata({
 
 export default async function SolicitudesPage() {
   const dict = await getDictionary();
-  const items = await listRequests();
+  let items: any[] = [];
+  try {
+    items = await listRequests();
+  } catch (e) {
+    console.error("Error cargando solicitudes:", e);
+  }
   return (
     <SolicitudesPageClient data={{ ...dict.dashboardAdmin.solicitudes, items, feedback: dict.dashboardAdmin.feedback }} />
   );
