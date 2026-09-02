@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
@@ -9,6 +9,7 @@ import Modal from "../../../components/dashboard/Modal";
 import { useToast } from "../../../components/admin/Toast";
 import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
 import { toggleMatchingRule, createMatchingRule } from "../../../actions/admin";
+import { runMatching } from "../../../lib/matching";
 
 export default function MatchingPageClient({ data }: { data: any }) {
   const toast = useToast();
@@ -45,6 +46,18 @@ export default function MatchingPageClient({ data }: { data: any }) {
 
   const [simService, setSimService] = useState("");
   const [simZone, setSimZone] = useState("");
+  const services = data.services ?? [];
+  const candidates = data.candidates ?? [];
+
+  // El simulador ejecuta el motor real de matching sobre los profesionales cargados
+  const simResults = useMemo(() => {
+    const service = services.find((s: any) => s.id === simService);
+    return runMatching(candidates, data.items ?? [], {
+      serviceName: simService ? (service?.name ?? simService) : "",
+      zone: simZone,
+      limit: 5,
+    });
+  }, [simService, simZone, services, candidates, data.items]);
 
   const [ruleName, setRuleName] = useState("");
   const [ruleCriterion, setRuleCriterion] = useState("");
@@ -141,30 +154,37 @@ export default function MatchingPageClient({ data }: { data: any }) {
             <label className="text-xs font-medium text-muted">{data.simulator.serviceLabel}</label>
             <select value={simService} onChange={(e) => setSimService(e.target.value)} className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none focus:ring-2 focus:ring-primary/40">
               <option value="">—</option>
-              {data.categories.map((c: string) => <option key={c} value={c}>{c}</option>)}
+              {services.map((s: any) => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
           <div>
             <label className="text-xs font-medium text-muted">{data.simulator.zoneLabel}</label>
-            <input value={simZone} onChange={(e) => setSimZone(e.target.value)} placeholder="28001" className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40" />
+            <input value={simZone} onChange={(e) => setSimZone(e.target.value)} placeholder="Ej: Madrid, Sevilla, 28001..." className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40" />
           </div>
-          <button
-            type="button"
-            onClick={() => toast.show(data.feedback.simulationRun, "info")}
-            className="h-10 w-full rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark"
-          >
-            {data.simulator.run}
-          </button>
           <div>
-            <p className="text-xs font-semibold text-muted">{data.simulator.results}</p>
+            <p className="text-xs font-semibold text-muted">
+              {data.simulator.results} ({candidates.length} profesionales evaluados)
+            </p>
             <div className="mt-2 space-y-2">
-              {data.simulator.sampleResults.map((r: any, i: number) => (
+              {simResults.length === 0 && (
+                <p className="rounded-lg bg-surface p-3 text-xs text-muted">
+                  No hay suficientes datos de profesionales/servicios cargados en la plataforma.
+                </p>
+              )}
+              {simResults.map((r: any, i: number) => (
                 <div key={i} className="flex items-start gap-3 rounded-lg bg-surface p-3">
-                  <span className={`mt-0.5 inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-xs font-semibold ${r.status === "Incluido" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"}`}>{r.status}</span>
-                  <div className="min-w-0">
+                  <span className={`mt-0.5 inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-xs font-semibold ${r.passed ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"}`}>
+                    {r.passed ? "Incluido" : "Excluido"}
+                  </span>
+                  <div className="min-w-0 flex-1">
                     <p className="text-sm font-medium text-ink">{r.name}</p>
-                    <p className="text-xs text-muted">{r.reason}</p>
+                    <p className="text-xs text-muted">
+                      {r.excludedReasons.length > 0
+                        ? r.excludedReasons.join(", ")
+                        : r.reasons.join(", ") || r.services.slice(0, 3).join(", ") || "—"}
+                    </p>
                   </div>
+                  <span className="text-xs font-semibold text-primary">{r.score}%</span>
                 </div>
               ))}
             </div>

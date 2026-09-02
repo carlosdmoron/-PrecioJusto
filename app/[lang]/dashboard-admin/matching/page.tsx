@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
-import { listMatchingRules } from "../../../actions/admin";
+import {
+  listMatchingRules,
+  listMatchingCandidates,
+  listServicesForSimulator,
+} from "../../../actions/admin";
 import MatchingPageClient from "./MatchingPageClient";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -16,8 +22,20 @@ export async function generateMetadata({
 
 export default async function MatchingPage() {
   const dict = await getDictionary();
-  const items = await listMatchingRules();
+  const [items, candidates, services] = await Promise.all([
+    listMatchingRules().catch(() => []),
+    listMatchingCandidates().catch(() => []),
+    listServicesForSimulator().catch(() => []),
+  ]);
   return (
-    <MatchingPageClient data={{ ...dict.dashboardAdmin.matching, items, feedback: dict.dashboardAdmin.feedback }} />
+    <MatchingPageClient
+      data={{
+        ...dict.dashboardAdmin.matching,
+        items,
+        candidates,
+        services,
+        feedback: dict.dashboardAdmin.feedback,
+      }}
+    />
   );
 }

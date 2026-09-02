@@ -268,14 +268,24 @@ export async function setRequestStatus(id: string, status: string) {
 }
 
 // ===== MATCHING (matching_rules) =====
-export async function listMatchingRules() {
+export type MatchingRuleRow = {
+  id: string;
+  name: string;
+  criterion: string;
+  zone_postal_code: string | null;
+  priority: number;
+  professionals_count: number;
+  status: string;
+};
+
+export async function listMatchingRules(): Promise<MatchingRuleRow[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("matching_rules")
     .select("*")
     .order("priority", { ascending: true });
   if (error) throw new Error(error.message);
-  return data ?? [];
+  return (data ?? []) as MatchingRuleRow[];
 }
 
 export async function toggleMatchingRule(id: string, status: string) {
@@ -320,6 +330,68 @@ export async function createMatchingRule(input: {
   if (!data?.id) throw new Error("No se pudo verificar la creación en la base de datos");
   revalidatePath("/[lang]/dashboard-admin/matching");
   return { success: true, id: data.id };
+}
+
+// Obtiene profesionales reales (con servicios y perfil) como candidatos
+// para el simulador de matching. Defensivo: si falta una columna o tabla,
+// devuelve [] en vez de crashear.
+export async function listMatchingCandidates() {
+  const supabase = await createClient();
+  try {
+    const { data: profs, error } = await supabase
+      .from("professionals")
+      .select(
+        "id, province, municipality, rating, verification_status, total_jobs_completed, admin_status, " +
+          "profile:profiles!professionals_id_fkey(first_name, last_name, email), " +
+          "services:professional_services!professional_services_professional_id_fkey(service:services(id, name))"
+      )
+      .eq("admin_status", "active")
+      .limit(50);
+    if (error) return [];
+    const rows = (profs ?? []) as Array<Record<string, any>>;
+    return rows
+      .map((p) => {
+        const prof = Array.isArray(p.profile) ? p.profile[0] : p.profile;
+        const services = Array.isArray(p.services) ? p.services : [];
+        return {
+          id: p.id,
+          name: prof?.first_name
+            ? `${prof.first_name} ${prof.last_name ?? ""}`.trim()
+            : prof?.email ?? p.id,
+          services: services
+            .map((s: any) => {
+              const sv = Array.isArray(s.service) ? s.service[0] : s.service;
+              return sv?.name ?? null;
+            })
+            .filter(Boolean),
+          province: p.province,
+          municipality: p.municipality,
+          rating: p.rating ?? 0,
+          verification_status: p.verification_status ?? "pending",
+          total_jobs_completed: p.total_jobs_completed ?? 0,
+          available: true,
+          contacts_this_month: 0,
+        };
+      })
+      .filter((c) => c.services.length > 0);
+  } catch {
+    return [];
+  }
+}
+
+export async function listServicesForSimulator() {
+  const supabase = await createClient();
+  try {
+    const { data, error } = await supabase
+      .from("services")
+      .select("id, name")
+      .eq("status", "published")
+      .order("name");
+    if (error) return [];
+    return (data ?? []).map((s: any) => ({ id: s.id, name: s.name }));
+  } catch {
+    return [];
+  }
 }
 
 // ===== PROFESIONALES (professionals) =====
