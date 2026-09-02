@@ -20,23 +20,20 @@ export async function generateMetadata({
 }
 
 export default async function ClientesPage() {
+  const dict = await getDictionary();
+  let clients: any[] = [];
   try {
-    console.log("Loading dashboard admin clientes page");
-    const dict = await getDictionary();
-    console.log("Dictionary loaded successfully");
-    const clients = await listClients();
-    console.log("Clients fetched successfully, count:", clients.length);
-    return (
-      <ClientesPageClient
-        data={{
-          ...dict.dashboardAdmin.clientes,
-          feedback: dict.dashboardAdmin.feedback,
-          items: clients,
-        }}
-      />
-    );
-  } catch (error) {
-    console.error("Error loading dashboard admin clientes page:", error);
-    throw error;
+    clients = await listClients();
+  } catch (e) {
+    console.error("Error cargando clientes:", e);
   }
+  return (
+    <ClientesPageClient
+      data={{
+        ...dict.dashboardAdmin.clientes,
+        feedback: dict.dashboardAdmin.feedback,
+        items: clients,
+      }}
+    />
+  );
 }
