@@ -2194,7 +2194,8 @@
       "actions": {
         "edit": "Modifica",
         "duplicate": "Duplica",
-        "toggle": "Attiva/Disattiva"
+        "toggle": "Attiva/Disattiva",
+        "delete": "Elimina"
       },
       "createModal": {
         "title": "Crea regola di matching",

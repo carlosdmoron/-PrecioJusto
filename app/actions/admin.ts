@@ -332,6 +332,61 @@ export async function createMatchingRule(input: {
   return { success: true, id: data.id };
 }
 
+export async function updateMatchingRule(
+  id: string,
+  input: { name: string; criterion: string; zone_postal_code: string; priority: number }
+) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("matching_rules")
+    .update({
+      name: input.name,
+      criterion: input.criterion,
+      zone_postal_code: input.zone_postal_code || null,
+      priority: input.priority,
+    })
+    .eq("id", id)
+    .select("id")
+    .single();
+  if (error) throw new Error(error.message);
+  if (!data?.id) throw new Error("No se pudo verificar la actualización en la base de datos");
+  revalidatePath("/[lang]/dashboard-admin/matching");
+  return { success: true };
+}
+
+export async function deleteMatchingRule(id: string) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("matching_rules").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/[lang]/dashboard-admin/matching");
+  return { success: true };
+}
+
+export async function duplicateMatchingRule(id: string) {
+  const supabase = await createClient();
+  const { data: rule, error: getErr } = await supabase
+    .from("matching_rules")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (getErr) throw new Error(getErr.message);
+  const { data, error } = await supabase
+    .from("matching_rules")
+    .insert({
+      name: `${rule.name} (copia)`,
+      criterion: rule.criterion,
+      zone_postal_code: rule.zone_postal_code || null,
+      priority: rule.priority,
+      status: "inactive",
+    })
+    .select("id")
+    .single();
+  if (error) throw new Error(error.message);
+  if (!data?.id) throw new Error("No se pudo verificar la duplicación en la base de datos");
+  revalidatePath("/[lang]/dashboard-admin/matching");
+  return { success: true, id: data.id };
+}
+
 // Obtiene profesionales reales (con servicios y perfil) como candidatos
 // para el simulador de matching. Defensivo: si falta una columna o tabla,
 // devuelve [] en vez de crashear.

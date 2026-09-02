@@ -2194,7 +2194,8 @@
       "actions": {
         "edit": "Editar",
         "duplicate": "Duplicar",
-        "toggle": "Activar/Desactivar"
+        "toggle": "Activar/Desactivar",
+        "delete": "Eliminar"
       },
       "createModal": {
         "title": "Crear regla de matching",

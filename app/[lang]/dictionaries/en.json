@@ -2194,7 +2194,8 @@
       "actions": {
         "edit": "Edit",
         "duplicate": "Duplicate",
-        "toggle": "Enable/Disable"
+        "toggle": "Enable/Disable",
+        "delete": "Delete"
       },
       "createModal": {
         "title": "Create matching rule",

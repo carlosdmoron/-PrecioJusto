@@ -6,13 +6,17 @@ import AdminSection from "../../../components/admin/AdminSection";
 import DataTable from "../../../components/admin/DataTable";
 import StatusBadge from "../../../components/admin/StatusBadge";
 import Modal from "../../../components/dashboard/Modal";
-import { useToast } from "../../../components/admin/Toast";
-import { sweetSuccess, sweetError } from "../../../components/admin/sweetAlert";
-import { toggleMatchingRule, createMatchingRule } from "../../../actions/admin";
+import { sweetSuccess, sweetError, sweetConfirmDelete } from "../../../components/admin/sweetAlert";
+import {
+  toggleMatchingRule,
+  createMatchingRule,
+  updateMatchingRule,
+  deleteMatchingRule,
+  duplicateMatchingRule,
+} from "../../../actions/admin";
 import { runMatching } from "../../../lib/matching";
 
 export default function MatchingPageClient({ data }: { data: any }) {
-  const toast = useToast();
   const router = useRouter();
   const [showSimulator, setShowSimulator] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
@@ -63,6 +67,24 @@ export default function MatchingPageClient({ data }: { data: any }) {
   const [ruleCriterion, setRuleCriterion] = useState("");
   const [ruleZone, setRuleZone] = useState("");
   const [rulePriority, setRulePriority] = useState("");
+  const [editingRule, setEditingRule] = useState<any | null>(null);
+
+  const openEdit = (row: any) => {
+    setEditingRule(row);
+    setRuleName(row.name ?? "");
+    setRuleCriterion(row.criterion ?? "");
+    setRuleZone(row.zone ?? "");
+    setRulePriority(row.priority ?? "");
+    setShowCreate(true);
+  };
+
+  const resetForm = () => {
+    setEditingRule(null);
+    setRuleName("");
+    setRuleCriterion("");
+    setRuleZone("");
+    setRulePriority("");
+  };
 
   const columns = [
     { key: "id", label: data.table.id },
@@ -76,26 +98,42 @@ export default function MatchingPageClient({ data }: { data: any }) {
   async function handleCreate() {
     if (!ruleName.trim()) return;
     try {
-      await createMatchingRule({
+      const payload = {
         name: ruleName,
         criterion: ruleCriterion || "zone",
         zone_postal_code: ruleZone,
         priority: Number(rulePriority) || 1,
-      });
-      const newItem = {
-        id: String(Date.now()),
-        name: ruleName,
-        criterion: ruleCriterion || "zone",
-        priority: rulePriority || "1",
-        professionals: "0",
-        status: "active",
       };
-      setItems((prev: any[]) => [...prev, newItem]);
-      await sweetSuccess(data.feedback.ruleCreated, data.feedback.verified);
-      setRuleName("");
-      setRuleCriterion("");
-      setRuleZone("");
-      setRulePriority("");
+      if (editingRule) {
+        await updateMatchingRule(String(editingRule.id), payload);
+        setItems((prev: any[]) =>
+          prev.map((i: any) =>
+            i.id === editingRule.id
+              ? {
+                  ...i,
+                  name: payload.name,
+                  criterion: payload.criterion,
+                  priority: String(payload.priority),
+                  zone: ruleZone,
+                }
+              : i
+          )
+        );
+        await sweetSuccess(data.feedback.updated, data.feedback.verified);
+      } else {
+        await createMatchingRule(payload);
+        const newItem = {
+          id: String(Date.now()),
+          name: ruleName,
+          criterion: ruleCriterion || "zone",
+          priority: rulePriority || "1",
+          professionals: "0",
+          status: "active",
+        };
+        setItems((prev: any[]) => [...prev, newItem]);
+        await sweetSuccess(data.feedback.ruleCreated, data.feedback.verified);
+      }
+      resetForm();
       setShowCreate(false);
       router.refresh();
     } catch (e: any) {
@@ -122,6 +160,34 @@ export default function MatchingPageClient({ data }: { data: any }) {
     }
   }
 
+  async function handleDuplicate(row: any) {
+    try {
+      await duplicateMatchingRule(String(row.id));
+      await sweetSuccess(data.feedback.ruleDuplicated ?? "Regla duplicada", data.feedback.verified);
+      router.refresh();
+    } catch (e: any) {
+      await sweetError(e?.message ?? "Error", data.feedback.verifyError);
+    }
+  }
+
+  async function handleDelete(row: any) {
+    const confirmed = await sweetConfirmDelete(
+      data.feedback.confirmDeleteTitle,
+      data.feedback.confirmDeleteText,
+      data.feedback.confirmYes,
+      data.feedback.confirmCancel
+    );
+    if (!confirmed) return;
+    try {
+      await deleteMatchingRule(String(row.id));
+      setItems((prev: any[]) => prev.filter((i: any) => i.id !== row.id));
+      await sweetSuccess(data.feedback.deleted, data.feedback.verified);
+      router.refresh();
+    } catch (e: any) {
+      await sweetError(e?.message ?? "Error", data.feedback.deleteVerifyError);
+    }
+  }
+
   return (
     <>
       <AdminSection
@@ -139,11 +205,13 @@ export default function MatchingPageClient({ data }: { data: any }) {
           columns={columns}
           rows={items}
           actions={[
-            { label: data.actions.edit, onClick: () => toast.show(data.feedback.editUnavailable, "info") },
+            { label: data.actions.edit, onClick: (row: any) => openEdit(row) },
+            { label: data.actions.duplicate, onClick: (row: any) => handleDuplicate(row) },
             {
               label: data.actions.toggle,
               onClick: (row: any) => handleToggle(row),
             },
+            { label: data.actions.delete, onClick: (row: any) => handleDelete(row) },
           ]}
         />
       </AdminSection>
@@ -192,7 +260,7 @@ export default function MatchingPageClient({ data }: { data: any }) {
         </div>
       </Modal>
 
-      <Modal open={showCreate} onClose={() => setShowCreate(false)} title={data.createModal.title} closeLabel={data.createModal.cancel}>
+      <Modal open={showCreate} onClose={() => { setShowCreate(false); resetForm(); }} title={editingRule ? data.actions.edit : data.createModal.title} closeLabel={data.createModal.cancel}>
         <div className="mt-4 space-y-4">
           <div>
             <label className="text-xs font-medium text-muted">{data.createModal.name}</label>
@@ -217,8 +285,8 @@ export default function MatchingPageClient({ data }: { data: any }) {
             </select>
           </div>
           <div className="flex gap-3 pt-2">
-            <button type="button" onClick={handleCreate} className="h-10 flex-1 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark">{data.createModal.create}</button>
-            <button type="button" onClick={() => setShowCreate(false)} className="h-10 flex-1 rounded-lg border border-line/60 text-sm font-medium text-steel transition hover:text-ink">{data.createModal.cancel}</button>
+            <button type="button" onClick={handleCreate} className="h-10 flex-1 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark">{editingRule ? data.actions.edit : data.createModal.create}</button>
+            <button type="button" onClick={() => { setShowCreate(false); resetForm(); }} className="h-10 flex-1 rounded-lg border border-line/60 text-sm font-medium text-steel transition hover:text-ink">{data.createModal.cancel}</button>
           </div>
         </div>
       </Modal>
