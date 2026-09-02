@@ -23,7 +23,7 @@ export default function DataTable({
   columns: TableColumn[];
   rows: TableRow[];
   actions?: {
-    label: string;
+    label: string | ((row: TableRow) => string);
     onClick: (row: TableRow) => void;
     show?: (row: TableRow) => boolean;
   }[];
@@ -63,22 +63,28 @@ export default function DataTable({
                     <div className="flex gap-2">
                       {actions
                         .filter((action) => action.show?.(row) ?? true)
-                        .map((action) => (
-                        <button
-                          key={action.label}
-                          type="button"
-                          onClick={() => {
-                            if (modalContent) {
-                              setSelectedRow(row);
-                            } else {
-                              action.onClick(row);
-                            }
-                          }}
-                          className="rounded-lg bg-pj-active-bg px-3 py-1.5 text-xs font-semibold text-pj-primary transition hover:bg-blue-100"
-                        >
-                          {action.label}
-                        </button>
-                      ))}
+                        .map((action, idx) => {
+                          const label =
+                            typeof action.label === "function"
+                              ? action.label(row)
+                              : action.label;
+                          return (
+                            <button
+                              key={`${action.label}_${idx}`}
+                              type="button"
+                              onClick={() => {
+                                if (modalContent) {
+                                  setSelectedRow(row);
+                                } else {
+                                  action.onClick(row);
+                                }
+                              }}
+                              className="rounded-lg bg-pj-active-bg px-3 py-1.5 text-xs font-semibold text-pj-primary transition hover:bg-blue-100"
+                            >
+                              {label}
+                            </button>
+                          );
+                        })}
                     </div>
                   </td>
                 )}

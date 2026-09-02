@@ -1463,6 +1463,8 @@
       "ruleActivated": "Regola attivata",
       "ruleDeactivated": "Regola disattivata",
       "requestPaused": "Richiesta in pausa",
+      "requestResumed": "Richiesta ripresa",
+      "requestUpdated": "Richiesta aggiornata",
       "requestBlocked": "Richiesta bloccata",
       "professionalApproved": "Professionista approvato",
       "professionalRejected": "Professionista rifiutato",
@@ -2007,6 +2009,10 @@
                 "label": "In corso"
               },
               {
+                "value": "paused",
+                "label": "In pausa"
+              },
+              {
                 "value": "completed",
                 "label": "Completata"
               },
@@ -2041,6 +2047,7 @@
         "new": "Nuova",
         "published": "Pubblicata",
         "inProgress": "In corso",
+        "paused": "In pausa",
         "completed": "Completata",
         "cancelled": "Annullata",
         "blocked": "Bloccata"
@@ -2054,11 +2061,13 @@
       "actions": {
         "edit": "Modifica",
         "pause": "Pausa",
+        "resume": "Riprendi",
         "reopen": "Riapri",
         "cancel": "Annulla",
         "resend": "Reinvia",
         "block": "Blocca",
-        "detail": "Vedi dettaglio"
+        "detail": "Vedi dettaglio",
+        "save": "Salva"
       },
       "items": [
         {
@@ -2129,12 +2138,23 @@
         "service": "Servizio",
         "city": "Città",
         "clientInfo": "Dati del cliente",
+        "contactEmail": "Email",
+        "budget": "Preventivo",
+        "urgency": "Urgenza",
+        "description": "Descrizione",
+        "status": "Stato",
+        "creationDate": "Creato il",
+        "updatedDate": "Aggiornato il",
         "answers": "Risposte al modulo",
         "location": "Posizione",
         "history": "Cronologia modifiche",
         "professionals": "Professionisti assegnati",
         "quotesList": "Preventivi ricevuti",
         "conversations": "Conversazioni",
+        "noAnswers": "Nessuna risposta al modulo registrata",
+        "noQuotes": "Nessun preventivo ricevuto",
+        "noConversations": "Nessuna conversazione collegata",
+        "noHistory": "Nessuna modifica registrata",
         "notes": "Note interne",
         "close": "Chiudi",
         "sampleAnswers": [
@@ -2159,6 +2179,19 @@
             "answer": "Appena possibile"
           }
         ]
+      },
+      "edit": {
+        "title": "Modifica la richiesta",
+        "service": "Servizio",
+        "servicePlaceholder": "Seleziona servizio",
+        "description": "Descrizione del problema",
+        "descriptionPh": "Descrivi il problema del cliente",
+        "city": "Città",
+        "cityPh": "Città del cliente",
+        "urgency": "Urgenza",
+        "urgencyPlaceholder": "Seleziona urgenza",
+        "save": "Salva modifiche",
+        "cancel": "Annulla"
       }
     },
     "matching": {

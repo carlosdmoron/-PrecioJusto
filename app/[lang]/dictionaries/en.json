@@ -1463,6 +1463,8 @@
       "ruleActivated": "Rule activated",
       "ruleDeactivated": "Rule deactivated",
       "requestPaused": "Request paused",
+      "requestResumed": "Request resumed",
+      "requestUpdated": "Request updated",
       "requestBlocked": "Request blocked",
       "professionalApproved": "Professional approved",
       "professionalRejected": "Professional rejected",
@@ -2007,6 +2009,10 @@
                 "label": "In progress"
               },
               {
+                "value": "paused",
+                "label": "Paused"
+              },
+              {
                 "value": "completed",
                 "label": "Completed"
               },
@@ -2041,6 +2047,7 @@
         "new": "New",
         "published": "Published",
         "inProgress": "In progress",
+        "paused": "Paused",
         "completed": "Completed",
         "cancelled": "Cancelled",
         "blocked": "Blocked"
@@ -2054,11 +2061,13 @@
       "actions": {
         "edit": "Edit",
         "pause": "Pause",
+        "resume": "Resume",
         "reopen": "Reopen",
         "cancel": "Cancel",
         "resend": "Resend",
         "block": "Block",
-        "detail": "View detail"
+        "detail": "View detail",
+        "save": "Save"
       },
       "items": [
         {
@@ -2129,12 +2138,23 @@
         "service": "Service",
         "city": "City",
         "clientInfo": "Customer details",
+        "contactEmail": "Email",
+        "budget": "Budget",
+        "urgency": "Urgency",
+        "description": "Description",
+        "status": "Status",
+        "creationDate": "Created",
+        "updatedDate": "Updated",
         "answers": "Form answers",
         "location": "Location",
         "history": "Change history",
         "professionals": "Assigned professionals",
         "quotesList": "Received quotes",
         "conversations": "Conversations",
+        "noAnswers": "No form answers recorded",
+        "noQuotes": "No quotes received yet",
+        "noConversations": "No linked conversations",
+        "noHistory": "No changes recorded",
         "notes": "Internal notes",
         "close": "Close",
         "sampleAnswers": [
@@ -2159,6 +2179,19 @@
             "answer": "ASAP"
           }
         ]
+      },
+      "edit": {
+        "title": "Edit request",
+        "service": "Service",
+        "servicePlaceholder": "Select service",
+        "description": "Issue description",
+        "descriptionPh": "Describe the customer's issue",
+        "city": "City",
+        "cityPh": "Customer's city",
+        "urgency": "Urgency",
+        "urgencyPlaceholder": "Select urgency",
+        "save": "Save changes",
+        "cancel": "Cancel"
       }
     },
     "matching": {

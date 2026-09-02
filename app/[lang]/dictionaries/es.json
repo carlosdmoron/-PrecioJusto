@@ -1463,6 +1463,8 @@
       "ruleActivated": "Regla activada",
       "ruleDeactivated": "Regla desactivada",
       "requestPaused": "Solicitud pausada",
+      "requestResumed": "Solicitud reanudada",
+      "requestUpdated": "Solicitud actualizada",
       "requestBlocked": "Solicitud bloqueada",
       "professionalApproved": "Profesional aprobado",
       "professionalRejected": "Profesional rechazado",
@@ -2007,6 +2009,10 @@
                 "label": "En curso"
               },
               {
+                "value": "paused",
+                "label": "Pausada"
+              },
+              {
                 "value": "completed",
                 "label": "Completada"
               },
@@ -2041,6 +2047,7 @@
         "new": "Nueva",
         "published": "Publicada",
         "inProgress": "En curso",
+        "paused": "Pausada",
         "completed": "Completada",
         "cancelled": "Cancelada",
         "blocked": "Bloqueada"
@@ -2054,11 +2061,13 @@
       "actions": {
         "edit": "Editar",
         "pause": "Pausar",
+        "resume": "Reanudar",
         "reopen": "Reabrir",
         "cancel": "Cancelar",
         "resend": "Reenviar",
         "block": "Bloquear",
-        "detail": "Ver detalle"
+        "detail": "Ver detalle",
+        "save": "Guardar"
       },
       "items": [
         {
@@ -2129,12 +2138,23 @@
         "service": "Servicio",
         "city": "Ciudad",
         "clientInfo": "Datos del cliente",
+        "contactEmail": "Email",
+        "budget": "Presupuesto",
+        "urgency": "Urgencia",
+        "description": "Descripción",
+        "status": "Estado",
+        "creationDate": "Creada",
+        "updatedDate": "Actualizada",
         "answers": "Respuestas del formulario",
         "location": "Ubicación",
         "history": "Historial de cambios",
         "professionals": "Profesionales asignados",
         "quotesList": "Presupuestos recibidos",
         "conversations": "Conversaciones",
+        "noAnswers": "No hay respuestas de formulario registradas",
+        "noQuotes": "Aún no se han recibido presupuestos",
+        "noConversations": "No hay conversaciones vinculadas",
+        "noHistory": "No hay cambios registrados",
         "notes": "Notas internas",
         "close": "Cerrar",
         "sampleAnswers": [
@@ -2159,6 +2179,19 @@
             "answer": "Lo antes posible"
           }
         ]
+      },
+      "edit": {
+        "title": "Editar solicitud",
+        "service": "Servicio",
+        "servicePlaceholder": "Seleccionar servicio",
+        "description": "Descripción del problema",
+        "descriptionPh": "Describe el problema del cliente",
+        "city": "Ciudad",
+        "cityPh": "Ciudad del cliente",
+        "urgency": "Urgencia",
+        "urgencyPlaceholder": "Seleccione urgencia",
+        "save": "Guardar cambios",
+        "cancel": "Cancelar"
       }
     },
     "matching": {

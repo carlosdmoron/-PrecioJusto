@@ -263,6 +263,223 @@ export async function setRequestStatus(id: string, status: string) {
   if (!check || check.status !== status) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
+  await logRequestAudit(id, `request_status_${status}`, { status });
+  revalidatePath("/[lang]/dashboard-admin/solicitudes");
+  return { success: true };
+}
+
+// Registra una entrada de auditoría para una solicitud. Usa el cliente de
+// servicio (bypasa RLS) y el usuario autenticado como autor del cambio.
+async function logRequestAudit(
+  requestId: string,
+  action: string,
+  details: Record<string, unknown> = {}
+) {
+  try {
+    const admin = await requireAdmin();
+    const {
+      data: { user },
+    } = await (await createClient()).auth.getUser();
+    await admin.from("audit_logs").insert({
+      user_id: user?.id ?? null,
+      action,
+      entity_type: "request",
+      entity_id: requestId,
+      details: { ...details, ts: new Date().toISOString() },
+    });
+  } catch {
+    // El historial es auxiliar: nunca debe impedir la operación principal.
+  }
+}
+
+export type RequestDetail = {
+  id: string;
+  code: string;
+  title: string;
+  description: string | null;
+  service: string;
+  service_id: string | null;
+  category: string | null;
+  city: string | null;
+  budget: string | null;
+  urgency: string;
+  status: string;
+  created_at: string | null;
+  updated_at: string | null;
+  client: { name: string; email: string };
+  answers: Array<{ question: string; answer: string }>;
+  quotes: Array<{
+    id: string;
+    professional: string;
+    amount_min: string | null;
+    amount_max: string | null;
+    status: string;
+    created_at: string | null;
+  }>;
+  history: Array<{ action: string; details: string; created_at: string | null }>;
+  conversations: Array<{ id: string; status: string; last_message: string | null; last_message_at: string | null }>;
+};
+
+// Devuelve toda la información necesaria para el panel de detalle de una
+// solicitud: datos básicos, respuestas del formulario, presupuestos recibidos,
+// historial de cambios, conversaciones y datos de contacto del cliente.
+// Es defensivo: cada consulta falla de forma independiente sin crashear.
+export async function getRequestDetails(id: string): Promise<RequestDetail | null> {
+  const adminSupabase = await requireAdmin();
+
+  const [reqResult, answersResult, quotesResult, historyResult, convResult] =
+    await Promise.all([
+      adminSupabase
+        .from("requests")
+        .select(
+          "*, " +
+            "client:profiles!requests_client_id_fkey(first_name, last_name, email), " +
+            "service:services!requests_service_id_fkey(name)"
+        )
+        .eq("id", id)
+        .maybeSingle(),
+      adminSupabase
+        .from("form_responses")
+        .select("answers")
+        .eq("request_id", id)
+        .maybeSingle(),
+      adminSupabase
+        .from("quotes")
+        .select(
+          "id, amount_min, amount_max, status, created_at, " +
+            "professional:professionals!quotes_professional_id_fkey(id, profile:profiles!professionals_id_fkey(first_name, last_name, email))"
+        )
+        .eq("request_id", id)
+        .order("created_at", { ascending: false }),
+      adminSupabase
+        .from("audit_logs")
+        .select("action, details, created_at")
+        .eq("entity_type", "request")
+        .eq("entity_id", id)
+        .order("created_at", { ascending: false }),
+      adminSupabase
+        .from("conversations")
+        .select("id, status, last_message, last_message_at")
+        .eq("request_id", id)
+        .order("created_at", { ascending: true }),
+    ]);
+
+  const req = reqResult.data as Record<string, any> | null;
+  if (reqResult.error || !req) return null;
+
+  const clientRow = Array.isArray(req.client) ? req.client[0] : req.client;
+  const clientName = clientRow?.first_name
+    ? `${clientRow.first_name} ${clientRow.last_name ?? ""}`.trim()
+    : clientRow?.email ?? "—";
+
+  const serviceRow: any = Array.isArray(req.service) ? req.service[0] : req.service;
+  const categoryRow: any = null;
+
+  // Respuestas del formulario: el JSON responde con claves (ids de pregunta).
+  // Se muestran de forma genérica y defensiva añadiendo el prefijo de la clave.
+  const rawAnswers: Record<string, any> = answersResult.data?.answers ?? {};
+  const answers: Array<{ question: string; answer: string }> = [];
+  for (const [k, v] of Object.entries(rawAnswers ?? {})) {
+    const label = k.replace(/[_-]+/g, " ").trim();
+    const val = Array.isArray(v) ? v.join(", ") : String(v ?? "");
+    if (val) answers.push({ question: label || "Respuesta", answer: val });
+  }
+
+  const quotes = (quotesResult.data ?? []).map((q: any) => {
+    const pro = Array.isArray(q.professional) ? q.professional[0] : q.professional;
+    const proProfile = Array.isArray(pro?.profile) ? pro.profile[0] : pro?.profile;
+    const professional = proProfile?.first_name
+      ? `${proProfile.first_name} ${proProfile.last_name ?? ""}`.trim()
+      : proProfile?.email ?? "—";
+    const fmt = (n: any) =>
+      n != null ? `€${Number(n).toLocaleString("es-ES", { minimumFractionDigits: 2 })}` : null;
+    return {
+      id: q.id,
+      professional,
+      amount_min: fmt(q.amount_min),
+      amount_max: fmt(q.amount_max),
+      status: q.status ?? "draft",
+      created_at: q.created_at ? new Date(q.created_at).toLocaleString("es-ES") : null,
+    };
+  });
+
+  const history = (historyResult.data ?? []).map((h: any) => ({
+    action: h.action ?? "",
+    details:
+      typeof h.details === "object" && h.details !== null
+        ? JSON.stringify(h.details)
+        : String(h.details ?? ""),
+    created_at: h.created_at ? new Date(h.created_at).toLocaleString("es-ES") : null,
+  }));
+
+  const conversations = (convResult.data ?? []).map((c: any) => ({
+    id: c.id,
+    status: c.status ?? "active",
+    last_message: c.last_message ?? null,
+    last_message_at: c.last_message_at
+      ? new Date(c.last_message_at).toLocaleString("es-ES")
+      : null,
+  }));
+
+  return {
+    id: req.id,
+    code: `SOL-${(req.id ?? "").slice(0, 4).toUpperCase()}`,
+    title: req.title ?? "—",
+    description: req.description ?? null,
+    service: serviceRow?.name ?? "—",
+    service_id: req.service_id ?? null,
+    category: categoryRow?.name ?? null,
+    city: req.city ?? null,
+    budget:
+      req.budget != null
+        ? `€${Number(req.budget).toLocaleString("es-ES", { minimumFractionDigits: 2 })}`
+        : null,
+    urgency: req.urgency ?? "none",
+    status: req.status ?? "new",
+    created_at: req.created_at ? new Date(req.created_at).toLocaleString("es-ES") : null,
+    updated_at: req.updated_at ? new Date(req.updated_at).toLocaleString("es-ES") : null,
+    client: { name: clientName, email: clientRow?.email ?? "—" },
+    answers,
+    quotes,
+    history,
+    conversations,
+  };
+}
+
+export async function updateRequest(
+  id: string,
+  input: {
+    service_id?: string;
+    description?: string;
+    city?: string;
+    urgency?: string;
+  }
+) {
+  const adminSupabase = await requireAdmin();
+  const patch: Record<string, unknown> = {};
+  if (input.service_id !== undefined) patch.service_id = input.service_id || null;
+  if (input.description !== undefined) patch.description = input.description;
+  if (input.city !== undefined) patch.city = input.city;
+  if (input.urgency !== undefined) patch.urgency = input.urgency;
+  if (Object.keys(patch).length === 0) {
+    throw new Error("No hay cambios para guardar");
+  }
+
+  const { error } = await adminSupabase
+    .from("requests")
+    .update({ ...patch, updated_at: new Date().toISOString() })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+
+  const { data: check, error: checkErr } = await adminSupabase
+    .from("requests")
+    .select("id")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check) throw new Error("No se pudo verificar el cambio en la base de datos");
+
+  await logRequestAudit(id, "request_edited", patch);
   revalidatePath("/[lang]/dashboard-admin/solicitudes");
   return { success: true };
 }

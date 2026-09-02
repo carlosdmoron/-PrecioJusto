@@ -8,12 +8,14 @@ export default function Modal({
   title,
   closeLabel,
   children,
+  wide = false,
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
   closeLabel: string;
   children: ReactNode;
+  wide?: boolean;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +48,7 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-pj-border bg-white p-6 shadow-pj-pop sm:p-8"
+        className={`max-h-[90vh] w-full overflow-y-auto rounded-xl border border-pj-border bg-white p-6 shadow-pj-pop sm:p-8 ${wide ? "max-w-4xl" : "max-w-lg"}`}
       >
         <div className="flex items-start justify-between gap-4">
           <h2
