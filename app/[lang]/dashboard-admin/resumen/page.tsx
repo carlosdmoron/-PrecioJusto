@@ -5,6 +5,8 @@ import { createClient } from "../../../../lib/supabase/server";
 import ResumenPageClient from "./ResumenPageClient";
 import type { FilterField } from "../../../components/admin/FilterBar";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/resumen">): Promise<Metadata> {

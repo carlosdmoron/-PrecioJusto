@@ -3,6 +3,8 @@ import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
 import { listServices, listCategories } from "../../../actions/admin";
 import ServiciosPageClient from "./ServiciosPageClient";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/servicios">): Promise<Metadata> {
@@ -16,10 +18,13 @@ export async function generateMetadata({
 
 export default async function ServiciosPage() {
   const dict = await getDictionary();
-  const [services, categories] = await Promise.all([
-    listServices(),
-    listCategories(),
-  ]);
+  let services: any[] = [];
+  let categories: any[] = [];
+  try {
+    [services, categories] = await Promise.all([listServices(), listCategories()]);
+  } catch (e) {
+    console.error("Error cargando servicios:", e);
+  }
   return (
     <ServiciosPageClient
       data={{

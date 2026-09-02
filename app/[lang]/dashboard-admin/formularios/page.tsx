@@ -4,6 +4,8 @@ import FormulariosPageClient from "./FormulariosPageClient";
 import { listForms } from "../../../actions/forms";
 import { listServices } from "../../../actions/admin";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/formularios">): Promise<Metadata> {
@@ -17,10 +19,13 @@ export async function generateMetadata({
 
 export default async function FormulariosPage() {
   const dict = await getDictionary();
-  const [forms, services] = await Promise.all([
-    listForms(),
-    listServices(),
-  ]);
+  let forms: any[] = [];
+  let services: any[] = [];
+  try {
+    [forms, services] = await Promise.all([listForms(), listServices()]);
+  } catch (e) {
+    console.error("Error cargando formularios:", e);
+  }
 
   const items = forms.map((f) => ({
     id: f.id,

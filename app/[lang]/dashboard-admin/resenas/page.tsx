@@ -3,6 +3,8 @@ import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
 import { listReviews } from "../../../actions/admin";
 import ResenasPageClient from "./ResenasPageClient";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/resenas">): Promise<Metadata> {
@@ -16,7 +18,12 @@ export async function generateMetadata({
 
 export default async function ResenasPage() {
   const dict = await getDictionary();
-  const items = await listReviews();
+  let items: any[] = [];
+  try {
+    items = await listReviews();
+  } catch (e) {
+    console.error("Error cargando reseñas:", e);
+  }
   return (
     <ResenasPageClient data={{ ...dict.dashboardAdmin.resenas, items, feedback: dict.dashboardAdmin.feedback }} />
   );
