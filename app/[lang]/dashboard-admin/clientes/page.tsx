@@ -6,8 +6,11 @@ import ClientesPageClient from "./ClientesPageClient";
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/clientes">): Promise<Metadata> {
+  console.log("Generating metadata for ", params.lang, "");
   const { lang } = await params;
+  console.log("Fetching dictionary for locale:", lang);
   const dict = await getDictionaryByLocale(lang);
+  console.log("Dictionary loaded:", dict ? "OK" : "ERROR");
   return {
     title: dict?.dashboardAdmin.clientes.title + " — PrecioJusto",
     description: dict?.dashboardAdmin.meta.description,
@@ -15,15 +18,23 @@ export async function generateMetadata({
 }
 
 export default async function ClientesPage() {
-  const dict = await getDictionary();
-  const clients = await listClients();
-  return (
-    <ClientesPageClient
-      data={{
-        ...dict.dashboardAdmin.clientes,
-        feedback: dict.dashboardAdmin.feedback,
-        items: clients,
-      }}
-    />
-  );
+  try {
+    console.log("Loading dashboard admin clientes page");
+    const dict = await getDictionary();
+    console.log("Dictionary loaded successfully");
+    const clients = await listClients();
+    console.log("Clients fetched successfully, count:", clients.length);
+    return (
+      <ClientesPageClient
+        data={{
+          ...dict.dashboardAdmin.clientes,
+          feedback: dict.dashboardAdmin.feedback,
+          items: clients,
+        }}
+      />
+    );
+  } catch (error) {
+    console.error("Error loading dashboard admin clientes page:", error);
+    throw error;
+  }
 }
