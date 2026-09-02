@@ -3,6 +3,8 @@ import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
 import { listClients } from "../../../actions/admin";
 import ClientesPageClient from "./ClientesPageClient";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: PageProps<"/[lang]/dashboard-admin/clientes">): Promise<Metadata> {
