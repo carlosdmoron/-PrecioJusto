@@ -152,6 +152,15 @@ const STATUS_MAP: Record<string, BadgeVariant> = {
   vencido: "danger",
   archived: "neutral",
   archivado: "neutral",
+  selected: "info",
+  seleccionado: "info",
+  started: "info",
+  iniciado: "info",
+  inProgress: "info",
+  en_curso: "info",
+  Iniciado: "info",
+  disputed: "danger",
+  disputado: "danger",
 };
 
 export function statusToVariant(status: string | null | undefined): BadgeVariant {
@@ -159,12 +168,12 @@ export function statusToVariant(status: string | null | undefined): BadgeVariant
   return STATUS_MAP[status.toLowerCase()] ?? "neutral";
 }
 
-export function StatusBadge({ status }: { status: string | null | undefined }) {
+export function StatusBadge({ status, label }: { status: string | null | undefined; label?: string }) {
   if (!status) return null;
-  const label = status.charAt(0).toUpperCase() + status.slice(1);
+  const text = label ?? (status.charAt(0).toUpperCase() + status.slice(1));
   return (
     <Badge variant={statusToVariant(status)} dot>
-      {label}
+      {text}
     </Badge>
   );
 }

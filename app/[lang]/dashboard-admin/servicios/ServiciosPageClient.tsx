@@ -56,17 +56,17 @@ export default function ServiciosPageClient({ data }: { data: any }) {
 
   const columns = [
     { key: "name", label: data.table.name },
-    { key: "category", label: data.table.category, render: (v: string) => v ?? "—" },
+    { key: "category", label: data.table.category, render: (row: any) => row.category ?? "—" },
     {
       key: "status",
       label: data.table.status,
-      render: (v: string) => <StatusBadge status={v} />,
+      render: (row: any) => <StatusBadge status={row.status} />,
     },
     { key: "requests_count", label: data.table.requests },
     {
       key: "revenue",
       label: data.table.revenue,
-      render: (v: number) => `€${Number(v ?? 0).toLocaleString()}`,
+      render: (row: any) => `€${Number(row.revenue ?? 0).toLocaleString()}`,
     },
   ];
 

@@ -1445,6 +1445,7 @@
       "formDeleted": "Formulario eliminado",
       "formError": "Ocurrió un error. Inténtalo de nuevo.",
       "statusUpdated": "Estado actualizado",
+      "jobStatusUpdated": "Estado del trabajo actualizado a",
       "testSent": "Prueba de envío enviada",
       "blockedQuote": "Presupuesto bloqueado",
       "notificationResent": "Notificación reenviada",

@@ -438,6 +438,67 @@ export async function setReviewStatus(id: string, status: string) {
   return { success: true };
 }
 
+// ===== TRABAJOS (jobs) =====
+export async function listJobs() {
+  const adminSupabase = await requireAdmin();
+  const { data, error } = await adminSupabase
+    .from("jobs")
+    .select(
+      "id, status, commission, start_date, end_date, created_at, " +
+        "request:requests!jobs_request_id_fkey(id, title, code), " +
+        "client:profiles!jobs_client_id_fkey(first_name, last_name, email), " +
+        "professional:professionals!jobs_professional_id_fkey(id, profile:profiles!professionals_id_fkey(first_name, last_name, email))"
+    )
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  const rows = (data ?? []) as Array<Record<string, any>>;
+  return rows.map((j) => {
+    const req = Array.isArray(j.request) ? j.request[0] : j.request;
+    const cl = Array.isArray(j.client) ? j.client[0] : j.client;
+    const pro = Array.isArray(j.professional) ? j.professional[0] : j.professional;
+    const proProfile = Array.isArray(pro?.profile) ? pro.profile[0] : pro?.profile;
+    return {
+      id: j.id,
+      request: req?.code || req?.title || "—",
+      requestTitle: req?.title ?? "—",
+      client: cl?.first_name
+        ? `${cl.first_name} ${cl.last_name ?? ""}`.trim()
+        : cl?.email ?? "—",
+      professional: proProfile?.first_name
+        ? `${proProfile.first_name} ${proProfile.last_name ?? ""}`.trim()
+        : proProfile?.email ?? "—",
+      status: j.status ?? "selected",
+      commission: j.commission != null ? `€${Number(j.commission).toFixed(2)}` : "€0.00",
+      startDate: j.start_date ? new Date(j.start_date).toLocaleDateString("es-ES") : "—",
+      endDate: j.end_date ? new Date(j.end_date).toLocaleDateString("es-ES") : "—",
+    };
+  });
+}
+
+export async function setJobStatus(id: string, status: string) {
+  const adminSupabase = await requireAdmin();
+  const allowed = ["selected", "started", "inProgress", "completed", "cancelled", "disputed"];
+  if (!allowed.includes(status)) {
+    throw new Error("Estado de trabajo no válido");
+  }
+  const { error } = await adminSupabase
+    .from("jobs")
+    .update({ status })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  const { data: check, error: checkErr } = await adminSupabase
+    .from("jobs")
+    .select("status")
+    .eq("id", id)
+    .maybeSingle();
+  if (checkErr) throw new Error(checkErr.message);
+  if (!check || check.status !== status) {
+    throw new Error("No se pudo verificar el cambio de estado en la base de datos");
+  }
+  revalidatePath("/[lang]/dashboard-admin/trabajos");
+  return { success: true };
+}
+
 // ===== SOPORTE (support_tickets) =====
 export async function listTickets() {
   const supabase = await createClient();

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
+import { listJobs } from "../../../actions/admin";
 import TrabajosPageClient from "./TrabajosPageClient";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -15,5 +18,10 @@ export async function generateMetadata({
 
 export default async function TrabajosPage() {
   const dict = await getDictionary();
-  return <TrabajosPageClient data={{ ...dict.dashboardAdmin.trabajos, feedback: dict.dashboardAdmin.feedback }} />;
+  const items = await listJobs();
+  return (
+    <TrabajosPageClient
+      data={{ ...dict.dashboardAdmin.trabajos, feedback: dict.dashboardAdmin.feedback, items }}
+    />
+  );
 }

@@ -1445,6 +1445,7 @@
       "formDeleted": "Form deleted",
       "formError": "Something went wrong. Please try again.",
       "statusUpdated": "Status updated",
+      "jobStatusUpdated": "Job status updated to",
       "testSent": "Send test sent",
       "blockedQuote": "Quote blocked",
       "notificationResent": "Notification resent",

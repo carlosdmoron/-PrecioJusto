@@ -7,6 +7,7 @@ export type TableColumn = {
   key: string;
   label: string;
   hidden?: boolean;
+  render?: (row: TableRow) => React.ReactNode;
 };
 
 export type TableRow = Record<string, string> & { id: string };
@@ -53,7 +54,9 @@ export default function DataTable({
             {visible.map((row) => (
               <tr key={row.id} className="border-b border-pj-border/60 transition hover:bg-pj-bg last:border-0">
                 {visibleCols.map((col) => (
-                  <td key={col.key} className="px-4 py-3 text-sm text-pj-ink">{row[col.key]}</td>
+                  <td key={col.key} className="px-4 py-3 text-sm text-pj-ink">
+                    {col.render ? col.render(row) : row[col.key]}
+                  </td>
                 ))}
                 {actions && actions.length > 0 && (
                   <td className="px-4 py-3">

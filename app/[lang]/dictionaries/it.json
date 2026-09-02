@@ -1445,6 +1445,7 @@
       "formDeleted": "Modulo eliminato",
       "formError": "Si è verificato un errore. Riprova.",
       "statusUpdated": "Stato aggiornato",
+      "jobStatusUpdated": "Stato del lavoro aggiornato a",
       "testSent": "Test di invio inviato",
       "blockedQuote": "Preventivo bloccato",
       "notificationResent": "Notifica reinviata",
