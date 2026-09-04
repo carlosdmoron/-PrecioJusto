@@ -6,6 +6,7 @@ import { registerCliente, type RegisterState } from "../../actions/register";
 
 type Props = {
   lang: string;
+  next?: string;
   labels: {
     title: string;
     firstName: string;
@@ -21,12 +22,16 @@ type Props = {
   };
 };
 
-export default function RegisterClienteForm({ lang, labels }: Props) {
+export default function RegisterClienteForm({ lang, next, labels }: Props) {
   const bound = registerCliente.bind(null, lang);
   const [state, formAction, pending] = useActionState<RegisterState, FormData>(
     bound,
     {}
   );
+
+  const loginHref = next
+    ? `/${lang}/iniciar-sesion?next=${encodeURIComponent(next)}`
+    : `/${lang}/iniciar-sesion`;
 
   return (
     <form action={formAction} className="mt-10 space-y-6">
@@ -108,7 +113,7 @@ export default function RegisterClienteForm({ lang, labels }: Props) {
 
       <p className="text-center text-sm text-muted">
         {labels.login}{" "}
-        <Link href={`/${lang}/iniciar-sesion`} className="font-medium text-primary hover:underline">
+        <Link href={loginHref} className="font-medium text-primary hover:underline">
           {labels.loginLink}
         </Link>
       </p>

@@ -1,44 +1,59 @@
 "use client";
 
-import { useState, useTransition, type FormEvent } from "react";
+import { useEffect, useMemo, useState, useActionState, useTransition, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { loginInline } from "../../actions/auth";
-import { createRequest } from "../../actions/requests";
+import {
+  createSolicitud,
+  createDraftRequest,
+  claimDraftRequest,
+  type SolicitudQuestion,
+} from "../../actions/solicitud";
 import PasswordInput from "../login/PasswordInput";
+
+type ServiceInfo = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+};
 
 type Labels = {
   badge: string;
   title: string;
   subtitle: string;
-  serviceLabel: string;
-  servicePlaceholder: string;
-  titleLabel: string;
-  titlePlaceholder: string;
-  descriptionLabel: string;
-  descriptionPlaceholder: string;
+  requiredMark: string;
+  optionalSectionTitle: string;
   cityLabel: string;
   cityPlaceholder: string;
   budgetLabel: string;
   budgetPlaceholder: string;
+  sendButton: string;
+  sendPending: string;
+  savingDraft: string;
+  checkAnswersError: string;
   loginTitle: string;
   loginHint: string;
   noAccount: string;
   registerLink: string;
-  loginAndSubmit: string;
-  loginAndSubmitPending: string;
-  submit: string;
-  submitting: string;
+  loginButton: string;
+  loginPending: string;
+  formLostError: string;
   successTitle: string;
   successText: string;
   viewRequests: string;
   backHome: string;
   submitError: string;
+  noFormTitle: string;
+  noFormText: string;
+  backServices: string;
 };
 
 type Props = {
   lang: string;
-  service: { id: string; name: string; slug: string; description: string | null };
-  services: { id: string; name: string }[];
+  service: ServiceInfo;
+  form: { id: string; version: string } | null;
+  questions: SolicitudQuestion[];
   registerHref: string;
   isLoggedIn: boolean;
   labels: Labels;
@@ -52,83 +67,242 @@ type Props = {
   };
 };
 
+type Answer = string | string[] | number;
+type Answers = Record<string, Answer>;
+
+type Draft = {
+  anon_code?: string;
+  answers?: Answers;
+  description?: string;
+  city?: string;
+  budget?: string;
+};
+
 const inputClass =
   "h-12 w-full rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40";
+
+function draftKey(serviceSlug: string) {
+  return `pj-draft-${serviceSlug}`;
+}
+
+function readDraft(serviceSlug: string): Draft | null {
+  try {
+    const raw = window.localStorage.getItem(draftKey(serviceSlug));
+    return raw ? (JSON.parse(raw) as Draft) : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeDraft(serviceSlug: string, draft: Draft) {
+  try {
+    window.localStorage.setItem(draftKey(serviceSlug), JSON.stringify(draft));
+  } catch {
+    /* almacenamiento no disponible */
+  }
+}
+
+function clearDraft(serviceSlug: string) {
+  try {
+    window.localStorage.removeItem(draftKey(serviceSlug));
+  } catch {
+    /* ignorar */
+  }
+}
+
+function deriveTitle(serviceName: string, answers: Answers) {
+  for (const value of Object.values(answers ?? {})) {
+    const val = Array.isArray(value) ? value.join(", ") : String(value ?? "");
+    const clean = val.replace(/\s+/g, " ").trim();
+    if (clean) return `${serviceName}: ${clean.slice(0, 80)}`;
+  }
+  return serviceName;
+}
+
+function buildDescription(questions: SolicitudQuestion[], answers: Answers) {
+  return questions
+    .map((q) => {
+      const v = answers[q.id];
+      if (v == null || (Array.isArray(v) && v.length === 0)) return null;
+      const val = Array.isArray(v) ? v.join(", ") : String(v);
+      return `${q.label}: ${val}`;
+    })
+    .filter(Boolean)
+    .join("\n");
+}
 
 export default function SolicitarServiceForm({
   lang,
   service,
-  services,
+  form,
+  questions,
   registerHref,
   isLoggedIn,
   labels,
   loginLabels,
 }: Props) {
   const router = useRouter();
-  const [authed, setAuthed] = useState(isLoggedIn);
-  const [created, setCreated] = useState(false);
-  const [loginError, setLoginError] = useState<string | null>(null);
+
+  const [phase, setPhase] = useState<"form" | "login" | "success">("form");
+  const [answers, setAnswers] = useState<Answers>({});
+  const [city, setCity] = useState("");
+  const [budget, setBudget] = useState("");
+  const [draftCode, setDraftCode] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
-  const [form, setForm] = useState({
-    title: "",
-    service_id:
-      service.id && services.some((s) => s.id === service.id)
-        ? service.id
-        : (services[0]?.id ?? ""),
-    description: "",
-    city: "",
-    budget: "",
-  });
+  const boundLogin = loginInline.bind(null, lang);
+  const [loginState, loginAction, loginPending] = useActionState(boundLogin, {});
+  const loginError = loginState?.error ?? null;
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const authed = isLoggedIn || loginState?.ok === true;
+
+  const hasForm = Boolean(form && questions.length > 0);
+
+  // Restaura un borrador previo (caso C: abandono del login o recarga).
+  // El borrador vive en localStorage, que solo existe en el cliente tras
+  // montar: se lee en un efecto a propósito (no se puede hidratar desde el SSR).
+  useEffect(() => {
+    if (!hasForm) return;
+    const saved = readDraft(service.slug);
+    if (!saved) return;
+    if (saved.answers && Object.keys(saved.answers).length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setAnswers(saved.answers);
+    }
+    setCity(saved.city ?? "");
+    setBudget(saved.budget ?? "");
+    if (saved.anon_code) setDraftCode(saved.anon_code);
+  }, [service.slug, hasForm]);
+
+  // Si el usuario ya tiene sesión y existe un borrador sin vincular, lo vincula
+  // automáticamente (caso A: el formulario ya estaba completo antes del login).
+  useEffect(() => {
+    if (!authed || !hasForm) return;
+    if (loginState?.role && loginState.role !== "client") return;
+    const saved = readDraft(service.slug);
+    if (!saved?.anon_code) return;
+    const code = saved.anon_code;
+    startTransition(async () => {
+      try {
+        await claimDraftRequest(code);
+        clearDraft(service.slug);
+        setPhase("success");
+      } catch {
+        clearDraft(service.slug);
+      }
+    });
+  }, [authed, hasForm, service.slug, loginState?.role]);
+
+  // Si el login inline termina bien y es profesional/admin, no puede crear
+  // solicitudes: redirigimos a su panel. Los clientes continúan en el flujo
+  // (el borrador se vincula en el efecto anterior al pasar authed a true).
+  useEffect(() => {
+    if (!loginState?.ok) return;
+    if (loginState.role && loginState.role !== "client") {
+      const href =
+        loginState.role === "professional"
+          ? `/${lang}/dashboard-profesional`
+          : `/${lang}/dashboard-admin`;
+      router.push(href);
+    }
+  }, [loginState, lang, router]);
+
+  function handleAnswer(questionId: string, value: Answer) {
+    setAnswers((prev) => ({ ...prev, [questionId]: value }));
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const allAnswered = useMemo(() => {
+    if (!hasForm) return true;
+    return questions.every((q) => {
+      if (!q.required) return true;
+      const v = answers[q.id];
+      if (v == null) return false;
+      if (Array.isArray(v)) return v.length > 0;
+      return String(v).trim().length > 0;
+    });
+  }, [answers, questions, hasForm]);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (created || pending) return;
-    setLoginError(null);
+    setFormError(null);
     setSubmitError(null);
+
+    if (!hasForm) return;
+    if (!allAnswered) {
+      setFormError(labels.checkAnswersError);
+      return;
+    }
+
+    const payload = {
+      service_id: service.id,
+      form_id: form?.id ?? "",
+      answers,
+      title: deriveTitle(service.name, answers),
+      description: buildDescription(questions, answers),
+      city: city.trim() || undefined,
+      budget: budget ? Number(budget) : undefined,
+    };
 
     startTransition(async () => {
       try {
-        if (!authed) {
-          const loginData = new FormData(e.currentTarget);
-          const loginResult = await loginInline(lang, {}, loginData);
-          if (loginResult.error) {
-            setLoginError(loginResult.error);
-            return;
-          }
-          if (loginResult.role && loginResult.role !== "client") {
-            const href =
-              loginResult.role === "professional"
-                ? `/${lang}/dashboard-profesional`
-                : `/${lang}/dashboard-admin`;
-            router.push(href);
-            return;
-          }
-          setAuthed(true);
+        if (authed) {
+          await createSolicitud(payload);
+          clearDraft(service.slug);
+          setPhase("success");
+          return;
         }
 
-        await createRequest({
-          title: form.title,
-          service_id: form.service_id,
-          description: form.description,
-          city: form.city,
-          budget: Number(form.budget),
+        // Invitado: guardamos primero un borrador y luego pedimos login/registro.
+        let code = draftCode;
+        if (!code) {
+          code =
+            typeof crypto !== "undefined" && crypto.randomUUID
+              ? crypto.randomUUID()
+              : `anon-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
+          setDraftCode(code);
+        }
+        writeDraft(service.slug, {
+          anon_code: code,
+          answers,
+          description: payload.description,
+          city: payload.city,
+          budget: budget,
         });
-        setCreated(true);
-      } catch {
-        setSubmitError(labels.submitError);
+        await createDraftRequest({ ...payload, anon_code: code });
+        setPhase("login");
+      } catch (err) {
+        setSubmitError(
+          err instanceof Error ? err.message : labels.submitError
+        );
       }
     });
   }
 
-  if (created) {
+  // Caso E: servicio sin formulario activo.
+  if (!hasForm) {
+    return (
+      <div className="rounded-xl bg-white p-8 shadow-xl shadow-navy/10 sm:p-12">
+        <h1 className="text-2xl font-bold tracking-tight text-ink">
+          {labels.noFormTitle}
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-steel">
+          {labels.noFormText}
+        </p>
+        <div className="mt-8 flex flex-col gap-3">
+          <a
+            href={`/${lang}`}
+            className="inline-flex h-12 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark"
+          >
+            {labels.backServices}
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  if (phase === "success") {
     return (
       <div className="rounded-xl bg-white p-8 shadow-xl shadow-navy/10 sm:p-12">
         <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -172,95 +346,80 @@ export default function SolicitarServiceForm({
         <p className="mt-2 text-sm leading-relaxed text-steel">
           {labels.subtitle}
         </p>
+        <div className="mt-4 flex items-center justify-between rounded-lg bg-primary/5 px-4 py-3">
+          <div>
+            <p className="text-sm font-semibold text-ink">{service.name}</p>
+            {service.description ? (
+              <p className="mt-0.5 text-xs text-steel">{service.description}</p>
+            ) : null}
+          </div>
+          <span className="shrink-0 rounded-full bg-badge px-3 py-1 text-xs font-semibold text-primary-dark">
+            v{form?.version ?? "1.0"}
+          </span>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:p-10">
-        <div className="space-y-5">
-          <div>
-            <label htmlFor="solicitar-servicio" className="mb-2 block text-sm font-medium text-ink">
-              {labels.serviceLabel}
-            </label>
-            <select
-              id="solicitar-servicio"
-              name="service_id"
-              value={form.service_id}
-              onChange={handleChange}
-              className={`${inputClass} appearance-none`}
-            >
-              {services.map((svc) => (
-                <option key={svc.id} value={svc.id}>
-                  {svc.name}
-                </option>
-              ))}
-            </select>
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-10">
+        {questions.map((q) => (
+          <QuestionField
+            key={q.id}
+            question={q}
+            value={answers[q.id]}
+            requiredMark={labels.requiredMark}
+            onChange={(v) => handleAnswer(q.id, v)}
+          />
+        ))}
 
-          <div>
-            <label htmlFor="solicitar-titulo" className="mb-2 block text-sm font-medium text-ink">
-              {labels.titleLabel}
-            </label>
-            <input
-              id="solicitar-titulo"
-              name="title"
-              type="text"
-              required
-              placeholder={labels.titlePlaceholder}
-              value={form.title}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="solicitar-descripcion" className="mb-2 block text-sm font-medium text-ink">
-              {labels.descriptionLabel}
-            </label>
-            <textarea
-              id="solicitar-descripcion"
-              name="description"
-              rows={4}
-              required
-              placeholder={labels.descriptionPlaceholder}
-              value={form.description}
-              onChange={handleChange}
-              className="w-full rounded-lg bg-field p-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="solicitar-ciudad" className="mb-2 block text-sm font-medium text-ink">
-              {labels.cityLabel}
-            </label>
-            <input
-              id="solicitar-ciudad"
-              name="city"
-              type="text"
-              required
-              placeholder={labels.cityPlaceholder}
-              value={form.city}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="solicitar-presupuesto" className="mb-2 block text-sm font-medium text-ink">
-              {labels.budgetLabel}
-            </label>
-            <input
-              id="solicitar-presupuesto"
-              name="budget"
-              type="number"
-              min="1"
-              placeholder={labels.budgetPlaceholder}
-              value={form.budget}
-              onChange={handleChange}
-              className={inputClass}
-            />
+        <div className="rounded-xl border border-line/40 bg-surface/40 p-5">
+          <h2 className="text-sm font-semibold text-ink">
+            {labels.optionalSectionTitle}
+          </h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="solicitar-ciudad" className="mb-2 block text-sm font-medium text-ink">
+                {labels.cityLabel}
+              </label>
+              <input
+                id="solicitar-ciudad"
+                name="city"
+                type="text"
+                placeholder={labels.cityPlaceholder}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label htmlFor="solicitar-presupuesto" className="mb-2 block text-sm font-medium text-ink">
+                {labels.budgetLabel}
+              </label>
+              <input
+                id="solicitar-presupuesto"
+                name="budget"
+                type="number"
+                min="1"
+                placeholder={labels.budgetPlaceholder}
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
+                className={inputClass}
+              />
+            </div>
           </div>
         </div>
 
-        {!authed ? (
+        {formError ? (
+          <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+            {formError}
+          </p>
+        ) : null}
+        {submitError ? (
+          <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+            {submitError}
+          </p>
+        ) : null}
+
+        {/* Invitado: tras guardar el borrador pedimos login/registro */}
+        {!authed && phase === "login" ? (
           <div className="rounded-xl border border-primary/30 bg-primary/5 p-5">
             <h2 className="text-sm font-semibold text-ink">{labels.loginTitle}</h2>
             <div className="mt-4 space-y-4">
@@ -290,6 +449,22 @@ export default function SolicitarServiceForm({
                 {loginError}
               </p>
             ) : null}
+            <button
+              type="button"
+              onClick={() => {
+                const emailEl = document.getElementById("login-email") as HTMLInputElement | null;
+                const passwordEl = document.getElementById("password") as HTMLInputElement | null;
+                if (!emailEl || !passwordEl) return;
+                const fd = new FormData();
+                fd.set("email", emailEl.value);
+                fd.set("password", passwordEl.value);
+                loginAction(fd);
+              }}
+              disabled={loginPending || pending}
+              className="mt-4 h-12 w-full rounded-lg bg-primary-dark text-sm font-medium text-white transition hover:bg-primary disabled:opacity-60"
+            >
+              {loginPending ? labels.loginPending : labels.loginButton}
+            </button>
             <p className="mt-4 text-xs text-steel">{labels.loginHint}</p>
             <p className="mt-2 text-sm text-muted">
               {labels.noAccount}{" "}
@@ -300,26 +475,187 @@ export default function SolicitarServiceForm({
           </div>
         ) : null}
 
-        {submitError ? (
-          <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
-            {submitError}
-          </p>
-        ) : null}
-
         <button
           type="submit"
-          disabled={pending || created}
+          disabled={pending || phase === "login"}
           className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
         >
           {pending
-            ? authed
-              ? labels.submitting
-              : labels.loginAndSubmitPending
-            : authed
-              ? labels.submit
-              : labels.loginAndSubmit}
+            ? !authed
+              ? labels.savingDraft
+              : labels.sendPending
+            : labels.sendButton}
         </button>
       </form>
+    </div>
+  );
+}
+
+function QuestionField({
+  question,
+  value,
+  requiredMark,
+  onChange,
+}: {
+  question: SolicitudQuestion;
+  value: Answer;
+  requiredMark: string;
+  onChange: (v: Answer) => void;
+}) {
+  const { id, label, type, required, options } = question;
+
+  return (
+    <div>
+      <label
+        className="mb-2 block text-sm font-medium text-ink"
+        htmlFor={type === "radio" || type === "checkbox" || type === "scale" ? undefined : id}
+      >
+        {label}
+        {required ? (
+          <span className="ml-1 text-primary" aria-hidden="true">
+            {requiredMark}
+          </span>
+        ) : null}
+      </label>
+
+      {type === "textarea" ? (
+        <textarea
+          id={id}
+          name={id}
+          rows={4}
+          required={required}
+          placeholder=""
+          value={value ?? ""}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full rounded-lg bg-field p-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
+        />
+      ) : type === "select" ? (
+        <select
+          id={id}
+          name={id}
+          required={required}
+          value={value ?? ""}
+          onChange={(e) => onChange(e.target.value)}
+          className={`${inputClass} appearance-none`}
+        >
+          <option value="" disabled>
+            —
+          </option>
+          {(options ?? []).map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
+      ) : type === "radio" ? (
+        <div className="space-y-2">
+          {(options ?? []).map((opt) => (
+            <label
+              key={opt}
+              className="flex cursor-pointer items-center gap-3 rounded-lg border border-line/40 px-4 py-3 text-sm text-ink transition hover:border-primary/50"
+            >
+              <input
+                type="radio"
+                name={id}
+                value={opt}
+                required={required}
+                checked={value === opt}
+                onChange={() => onChange(opt)}
+                className="size-4 accent-primary"
+              />
+              {opt}
+            </label>
+          ))}
+        </div>
+      ) : type === "checkbox" ? (
+        <div className="space-y-2">
+          {(options ?? []).map((opt) => {
+            const arr: string[] = Array.isArray(value) ? value : [];
+            const checked = arr.includes(opt);
+            return (
+              <label
+                key={opt}
+                className="flex cursor-pointer items-center gap-3 rounded-lg border border-line/40 px-4 py-3 text-sm text-ink transition hover:border-primary/50"
+              >
+                <input
+                  type="checkbox"
+                  name={id}
+                  value={opt}
+                  className="size-4 accent-primary"
+                  checked={checked}
+                  onChange={() =>
+                    onChange(
+                      checked ? arr.filter((v) => v !== opt) : [...arr, opt]
+                    )
+                  }
+                />
+                {opt}
+              </label>
+            );
+          })}
+        </div>
+      ) : type === "scale" ? (
+        <ScaleField value={value} required={required} onChange={onChange} />
+      ) : (
+        <input
+          id={id}
+          name={id}
+          required={required}
+          type={
+            type === "number"
+              ? "number"
+              : type === "phone"
+              ? "tel"
+              : type === "email"
+              ? "email"
+              : type === "date"
+              ? "date"
+              : type === "file"
+              ? "file"
+              : "text"
+          }
+          value={type === "file" ? undefined : (value ?? "")}
+          onChange={(e) =>
+            type === "file"
+              ? onChange(e.target.files?.[0]?.name ?? "")
+              : onChange(e.target.value)
+          }
+          className={inputClass}
+        />
+      )}
+    </div>
+  );
+}
+
+function ScaleField({
+  value,
+  required,
+  onChange,
+}: {
+  value: Answer;
+  required: boolean;
+  onChange: (v: Answer) => void;
+}) {
+  const scale = Array.from({ length: 10 }, (_, i) => i + 1);
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {scale.map((n) => (
+        <button
+          key={n}
+          type="button"
+          onClick={() => onChange(n)}
+          className={`h-9 w-9 rounded-lg border text-sm font-semibold transition ${
+            value === n
+              ? "border-primary bg-primary text-white"
+              : "border-line/60 bg-white text-ink hover:border-primary/60"
+          }`}
+        >
+          {n}
+        </button>
+      ))}
+      {required && (value == null || value === "") ? (
+        <span className="sr-only">required</span>
+      ) : null}
     </div>
   );
 }

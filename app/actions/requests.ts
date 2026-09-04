@@ -3,6 +3,22 @@
 import { createClient } from "../../lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { runMatching } from "../lib/matching";
+import type { MatchingRuleRow } from "./admin";
+
+type ProfessionalRow = {
+  id: string;
+  province: string | null;
+  municipality: string | null;
+  rating: number | null;
+  verification_status: string | null;
+  total_jobs_completed: number | null;
+  services: Array<{
+    service:
+      | { id: string; name: string }
+      | Array<{ id: string; name: string }>
+      | null;
+  }>;
+};
 
 export async function getRequests() {
   const supabase = await createClient();
@@ -64,7 +80,7 @@ export async function createRequest(formData: {
 }
 
 // Ejecuta el matching de una solicitud y registra los profesionales asignados.
-async function distributeRequest(
+export async function distributeRequest(
   requestId: string,
   serviceName: string,
   city: string
@@ -87,17 +103,17 @@ async function distributeRequest(
   ]);
   if (Array.isArray(rows) === false) return;
 
-  const candidates = (rows ?? []).map((p: any) => {
+  const candidates = ((rows ?? []) as unknown as ProfessionalRow[]).map((p) => {
     const services = Array.isArray(p.services) ? p.services : [];
     return {
       id: p.id,
       name: p.id,
       services: services
-        .map((s: any) => {
+        .map((s) => {
           const sv = Array.isArray(s.service) ? s.service[0] : s.service;
           return sv?.name ?? null;
         })
-        .filter(Boolean),
+        .filter((n): n is string => Boolean(n)),
       province: p.province,
       municipality: p.municipality,
       rating: p.rating ?? 0,
@@ -108,7 +124,7 @@ async function distributeRequest(
     };
   });
 
-  const ranked = runMatching(candidates, (rules ?? []) as any[], {
+  const ranked = runMatching(candidates, (rules ?? []) as MatchingRuleRow[], {
     serviceName: serviceName ?? "",
     zone: city ?? "",
     limit: 5,

@@ -19,6 +19,7 @@ export async function login(
 ): Promise<{ error?: string }> {
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
+  const nextRaw = String(formData.get("next") ?? "");
 
   const supabase = await createClient();
 
@@ -59,7 +60,21 @@ export async function login(
     }
     redirect(`/${lang}/dashboard-profesional`);
   }
-  redirect(`/${lang}/dashboard-cliente`);
+
+  // Para clientes con destino "next" (p. ej. volver al formulario de solicitud
+  // tras iniciar sesión). Solo rutas locales, nunca URLs externas.
+  const next = safeLocalPath(nextRaw);
+  redirect(next ?? `/${lang}/dashboard-cliente`);
+}
+
+function safeLocalPath(value: string): string | null {
+  const v = value.trim();
+  if (!v.startsWith("/")) return null;
+  if (v.startsWith("//")) return null;
+  if (v.includes("://") || v.includes("\\") || /[\u0000-\u001f\u007f]/.test(v)) {
+    return null;
+  }
+  return v;
 }
 
 // Login sin redirección: se usa desde el formulario de solicitud de la landing

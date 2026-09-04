@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { lang } from "next/root-params";
 import { getDictionary, getDictionaryByLocale } from "../../../dictionaries";
-import { getServiceBySlug, getServices } from "../../../../actions/services";
+import { getSolicitudFormData } from "../../../../actions/solicitud";
 import { getSession } from "../../../../actions/auth";
 import SolicitarServiceForm from "../../../../components/request/SolicitarServiceForm";
 
@@ -29,21 +29,20 @@ export default async function SolicitarPage({
   const { service } = await params;
   if (!service) notFound();
 
-  const [current, dict, serviceRow, services, user] = await Promise.all([
+  const [current, dict, data, user] = await Promise.all([
     lang(),
     getDictionary(),
-    getServiceBySlug(service),
-    getServices(),
+    getSolicitudFormData(service),
     getSession(),
   ]);
 
-  if (!serviceRow) notFound();
+  if (!data.service) notFound();
 
   const locale = current ?? "es";
   const t = dict.solicitar;
   const loginDict = dict.login;
 
-  const registerHref = `/${locale}/registro`;
+  const registerHref = `/${locale}/registro?next=/${locale}/solicitar/${data.service.slug || data.service.id}`;
 
   return (
     <main className="relative flex-1 overflow-hidden bg-field">
@@ -51,41 +50,44 @@ export default async function SolicitarPage({
         <SolicitarServiceForm
           lang={locale}
           service={{
-            id: serviceRow.id,
-            name: serviceRow.name,
-            slug: serviceRow.slug,
-            description: serviceRow.description,
+            id: data.service.id,
+            name: data.service.name,
+            slug: data.service.slug,
+            description: data.service.description,
           }}
-          services={services.map((s) => ({ id: s.id, name: s.name }))}
+          form={data.form}
+          questions={data.questions}
           registerHref={registerHref}
           isLoggedIn={Boolean(user)}
           labels={{
             badge: t.badge,
             title: t.title,
             subtitle: t.subtitle,
-            serviceLabel: t.serviceLabel,
-            servicePlaceholder: t.servicePlaceholder,
-            titleLabel: t.titleLabel,
-            titlePlaceholder: t.titlePlaceholder,
-            descriptionLabel: t.descriptionLabel,
-            descriptionPlaceholder: t.descriptionPlaceholder,
+            requiredMark: t.requiredMark,
+            optionalSectionTitle: t.optionalSectionTitle,
             cityLabel: t.cityLabel,
             cityPlaceholder: t.cityPlaceholder,
             budgetLabel: t.budgetLabel,
             budgetPlaceholder: t.budgetPlaceholder,
+            sendButton: t.sendButton,
+            sendPending: t.sendPending,
+            savingDraft: t.savingDraft,
+            checkAnswersError: t.checkAnswersError,
             loginTitle: t.loginTitle,
             loginHint: t.loginHint,
             noAccount: t.noAccount,
             registerLink: t.registerLink,
-            loginAndSubmit: t.loginAndSubmit,
-            loginAndSubmitPending: t.loginAndSubmitPending,
-            submit: t.submit,
-            submitting: t.submitting,
+            loginButton: t.loginButton,
+            loginPending: t.loginPending,
+            formLostError: t.formLostError,
             successTitle: t.successTitle,
             successText: t.successText,
             viewRequests: t.viewRequests,
             backHome: t.backHome,
             submitError: t.submitError,
+            noFormTitle: t.noFormTitle,
+            noFormText: t.noFormText,
+            backServices: t.backServices,
           }}
           loginLabels={{
             emailLabel: loginDict.emailLabel,

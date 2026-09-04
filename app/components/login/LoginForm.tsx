@@ -6,6 +6,7 @@ import PasswordInput from "./PasswordInput";
 
 type Props = {
   lang: string;
+  next?: string;
   emailLabel: string;
   emailPlaceholder: string;
   passwordLabel: string;
@@ -18,6 +19,7 @@ type Props = {
 
 export default function LoginForm({
   lang,
+  next,
   emailLabel,
   emailPlaceholder,
   passwordLabel,
@@ -33,6 +35,7 @@ export default function LoginForm({
 
   return (
     <form action={formAction} className="mt-10 space-y-6">
+      {next ? <input type="hidden" name="next" value={next} /> : null}
       <div>
         <label
           htmlFor="email"

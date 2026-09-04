@@ -9,7 +9,7 @@ const languageLabels: Record<string, string> = {
   en: "EN",
 };
 
-export default async function LoginSection() {
+export default async function LoginSection({ next }: { next?: string }) {
   const dict = await getDictionary();
   const t = dict.login;
   const current = (await lang()) ?? "es";
@@ -61,6 +61,7 @@ export default async function LoginSection() {
           </p>
           <LoginForm
             lang={current}
+            next={next}
             emailLabel={t.emailLabel}
             emailPlaceholder={t.emailPlaceholder}
             passwordLabel={t.passwordLabel}

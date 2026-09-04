@@ -13,6 +13,11 @@ export async function generateMetadata({
   };
 }
 
-export default function IniciarSesionPage() {
-  return <LoginSection />;
+export default async function IniciarSesionPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
+  return <LoginSection next={next} />;
 }

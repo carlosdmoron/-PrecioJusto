@@ -11,8 +11,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RegistroPage() {
+export default async function RegistroPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
   const current = (await lang()) ?? "es";
+  const { next } = await searchParams;
   const labels = {
     title: "Crea tu cuenta de cliente",
     firstName: "Nombre",
@@ -33,7 +38,7 @@ export default async function RegistroPage() {
         <h1 className="mt-6 text-center text-2xl font-bold tracking-tight text-ink">
           {labels.title}
         </h1>
-        <RegisterClienteForm lang={current} labels={labels} />
+        <RegisterClienteForm lang={current} next={next} labels={labels} />
       </div>
     </main>
   );
