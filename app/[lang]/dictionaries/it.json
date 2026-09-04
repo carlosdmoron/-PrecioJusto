@@ -280,6 +280,40 @@
     "registerLink": "Registrati",
     "googleButton": "Continua con Google"
   },
+  "solicitar": {
+    "meta": {
+      "title": "Richiedi un preventivo | PrecioJusto",
+      "description": "Raccontaci di cosa hai bisogno e ricevi preventivi da professionisti della tua zona."
+    },
+    "badge": "Preventivo gratuito",
+    "title": "Richiedi un preventivo",
+    "subtitle": "Compila il modulo e invialo. I professionisti idonei riceveranno la tua richiesta.",
+    "serviceLabel": "Servizio",
+    "servicePlaceholder": "Scegli un servizio",
+    "titleLabel": "Titolo della richiesta",
+    "titlePlaceholder": "Es.: devo sostituire una lampada del soggiorno",
+    "descriptionLabel": "Descrizione",
+    "descriptionPlaceholder": "Raccontaci di cosa hai bisogno: dimensioni, materiale, tempi, ecc.",
+    "cityLabel": "Località",
+    "cityPlaceholder": "Es.: Milano",
+    "budgetLabel": "Budget stimato (€)",
+    "budgetPlaceholder": "Es.: 300",
+    "loginTitle": "Accedi per inviare la tua richiesta",
+    "loginHint": "La tua richiesta verrà salvata nel tuo account. I tuoi dati non vanno persi durante l'accesso.",
+    "noAccount": "Non hai un account?",
+    "registerLink": "Registrati come cliente",
+    "loginAndSubmit": "Accedi e crea la richiesta",
+    "loginAndSubmitPending": "Accesso in corso e creazione richiesta…",
+    "loginErrorNeedRegister": "Non esiste un account con questa email. Registrati come cliente per continuare.",
+    "submit": "Crea richiesta",
+    "submitting": "Creazione richiesta…",
+    "successTitle": "Richiesta creata!",
+    "successText": "Abbiamo ricevuto la tua richiesta. Presto riceverai preventivi da professionisti della tua zona.",
+    "viewRequests": "Vedi le mie richieste",
+    "backHome": "Torna alla home",
+    "submitError": "Impossibile creare la richiesta. Riprova.",
+    "notFoundTitle": "Servizio non trovato"
+  },
   "signProfesional": {
     "meta": {
       "title": "Crea il tuo account professionale | PrecioJusto",

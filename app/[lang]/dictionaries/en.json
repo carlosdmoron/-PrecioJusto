@@ -280,6 +280,40 @@
     "registerLink": "Sign up",
     "googleButton": "Continue with Google"
   },
+  "solicitar": {
+    "meta": {
+      "title": "Request a quote | PrecioJusto",
+      "description": "Tell us what you need and get quotes from professionals in your area."
+    },
+    "badge": "Free quote",
+    "title": "Request a quote",
+    "subtitle": "Fill in the form and send it. The right professionals will receive your request.",
+    "serviceLabel": "Service",
+    "servicePlaceholder": "Choose a service",
+    "titleLabel": "Request title",
+    "titlePlaceholder": "E.g.: I need to replace a living room lamp",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Tell us what you need: dimensions, material, deadlines, etc.",
+    "cityLabel": "Location",
+    "cityPlaceholder": "E.g.: Madrid",
+    "budgetLabel": "Estimated budget (€)",
+    "budgetPlaceholder": "E.g.: 300",
+    "loginTitle": "Log in to send your request",
+    "loginHint": "Your request will be saved to your account. Your data is not lost when logging in.",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Sign up as a client",
+    "loginAndSubmit": "Log in and create request",
+    "loginAndSubmitPending": "Logging in and creating request…",
+    "loginErrorNeedRegister": "No account exists with that email. Sign up as a client to continue.",
+    "submit": "Create request",
+    "submitting": "Creating request…",
+    "successTitle": "Request created!",
+    "successText": "We have received your request. You will soon receive quotes from professionals in your area.",
+    "viewRequests": "View my requests",
+    "backHome": "Back to home",
+    "submitError": "Could not create the request. Please try again.",
+    "notFoundTitle": "Service not found"
+  },
   "signProfesional": {
     "meta": {
       "title": "Create your professional account | PrecioJusto",

@@ -62,6 +62,50 @@ export async function login(
   redirect(`/${lang}/dashboard-cliente`);
 }
 
+// Login sin redirección: se usa desde el formulario de solicitud de la landing
+// para que el usuario inicie sesión sin salir de la página. Devuelve { ok, role }
+// y el cliente decide cómo continuar (crear la solicitud o redirigir a su panel).
+export async function loginInline(
+  lang: string,
+  _prevState: { error?: string; ok?: boolean; role?: string },
+  formData: FormData
+): Promise<{ error?: string; ok?: boolean; role?: string }> {
+  const email = String(formData.get("email") ?? "");
+  const password = String(formData.get("password") ?? "");
+
+  const supabase = await createClient();
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    return { error: error.message };
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role, status")
+    .maybeSingle();
+
+  const role = (profile?.role as string) ?? "client";
+
+  if (role === "professional") {
+    const status = profile?.status as string | undefined;
+    const isBlocked =
+      status === "banned" ||
+      status === "blocked" ||
+      (await isProfessionalBlocked(supabase));
+
+    if (isBlocked) {
+      await supabase.auth.signOut();
+      return {
+        error:
+          "Tu cuenta ha sido bloqueada. Si crees que es un error, contacta con soporte.",
+      };
+    }
+  }
+
+  return { ok: true, role };
+}
+
 async function isProfessionalBlocked(supabase: Awaited<ReturnType<typeof createClient>>) {
   const {
     data: { user },

@@ -280,6 +280,40 @@
     "registerLink": "Regístrate",
     "googleButton": "Continuar con Google"
   },
+  "solicitar": {
+    "meta": {
+      "title": "Solicita un presupuesto | PrecioJusto",
+      "description": "Cuéntanos qué necesitas y recibe presupuestos de profesionales de tu zona."
+    },
+    "badge": "Presupuesto gratis",
+    "title": "Solicita un presupuesto",
+    "subtitle": "Rellena el formulario y envíalo. Los profesionales idóneos recibirán tu solicitud.",
+    "serviceLabel": "Servicio",
+    "servicePlaceholder": "Elige un servicio",
+    "titleLabel": "Título de la solicitud",
+    "titlePlaceholder": "Ej.: Necesito cambiar una lámpara del salón",
+    "descriptionLabel": "Descripción",
+    "descriptionPlaceholder": "Cuéntanos qué necesitas: dimensiones, material, plazos, etc.",
+    "cityLabel": "Ubicación",
+    "cityPlaceholder": "Ej.: Madrid",
+    "budgetLabel": "Presupuesto estimado (€)",
+    "budgetPlaceholder": "Ej.: 300",
+    "loginTitle": "Inicia sesión para enviar tu solicitud",
+    "loginHint": "Tu solicitud se guardará en tu cuenta. Tus datos no se pierden al iniciar sesión.",
+    "noAccount": "¿No tienes cuenta?",
+    "registerLink": "Regístrate como cliente",
+    "loginAndSubmit": "Iniciar sesión y crear solicitud",
+    "loginAndSubmitPending": "Iniciando sesión y creando solicitud…",
+    "loginErrorNeedRegister": "No existe una cuenta con ese correo. Regístrate como cliente para continuar.",
+    "submit": "Crear solicitud",
+    "submitting": "Creando solicitud…",
+    "successTitle": "¡Solicitud creada!",
+    "successText": "Hemos recibido tu solicitud. En breve recibirás presupuestos de profesionales de tu zona.",
+    "viewRequests": "Ver mis solicitudes",
+    "backHome": "Volver al inicio",
+    "submitError": "No se pudo crear la solicitud. Inténtalo de nuevo.",
+    "notFoundTitle": "Servicio no encontrado"
+  },
   "signProfesional": {
     "meta": {
       "title": "Crea tu cuenta profesional | PrecioJusto",

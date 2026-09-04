@@ -82,6 +82,51 @@ export async function getPublishedServices(): Promise<PublishedService[]> {
   }));
 }
 
+// Busca un servicio publicado (o próximo) por slug o id. Se usa en la página
+// de solicitud para resolver el servicio elegido desde la landing.
+export async function getServiceBySlug(key: string): Promise<PublishedService | null> {
+  const safeKey = String(key ?? "").trim();
+  if (!safeKey) return null;
+
+  const supabase = await createClient();
+
+  const { error: probeError } = await supabase
+    .from("services")
+    .select("image_url")
+    .limit(1);
+  const hasImage = !probeError;
+
+  const selectCols = hasImage
+    ? "id, name, slug, description, image_url"
+    : "id, name, slug, description";
+
+  const { data, error } = await supabase
+    .from("services")
+    .select(selectCols)
+    .or(`slug.eq.${safeKey},id.eq.${safeKey}`)
+    .in("status", ["published", "coming_soon"])
+    .limit(1);
+
+  if (error) return null;
+
+  const row = (data?.[0] ?? null) as unknown as {
+    id: string;
+    name: string;
+    slug: string;
+    description: string | null;
+    image_url?: string | null;
+  } | null;
+  if (!row) return null;
+
+  return {
+    id: row.id,
+    name: row.name,
+    slug: row.slug,
+    description: row.description ?? null,
+    image_url: row.image_url ?? null,
+  };
+}
+
 // Servicios en estado 'coming_soon' ("Próximamente") para la sección
 // "Los 3 servicios que estamos buscando". Solo aparecen los que tienen ese
 // estado; el resto de estados queda excluido de esta sección.

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { cookies } from "next/headers";
 import { lang } from "next/root-params";
 import { getDictionary } from "../[lang]/dictionaries";
 import { getComingSoonServices } from "../actions/services";
@@ -8,11 +7,6 @@ export default async function ServiciosBuscados() {
   const dict = await getDictionary();
   const current = (await lang()) ?? "es";
   const t = dict.serviciosBuscados;
-  const store = await cookies();
-  const isLoggedIn = store.get("pj-session")?.value === "1";
-  const href = isLoggedIn
-    ? `/${current}/registro-profesional`
-    : `/${current}/iniciar-sesion`;
 
   const services = await getComingSoonServices();
   if (services.length === 0) return null;
@@ -29,7 +23,7 @@ export default async function ServiciosBuscados() {
           {services.map((service) => (
             <a
               key={service.id}
-              href={href}
+              href={`/${current}/solicitar/${service.slug || service.id}`}
               className="group relative overflow-hidden rounded-xl border border-line/40 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="relative h-48 overflow-hidden">
