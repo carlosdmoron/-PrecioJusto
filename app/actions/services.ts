@@ -100,16 +100,26 @@ export async function getServiceBySlug(key: string): Promise<PublishedService | 
     ? "id, name, slug, description, image_url"
     : "id, name, slug, description";
 
-  const { data, error } = await supabase
+  // No mezclar slug (texto) con id (uuid) en un .or(): Postgres intenta
+  // castear el slug a uuid y falla. Se filtra según el formato del valor.
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+    safeKey
+  );
+
+  const serviceQuery = supabase
     .from("services")
     .select(selectCols)
-    .or(`slug.eq.${safeKey},id.eq.${safeKey}`)
-    .in("status", ["published", "coming_soon"])
+    .in("status", ["published", "coming_soon", "review", "paused"])
     .limit(1);
+
+  const serviceQ = isUuid
+    ? serviceQuery.eq("id", safeKey).maybeSingle()
+    : serviceQuery.eq("slug", safeKey).maybeSingle();
+  const { data, error } = await serviceQ;
 
   if (error) return null;
 
-  const row = (data?.[0] ?? null) as unknown as {
+  const row = data as unknown as {
     id: string;
     name: string;
     slug: string;

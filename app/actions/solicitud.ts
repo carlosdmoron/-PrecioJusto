@@ -31,28 +31,41 @@ export type SolicitudFormData = {
 export async function getSolicitudFormData(
   slugOrId: string
 ): Promise<SolicitudFormData> {
-  const supabase = await createClient();
+  const admin = await createAdminClient();
   const key = String(slugOrId ?? "").trim();
   if (!key) return { service: null, form: null, questions: [] };
 
   // Probamos si image_url existe para no romper el render si la columna aún no está.
-  const { error: probeError } = await supabase
+  const { error: probeError } = await admin
     .from("services")
     .select("image_url")
     .limit(1);
   const hasImage = !probeError;
 
-  const { data: service } = await supabase
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+    key
+  );
+
+  // Usamos el cliente admin (service role) porque la RLS anon solo expone
+  // servicios 'published'/'coming_soon'; un servicio en 'review'/'paused' con
+  // formulario activo debe poder renderizar el asistente igualmente.
+  const serviceQuery = admin
     .from("services")
     .select(
       hasImage
         ? "id, name, slug, description, image_url"
         : "id, name, slug, description"
     )
-    .or(`slug.eq.${key},id.eq.${key}`)
-    .in("status", ["published", "coming_soon"])
-    .limit(1)
-    .maybeSingle();
+    .in("status", ["published", "coming_soon", "review", "paused"])
+    .limit(1);
+
+  // No usar .or(slug.eq.X,id.eq.X) en la misma query: mezclar una columna de
+  // texto con una UUID hace que Postgres intente castear el slug a uuid y la
+  // query falla (404). Se resuelve por slug o por id según el formato del valor.
+  const serviceQ = isUuid
+    ? serviceQuery.eq("id", key).maybeSingle()
+    : serviceQuery.eq("slug", key).maybeSingle();
+  const { data: service } = await serviceQ;
   const serviceRow = service as unknown as {
     id: string;
     name: string;
@@ -63,7 +76,7 @@ export async function getSolicitudFormData(
 
   if (!serviceRow) return { service: null, form: null, questions: [] };
 
-  const { data: form } = await supabase
+  const { data: form } = await admin
     .from("forms")
     .select("id, version")
     .eq("service_id", serviceRow.id)
@@ -86,7 +99,7 @@ export async function getSolicitudFormData(
     };
   }
 
-  const { data: questions } = await supabase
+  const { data: questions } = await admin
     .from("form_questions")
     .select("id, label, type, required, options")
     .eq("form_id", form.id)

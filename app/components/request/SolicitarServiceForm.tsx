@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useActionState, useTransition, type FormEvent } from "react";
+import { useEffect, useMemo, useState, useActionState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { loginInline } from "../../actions/auth";
 import {
@@ -23,6 +23,9 @@ type Labels = {
   title: string;
   subtitle: string;
   requiredMark: string;
+  stepOf: string;
+  nextButton: string;
+  backButton: string;
   optionalSectionTitle: string;
   cityLabel: string;
   cityPlaceholder: string;
@@ -78,6 +81,10 @@ type Draft = {
   budget?: string;
 };
 
+type Step =
+  | { kind: "question"; question: SolicitudQuestion }
+  | { kind: "extra" };
+
 const inputClass =
   "h-12 w-full rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40";
 
@@ -110,6 +117,13 @@ function clearDraft(serviceSlug: string) {
   }
 }
 
+function generateAnonCode(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `anon-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
+}
+
 function deriveTitle(serviceName: string, answers: Answers) {
   for (const value of Object.values(answers ?? {})) {
     const val = Array.isArray(value) ? value.join(", ") : String(value ?? "");
@@ -131,6 +145,12 @@ function buildDescription(questions: SolicitudQuestion[], answers: Answers) {
     .join("\n");
 }
 
+function stepLabel(template: string, current: number, total: number) {
+  return template
+    .replace("{current}", String(current))
+    .replace("{total}", String(total));
+}
+
 export default function SolicitarServiceForm({
   lang,
   service,
@@ -144,6 +164,7 @@ export default function SolicitarServiceForm({
   const router = useRouter();
 
   const [phase, setPhase] = useState<"form" | "login" | "success">("form");
+  const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [city, setCity] = useState("");
   const [budget, setBudget] = useState("");
@@ -159,6 +180,17 @@ export default function SolicitarServiceForm({
   const authed = isLoggedIn || loginState?.ok === true;
 
   const hasForm = Boolean(form && questions.length > 0);
+
+  const steps = useMemo<Step[]>(() => {
+    if (!hasForm) return [];
+    return [
+      ...questions.map((question) => ({ kind: "question" as const, question })),
+      { kind: "extra" as const },
+    ];
+  }, [hasForm, questions]);
+
+  const totalSteps = steps.length;
+  const currentStep = steps[Math.min(step, Math.max(0, totalSteps - 1))];
 
   // Restaura un borrador previo (caso C: abandono del login o recarga).
   // El borrador vive en localStorage, que solo existe en el cliente tras
@@ -213,6 +245,13 @@ export default function SolicitarServiceForm({
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
   }
 
+  const questionAnswered = (q: SolicitudQuestion) => {
+    const v = answers[q.id];
+    if (v == null) return false;
+    if (Array.isArray(v)) return v.length > 0;
+    return String(v).trim().length > 0;
+  };
+
   const allAnswered = useMemo(() => {
     if (!hasForm) return true;
     return questions.every((q) => {
@@ -224,16 +263,35 @@ export default function SolicitarServiceForm({
     });
   }, [answers, questions, hasForm]);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function handleNext() {
+    if (
+      currentStep.kind === "question" &&
+      currentStep.question.required &&
+      !questionAnswered(currentStep.question)
+    ) {
+      setFormError(labels.checkAnswersError);
+      return;
+    }
     setFormError(null);
-    setSubmitError(null);
+    if (step < totalSteps - 1) {
+      setStep((s) => s + 1);
+      return;
+    }
+    doSubmit();
+  }
 
+  function handleBack() {
+    setFormError(null);
+    setStep((s) => Math.max(0, s - 1));
+  }
+
+  function doSubmit() {
     if (!hasForm) return;
     if (!allAnswered) {
       setFormError(labels.checkAnswersError);
       return;
     }
+    setSubmitError(null);
 
     const payload = {
       service_id: service.id,
@@ -255,20 +313,14 @@ export default function SolicitarServiceForm({
         }
 
         // Invitado: guardamos primero un borrador y luego pedimos login/registro.
-        let code = draftCode;
-        if (!code) {
-          code =
-            typeof crypto !== "undefined" && crypto.randomUUID
-              ? crypto.randomUUID()
-              : `anon-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
-          setDraftCode(code);
-        }
+        const code = draftCode ?? generateAnonCode();
+        setDraftCode(code);
         writeDraft(service.slug, {
           anon_code: code,
           answers,
           description: payload.description,
           city: payload.city,
-          budget: budget,
+          budget,
         });
         await createDraftRequest({ ...payload, anon_code: code });
         setPhase("login");
@@ -334,6 +386,72 @@ export default function SolicitarServiceForm({
     );
   }
 
+  if (phase === "login" && !authed) {
+    return (
+      <div className="rounded-xl bg-white p-8 shadow-xl shadow-navy/10 sm:p-12">
+        <span className="inline-flex items-center rounded-full bg-badge px-3.5 py-1 text-xs font-semibold text-primary-dark">
+          {labels.badge}
+        </span>
+        <h1 className="mt-4 text-2xl font-bold tracking-tight text-ink">
+          {labels.loginTitle}
+        </h1>
+        <p className="mt-2 text-sm leading-relaxed text-steel">
+          {labels.loginHint}
+        </p>
+        <div className="mt-6 space-y-4">
+          <div>
+            <label htmlFor="login-email" className="mb-2 block text-sm font-medium text-ink">
+              {loginLabels.emailLabel}
+            </label>
+            <input
+              id="login-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              placeholder={loginLabels.emailPlaceholder}
+              className={inputClass}
+            />
+          </div>
+          <PasswordInput
+            label={loginLabels.passwordLabel}
+            placeholder={loginLabels.passwordPlaceholder}
+            showLabel={loginLabels.showPassword}
+            hideLabel={loginLabels.hidePassword}
+          />
+        </div>
+        {loginError ? (
+          <p role="alert" className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+            {loginError}
+          </p>
+        ) : null}
+        <button
+          type="button"
+          onClick={() => {
+            const emailEl = document.getElementById("login-email") as HTMLInputElement | null;
+            const passwordEl = document.getElementById("password") as HTMLInputElement | null;
+            if (!emailEl || !passwordEl) return;
+            const fd = new FormData();
+            fd.set("email", emailEl.value);
+            fd.set("password", passwordEl.value);
+            loginAction(fd);
+          }}
+          disabled={loginPending || pending}
+          className="mt-6 h-12 w-full rounded-lg bg-primary-dark text-sm font-medium text-white transition hover:bg-primary disabled:opacity-60"
+        >
+          {loginPending ? labels.loginPending : labels.loginButton}
+        </button>
+        <p className="mt-4 text-xs text-steel">{labels.loginHint}</p>
+        <p className="mt-2 text-sm text-muted">
+          {labels.noAccount}{" "}
+          <a href={registerHref} className="font-medium text-primary transition hover:underline">
+            {labels.registerLink}
+          </a>
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-xl bg-white shadow-xl shadow-navy/10">
       <div className="border-b border-line/40 p-6 sm:p-10">
@@ -359,134 +477,111 @@ export default function SolicitarServiceForm({
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 p-6 sm:p-10">
-        {questions.map((q) => (
-          <QuestionField
-            key={q.id}
-            question={q}
-            value={answers[q.id]}
-            requiredMark={labels.requiredMark}
-            onChange={(v) => handleAnswer(q.id, v)}
-          />
-        ))}
-
-        <div className="rounded-xl border border-line/40 bg-surface/40 p-5">
-          <h2 className="text-sm font-semibold text-ink">
-            {labels.optionalSectionTitle}
-          </h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="solicitar-ciudad" className="mb-2 block text-sm font-medium text-ink">
-                {labels.cityLabel}
-              </label>
-              <input
-                id="solicitar-ciudad"
-                name="city"
-                type="text"
-                placeholder={labels.cityPlaceholder}
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className={inputClass}
+      <div className="p-6 sm:p-10">
+        <div className="mb-6 flex items-center justify-between">
+          <p className="text-sm font-medium text-ink">
+            {stepLabel(labels.stepOf, step + 1, totalSteps)}
+          </p>
+          <div className="flex items-center gap-1.5">
+            {steps.map((_, i) => (
+              <span
+                key={i}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === step
+                    ? "w-6 bg-primary"
+                    : i < step
+                    ? "w-1.5 bg-primary/50"
+                    : "w-1.5 bg-line"
+                }`}
               />
-            </div>
-            <div>
-              <label htmlFor="solicitar-presupuesto" className="mb-2 block text-sm font-medium text-ink">
-                {labels.budgetLabel}
-              </label>
-              <input
-                id="solicitar-presupuesto"
-                name="budget"
-                type="number"
-                min="1"
-                placeholder={labels.budgetPlaceholder}
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-                className={inputClass}
-              />
-            </div>
+            ))}
           </div>
         </div>
 
+        {currentStep?.kind === "question" ? (
+          <QuestionField
+            question={currentStep.question}
+            value={answers[currentStep.question.id]}
+            requiredMark={labels.requiredMark}
+            onChange={(v) => handleAnswer(currentStep.question.id, v)}
+          />
+        ) : (
+          <div className="rounded-xl border border-line/40 bg-surface/40 p-5">
+            <h2 className="text-sm font-semibold text-ink">
+              {labels.optionalSectionTitle}
+            </h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="solicitar-ciudad" className="mb-2 block text-sm font-medium text-ink">
+                  {labels.cityLabel}
+                </label>
+                <input
+                  id="solicitar-ciudad"
+                  name="city"
+                  type="text"
+                  placeholder={labels.cityPlaceholder}
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label htmlFor="solicitar-presupuesto" className="mb-2 block text-sm font-medium text-ink">
+                  {labels.budgetLabel}
+                </label>
+                <input
+                  id="solicitar-presupuesto"
+                  name="budget"
+                  type="number"
+                  min="1"
+                  placeholder={labels.budgetPlaceholder}
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                  className={inputClass}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {formError ? (
-          <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+          <p role="alert" className="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
             {formError}
           </p>
         ) : null}
         {submitError ? (
-          <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+          <p role="alert" className="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
             {submitError}
           </p>
         ) : null}
 
-        {/* Invitado: tras guardar el borrador pedimos login/registro */}
-        {!authed && phase === "login" ? (
-          <div className="rounded-xl border border-primary/30 bg-primary/5 p-5">
-            <h2 className="text-sm font-semibold text-ink">{labels.loginTitle}</h2>
-            <div className="mt-4 space-y-4">
-              <div>
-                <label htmlFor="login-email" className="mb-2 block text-sm font-medium text-ink">
-                  {loginLabels.emailLabel}
-                </label>
-                <input
-                  id="login-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  placeholder={loginLabels.emailPlaceholder}
-                  className={inputClass}
-                />
-              </div>
-              <PasswordInput
-                label={loginLabels.passwordLabel}
-                placeholder={loginLabels.passwordPlaceholder}
-                showLabel={loginLabels.showPassword}
-                hideLabel={loginLabels.hidePassword}
-              />
-            </div>
-            {loginError ? (
-              <p role="alert" className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
-                {loginError}
-              </p>
-            ) : null}
+        <div className="mt-6 flex gap-3">
+          {step > 0 ? (
             <button
               type="button"
-              onClick={() => {
-                const emailEl = document.getElementById("login-email") as HTMLInputElement | null;
-                const passwordEl = document.getElementById("password") as HTMLInputElement | null;
-                if (!emailEl || !passwordEl) return;
-                const fd = new FormData();
-                fd.set("email", emailEl.value);
-                fd.set("password", passwordEl.value);
-                loginAction(fd);
-              }}
-              disabled={loginPending || pending}
-              className="mt-4 h-12 w-full rounded-lg bg-primary-dark text-sm font-medium text-white transition hover:bg-primary disabled:opacity-60"
+              onClick={handleBack}
+              disabled={pending}
+              className="inline-flex h-12 items-center justify-center rounded-lg border border-line/60 px-6 text-sm font-medium text-steel transition hover:text-ink disabled:opacity-60"
             >
-              {loginPending ? labels.loginPending : labels.loginButton}
+              {labels.backButton}
             </button>
-            <p className="mt-4 text-xs text-steel">{labels.loginHint}</p>
-            <p className="mt-2 text-sm text-muted">
-              {labels.noAccount}{" "}
-              <a href={registerHref} className="font-medium text-primary transition hover:underline">
-                {labels.registerLink}
-              </a>
-            </p>
-          </div>
-        ) : null}
-
-        <button
-          type="submit"
-          disabled={pending || phase === "login"}
-          className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
-        >
-          {pending
-            ? !authed
-              ? labels.savingDraft
-              : labels.sendPending
-            : labels.sendButton}
-        </button>
-      </form>
+          ) : null}
+          <button
+            type="button"
+            onClick={handleNext}
+            disabled={pending || totalSteps === 0}
+            className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-lg bg-primary text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
+          >
+            {pending
+              ? authed
+                ? labels.sendPending
+                : labels.savingDraft
+              : currentStep?.kind === "extra"
+              ? labels.sendButton
+              : labels.nextButton}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -521,108 +616,160 @@ function QuestionField({
       {type === "textarea" ? (
         <textarea
           id={id}
-          name={id}
           rows={4}
-          required={required}
-          placeholder=""
-          value={value ?? ""}
+          value={String(value ?? "")}
           onChange={(e) => onChange(e.target.value)}
           className="w-full rounded-lg bg-field p-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
         />
+
       ) : type === "select" ? (
-        <select
+        <SelectField
           id={id}
-          name={id}
-          required={required}
-          value={value ?? ""}
-          onChange={(e) => onChange(e.target.value)}
-          className={`${inputClass} appearance-none`}
-        >
-          <option value="" disabled>
-            —
-          </option>
-          {(options ?? []).map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
+          options={Array.isArray(options) ? options : []}
+          value={value}
+          onChange={onChange}
+        />
+
       ) : type === "radio" ? (
-        <div className="space-y-2">
-          {(options ?? []).map((opt) => (
-            <label
-              key={opt}
-              className="flex cursor-pointer items-center gap-3 rounded-lg border border-line/40 px-4 py-3 text-sm text-ink transition hover:border-primary/50"
-            >
-              <input
-                type="radio"
-                name={id}
-                value={opt}
-                required={required}
-                checked={value === opt}
-                onChange={() => onChange(opt)}
-                className="size-4 accent-primary"
-              />
-              {opt}
-            </label>
-          ))}
-        </div>
+        <RadioGroup
+          name={id}
+          options={Array.isArray(options) ? options : []}
+          value={value}
+          onChange={onChange}
+        />
+
       ) : type === "checkbox" ? (
-        <div className="space-y-2">
-          {(options ?? []).map((opt) => {
-            const arr: string[] = Array.isArray(value) ? value : [];
-            const checked = arr.includes(opt);
-            return (
-              <label
-                key={opt}
-                className="flex cursor-pointer items-center gap-3 rounded-lg border border-line/40 px-4 py-3 text-sm text-ink transition hover:border-primary/50"
-              >
-                <input
-                  type="checkbox"
-                  name={id}
-                  value={opt}
-                  className="size-4 accent-primary"
-                  checked={checked}
-                  onChange={() =>
-                    onChange(
-                      checked ? arr.filter((v) => v !== opt) : [...arr, opt]
-                    )
-                  }
-                />
-                {opt}
-              </label>
-            );
-          })}
-        </div>
+        <CheckboxGroup
+          name={id}
+          options={Array.isArray(options) ? options : []}
+          value={value}
+          onChange={onChange}
+        />
+
       ) : type === "scale" ? (
         <ScaleField value={value} required={required} onChange={onChange} />
+
       ) : (
         <input
+          type="text"
           id={id}
-          name={id}
-          required={required}
-          type={
-            type === "number"
-              ? "number"
-              : type === "phone"
-              ? "tel"
-              : type === "email"
-              ? "email"
-              : type === "date"
-              ? "date"
-              : type === "file"
-              ? "file"
-              : "text"
-          }
-          value={type === "file" ? undefined : (value ?? "")}
-          onChange={(e) =>
-            type === "file"
-              ? onChange(e.target.files?.[0]?.name ?? "")
-              : onChange(e.target.value)
-          }
-          className={inputClass}
+          value={String(value ?? "")}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={type === "number" ? "0" : ""}
+          className="h-12 w-full rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
         />
       )}
+    </div>
+  );
+}
+
+function SelectField({
+  id,
+  options,
+  value,
+  onChange,
+}: {
+  id: string;
+  options: string[];
+  value: Answer;
+  onChange: (v: Answer) => void;
+}) {
+  return (
+    <select
+      id={id}
+      value={Array.isArray(value) ? "" : String(value ?? "")}
+      onChange={(e) => onChange(e.target.value)}
+      className="h-12 w-full rounded-lg bg-field px-4 text-sm text-ink outline-none focus:ring-2 focus:ring-primary/40"
+    >
+      <option value="">—</option>
+      {options.map((opt) => (
+        <option key={opt} value={opt}>
+          {opt}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function RadioGroup({
+  name,
+  options,
+  value,
+  onChange,
+}: {
+  name: string;
+  options: string[];
+  value: Answer;
+  onChange: (v: Answer) => void;
+}) {
+  return (
+    <div className="space-y-2.5">
+      {options.map((opt) => (
+        <label
+          key={opt}
+          className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition ${
+            value === opt
+              ? "border-primary/60 bg-primary/5"
+              : "border-line/60 bg-white hover:border-primary/30"
+          }`}
+        >
+          <input
+            type="radio"
+            name={name}
+            value={opt}
+            checked={value === opt}
+            onChange={() => onChange(opt)}
+            className="size-4 accent-primary"
+          />
+          <span className="text-sm text-ink">{opt}</span>
+        </label>
+      ))}
+    </div>
+  );
+}
+
+function CheckboxGroup({
+  name,
+  options,
+  value,
+  onChange,
+}: {
+  name: string;
+  options: string[];
+  value: Answer;
+  onChange: (v: Answer) => void;
+}) {
+  const selected = Array.isArray(value) ? value : [];
+
+  const toggle = (opt: string) => {
+    const next = selected.includes(opt)
+      ? selected.filter((o) => o !== opt)
+      : [...selected, opt];
+    onChange(next);
+  };
+
+  return (
+    <div className="space-y-2.5">
+      {options.map((opt) => (
+        <label
+          key={opt}
+          className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition ${
+            selected.includes(opt)
+              ? "border-primary/60 bg-primary/5"
+              : "border-line/60 bg-white hover:border-primary/30"
+          }`}
+        >
+          <input
+            type="checkbox"
+            name={name}
+            value={opt}
+            checked={selected.includes(opt)}
+            onChange={() => toggle(opt)}
+            className="size-4 accent-primary"
+          />
+          <span className="text-sm text-ink">{opt}</span>
+        </label>
+      ))}
     </div>
   );
 }
@@ -647,15 +794,14 @@ function ScaleField({
           className={`h-9 w-9 rounded-lg border text-sm font-semibold transition ${
             value === n
               ? "border-primary bg-primary text-white"
-              : "border-line/60 bg-white text-ink hover:border-primary/60"
+              : "border-line/60 bg-white text-ink hover:border-primary/40"
           }`}
+          aria-pressed={value === n}
+          aria-label={required ? `${n} (obligatorio)` : String(n)}
         >
           {n}
         </button>
       ))}
-      {required && (value == null || value === "") ? (
-        <span className="sr-only">required</span>
-      ) : null}
     </div>
   );
 }
