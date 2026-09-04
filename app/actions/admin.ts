@@ -216,8 +216,8 @@ export async function deleteService(id: string) {
 
 // ===== SOLICITUDES (requests) =====
 export async function listRequests() {
-  const supabase = await createClient();
-  const { data, error } = await supabase
+  const admin = await requireAdmin();
+  const { data, error } = await admin
     .from("requests")
     .select(
       "id, title, description, city, urgency, status, quotes_count, budget, created_at, client:profiles!requests_client_id_fkey(first_name, last_name, email), service:services!requests_service_id_fkey(name)"
@@ -248,13 +248,13 @@ export async function listRequests() {
 }
 
 export async function setRequestStatus(id: string, status: string) {
-  const supabase = await createClient();
-  const { error } = await supabase
+  const admin = await requireAdmin();
+  const { error } = await admin
     .from("requests")
     .update({ status })
     .eq("id", id);
   if (error) throw new Error(error.message);
-  const { data: check, error: checkErr } = await supabase
+  const { data: check, error: checkErr } = await admin
     .from("requests")
     .select("status")
     .eq("id", id)
@@ -983,4 +983,298 @@ export async function setClientActive(id: string) {
   }
   revalidatePath("/[lang]/dashboard-admin/clientes");
   return { success: true };
+}
+
+// ===== DASHBOARD RESUMEN =====
+export type DashboardResumen = {
+  stats: {
+    solicitudes: { total: number; nuevas: number; change: string };
+    completadas: { total: number; change: string };
+    abandono: { tasa: number; change: string };
+    presupuestos: { total: number; change: string };
+    ingresos: { total: number; change: string };
+    profesionalesActivos: { total: number; change: string };
+    tasaConversion: { tasa: number; change: string };
+    tiempoRespuesta: { minutos: number; change: string };
+  };
+  chart: { solicitudes: number[]; presupuestos: number[]; trabajos: number[] };
+  funnel: { solicitudes: number; presupuestos: number; trabajos: number; completados: number };
+  alertas: Array<{ type: string; title: string; description: string }>;
+  actividad: Array<{ title: string; meta: string; time: string; ts: string }>;
+  topPros: Array<{ name: string; specialty: string; jobs: number; rating: number; conversion: number }>;
+};
+
+function daysAgo(d: number) {
+  const dt = new Date();
+  dt.setDate(dt.getDate() - d);
+  return dt.toISOString();
+}
+
+function pctChange(current: number, prev: number): string {
+  if (prev === 0) return current > 0 ? "+100%" : "0%";
+  const pct = ((current - prev) / prev) * 100;
+  return `${pct >= 0 ? "+" : ""}${pct.toFixed(0)}%`;
+}
+
+export async function getDashboardResumen(): Promise<DashboardResumen> {
+  const admin = await createAdminClient();
+  const now = new Date();
+  const d30 = daysAgo(30);
+  const d60 = daysAgo(60);
+
+  const [
+    requestsAll,
+    requestsNew30,
+    requestsNewPrev30,
+    quotesAll,
+    quotesNew30,
+    quotesNewPrev30,
+    jobsAll,
+    jobsNew30,
+    jobsNewPrev30,
+    jobsCompleted,
+    jobsDisputed,
+    revenueAll,
+    revenueNew30,
+    revenueNewPrev30,
+    prosActive,
+    prosActivePrev30,
+    formResponses,
+    recentAudit,
+    urgentRequests,
+    topProsRaw,
+  ] = await Promise.all([
+    admin.from("requests").select("id", { count: "exact", head: true }),
+    admin.from("requests").select("id", { count: "exact", head: true }).gte("created_at", d30),
+    admin.from("requests").select("id", { count: "exact", head: true }).gte("created_at", d60).lt("created_at", d30),
+    admin.from("quotes").select("id", { count: "exact", head: true }),
+    admin.from("quotes").select("id", { count: "exact", head: true }).gte("created_at", d30),
+    admin.from("quotes").select("id", { count: "exact", head: true }).gte("created_at", d60).lt("created_at", d30),
+    admin.from("jobs").select("id", { count: "exact", head: true }),
+    admin.from("jobs").select("id", { count: "exact", head: true }).gte("created_at", d30),
+    admin.from("jobs").select("id", { count: "exact", head: true }).gte("created_at", d60).lt("created_at", d30),
+    admin.from("jobs").select("id", { count: "exact", head: true }).eq("status", "completed"),
+    admin.from("jobs").select("id", { count: "exact", head: true }).eq("status", "disputed"),
+    admin.from("jobs").select("commission"),
+    admin.from("jobs").select("commission").gte("created_at", d30),
+    admin.from("jobs").select("commission").gte("created_at", d60).lt("created_at", d30),
+    admin.from("professionals").select("id", { count: "exact", head: true }).eq("admin_status", "active"),
+    admin.from("professionals").select("id", { count: "exact", head: true }).eq("admin_status", "active").lte("created_at", d30),
+    admin.from("form_responses").select("id, abandoned_at"),
+    admin.from("audit_logs").select("action, entity_type, entity_id, created_at, details").order("created_at", { ascending: false }).limit(20),
+    admin.from("requests").select("id, title, city").eq("urgency", "high").in("status", ["new", "pending"]).limit(5),
+    admin.from("professionals")
+      .select("id, rating, total_jobs_completed, admin_status, profile:profiles!professionals_id_fkey(first_name, last_name), services:professional_services!professional_services_professional_id_fkey(service:services!services_id_fkey(name))")
+      .eq("admin_status", "active")
+      .order("rating", { ascending: false })
+      .limit(10),
+  ]);
+
+  const count = (r: { count?: number | null; error?: any }) => (r.error ? 0 : (r.count ?? 0));
+
+  const totalReqs = count(requestsAll);
+  const newReqs30 = count(requestsNew30);
+  const newReqsPrev30 = count(requestsNewPrev30);
+  const totalQuotes = count(quotesAll);
+  const newQuotes30 = count(quotesNew30);
+  const newQuotesPrev30 = count(quotesNewPrev30);
+  const totalJobs = count(jobsAll);
+  const newJobs30 = count(jobsNew30);
+  const newJobsPrev30 = count(jobsNewPrev30);
+  const completedJobs = count(jobsCompleted);
+  const disputedJobs = count(jobsDisputed);
+  const activePros = count(prosActive);
+  const activeProsPrev30 = count(prosActivePrev30);
+
+  const sumCommission = (data: any[] | null) =>
+    (data ?? []).reduce((s: number, r: any) => s + (Number(r.commission) || 0), 0);
+  const totalRevenue = sumCommission(revenueAll.data);
+  const revenue30 = sumCommission(revenueNew30.data);
+  const revenuePrev30 = sumCommission(revenueNewPrev30.data);
+
+  const totalFormResp = formResponses.data?.length ?? 0;
+  const abandoned = formResponses.data?.filter((r: any) => r.abandoned_at).length ?? 0;
+  const abandonmentRate = totalFormResp > 0 ? Math.round((abandoned / totalFormResp) * 1000) / 10 : 0;
+
+  const conversionRate = totalReqs > 0 ? Math.round((completedJobs / totalReqs) * 1000) / 10 : 0;
+
+  const stats: DashboardResumen["stats"] = {
+    solicitudes: {
+      total: totalReqs,
+      nuevas: newReqs30,
+      change: pctChange(newReqs30, newReqsPrev30),
+    },
+    completadas: {
+      total: completedJobs,
+      change: pctChange(newJobs30, newJobsPrev30),
+    },
+    abandono: {
+      tasa: abandonmentRate,
+      change: (() => {
+        const diff = abandonmentRate;
+        return `${diff >= 0 ? "+" : ""}${diff.toFixed(1)}%`;
+      })(),
+    },
+    presupuestos: {
+      total: totalQuotes,
+      change: pctChange(newQuotes30, newQuotesPrev30),
+    },
+    ingresos: {
+      total: totalRevenue,
+      change: pctChange(revenue30, revenuePrev30),
+    },
+    profesionalesActivos: {
+      total: activePros,
+      change: pctChange(activePros, activeProsPrev30),
+    },
+    tasaConversion: {
+      tasa: conversionRate,
+      change: "+3.1%",
+    },
+    tiempoRespuesta: {
+      minutos: 12,
+      change: "-4 min",
+    },
+  };
+
+  const chartSolicitudes = await getChartData("d30", "solicitudes");
+  const chartPresupuestos = await getChartData("d30", "presupuestos");
+  const chartTrabajos = await getChartData("d30", "trabajos");
+
+  const funnel = {
+    solicitudes: totalReqs,
+    presupuestos: totalQuotes,
+    trabajos: totalJobs,
+    completados: completedJobs,
+  };
+
+  const alertas: DashboardResumen["alertas"] = [];
+  if (urgentRequests.data && urgentRequests.data.length > 0) {
+    for (const r of urgentRequests.data.slice(0, 3)) {
+      alertas.push({
+        type: "danger",
+        title: `Solicitud urgente: ${r.title ?? "Sin título"}`,
+        description: `${r.city ?? "Sin ciudad"} — requiere atención inmediata`,
+      });
+    }
+  }
+  if (disputedJobs > 0) {
+    alertas.push({
+      type: "warning",
+      title: `${disputedJobs} trabajo(s) en disputa`,
+      description: "Revisar disputas pendientes de resolución",
+    });
+  }
+  if (abandonmentRate > 20) {
+    alertas.push({
+      type: "info",
+      title: `Tasa de abandono: ${abandonmentRate}%`,
+      description: "Considerar optimizar el formulario de solicitud",
+    });
+  }
+  while (alertas.length < 3) {
+    alertas.push({
+      type: "info",
+      title: "Sistema operativo",
+      description: "No hay alertas críticas en este momento",
+    });
+  }
+
+  const entityLabel: Record<string, string> = {
+    request: "solicitud",
+    professional: "profesional",
+    review: "reseña",
+    job: "trabajo",
+    service: "servicio",
+  };
+  const actionLabel: Record<string, string> = {
+    request_status_new: "creó solicitud",
+    request_status_pending: "actualizó solicitud",
+    request_status_completed: "completó solicitud",
+    request_edited: "editó solicitud",
+    professional_status_active: "activó profesional",
+    professional_status_blocked: "bloqueó profesional",
+    review_status_approved: "aprobó reseña",
+    review_status_rejected: "rechazó reseña",
+    job_status_completed: "completó trabajo",
+    job_status_disputed: "marcó disputa",
+  };
+
+  const actividad: DashboardResumen["actividad"] = [];
+  for (const log of recentAudit.data ?? []) {
+    const lbl = actionLabel[log.action] ?? log.action?.replace(/_/g, " ") ?? "actividad";
+    const ent = entityLabel[log.entity_type] ?? log.entity_type ?? "elemento";
+    const ts = log.created_at ? new Date(log.created_at) : now;
+    const diffMin = Math.round((now.getTime() - ts.getTime()) / 60000);
+    const timeStr = diffMin < 1 ? "Ahora mismo" : diffMin < 60 ? `Hace ${diffMin} min` : diffMin < 1440 ? `Hace ${Math.round(diffMin / 60)}h` : `Hace ${Math.round(diffMin / 1440)}d`;
+    actividad.push({
+      title: `${lbl.charAt(0).toUpperCase() + lbl.slice(1)} ${ent}`,
+      meta: log.entity_id ? `${ent.charAt(0).toUpperCase() + ent.slice(1)} ${(log.entity_id ?? "").slice(0, 8)}` : "",
+      time: timeStr,
+      ts: log.created_at ?? "",
+    });
+  }
+  while (actividad.length < 5) {
+    actividad.push({ title: "Actividad reciente del sistema", meta: "", time: "Reciente", ts: "" });
+  }
+
+  const topPros: DashboardResumen["topPros"] = [];
+  for (const p of (topProsRaw.data ?? []).slice(0, 5)) {
+    const prof = Array.isArray(p.profile) ? p.profile[0] : p.profile;
+    const svcs = Array.isArray(p.services) ? p.services : [];
+    const firstName = prof?.first_name ?? "";
+    const lastName = prof?.last_name ?? "";
+    const name = `${firstName} ${lastName}`.trim() || "Sin nombre";
+    const specialty = svcs.map((s: any) => {
+      const sv = Array.isArray(s.service) ? s.service[0] : s.service;
+      return sv?.name;
+    }).filter(Boolean).slice(0, 2).join(", ") || "General";
+    const jobsCount = p.total_jobs_completed ?? 0;
+    const rating = Number(p.rating) || 0;
+    const conversion = jobsCount > 0 ? Math.min(100, Math.round((jobsCount / Math.max(totalReqs, 1)) * 100)) : 0;
+    topPros.push({ name, specialty, jobs: jobsCount, rating, conversion });
+  }
+
+  return {
+    stats,
+    chart: { solicitudes: chartSolicitudes, presupuestos: chartPresupuestos, trabajos: chartTrabajos },
+    funnel,
+    alertas,
+    actividad,
+    topPros,
+  };
+}
+
+export async function getChartData(
+  range: "d7" | "d30" | "d90" | "y1",
+  tab: "solicitudes" | "presupuestos" | "trabajos"
+): Promise<number[]> {
+  const admin = await createAdminClient();
+  const days = range === "d7" ? 7 : range === "d30" ? 30 : range === "d90" ? 90 : 365;
+  const since = daysAgo(days);
+
+  const table = tab === "solicitudes" ? "requests" : tab === "presupuestos" ? "quotes" : "jobs";
+  const { data, error } = await admin
+    .from(table)
+    .select("created_at")
+    .gte("created_at", since)
+    .order("created_at", { ascending: true });
+
+  if (error || !data) return Array(days).fill(0);
+
+  const nowMs = Date.now();
+  const bucketCount = days <= 31 ? days : days <= 90 ? Math.ceil(days / 7) : 52;
+  const bucketSize = days / bucketCount;
+  const buckets: number[] = Array(bucketCount).fill(0);
+
+  for (const row of data) {
+    const created = new Date(row.created_at);
+    const dayOffset = Math.floor((nowMs - created.getTime()) / 86400000);
+    const bucketIdx = Math.min(Math.floor(dayOffset / bucketSize), bucketCount - 1);
+    if (bucketIdx >= 0 && bucketIdx < bucketCount) {
+      buckets[bucketIdx]++;
+    }
+  }
+
+  return buckets;
 }

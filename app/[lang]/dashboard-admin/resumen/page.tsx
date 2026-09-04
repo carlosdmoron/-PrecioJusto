@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { lang } from "next/root-params";
 import { getDictionary, getDictionaryByLocale } from "../../dictionaries";
 import { createClient } from "../../../../lib/supabase/server";
+import { getDashboardResumen } from "../../../../app/actions/admin";
 import ResumenPageClient from "./ResumenPageClient";
 import type { FilterField } from "../../../components/admin/FilterBar";
 
@@ -33,6 +34,7 @@ export default async function ResumenPage() {
   ];
 
   let userName: string | null = null;
+  let dashboardData = null;
   try {
     const supabase = await createClient();
     const {
@@ -43,11 +45,16 @@ export default async function ResumenPage() {
     // sin sesión: saludo genérico
   }
 
+  try {
+    dashboardData = await getDashboardResumen();
+  } catch {
+    // Si falla la carga de datos, el client component usará fallbacks
+  }
+
   return (
     <ResumenPageClient
       userName={userName}
-      stats={resumen.stats}
-      alerts={resumen.alerts}
+      dashboardData={dashboardData}
       filters={filters}
       filterLabels={{ apply: resumen.filters.aplicar, clear: resumen.filters.limpiar }}
       ui={ui}

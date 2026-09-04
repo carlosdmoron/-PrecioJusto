@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import {
   AlertTriangle,
   ArrowDownRight,
@@ -31,17 +31,10 @@ import {
   type BadgeVariant,
 } from "../../../components/admin/ui";
 import type { FilterField } from "../../../components/admin/FilterBar";
+import { getChartData } from "../../../../app/actions/admin";
+import type { DashboardResumen } from "../../../../app/actions/admin";
 
 const MainChart = dynamic(() => import("./MainChart"), { ssr: false });
-
-type StatItem = {
-  label: string;
-  value: string;
-  change: string;
-  trend: string;
-};
-
-type AlertItem = { type: string; title: string; description: string };
 
 type ResumenUi = {
   greetingMorning: string;
@@ -67,35 +60,6 @@ type ResumenUi = {
   activity: { title: string; items: { title: string; meta: string; time: string }[] };
 };
 
-function mulberry(seed: number) {
-  return () => {
-    seed |= 0;
-    seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function generateSeries(seed: number, n: number, endValue: number) {
-  const rnd = mulberry(seed);
-  const start = endValue * (0.55 + rnd() * 0.2);
-  const pts: number[] = [];
-  for (let i = 0; i < n; i++) {
-    const t = i / (n - 1);
-    const trend = start + (endValue - start) * t;
-    const noise = (rnd() - 0.5) * endValue * 0.18;
-    pts.push(Math.max(1, Math.round(trend + noise)));
-  }
-  pts[n - 1] = endValue;
-  return pts;
-}
-
-function parseValue(v: string): number {
-  const n = parseFloat(v.replace(/[^\d.,-]/g, "").replace(/\./g, "").replace(",", "."));
-  return Number.isFinite(n) ? n : 100;
-}
-
 function chartLabels(n: number): string[] {
   if (n >= 52) return Array.from({ length: n }, (_, i) => `S${i + 1}`);
   const out: string[] = [];
@@ -114,7 +78,6 @@ const TAB_COLORS: Record<string, string> = {
   presupuestos: "#0891B2",
   trabajos: "#16A34A",
 };
-const TAB_BASE: Record<string, number> = { solicitudes: 247, presupuestos: 583, trabajos: 327 };
 
 function KpiCard({
   label,
@@ -123,7 +86,7 @@ function KpiCard({
   trend,
   vsPrev,
   invert = false,
-  seed,
+  sparkData,
   icon,
 }: {
   label: string;
@@ -132,7 +95,7 @@ function KpiCard({
   trend: "up" | "down";
   vsPrev: string;
   invert?: boolean;
-  seed: number;
+  sparkData?: number[];
   icon?: React.ReactNode;
 }) {
   const isUp = trend === "up";
@@ -166,12 +129,14 @@ function KpiCard({
       </p>
       <div className="mt-3 flex items-end justify-between gap-3">
         <p className="text-[11px] text-pj-faint">{vsPrev}</p>
-        <Sparkline
-          points={generateSeries(seed, 14, parseValue(value))}
-          color={good ? "#16A34A" : "#DC2626"}
-          width={110}
-          height={32}
-        />
+        {sparkData && sparkData.length > 0 ? (
+          <Sparkline
+            points={sparkData}
+            color={good ? "#16A34A" : "#DC2626"}
+            width={110}
+            height={32}
+          />
+        ) : null}
       </div>
     </Card>
   );
@@ -185,16 +150,14 @@ const ALERT_STYLE: Record<string, { icon: typeof Info; badge: BadgeVariant; bar:
 
 export default function ResumenPageClient({
   userName,
-  stats,
-  alerts,
+  dashboardData,
   filters,
   filterLabels,
   ui,
   solicitudesHref,
 }: {
   userName: string | null;
-  stats: StatItem[];
-  alerts: AlertItem[];
+  dashboardData: DashboardResumen | null;
   filters: FilterField[];
   filterLabels: { apply: string; clear: string };
   ui: ResumenUi;
@@ -205,6 +168,8 @@ export default function ResumenPageClient({
   const [tab, setTab] = useState<"solicitudes" | "presupuestos" | "trabajos">("solicitudes");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [periodOpen, setPeriodOpen] = useState(false);
+  const [chartData, setChartData] = useState<{ label: string; value: number }[]>([]);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const h = new Date().getHours();
@@ -214,19 +179,133 @@ export default function ResumenPageClient({
     );
   }, [ui]);
 
-  const nPoints = RANGE_POINTS[range];
-  const chartData = useMemo(() => {
+  useEffect(() => {
+    const nPoints = RANGE_POINTS[range];
     const labels = chartLabels(nPoints);
-    const series = generateSeries(
-      TAB_BASE[tab] + nPoints,
-      nPoints,
-      TAB_BASE[tab]
-    );
-    return labels.map((label, i) => ({ label, value: series[i] }));
-  }, [tab, nPoints]);
+
+    if (dashboardData?.chart) {
+      const key = tab;
+      const raw = dashboardData.chart[key] ?? [];
+      const padded = [...raw];
+      while (padded.length < nPoints) padded.unshift(0);
+      const sliced = padded.slice(-nPoints);
+      setChartData(labels.map((label, i) => ({ label, value: sliced[i] ?? 0 })));
+    } else {
+      startTransition(async () => {
+        try {
+          const raw = await getChartData(range, tab);
+          const padded = [...raw];
+          while (padded.length < nPoints) padded.unshift(0);
+          const sliced = padded.slice(-nPoints);
+          setChartData(labels.map((label, i) => ({ label, value: sliced[i] ?? 0 })));
+        } catch {
+          setChartData(labels.map((label) => ({ label, value: 0 })));
+        }
+      });
+    }
+  }, [range, tab, dashboardData]);
+
+  const handleRangeChange = (newRange: typeof range) => {
+    setRange(newRange);
+    setPeriodOpen(false);
+  };
+
+  const handleTabChange = (newTab: typeof tab) => {
+    setTab(newTab);
+  };
 
   const total = chartData.reduce((a, p) => a + p.value, 0);
-  const funnelMax = parseValue(ui.funnel.steps[0]?.value ?? "1");
+  const stats = dashboardData?.stats;
+  const funnel = dashboardData?.funnel;
+  const funnelSteps = funnel
+    ? [
+        { label: "Solicitudes", value: funnel.solicitudes },
+        { label: "Presupuestos", value: funnel.presupuestos },
+        { label: "Trabajos", value: funnel.trabajos },
+        { label: "Completados", value: funnel.completados },
+      ]
+    : ui.funnel.steps.map((s) => ({ label: s.label, value: parseInt(s.value.replace(/\D/g, "")) || 0 }));
+  const funnelMax = funnelSteps[0]?.value || 1;
+
+  const alerts = dashboardData?.alertas ?? [];
+  const activity = dashboardData?.actividad ?? [];
+  const topPros = dashboardData?.topPros ?? [];
+
+  const sparkSolicitudes = dashboardData?.chart?.solicitudes ?? [];
+  const sparkPresupuestos = dashboardData?.chart?.presupuestos ?? [];
+  const sparkTrabajos = dashboardData?.chart?.trabajos ?? [];
+
+  const kpiRow1 = stats
+    ? [
+        {
+          label: ui.chart.tabs.solicitudes,
+          value: stats.solicitudes.total.toLocaleString("es-ES"),
+          change: stats.solicitudes.change,
+          trend: (stats.solicitudes.nuevas > 0 ? "up" : "down") as "up" | "down",
+          icon: <ClipboardList size={17} strokeWidth={2} />,
+          spark: sparkSolicitudes,
+        },
+        {
+          label: ui.chart.tabs.trabajos,
+          value: stats.completadas.total.toLocaleString("es-ES"),
+          change: stats.completadas.change,
+          trend: (stats.completadas.total > 0 ? "up" : "down") as "up" | "down",
+          icon: <CheckCircle2 size={17} strokeWidth={2} />,
+          spark: sparkTrabajos,
+        },
+        {
+          label: ui.kpis.vsPrev.split(" ").pop() ?? "Abandono",
+          value: `${stats.abandono.tasa}%`,
+          change: stats.abandono.change,
+          trend: "down" as const,
+          icon: <UserX size={17} strokeWidth={2} />,
+          invert: true,
+          spark: [],
+        },
+        {
+          label: ui.chart.tabs.presupuestos,
+          value: stats.presupuestos.total.toLocaleString("es-ES"),
+          change: stats.presupuestos.change,
+          trend: (stats.presupuestos.total > 0 ? "up" : "down") as "up" | "down",
+          icon: <FileText size={17} strokeWidth={2} />,
+          spark: sparkPresupuestos,
+        },
+      ]
+    : [];
+
+  const kpiRow2 = stats
+    ? [
+        {
+          label: ui.kpis.revenue,
+          value: `€${stats.ingresos.total.toLocaleString("es-ES")}`,
+          change: stats.ingresos.change,
+          trend: "up" as const,
+          icon: <Wallet size={17} strokeWidth={2} />,
+        },
+        {
+          label: ui.kpis.activePros,
+          value: stats.profesionalesActivos.total.toLocaleString("es-ES"),
+          change: stats.profesionalesActivos.change,
+          trend: "up" as const,
+          icon: <Users size={17} strokeWidth={2} />,
+        },
+        {
+          label: ui.kpis.conversion,
+          value: `${stats.tasaConversion.tasa}%`,
+          change: stats.tasaConversion.change,
+          trend: "up" as const,
+          icon: <Percent size={17} strokeWidth={2} />,
+        },
+        {
+          label: ui.kpis.avgResponse,
+          value: `${stats.tiempoRespuesta.minutos} min`,
+          change: stats.tiempoRespuesta.change,
+          trend: "down" as const,
+          icon: <Timer size={17} strokeWidth={2} />,
+          invert: true,
+        },
+      ]
+    : [];
 
   return (
     <div className="flex flex-col gap-6">
@@ -259,7 +338,7 @@ export default function ResumenPageClient({
                     key={k}
                     type="button"
                     onClick={() => {
-                      if (k !== "today") setRange(k as "d7" | "d30" | "d90");
+                      if (k !== "today") handleRangeChange(k as "d7" | "d30" | "d90");
                       setPeriodOpen(false);
                     }}
                     className={`block w-full px-4 py-2 text-left text-sm transition hover:bg-pj-bg ${
@@ -300,34 +379,35 @@ export default function ResumenPageClient({
 
       {/* ── KPIs fila 1 ── */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.slice(0, 4).map((s, i) => (
+        {kpiRow1.map((s, i) => (
           <KpiCard
-            key={s.label}
+            key={i}
             label={s.label}
             value={s.value}
             change={s.change}
-            trend={s.trend as "up" | "down"}
+            trend={s.trend}
             vsPrev={ui.kpis.vsPrev}
-            invert={/abandono|abandon|drop/i.test(s.label)}
-            seed={i + 1}
-            icon={
-              [
-                <ClipboardList key="i" size={17} strokeWidth={2} />,
-                <CheckCircle2 key="i" size={17} strokeWidth={2} />,
-                <UserX key="i" size={17} strokeWidth={2} />,
-                <FileText key="i" size={17} strokeWidth={2} />,
-              ][i]
-            }
+            invert={s.invert}
+            sparkData={s.spark}
+            icon={s.icon}
           />
         ))}
       </div>
 
       {/* ── KPIs fila 2 ── */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard label={ui.kpis.revenue} value={ui.kpis.revenueValue} change={ui.kpis.revenueChange} trend="up" vsPrev={ui.kpis.vsPrev} seed={5} icon={<Wallet size={17} strokeWidth={2} />} />
-        <KpiCard label={ui.kpis.activePros} value={ui.kpis.activeProsValue} change={ui.kpis.activeProsChange} trend="up" vsPrev={ui.kpis.vsPrev} seed={6} icon={<Users size={17} strokeWidth={2} />} />
-        <KpiCard label={ui.kpis.conversion} value={ui.kpis.conversionValue} change={ui.kpis.conversionChange} trend="up" vsPrev={ui.kpis.vsPrev} seed={7} icon={<Percent size={17} strokeWidth={2} />} />
-        <KpiCard label={ui.kpis.avgResponse} value={ui.kpis.avgResponseValue} change={ui.kpis.avgResponseChange} trend="down" vsPrev={ui.kpis.vsPrev} invert seed={8} icon={<Timer size={17} strokeWidth={2} />} />
+        {kpiRow2.map((s, i) => (
+          <KpiCard
+            key={i}
+            label={s.label}
+            value={s.value}
+            change={s.change}
+            trend={s.trend}
+            vsPrev={ui.kpis.vsPrev}
+            invert={s.invert}
+            icon={s.icon}
+          />
+        ))}
       </div>
 
       {/* ── Gráfico + Funnel ── */}
@@ -342,7 +422,7 @@ export default function ResumenPageClient({
                   <button
                     key={k}
                     type="button"
-                    onClick={() => setTab(k as typeof tab)}
+                    onClick={() => handleTabChange(k as typeof tab)}
                     className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${
                       tab === k
                         ? "bg-white text-pj-primary shadow-sm"
@@ -357,28 +437,17 @@ export default function ResumenPageClient({
           />
           <div className="px-3 pb-4 pt-4">
             <div className="mb-3 flex items-center justify-between gap-2">
-              {(() => {
-                const ch =
-                  tab === "solicitudes"
-                    ? stats[0]?.change
-                    : tab === "presupuestos"
-                      ? stats[3]?.change
-                      : undefined;
-                return ch ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-pj-success-bg px-2 py-0.5 text-xs font-semibold text-pj-success">
-                    <ArrowUpRight size={12} strokeWidth={2.5} />
-                    {ch} {ui.kpis.vsPrev}
-                  </span>
-                ) : (
-                  <span />
-                );
-              })()}
+              {isPending ? (
+                <span className="text-xs text-pj-faint">Actualizando...</span>
+              ) : (
+                <span />
+              )}
               <div className="flex justify-end gap-1">
               {(Object.keys(ui.chartRanges) as Array<keyof typeof ui.chartRanges>).map((k) => (
                 <button
                   key={k}
                   type="button"
-                  onClick={() => setRange(k as typeof range)}
+                  onClick={() => handleRangeChange(k as typeof range)}
                   className={`rounded-md px-2 py-1 text-[11px] font-semibold transition ${
                     range === k
                       ? "bg-pj-active-bg text-pj-primary"
@@ -397,17 +466,17 @@ export default function ResumenPageClient({
         <Card>
           <CardHeader title={ui.funnel.title} />
           <div className="flex flex-col gap-1 p-5">
-            {ui.funnel.steps.map((step, i) => {
-              const pct = Math.round((parseValue(step.value) / funnelMax) * 100);
-              const next = ui.funnel.steps[i + 1];
-              const convPct = next
-                ? Math.round((parseValue(next.value) / parseValue(step.value)) * 100)
+            {funnelSteps.map((step, i) => {
+              const pct = Math.round((step.value / funnelMax) * 100);
+              const next = funnelSteps[i + 1];
+              const convPct = next && step.value > 0
+                ? Math.round((next.value / step.value) * 100)
                 : null;
               return (
                 <div key={step.label}>
                   <div className="flex items-center justify-between text-sm">
                     <span className="font-medium text-pj-steel">{step.label}</span>
-                    <span className="font-bold text-pj-ink">{step.value}</span>
+                    <span className="font-bold text-pj-ink">{step.value.toLocaleString("es-ES")}</span>
                   </div>
                   <div className="mt-1.5 h-2.5 w-full overflow-hidden rounded-full bg-pj-neutral-bg">
                     <div
@@ -471,9 +540,9 @@ export default function ResumenPageClient({
         <Card>
           <CardHeader title={ui.activity.title} />
           <ul className="p-5">
-            {ui.activity.items.map((a, i) => (
+            {activity.map((a, i) => (
               <li key={i} className="relative flex gap-3 pb-4 last:pb-0">
-                {i < ui.activity.items.length - 1 ? (
+                {i < activity.length - 1 ? (
                   <span className="absolute left-[5px] top-4 h-full w-px bg-pj-border" aria-hidden="true" />
                 ) : null}
                 <span className="mt-1.5 size-[11px] shrink-0 rounded-full border-2 border-pj-primary bg-white" />
@@ -502,31 +571,57 @@ export default function ResumenPageClient({
               </tr>
             </thead>
             <tbody>
-              {ui.topPros.items.map((p) => (
-                <tr key={p.name} className="border-b border-pj-border/60 transition hover:bg-pj-bg last:border-0">
-                  <td className="px-5 py-3">
-                    <div className="flex items-center gap-3">
-                      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-pj-active-bg text-xs font-bold text-pj-primary">
-                        {p.name.split(" ").map((s) => s.charAt(0)).join("").toUpperCase()}
-                      </span>
-                      <div className="min-w-0">
-                        <p className="truncate font-semibold text-pj-ink">{p.name}</p>
-                        <p className="truncate text-xs text-pj-steel">{p.specialty}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-5 py-3 text-right font-semibold text-pj-ink">{p.jobs}</td>
-                  <td className="px-5 py-3 text-right">
-                    <span className="inline-flex items-center gap-1 font-semibold text-pj-ink">
-                      <Star size={13} className="fill-amber-400 text-amber-400" />
-                      {p.rating}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3 text-right">
-                    <Badge variant="success">{p.conversion}</Badge>
-                  </td>
-                </tr>
-              ))}
+              {topPros.length > 0
+                ? topPros.map((p) => (
+                    <tr key={p.name} className="border-b border-pj-border/60 transition hover:bg-pj-bg last:border-0">
+                      <td className="px-5 py-3">
+                        <div className="flex items-center gap-3">
+                          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-pj-active-bg text-xs font-bold text-pj-primary">
+                            {p.name.split(" ").map((s) => s.charAt(0)).join("").toUpperCase().slice(0, 2)}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="truncate font-semibold text-pj-ink">{p.name}</p>
+                            <p className="truncate text-xs text-pj-steel">{p.specialty}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-5 py-3 text-right font-semibold text-pj-ink">{p.jobs}</td>
+                      <td className="px-5 py-3 text-right">
+                        <span className="inline-flex items-center gap-1 font-semibold text-pj-ink">
+                          <Star size={13} className="fill-amber-400 text-amber-400" />
+                          {p.rating > 0 ? p.rating.toFixed(1) : "—"}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3 text-right">
+                        <Badge variant="success">{p.conversion}%</Badge>
+                      </td>
+                    </tr>
+                  ))
+                : (ui.topPros.items || []).map((p) => (
+                    <tr key={p.name} className="border-b border-pj-border/60 transition hover:bg-pj-bg last:border-0">
+                      <td className="px-5 py-3">
+                        <div className="flex items-center gap-3">
+                          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-pj-active-bg text-xs font-bold text-pj-primary">
+                            {p.name.split(" ").map((s) => s.charAt(0)).join("").toUpperCase()}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="truncate font-semibold text-pj-ink">{p.name}</p>
+                            <p className="truncate text-xs text-pj-steel">{p.specialty}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-5 py-3 text-right font-semibold text-pj-ink">{p.jobs}</td>
+                      <td className="px-5 py-3 text-right">
+                        <span className="inline-flex items-center gap-1 font-semibold text-pj-ink">
+                          <Star size={13} className="fill-amber-400 text-amber-400" />
+                          {p.rating}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3 text-right">
+                        <Badge variant="success">{p.conversion}</Badge>
+                      </td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
         </div>
