@@ -180,8 +180,8 @@ export async function createSolicitud(data: SolicitudPayload) {
     ).catch((e) => console.error("Matching distribution error:", e));
   }
 
-  revalidatePath("/dashboard-cliente/solicitudes");
-  revalidatePath("/dashboard-cliente");
+  revalidatePath("/dashboard-cliente/solicitudes", "page");
+  revalidatePath("/dashboard-cliente", "page");
   return { success: true, id: request?.id };
 }
 
@@ -289,7 +289,7 @@ export async function claimDraftRequest(anon_code: string) {
     draft.city ?? ""
   ).catch((e) => console.error("Matching distribution error:", e));
 
-  revalidatePath("/dashboard-cliente/solicitudes");
-  revalidatePath("/dashboard-cliente");
+  revalidatePath("/dashboard-cliente/solicitudes", "page");
+  revalidatePath("/dashboard-cliente", "page");
   return { success: true, id: draft.id };
 }

@@ -38,6 +38,6 @@ export async function updateProfile(formData: {
     .eq("id", user.id);
 
   if (error) throw error.message;
-  revalidatePath("/dashboard-cliente/perfil");
+  revalidatePath("/dashboard-cliente/perfil", "page");
   return { success: true };
 }

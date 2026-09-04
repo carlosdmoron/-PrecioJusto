@@ -34,14 +34,18 @@ function getPreferredLocale(request: NextRequest): string {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const pathnameHasLocale = locales.some(
+  const localePath = `/${pathname.split("/")[1]}`;
+  const hasLocalePath = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
-  if (!pathnameHasLocale) {
+  if (!hasLocalePath) {
     const locale = getPreferredLocale(request);
     request.nextUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
     return NextResponse.redirect(request.nextUrl);
   }
+
+  // Path relativo al prefijo de idioma para decidir rutas protegidas.
+  const unprefixedPath = localePath === pathname ? "/" : pathname.slice(localePath.length);
 
   let response = NextResponse.next({ request });
 
@@ -70,7 +74,7 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
+  const isProtected = PROTECTED_PREFIXES.some((p) => unprefixedPath === p || unprefixedPath.startsWith(`${p}/`));
   if (isProtected && !user) {
     const locale = pathname.split("/")[1] || defaultLocale;
     return NextResponse.redirect(
@@ -79,7 +83,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // /dashboard-admin exige rol admin
-  if (user && pathname.includes("/dashboard-admin")) {
+  if (user && unprefixedPath.startsWith("/dashboard-admin")) {
     const locale = pathname.split("/")[1] || defaultLocale;
     const { data: profile } = await supabase
       .from("profiles")

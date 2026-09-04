@@ -53,6 +53,6 @@ export async function sendMessage(conversationId: string, text: string) {
     })
     .eq("id", conversationId);
 
-  revalidatePath("/dashboard-cliente/mensajes");
+  revalidatePath("/dashboard-cliente/mensajes", "page");
   return { success: true };
 }

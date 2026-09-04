@@ -60,7 +60,7 @@ export async function removeFavorite(favoriteId: string) {
     .eq("client_id", user.id);
 
   if (error) throw error.message;
-  revalidatePath("/dashboard-cliente/favoritos");
+  revalidatePath("/dashboard-cliente/favoritos", "page");
   return { success: true };
 }
 
@@ -75,6 +75,6 @@ export async function addFavorite(professionalId: string) {
   });
 
   if (error) throw error.message;
-  revalidatePath("/dashboard-cliente/favoritos");
+  revalidatePath("/dashboard-cliente/favoritos", "page");
   return { success: true };
 }

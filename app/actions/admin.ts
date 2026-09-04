@@ -144,7 +144,7 @@ export async function createService(input: AdminServiceInput) {
     .single();
   if (error) throw new Error(error.message);
   if (!data?.id) throw new Error("No se pudo verificar la creación en la base de datos");
-  revalidatePath("/[lang]/dashboard-admin/servicios");
+  revalidatePath("/[lang]/dashboard-admin/servicios", "page");
   return { success: true, id: data.id };
 }
 
@@ -172,7 +172,7 @@ export async function updateService(id: string, input: AdminServiceInput) {
   if (!check || check.status !== input.status) {
     throw new Error("No se pudo verificar la actualización en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/servicios");
+  revalidatePath("/[lang]/dashboard-admin/servicios", "page");
   return { success: true };
 }
 
@@ -193,7 +193,7 @@ export async function setServiceStatus(id: string, status: string) {
   if (!check || check.status !== status) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/servicios");
+  revalidatePath("/[lang]/dashboard-admin/servicios", "page");
   return { success: true };
 }
 
@@ -210,7 +210,7 @@ export async function deleteService(id: string) {
   if (check && check.length > 0) {
     throw new Error("No se pudo verificar la eliminación en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/servicios");
+  revalidatePath("/[lang]/dashboard-admin/servicios", "page");
   return { success: true };
 }
 
@@ -264,7 +264,7 @@ export async function setRequestStatus(id: string, status: string) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
   await logRequestAudit(id, `request_status_${status}`, { status });
-  revalidatePath("/[lang]/dashboard-admin/solicitudes");
+  revalidatePath("/[lang]/dashboard-admin/solicitudes", "page");
   return { success: true };
 }
 
@@ -480,7 +480,7 @@ export async function updateRequest(
   if (!check) throw new Error("No se pudo verificar el cambio en la base de datos");
 
   await logRequestAudit(id, "request_edited", patch);
-  revalidatePath("/[lang]/dashboard-admin/solicitudes");
+  revalidatePath("/[lang]/dashboard-admin/solicitudes", "page");
   return { success: true };
 }
 
@@ -521,7 +521,7 @@ export async function toggleMatchingRule(id: string, status: string) {
   if (!check || check.status !== status) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/matching");
+  revalidatePath("/[lang]/dashboard-admin/matching", "page");
   return { success: true };
 }
 
@@ -545,7 +545,7 @@ export async function createMatchingRule(input: {
     .single();
   if (error) throw new Error(error.message);
   if (!data?.id) throw new Error("No se pudo verificar la creación en la base de datos");
-  revalidatePath("/[lang]/dashboard-admin/matching");
+  revalidatePath("/[lang]/dashboard-admin/matching", "page");
   return { success: true, id: data.id };
 }
 
@@ -567,7 +567,7 @@ export async function updateMatchingRule(
     .single();
   if (error) throw new Error(error.message);
   if (!data?.id) throw new Error("No se pudo verificar la actualización en la base de datos");
-  revalidatePath("/[lang]/dashboard-admin/matching");
+  revalidatePath("/[lang]/dashboard-admin/matching", "page");
   return { success: true };
 }
 
@@ -575,7 +575,7 @@ export async function deleteMatchingRule(id: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("matching_rules").delete().eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/[lang]/dashboard-admin/matching");
+  revalidatePath("/[lang]/dashboard-admin/matching", "page");
   return { success: true };
 }
 
@@ -600,7 +600,7 @@ export async function duplicateMatchingRule(id: string) {
     .single();
   if (error) throw new Error(error.message);
   if (!data?.id) throw new Error("No se pudo verificar la duplicación en la base de datos");
-  revalidatePath("/[lang]/dashboard-admin/matching");
+  revalidatePath("/[lang]/dashboard-admin/matching", "page");
   return { success: true, id: data.id };
 }
 
@@ -731,7 +731,7 @@ export async function setProfessionalAdminStatus(id: string, status: string) {
   if (!check || check.admin_status !== status) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/profesionales");
+  revalidatePath("/[lang]/dashboard-admin/profesionales", "page");
   return { success: true };
 }
 
@@ -778,7 +778,7 @@ export async function setReviewStatus(id: string, status: string) {
   if (!check || check.status !== status) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/resenas");
+  revalidatePath("/[lang]/dashboard-admin/resenas", "page");
   return { success: true };
 }
 
@@ -839,7 +839,7 @@ export async function setJobStatus(id: string, status: string) {
   if (!check || check.status !== status) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/trabajos");
+  revalidatePath("/[lang]/dashboard-admin/trabajos", "page");
   return { success: true };
 }
 
@@ -881,7 +881,7 @@ export async function setTicketStatus(id: string, status: string) {
   if (!check || check.status !== status) {
     throw new Error("No se pudo verificar el cambio de estado en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/soporte");
+  revalidatePath("/[lang]/dashboard-admin/soporte", "page");
   return { success: true };
 }
 
@@ -906,7 +906,7 @@ export async function createTicket(input: {
     .single();
   if (error) throw new Error(error.message);
   if (!data?.id) throw new Error("No se pudo verificar la creación en la base de datos");
-  revalidatePath("/[lang]/dashboard-admin/soporte");
+  revalidatePath("/[lang]/dashboard-admin/soporte", "page");
   return { success: true };
 }
 
@@ -959,7 +959,7 @@ export async function setClientBlocked(id: string) {
   if (!check || check.status !== "banned") {
     throw new Error("No se pudo verificar el bloqueo del cliente en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/clientes");
+  revalidatePath("/[lang]/dashboard-admin/clientes", "page");
   return { success: true };
 }
 
@@ -981,7 +981,7 @@ export async function setClientActive(id: string) {
   if (!check || check.status !== "active") {
     throw new Error("No se pudo verificar la reactivación del cliente en la base de datos");
   }
-  revalidatePath("/[lang]/dashboard-admin/clientes");
+  revalidatePath("/[lang]/dashboard-admin/clientes", "page");
   return { success: true };
 }
 

@@ -74,8 +74,8 @@ export async function createRequest(formData: {
     );
   }
 
-  revalidatePath("/dashboard-cliente/solicitudes");
-  revalidatePath("/dashboard-cliente");
+  revalidatePath("/dashboard-cliente/solicitudes", "page");
+  revalidatePath("/dashboard-cliente", "page");
   return { success: true, id: inserted?.id };
 }
 
@@ -159,6 +159,6 @@ export async function deleteRequest(id: string) {
     .eq("client_id", user.id);
 
   if (error) throw error.message;
-  revalidatePath("/dashboard-cliente/solicitudes");
+  revalidatePath("/dashboard-cliente/solicitudes", "page");
   return { success: true };
 }
