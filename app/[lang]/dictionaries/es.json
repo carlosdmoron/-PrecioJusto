@@ -99,7 +99,7 @@
     },
     {
       "title": "Desde tu casa",
-      "desc": "Recibe alertas cuando el precio baja y compra sin salir de casa."
+      "desc": "Recibe los presupuestos de varios expertos directamente desde tu casa, sin estrés y sin tener que desplazarte."
     },
     {
       "title": "Comparte y ahorra",
@@ -111,16 +111,16 @@
     "subtitle": "Tres pasos y empiezas a ahorrar en cada compra.",
     "steps": [
       {
-        "title": "Busca el producto",
-        "desc": "Escribe lo que necesitas y comparamos el precio en cientos de tiendas al instante."
+        "title": "Elige tu servicio",
+        "desc": "Elige el servicio que necesitas e introduce gratuitamente toda la información al respecto. Nuestros expertos realizarán el presupuesto más adecuado para ti."
       },
       {
-        "title": "Activa una alerta",
-        "desc": "Elige tu precio objetivo y te avisamos en cuanto alguna tienda lo alcance."
+        "title": "Recibe hasta 5 presupuestos",
+        "desc": "PrecioJusto encontrará gratuitamente para ti los 5 presupuestos con el mejor precio y la mejor calidad, basándose en las reseñas verificadas que otros clientes han dejado sobre nuestros expertos."
       },
       {
-        "title": "Compra al precio justo",
-        "desc": "Compra con la tranquilidad de saber que es el mejor momento para hacerlo."
+        "title": "Elige el presupuesto ideal",
+        "desc": "Elige gratuitamente, entre los 5 presupuestos recibidos, el presupuesto que consideres más adecuado. Una vez que hayas elegido y seleccionado el presupuesto, te pondremos gratuitamente en contacto con el experto que lo ha creado para que puedas recibir el servicio más adecuado para ti."
       }
     ]
   },

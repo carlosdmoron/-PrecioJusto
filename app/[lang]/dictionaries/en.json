@@ -99,7 +99,7 @@
     },
     {
       "title": "From your home",
-      "desc": "Get alerts when prices drop and shop without leaving home."
+      "desc": "Receive quotes from several experts directly from your home, stress-free and without having to leave."
     },
     {
       "title": "Share & save",
@@ -111,16 +111,16 @@
     "subtitle": "Three steps and you start saving on every purchase.",
     "steps": [
       {
-        "title": "Search the product",
-        "desc": "Type what you need and we compare the price across hundreds of stores instantly."
+        "title": "Choose your service",
+        "desc": "Choose the service you need and provide all the relevant information for free. Our experts will prepare the most suitable quote for you."
       },
       {
-        "title": "Set an alert",
-        "desc": "Choose your target price and we notify you as soon as any store reaches it."
+        "title": "Receive up to 5 quotes",
+        "desc": "PrecioJusto will find for you, free of charge, the 5 quotes with the best price and the best quality, based on the verified reviews other customers have left about our experts."
       },
       {
-        "title": "Buy at the fair price",
-        "desc": "Buy with peace of mind knowing it's the right time to do it."
+        "title": "Choose the ideal quote",
+        "desc": "Choose freely, among the 5 quotes received, the one you consider most suitable. Once you have chosen and selected the quote, we will put you in touch with the expert who created it for free, so you can receive the most suitable service for you."
       }
     ]
   },

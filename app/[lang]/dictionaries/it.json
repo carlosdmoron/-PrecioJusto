@@ -99,7 +99,7 @@
     },
     {
       "title": "Da casa tua",
-      "desc": "Ricevi avvisi quando il prezzo scende e acquista senza uscire di casa."
+      "desc": "Ricevi i preventivi di diversi esperti direttamente da casa tua, senza stress e senza doverti spostare."
     },
     {
       "title": "Condividi e risparmia",
@@ -111,16 +111,16 @@
     "subtitle": "Tre passaggi e inizi a risparmiare su ogni acquisto.",
     "steps": [
       {
-        "title": "Cerca il prodotto",
-        "desc": "Scrivi cosa ti serve e confrontiamo il prezzo in centinaia di negozi all'istante."
+        "title": "Scegli il tuo servizio",
+        "desc": "Scegli il servizio che ti serve e inserisci gratuitamente tutte le informazioni al riguardo. I nostri esperti realizzeranno il preventivo più adatto a te."
       },
       {
-        "title": "Attiva un avviso",
-        "desc": "Scegli il prezzo obiettivo e ti avvisiamo non appena qualche negozio lo raggiunge."
+        "title": "Ricevi fino a 5 preventivi",
+        "desc": "PrecioJusto troverà gratuitamente per te i 5 preventivi con il miglior prezzo e la migliore qualità, basandosi sulle recensioni verificate che altri clienti hanno lasciato sui nostri esperti."
       },
       {
-        "title": "Compra al prezzo giusto",
-        "desc": "Acquista con la tranquillità di sapere che è il momento migliore per farlo."
+        "title": "Scegli il preventivo ideale",
+        "desc": "Scegli gratuitamente, tra i 5 preventivi ricevuti, quello che consideri più adatto. Una volta scelto e selezionato il preventivo, ti metteremo gratuitamente in contatto con l'esperto che lo ha creato, per farti ricevere il servizio più adatto a te."
       }
     ]
   },
