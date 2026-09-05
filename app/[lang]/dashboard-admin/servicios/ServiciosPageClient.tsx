@@ -13,6 +13,7 @@ import {
   createService,
   updateService,
   deleteService,
+  uploadServiceImage,
 } from "../../../actions/admin";
 
 type Cat = { id: string; name: string; slug: string };
@@ -53,6 +54,7 @@ export default function ServiciosPageClient({ data }: { data: any }) {
     slug: "",
   });
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const columns = [
     { key: "name", label: data.table.name },
@@ -115,6 +117,24 @@ export default function ServiciosPageClient({ data }: { data: any }) {
       await sweetError(e?.message ?? "Error", data.feedback.verifyError);
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handleImageFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImage(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const { url } = await uploadServiceImage(fd);
+      setForm((prev) => ({ ...prev, image_url: url }));
+      await sweetSuccess(data.modal.imageUploaded);
+    } catch (err: any) {
+      await sweetError(err?.message ?? "Error", data.modal.imageUploaded);
+    } finally {
+      setUploadingImage(false);
+      e.target.value = "";
     }
   }
 
@@ -231,6 +251,16 @@ export default function ServiciosPageClient({ data }: { data: any }) {
                 className="h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
               />
             </div>
+            <label className="mt-3 inline-flex h-10 cursor-pointer items-center gap-2 rounded-lg border border-primary/60 bg-primary/5 px-4 text-sm font-medium text-primary transition hover:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-60">
+              {uploadingImage ? data.modal.uploading : data.modal.uploadImage}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageFile}
+                disabled={uploadingImage}
+                className="hidden"
+              />
+            </label>
           </div>
           <div>
             <label className="text-xs font-medium text-muted">{data.modal.imageGallery}</label>

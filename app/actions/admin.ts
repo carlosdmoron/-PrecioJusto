@@ -148,6 +148,60 @@ export async function createService(input: AdminServiceInput) {
   return { success: true, id: data.id };
 }
 
+// Sube una imagen de servicio al bucket público de Supabase Storage y devuelve
+// la URL pública. Solo admite imágenes y un máximo de 5 MB.
+export async function uploadServiceImage(
+  formData: FormData
+): Promise<{ url: string }> {
+  const user = await requireUser();
+  const file = formData.get("file");
+  if (!(file instanceof File)) {
+    throw new Error("No se recibió ninguna imagen.");
+  }
+  if (!file.type.startsWith("image/")) {
+    throw new Error("El archivo debe ser una imagen (JPG, PNG, WebP...).");
+  }
+  const MAX_SIZE = 5 * 1024 * 1024;
+  if (file.size > MAX_SIZE) {
+    throw new Error("La imagen supera el tamaño máximo de 5 MB.");
+  }
+
+  const admin = createAdminClient();
+  const BUCKET = "service-images";
+
+  const { error: bucketError } = await admin.storage.createBucket(BUCKET, {
+    public: true,
+  });
+  const bucketExists = Boolean(
+    bucketError &&
+      String(bucketError.message ?? "").toLowerCase().includes("exists")
+  );
+  if (bucketError && !bucketExists) {
+    throw new Error(
+      bucketError.message ?? "No se pudo preparar el almacenamiento de imágenes."
+    );
+  }
+
+  const ext = (file.name.split(".").pop() ?? "jpg")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+  const path = `${user.id}/${Date.now()}-${Math.random()
+    .toString(36)
+    .slice(2, 10)}.${ext}`;
+
+  const bytes = Buffer.from(await file.arrayBuffer());
+  const { error: upError } = await admin.storage
+    .from(BUCKET)
+    .upload(path, bytes, {
+      contentType: file.type,
+      upsert: false,
+    });
+  if (upError) throw new Error(upError.message);
+
+  const { data } = admin.storage.from(BUCKET).getPublicUrl(path);
+  return { url: data.publicUrl };
+}
+
 export async function updateService(id: string, input: AdminServiceInput) {
   await requireUser();
   const supabase = await createClient();
