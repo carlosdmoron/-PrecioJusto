@@ -68,7 +68,7 @@ export default async function Navbar() {
           </nav>
           <a
             href={`/${current}/iniciar-sesion`}
-            className="inline-flex h-10 items-center rounded-lg bg-primary-dark px-5 text-sm font-semibold text-white transition hover:bg-primary"
+            className="inline-flex h-9 min-w-fit items-center rounded-lg bg-primary-dark px-3.5 text-xs font-semibold text-white whitespace-nowrap transition hover:bg-primary sm:h-10 sm:px-5 sm:text-sm"
           >
             {dict.navbar.signin}
           </a>
