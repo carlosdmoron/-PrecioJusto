@@ -8,7 +8,7 @@ export default async function ServiciosBuscados() {
   const current = (await lang()) ?? "es";
   const t = dict.serviciosBuscados;
 
-  const services = await getComingSoonServices();
+  const services = await getComingSoonServices(current as "es" | "it" | "en");
   if (services.length === 0) return null;
 
   return (

@@ -8,7 +8,7 @@ export default async function ProBuscados() {
   const current = (await lang()) ?? "es";
   const t = dict.profBuscados;
 
-  const services = await getPublishedServices();
+  const services = await getPublishedServices(current as "es" | "it" | "en");
 
   return (
     <section className="py-20 lg:py-24">

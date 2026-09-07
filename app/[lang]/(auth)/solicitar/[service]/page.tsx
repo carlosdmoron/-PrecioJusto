@@ -29,18 +29,18 @@ export default async function SolicitarPage({
   const { service } = await params;
   if (!service) notFound();
 
-  const [current, dict, data, user] = await Promise.all([
-    lang(),
+  const current = (await lang()) ?? "es";
+  const locale = current as "es" | "it" | "en";
+
+  const [dict, data, user] = await Promise.all([
     getDictionary(),
-    getSolicitudFormData(service),
+    getSolicitudFormData(service, locale),
     getSession(),
   ]);
 
-  if (!data.service) notFound();
-
-  const locale = current ?? "es";
   const t = dict.solicitar;
   const loginDict = dict.login;
+  if (!data.service) notFound();
 
   const registerHref = `/${locale}/registro?next=/${locale}/solicitar/${data.service.slug || data.service.id}`;
 

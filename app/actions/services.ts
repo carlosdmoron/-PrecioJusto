@@ -1,6 +1,9 @@
 "use server";
 
 import { createClient } from "../../lib/supabase/server";
+import { localizeService, localizeServices } from "../../lib/localize";
+
+export type Locale = "es" | "it" | "en";
 
 export async function getServices() {
   const supabase = await createClient();
@@ -25,7 +28,9 @@ export type PublishedService = {
 // Servicios publicados para la landing: un servicio se muestra únicamente si
 // tiene al menos un formulario asociado con estado 'active'. Los formularios
 // activos son legibles por el público (RLS), igual que los servicios publicados.
-export async function getPublishedServices(): Promise<PublishedService[]> {
+export async function getPublishedServices(
+  locale: Locale = "es"
+): Promise<PublishedService[]> {
   const supabase = await createClient();
 
   const { data: activeForms, error: formsError } = await supabase
@@ -55,9 +60,20 @@ export async function getPublishedServices(): Promise<PublishedService[]> {
     .limit(1);
   const hasImage = !probeError;
 
+  const { error: transProbeError } = await supabase
+    .from("services")
+    .select("name_it")
+    .limit(1);
+  const hasTrans = !transProbeError;
+
+  const baseCols = hasTrans
+    ? "id, name, name_it, name_en, slug, description, description_it, description_en"
+    : "id, name, slug, description";
+  const select = hasImage ? `${baseCols}, image_url` : baseCols;
+
   const { data, error } = await supabase
     .from("services")
-    .select(hasImage ? "id, name, slug, description, image_url" : "id, name, slug, description")
+    .select(select)
     .in("id", serviceIds)
     .eq("status", "published")
     .order("created_at", { ascending: true })
@@ -70,21 +86,30 @@ export async function getPublishedServices(): Promise<PublishedService[]> {
     name: string;
     slug: string;
     description: string | null;
+    name_it: string | null;
+    name_en: string | null;
+    description_it: string | null;
+    description_en: string | null;
     image_url?: string | null;
   }>;
 
-  return rows.map((s) => ({
+  const localized = await localizeServices(rows, locale, hasTrans);
+
+  return rows.map((s, i) => ({
     id: s.id,
-    name: s.name,
+    name: localized[i]?.name ?? s.name,
     slug: s.slug,
-    description: s.description ?? null,
+    description: localized[i]?.description ?? s.description ?? null,
     image_url: s.image_url ?? null,
   }));
 }
 
 // Busca un servicio publicado (o próximo) por slug o id. Se usa en la página
 // de solicitud para resolver el servicio elegido desde la landing.
-export async function getServiceBySlug(key: string): Promise<PublishedService | null> {
+export async function getServiceBySlug(
+  key: string,
+  locale: Locale = "es"
+): Promise<PublishedService | null> {
   const safeKey = String(key ?? "").trim();
   if (!safeKey) return null;
 
@@ -96,9 +121,16 @@ export async function getServiceBySlug(key: string): Promise<PublishedService | 
     .limit(1);
   const hasImage = !probeError;
 
-  const selectCols = hasImage
-    ? "id, name, slug, description, image_url"
+  const { error: transProbeError } = await supabase
+    .from("services")
+    .select("name_it")
+    .limit(1);
+  const hasTrans = !transProbeError;
+
+  const baseCols = hasTrans
+    ? "id, name, name_it, name_en, slug, description, description_it, description_en"
     : "id, name, slug, description";
+  const selectCols = hasImage ? `${baseCols}, image_url` : baseCols;
 
   // No mezclar slug (texto) con id (uuid) en un .or(): Postgres intenta
   // castear el slug a uuid y falla. Se filtra según el formato del valor.
@@ -124,15 +156,21 @@ export async function getServiceBySlug(key: string): Promise<PublishedService | 
     name: string;
     slug: string;
     description: string | null;
+    name_it: string | null;
+    name_en: string | null;
+    description_it: string | null;
+    description_en: string | null;
     image_url?: string | null;
   } | null;
   if (!row) return null;
 
+  const localized = await localizeService(row, locale, hasTrans);
+
   return {
     id: row.id,
-    name: row.name,
+    name: localized.name ?? row.name,
     slug: row.slug,
-    description: row.description ?? null,
+    description: localized.description ?? row.description ?? null,
     image_url: row.image_url ?? null,
   };
 }
@@ -140,7 +178,9 @@ export async function getServiceBySlug(key: string): Promise<PublishedService | 
 // Servicios en estado 'coming_soon' ("Próximamente") para la sección
 // "Los 3 servicios que estamos buscando". Solo aparecen los que tienen ese
 // estado; el resto de estados queda excluido de esta sección.
-export async function getComingSoonServices(): Promise<PublishedService[]> {
+export async function getComingSoonServices(
+  locale: Locale = "es"
+): Promise<PublishedService[]> {
   const supabase = await createClient();
 
   const { error: probeError } = await supabase
@@ -149,9 +189,20 @@ export async function getComingSoonServices(): Promise<PublishedService[]> {
     .limit(1);
   const hasImage = !probeError;
 
+  const { error: transProbeError } = await supabase
+    .from("services")
+    .select("name_it")
+    .limit(1);
+  const hasTrans = !transProbeError;
+
+  const baseCols = hasTrans
+    ? "id, name, name_it, name_en, slug, description, description_it, description_en"
+    : "id, name, slug, description";
+  const select = hasImage ? `${baseCols}, image_url` : baseCols;
+
   const { data, error } = await supabase
     .from("services")
-    .select(hasImage ? "id, name, slug, description, image_url" : "id, name, slug, description")
+    .select(select)
     .eq("status", "coming_soon")
     .order("created_at", { ascending: true })
     .limit(3);
@@ -163,14 +214,20 @@ export async function getComingSoonServices(): Promise<PublishedService[]> {
     name: string;
     slug: string;
     description: string | null;
+    name_it: string | null;
+    name_en: string | null;
+    description_it: string | null;
+    description_en: string | null;
     image_url?: string | null;
   }>;
 
-  return rows.map((s) => ({
+  const localized = await localizeServices(rows, locale, hasTrans);
+
+  return rows.map((s, i) => ({
     id: s.id,
-    name: s.name,
+    name: localized[i]?.name ?? s.name,
     slug: s.slug,
-    description: s.description ?? null,
+    description: localized[i]?.description ?? s.description ?? null,
     image_url: s.image_url ?? null,
   }));
 }

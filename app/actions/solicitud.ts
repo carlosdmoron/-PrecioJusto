@@ -4,6 +4,9 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "../../lib/supabase/server";
 import { createAdminClient } from "../../lib/supabase/admin";
 import { distributeRequest } from "./requests";
+import { localizeQuestions, localizeService } from "../../lib/localize";
+
+export type Locale = "es" | "it" | "en";
 
 export type SolicitudQuestion = {
   id: string;
@@ -29,7 +32,8 @@ export type SolicitudFormData = {
 // sus preguntas. Si el servicio no existe o no tiene formulario activo, devuelve
 // form/questions vacíos para que el frontend muestre el mensaje correspondiente.
 export async function getSolicitudFormData(
-  slugOrId: string
+  slugOrId: string,
+  locale: Locale = "es"
 ): Promise<SolicitudFormData> {
   const admin = await createAdminClient();
   const key = String(slugOrId ?? "").trim();
@@ -42,6 +46,13 @@ export async function getSolicitudFormData(
     .limit(1);
   const hasImage = !probeError;
 
+  // Probamos si las columnas de traducción existen (migración 0011).
+  const { error: transProbeError } = await admin
+    .from("services")
+    .select("name_it")
+    .limit(1);
+  const hasTrans = !transProbeError;
+
   const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
     key
   );
@@ -49,13 +60,12 @@ export async function getSolicitudFormData(
   // Usamos el cliente admin (service role) porque la RLS anon solo expone
   // servicios 'published'/'coming_soon'; un servicio en 'review'/'paused' con
   // formulario activo debe poder renderizar el asistente igualmente.
+  const baseServiceCols = hasTrans
+    ? "id, name, name_it, name_en, slug, description, description_it, description_en"
+    : "id, name, slug, description";
   const serviceQuery = admin
     .from("services")
-    .select(
-      hasImage
-        ? "id, name, slug, description, image_url"
-        : "id, name, slug, description"
-    )
+    .select(hasImage ? `${baseServiceCols}, image_url` : baseServiceCols)
     .in("status", ["published", "coming_soon", "review", "paused"])
     .limit(1);
 
@@ -71,10 +81,16 @@ export async function getSolicitudFormData(
     name: string;
     slug: string;
     description: string | null;
+    name_it: string | null;
+    name_en: string | null;
+    description_it: string | null;
+    description_en: string | null;
     image_url?: string | null;
   } | null;
 
   if (!serviceRow) return { service: null, form: null, questions: [] };
+
+  const localizedService = await localizeService(serviceRow, locale, hasTrans);
 
   const { data: form } = await admin
     .from("forms")
@@ -89,9 +105,9 @@ export async function getSolicitudFormData(
     return {
       service: {
         id: serviceRow.id,
-        name: serviceRow.name,
+        name: localizedService.name,
         slug: serviceRow.slug,
-        description: serviceRow.description ?? null,
+        description: localizedService.description ?? null,
         image_url: serviceRow.image_url ?? null,
       },
       form: null,
@@ -99,27 +115,45 @@ export async function getSolicitudFormData(
     };
   }
 
+  const qSelect = hasTrans
+    ? "id, label, label_it, label_en, type, required, options, options_it, options_en"
+    : "id, label, type, required, options";
+
   const { data: questions } = await admin
     .from("form_questions")
-    .select("id, label, type, required, options")
+    .select(qSelect)
     .eq("form_id", form.id)
     .order("sort_order", { ascending: true });
+
+  const questionRows = (questions ?? []) as unknown as Array<{
+    id: string;
+    label: string;
+    type: string;
+    required: boolean;
+    options: string[] | null;
+    label_it: string | null;
+    label_en: string | null;
+    options_it: string[] | null;
+    options_en: string[] | null;
+  }>;
+
+  const localized = await localizeQuestions(questionRows, locale, hasTrans);
 
   return {
     service: {
       id: serviceRow.id,
-      name: serviceRow.name,
+      name: localizedService.name,
       slug: serviceRow.slug,
-      description: serviceRow.description ?? null,
+      description: localizedService.description ?? null,
       image_url: serviceRow.image_url ?? null,
     },
     form: { id: form.id, version: form.version ?? "v1.0" },
-    questions: (questions ?? []).map((q) => ({
+    questions: questionRows.map((q, i) => ({
       id: q.id,
-      label: q.label,
+      label: localized[i]?.label ?? q.label,
       type: q.type,
       required: q.required ?? false,
-      options: Array.isArray(q.options) ? q.options : [],
+      options: localized[i]?.options ?? (Array.isArray(q.options) ? q.options : []),
     })),
   };
 }
