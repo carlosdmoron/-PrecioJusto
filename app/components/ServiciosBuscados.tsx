@@ -23,7 +23,7 @@ export default async function ServiciosBuscados() {
           {services.map((service) => (
             <a
               key={service.id}
-              href={`/${current}/solicitar/${service.slug || service.id}`}
+              href={`/${current}/profesional`}
               className="group relative overflow-hidden rounded-xl border border-line/40 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="relative h-48 overflow-hidden">
