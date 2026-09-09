@@ -4,10 +4,13 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "../../lib/supabase/server";
 import { createAdminClient } from "../../lib/supabase/admin";
 
+export type FormType = "customer" | "professional";
+
 export type FormRow = {
   id: string;
   service_id: string | null;
   service_name: string | null;
+  form_type: FormType;
   version: string;
   question_count: number;
   abandonment_rate: number;
@@ -68,9 +71,22 @@ async function requireAdmin() {
 
 export async function listForms(): Promise<FormRow[]> {
   const supabase = await createClient();
+
+  // La columna form_type puede no existir aún si la migración 0012 no está
+  // aplicada: se detecta y se devuelve 'customer' como valor por defecto.
+  const { error: typeProbe } = await supabase
+    .from("forms")
+    .select("form_type")
+    .limit(1);
+  const hasType = !typeProbe;
+
+  const select = hasType
+    ? "id, service_id, form_type, version, question_count, abandonment_rate, status, created_at, service:services(name)"
+    : "id, service_id, version, question_count, abandonment_rate, status, created_at, service:services(name)";
+
   const { data, error } = await supabase
     .from("forms")
-    .select("id, service_id, version, question_count, abandonment_rate, status, created_at, service:services(name)")
+    .select(select)
     .order("created_at", { ascending: false });
 
   if (error) throw new Error(error.message);
@@ -81,6 +97,7 @@ export async function listForms(): Promise<FormRow[]> {
     service_name: Array.isArray(f.service)
       ? (f.service[0]?.name ?? null)
       : (f.service?.name ?? null),
+    form_type: f.form_type === "professional" ? "professional" : "customer",
     version: f.version ?? "v1.0",
     question_count: f.question_count ?? 0,
     abandonment_rate: Number(f.abandonment_rate ?? 0),
@@ -94,9 +111,20 @@ export async function getForm(id: string): Promise<FormDetail | null> {
   // escrituras: el cliente autenticado puede fallar a nivel RLS en algunos
   // contextos de sesión y dejaría las preguntas en blanco.
   const supabase = await requireAdmin();
+
+  const { error: typeProbe } = await supabase
+    .from("forms")
+    .select("form_type")
+    .limit(1);
+  const hasType = !typeProbe;
+
+  const select = hasType
+    ? "id, service_id, form_type, version, question_count, abandonment_rate, status, created_at, service:services(name)"
+    : "id, service_id, version, question_count, abandonment_rate, status, created_at, service:services(name)";
+
   const { data: form, error } = await supabase
     .from("forms")
-    .select("id, service_id, version, question_count, abandonment_rate, status, created_at, service:services(name)")
+    .select(select)
     .eq("id", id)
     .maybeSingle();
 
@@ -119,6 +147,7 @@ export async function getForm(id: string): Promise<FormDetail | null> {
       service_name: Array.isArray(f.service)
         ? (f.service[0]?.name ?? null)
         : (f.service?.name ?? null),
+      form_type: f.form_type === "professional" ? "professional" : "customer",
       version: f.version ?? "v1.0",
       question_count: f.question_count ?? 0,
       abandonment_rate: Number(f.abandonment_rate ?? 0),
@@ -135,11 +164,19 @@ export async function getForm(id: string): Promise<FormDetail | null> {
   };
 }
 
-export async function createForm(serviceId: string): Promise<string> {
+export async function createForm(
+  serviceId: string,
+  formType: FormType = "customer"
+): Promise<string> {
   const supabase = await requireAdmin();
   const { data, error } = await supabase
     .from("forms")
-    .insert({ service_id: serviceId || null, status: "draft", version: "v1.0" })
+    .insert({
+      service_id: serviceId || null,
+      form_type: formType === "professional" ? "professional" : "customer",
+      status: "draft",
+      version: "v1.0",
+    })
     .select("id")
     .single();
 
@@ -156,6 +193,24 @@ export async function updateFormService(
   const { error } = await supabase
     .from("forms")
     .update({ service_id: serviceId || null, updated_at: new Date().toISOString() })
+    .eq("id", formId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/[lang]/dashboard-admin/formularios", "page");
+  return true;
+}
+
+export async function updateFormType(
+  formId: string,
+  formType: FormType
+): Promise<boolean> {
+  const supabase = await requireAdmin();
+  const { error } = await supabase
+    .from("forms")
+    .update({
+      form_type: formType === "professional" ? "professional" : "customer",
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", formId);
   if (error) throw new Error(error.message);
 
@@ -226,6 +281,7 @@ export async function duplicateForm(formId: string): Promise<string> {
     .from("forms")
     .insert({
       service_id: detail.form.service_id,
+      form_type: detail.form.form_type,
       version: detail.form.version,
       status: "draft",
     })

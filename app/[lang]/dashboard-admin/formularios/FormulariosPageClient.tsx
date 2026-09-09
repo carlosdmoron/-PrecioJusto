@@ -13,6 +13,7 @@ import {
   getForm,
   updateFormQuestions,
   updateFormService,
+  updateFormType,
   publishForm,
   duplicateForm,
   deleteForm,
@@ -36,11 +37,19 @@ export default function FormulariosPageClient({ data }: { data: any }) {
   const [editingServiceId, setEditingServiceId] = useState<string>("");
   const [loadingQuestions, setLoadingQuestions] = useState(false);
   const [serviceId, setServiceId] = useState("");
+  const [formType, setFormType] = useState<string>("customer");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [saving, setSaving] = useState(false);
   const dragIndex = useRef<number | null>(null);
 
   const defaultChoiceOptions = () => ["A", "B", "C", "D"];
+
+  const typeKind = (type: string) =>
+    type === "checkbox"
+      ? "multi"
+      : type === "radio" || type === "select"
+      ? "choice"
+      : "free";
 
   const normalizeQuestions = (qs: Question[]): Question[] =>
     qs.map((q) => {
@@ -76,6 +85,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
         return;
       }
       setEditingServiceId(detail.form.service_id ?? "");
+      setFormType(detail.form.form_type);
       setQuestions(normalizeQuestions(detail.questions ?? []));
     } catch (e: any) {
       toast.show(e.message ?? data.feedback.formError);
@@ -183,6 +193,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
   const publishWithSave = async (formId: string) => {
     if (editingForm) {
       await updateFormService(formId, editingServiceId);
+      await updateFormType(formId, formType as "customer" | "professional");
     }
     const saved = await updateFormQuestions(formId, questions);
     if (!saved) {
@@ -197,6 +208,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
     try {
       if (editingForm) {
         await updateFormService(selectedFormId, editingServiceId);
+        await updateFormType(selectedFormId, formType as "customer" | "professional");
       }
       const saved = await updateFormQuestions(selectedFormId, questions);
       if (!saved) {
@@ -215,7 +227,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
 
   const handleCreate = async () => {
     try {
-      const id = await createForm(serviceId);
+      const id = await createForm(serviceId, formType as "customer" | "professional");
       toast.show(data.feedback.formCreated);
       await openBuilderForNew(id);
     } catch (e: any) {
@@ -261,6 +273,23 @@ export default function FormulariosPageClient({ data }: { data: any }) {
   const columns = [
     { key: "id", label: data.table.id },
     { key: "service", label: data.table.service },
+    {
+      key: "type",
+      label: data.table.type,
+      render: (row: TableRow) => (
+        <span
+          className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+            row.type === "professional"
+              ? "bg-violet-100 text-violet-700"
+              : "bg-badge text-primary-dark"
+          }`}
+        >
+          {row.type === "professional"
+            ? data.types?.professional ?? data.table.type
+            : data.types?.customer ?? data.table.type}
+        </span>
+      ),
+    },
     { key: "version", label: data.table.version },
     { key: "questions", label: data.table.questions },
     { key: "abandonment", label: data.table.abandonment },
@@ -337,6 +366,21 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               ))}
             </select>
           </div>
+          <div>
+            <label className="text-xs font-medium text-muted">
+              {data.modal.type}
+            </label>
+            <select
+              value={formType}
+              onChange={(e) => setFormType(e.target.value)}
+              className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none focus:ring-2 focus:ring-primary/40"
+            >
+              <option value="customer">{data.types?.customer ?? "Cliente"}</option>
+              <option value="professional">
+                {data.types?.professional ?? "Profesional"}
+              </option>
+            </select>
+          </div>
           <div className="flex gap-3 pt-2">
             <button
               type="button"
@@ -382,6 +426,23 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               </select>
             </div>
           )}
+          {editingForm && (
+            <div>
+              <label className="text-xs font-medium text-muted">
+                {data.modal.type}
+              </label>
+              <select
+                value={formType}
+                onChange={(e) => setFormType(e.target.value)}
+                className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none focus:ring-2 focus:ring-primary/40"
+              >
+                <option value="customer">{data.types?.customer ?? "Cliente"}</option>
+                <option value="professional">
+                  {data.types?.professional ?? "Profesional"}
+                </option>
+              </select>
+            </div>
+          )}
           {loadingQuestions && (
             <p className="text-sm text-muted">{data.builder.loading}</p>
           )}
@@ -413,18 +474,22 @@ export default function FormulariosPageClient({ data }: { data: any }) {
                   </div>
                   <div className="flex items-center gap-3">
                     <select
-                      value={isChoice ? "choice" : "free"}
-                      onChange={(e) =>
+                      value={typeKind(q.type)}
+                      onChange={(e) => {
+                        const v = e.target.value;
                         changeQuestionType(
                           index,
-                          e.target.value === "choice" ? "radio" : "textarea"
-                        )
-                      }
+                          v === "free" ? "textarea" : v === "multi" ? "checkbox" : "radio"
+                        );
+                      }}
                       className="h-8 rounded-md bg-field px-2 text-xs text-ink outline-none focus:ring-2 focus:ring-primary/40"
                     >
                       <option value="free">{data.builder.questionTypeLabels.free}</option>
                       <option value="choice">
                         {data.builder.questionTypeLabels.choice}
+                      </option>
+                      <option value="multi">
+                        {data.builder.questionTypeLabels.multi}
                       </option>
                     </select>
                     <span className="text-xs text-muted">
@@ -489,7 +554,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               </div>
             );
           })}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             <button
               type="button"
               onClick={() => addQuestion("textarea")}
@@ -503,6 +568,13 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               className="w-full rounded-lg border border-dashed border-line/60 py-3 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark"
             >
               + {data.builder.questionTypeLabels.choice}
+            </button>
+            <button
+              type="button"
+              onClick={() => addQuestion("checkbox")}
+              className="w-full rounded-lg border border-dashed border-line/60 py-3 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark"
+            >
+              + {data.builder.questionTypeLabels.multi}
             </button>
           </div>
           <div className="flex gap-3 pt-2">

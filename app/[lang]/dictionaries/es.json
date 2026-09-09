@@ -85,6 +85,13 @@
     },
     "presupuestar": "Presupuestar"
   },
+  "profEnrollment": {
+    "eyebrow": "¿Eres profesional?",
+    "title": "Únete a los servicios que ya estamos contratando",
+    "subtitle": "Estos son los servicios con demanda en tu zona. Regístrate y empieza a recibir solicitudes de clientes.",
+    "cta": "Registrarme",
+    "noServices": "Pronto abriremos la inscripción de profesionales para más servicios."
+  },
   "featuresSection": {
     "title": "¿Por qué elegir a nuestros expertos?"
   },
@@ -316,6 +323,46 @@
     "noFormTitle": "Este servicio aún no está disponible",
     "noFormText": "Todavía no tenemos formulario asociado a este servicio. Muy pronto podrás solicitar un presupuesto.",
     "backServices": "Volver a los servicios"
+  },
+  "profRegistro": {
+    "meta": {
+      "title": "Registro de profesionales | PrecioJusto",
+      "description": "Súmate al servicio como profesional y empieza a recibir solicitudes de clientes cercanos."
+    },
+    "badge": "Inscripción de profesionales",
+    "title": "Regístrate como profesional",
+    "subtitle": "Cuéntanos tu experiencia para este servicio. Cuando lo completes, entrarás en el circuito de solicitudes de clientes.",
+    "requiredMark": "*",
+    "stepOf": "Paso {current} de {total}",
+    "nextButton": "Siguiente",
+    "backButton": "Atrás",
+    "accountSectionTitle": "Tu cuenta de acceso",
+    "firstNameLabel": "Nombre",
+    "firstNamePlaceholder": "Tu nombre",
+    "lastNameLabel": "Apellidos",
+    "lastNamePlaceholder": "Tus apellidos",
+    "phoneLabel": "Teléfono (opcional)",
+    "phonePlaceholder": "Ej.: 600 000 000",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu@correo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Mínimo 6 caracteres",
+    "submitButton": "Enviar inscripción",
+    "submitPending": "Enviando…",
+    "checkAnswersError": "Completa todas las preguntas obligatorias antes de enviar.",
+    "invalidEmail": "Introduce un correo electrónico válido.",
+    "passwordTooShort": "La contraseña debe tener al menos 6 caracteres.",
+    "emailInUse": "Ya existe una cuenta con ese email. Inicia sesión e inténtalo de nuevo.",
+    "duplicateError": "Ya tienes un perfil registrado para este servicio.",
+    "alreadyTitle": "Ya estás registrado",
+    "alreadyText": "Ya tienes un perfil activo para este servicio. Gestiona tus servicios desde tu panel profesional.",
+    "goDashboard": "Ir a mi panel",
+    "noFormTitle": "Inscripción cerrada por ahora",
+    "noFormText": "Todavía no estamos aceptando inscripciones de profesionales para este servicio. Vuelve pronto.",
+    "backHome": "Volver al inicio",
+    "successTitle": "¡Inscripción enviada!",
+    "successText": "Tu perfil profesional está pendiente de validación. En breve podrás recibir solicitudes de clientes.",
+    "submitError": "No se pudo enviar tu inscripción. Inténtalo de nuevo."
   },
   "signProfesional": {
     "meta": {
@@ -1819,6 +1866,7 @@
       "table": {
         "id": "ID",
         "service": "Servicio",
+        "type": "Tipo",
         "version": "Versión",
         "questions": "Preguntas",
         "abandonment": "Abandono",
@@ -1829,6 +1877,10 @@
         "draft": "Borrador",
         "active": "Activo",
         "archived": "Archivado"
+      },
+      "types": {
+        "customer": "Cliente",
+        "professional": "Profesional"
       },
       "actions": {
         "edit": "Editar",
@@ -1842,6 +1894,8 @@
         "editTitle": "Editar formulario",
         "service": "Servicio",
         "servicePlaceholder": "Seleccionar servicio",
+        "type": "Tipo de formulario",
+        "typePlaceholder": "Seleccionar tipo",
         "save": "Crear",
         "cancel": "Cancelar"
       },
@@ -1913,7 +1967,8 @@
         "empty": "Este formulario aún no tiene preguntas. Añade la primera.",
         "questionTypeLabels": {
           "free": "Respuesta libre",
-          "choice": "Opción múltiple (a, b, c, d)"
+          "choice": "Opción múltiple (una respuesta)",
+          "multi": "Opción múltiple (1 o más respuestas)"
         },
         "choicesLabel": "Respuestas",
         "addOptionLabel": "Añadir respuesta",

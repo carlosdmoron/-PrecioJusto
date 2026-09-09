@@ -29,18 +29,6 @@ export default async function Navbar() {
         </a>
         <div className="flex items-center gap-5">
           <a
-            href={`/${current}/categoria`}
-            className="hidden text-sm font-medium text-white/80 transition hover:text-white sm:block"
-          >
-            {dict.navbar.category}
-          </a>
-          <a
-            href={`/${current}/renovacion`}
-            className="hidden text-sm font-medium text-white/80 transition hover:text-white sm:block"
-          >
-            {dict.navbar.renovation}
-          </a>
-          <a
             href={`/${current}/profesional`}
             className="hidden text-sm font-medium text-white/80 transition hover:text-white sm:block"
           >

@@ -1,6 +1,7 @@
 import Hero from "../../components/Hero";
 import ProBuscados from "../../components/ProBuscados";
 import ServiciosBuscados from "../../components/ServiciosBuscados";
+import ProfEnrollment from "../../components/professional/ProfEnrollment";
 import FeaturesBand from "../../components/FeaturesBand";
 import HowItWorks from "../../components/HowItWorks";
 import CtaBanner from "../../components/CtaBanner";
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <ProBuscados />
       <ServiciosBuscados />
+      <ProfEnrollment />
       <FeaturesBand />
       <HowItWorks />
       <CtaBanner />

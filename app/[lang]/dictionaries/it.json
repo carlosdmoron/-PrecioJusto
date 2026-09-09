@@ -76,14 +76,21 @@
     "title": "Richiedi gratuitamente il preventivo più adatto a te, questi professionisti sono a tua disposizione.",
     "presupuestar": "Preventivare"
   },
-  "serviciosBuscados": {
+"serviciosBuscados": {
     "title": "I 3 servizi che stiamo cercando",
     "items": {
       "limpieza": "Pulizia",
-      "construccion": "Costruzione",
+      "construccion": "Costruzioni",
       "carpintero": "Falegname"
     },
-    "presupuestar": "Preventivare"
+    "presupuestar": "Richiedi preventivo"
+  },
+  "profEnrollment": {
+    "eyebrow": "Sei un professionista?",
+    "title": "Unisciti ai servizi che stiamo già attivando",
+    "subtitle": "Questi sono i servizi più richiesti nella tua zona. Registrati e inizia a ricevere richieste da clienti.",
+    "cta": "Registrati",
+    "noServices": "Presto apriremo le iscrizioni dei professionisti per altri servizi."
   },
   "featuresSection": {
     "title": "Perché scegliere i nostri esperti?"
@@ -316,6 +323,46 @@
     "noFormTitle": "Questo servizio non è ancora disponibile",
     "noFormText": "Non c'è ancora un modulo associato a questo servizio. Potrai richiedere un preventivo molto presto.",
     "backServices": "Torna ai servizi"
+  },
+  "profRegistro": {
+    "meta": {
+      "title": "Registrazione professionisti | PrecioJusto",
+      "description": "Unisciti al servizio come professionista e inizia a ricevere richieste di clienti della tua zona."
+    },
+    "badge": "Iscrizione professionisti",
+    "title": "Registrati come professionista",
+    "subtitle": "Raccontaci la tua esperienza per questo servizio. Al termine dell'iscrizione entrerai nel circuito delle richieste dei clienti.",
+    "requiredMark": "*",
+    "stepOf": "Passo {current} di {total}",
+    "nextButton": "Avanti",
+    "backButton": "Indietro",
+    "accountSectionTitle": "Il tuo account di accesso",
+    "firstNameLabel": "Nome",
+    "firstNamePlaceholder": "Il tuo nome",
+    "lastNameLabel": "Cognome",
+    "lastNamePlaceholder": "Il tuo cognome",
+    "phoneLabel": "Telefono (facoltativo)",
+    "phonePlaceholder": "Es.: 600 000 000",
+    "emailLabel": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Minimo 6 caratteri",
+    "submitButton": "Invia iscrizione",
+    "submitPending": "Invio…",
+    "checkAnswersError": "Completa tutte le domande obbligatorie prima di inviare.",
+    "invalidEmail": "Inserisci un indirizzo email valido.",
+    "passwordTooShort": "La password deve avere almeno 6 caratteri.",
+    "emailInUse": "Esiste già un account con questa email. Accedi e riprova.",
+    "duplicateError": "Hai già un profilo registrato per questo servizio.",
+    "alreadyTitle": "Sei già registrato",
+    "alreadyText": "Hai già un profilo attivo per questo servizio. Gestisci i tuoi servizi dal pannello professionista.",
+    "goDashboard": "Vai al mio pannello",
+    "noFormTitle": "Iscrizione chiusa per ora",
+    "noFormText": "Per questo servizio non stiamo ancora accettando iscrizioni di professionisti. Torna presto.",
+    "backHome": "Torna alla home",
+    "successTitle": "Iscrizione inviata!",
+    "successText": "Il tuo profilo professionista è in attesa di validazione. Presto potrai ricevere richieste dai clienti.",
+    "submitError": "Impossibile inviare l'iscrizione. Riprova."
   },
   "signProfesional": {
     "meta": {
@@ -1819,6 +1866,7 @@
       "table": {
         "id": "ID",
         "service": "Servizio",
+        "type": "Tipo",
         "version": "Versione",
         "questions": "Domande",
         "abandonment": "Abbandono",
@@ -1829,6 +1877,10 @@
         "draft": "Bozza",
         "active": "Attivo",
         "archived": "Archiviato"
+      },
+      "types": {
+        "customer": "Cliente",
+        "professional": "Professionista"
       },
       "actions": {
         "edit": "Modifica",
@@ -1842,6 +1894,8 @@
         "editTitle": "Modifica modulo",
         "service": "Servizio",
         "servicePlaceholder": "Seleziona servizio",
+        "type": "Tipo di modulo",
+        "typePlaceholder": "Seleziona tipo",
         "save": "Crea",
         "cancel": "Annulla"
       },
@@ -1913,7 +1967,8 @@
         "empty": "Questo modulo non ha ancora domande. Aggiungi la prima.",
         "questionTypeLabels": {
           "free": "Risposta libera",
-          "choice": "Scelta multipla (a, b, c, d)"
+          "choice": "Scelta multipla (una risposta)",
+          "multi": "Scelta multipla (1 o più risposte)"
         },
         "choicesLabel": "Risposte",
         "addOptionLabel": "Aggiungi risposta",

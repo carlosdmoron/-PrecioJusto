@@ -85,6 +85,13 @@
     },
     "presupuestar": "Get a quote"
   },
+  "profEnrollment": {
+    "eyebrow": "Are you a professional?",
+    "title": "Join the services we are already hiring",
+    "subtitle": "These are the in-demand services in your area. Sign up and start receiving requests from clients.",
+    "cta": "Sign up",
+    "noServices": "We will soon open professional registration for more services."
+  },
   "featuresSection": {
     "title": "Why choose our experts?"
   },
@@ -316,6 +323,46 @@
     "noFormTitle": "This service is not available yet",
     "noFormText": "There is no form associated with this service yet. You will be able to request a quote very soon.",
     "backServices": "Back to services"
+  },
+  "profRegistro": {
+    "meta": {
+      "title": "Professional registration | PrecioJusto",
+      "description": "Join the service as a professional and start receiving requests from nearby clients."
+    },
+    "badge": "Professional registration",
+    "title": "Register as a professional",
+    "subtitle": "Tell us about your experience for this service. Once completed, you will enter the loop of client requests.",
+    "requiredMark": "*",
+    "stepOf": "Step {current} of {total}",
+    "nextButton": "Next",
+    "backButton": "Back",
+    "accountSectionTitle": "Your access account",
+    "firstNameLabel": "First name",
+    "firstNamePlaceholder": "Your first name",
+    "lastNameLabel": "Last name",
+    "lastNamePlaceholder": "Your last name",
+    "phoneLabel": "Phone (optional)",
+    "phonePlaceholder": "e.g. 600 000 000",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@email.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "At least 6 characters",
+    "submitButton": "Submit registration",
+    "submitPending": "Submitting…",
+    "checkAnswersError": "Complete all required questions before submitting.",
+    "invalidEmail": "Enter a valid email address.",
+    "passwordTooShort": "The password must be at least 6 characters.",
+    "emailInUse": "An account with that email already exists. Sign in and try again.",
+    "duplicateError": "You already have a profile registered for this service.",
+    "alreadyTitle": "You are already registered",
+    "alreadyText": "You already have an active profile for this service. Manage your services from your professional panel.",
+    "goDashboard": "Go to my panel",
+    "noFormTitle": "Registration closed for now",
+    "noFormText": "We are not yet accepting professional registrations for this service. Come back soon.",
+    "backHome": "Back to home",
+    "successTitle": "Registration submitted!",
+    "successText": "Your professional profile is pending validation. You will soon be able to receive client requests.",
+    "submitError": "Could not submit your registration. Please try again."
   },
   "signProfesional": {
     "meta": {
@@ -1819,6 +1866,7 @@
       "table": {
         "id": "ID",
         "service": "Service",
+        "type": "Type",
         "version": "Version",
         "questions": "Questions",
         "abandonment": "Drop-off",
@@ -1829,6 +1877,10 @@
         "draft": "Draft",
         "active": "Active",
         "archived": "Archived"
+      },
+      "types": {
+        "customer": "Client",
+        "professional": "Professional"
       },
       "actions": {
         "edit": "Edit",
@@ -1842,6 +1894,8 @@
         "editTitle": "Edit form",
         "service": "Service",
         "servicePlaceholder": "Select service",
+        "type": "Form type",
+        "typePlaceholder": "Select type",
         "save": "Create",
         "cancel": "Cancel"
       },
@@ -1913,7 +1967,8 @@
         "empty": "This form has no questions yet. Add the first one.",
         "questionTypeLabels": {
           "free": "Free response",
-          "choice": "Multiple choice (a, b, c, d)"
+          "choice": "Multiple choice (single answer)",
+          "multi": "Multiple choice (1 or more answers)"
         },
         "choicesLabel": "Answers",
         "addOptionLabel": "Add answer",

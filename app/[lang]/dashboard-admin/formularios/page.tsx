@@ -30,6 +30,7 @@ export default async function FormulariosPage() {
   const items = forms.map((f) => ({
     id: f.id,
     service: f.service_name ?? "—",
+    type: f.form_type,
     version: f.version,
     questions: String(f.question_count),
     abandonment: `${f.abandonment_rate}%`,

@@ -39,6 +39,14 @@ export async function getSolicitudFormData(
   const key = String(slugOrId ?? "").trim();
   if (!key) return { service: null, form: null, questions: [] };
 
+  // La columna form_type existe desde la migración 0012; si aún no está
+  // aplicada, no filtra por tipo (todos los formularios son de cliente).
+  const { error: typeProbe } = await admin
+    .from("forms")
+    .select("form_type")
+    .limit(1);
+  const hasType = !typeProbe;
+
   // Probamos si image_url existe para no romper el render si la columna aún no está.
   const { error: probeError } = await admin
     .from("services")
@@ -92,14 +100,17 @@ export async function getSolicitudFormData(
 
   const localizedService = await localizeService(serviceRow, locale, hasTrans);
 
-  const { data: form } = await admin
+const formQuery = admin
     .from("forms")
     .select("id, version")
     .eq("service_id", serviceRow.id)
     .eq("status", "active")
     .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .limit(1);
+
+  const { data: form } = hasType
+    ? await formQuery.eq("form_type", "customer").maybeSingle()
+    : await formQuery.maybeSingle();
 
   if (!form) {
     return {

@@ -26,17 +26,25 @@ export type PublishedService = {
 };
 
 // Servicios publicados para la landing: un servicio se muestra únicamente si
-// tiene al menos un formulario asociado con estado 'active'. Los formularios
-// activos son legibles por el público (RLS), igual que los servicios publicados.
+// tiene al menos un formulario de CLIENTE asociado con estado 'active' (los
+// formularios de profesional quedan fuera del flujo de solicitud). Los
+// formularios activos son legibles por el público (RLS), igual que los
+// servicios publicados.
 export async function getPublishedServices(
   locale: Locale = "es"
 ): Promise<PublishedService[]> {
   const supabase = await createClient();
 
-  const { data: activeForms, error: formsError } = await supabase
+  const { error: typeProbe } = await supabase
     .from("forms")
-    .select("service_id")
-    .eq("status", "active");
+    .select("form_type")
+    .limit(1);
+  const hasType = !typeProbe;
+
+  const formsQuery = supabase.from("forms").select("service_id").eq("status", "active");
+  const { data: activeForms, error: formsError } = hasType
+    ? await formsQuery.eq("form_type", "customer")
+    : await formsQuery;
 
   if (formsError) throw new Error(formsError.message);
 
