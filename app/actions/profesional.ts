@@ -257,7 +257,8 @@ async function loadAndValidate(
   formId: string,
   answers: Record<string, unknown>,
   requiredError: string,
-  invalidOptionError: string
+  invalidOptionError: string,
+  invalidFileError: string
 ): Promise<Validation> {
   const admin = createAdminClient();
 
@@ -312,6 +313,16 @@ async function loadAndValidate(
         if (!valid.has(String(v))) {
           throw new Error(invalidOptionError);
         }
+      }
+    }
+
+    // Para preguntas de foto la respuesta es la URL pública del adjunto:
+    // solo se aceptan imágenes subidas al bucket form-attachments.
+    if (q.type === "file") {
+      const base = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+      const s = String(value);
+      if (!s.startsWith("http") || !s.includes(`${base}/storage/v1/object/public/form-attachments`)) {
+        throw new Error(invalidFileError);
       }
     }
   }
@@ -398,6 +409,7 @@ export async function submitProfesionalEnrollment(
   texts: {
     required?: string;
     invalidOption?: string;
+    invalidFile?: string;
     notAuthed?: string;
     emailInUse?: string;
     duplicate?: string;
@@ -406,6 +418,7 @@ export async function submitProfesionalEnrollment(
 ) {
   const required = texts.required ?? "Responde todas las preguntas obligatorias.";
   const invalidOption = texts.invalidOption ?? "Alguna opción de respuesta no es válida.";
+  const invalidFile = texts.invalidFile ?? "La foto adjunta no es válida.";
   const notAuthed = texts.notAuthed ?? "Inicia sesión para continuar.";
   const emailInUse = texts.emailInUse ?? "Ya existe una cuenta con ese email. Inicia sesión.";
   const duplicate =
@@ -421,7 +434,8 @@ export async function submitProfesionalEnrollment(
     input.form_id,
     input.answers ?? {},
     required,
-    invalidOption
+    invalidOption,
+    invalidFile
   );
 
   const { userId, email } = await resolveProfessionalUser(

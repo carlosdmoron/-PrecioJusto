@@ -322,7 +322,14 @@
     "submitError": "Impossibile salvare la richiesta. Riprova.",
     "noFormTitle": "Questo servizio non è ancora disponibile",
     "noFormText": "Non c'è ancora un modulo associato a questo servizio. Potrai richiedere un preventivo molto presto.",
-    "backServices": "Torna ai servizi"
+    "backServices": "Torna ai servizi",
+    "attachPhotoButton": "Allega foto",
+    "attachPhotoHint": "JPG, PNG o WebP · max 5 MB",
+    "uploadingPhoto": "Caricamento foto...",
+    "removePhoto": "Rimuovi",
+    "invalidFileType": "Il file deve essere un'immagine.",
+    "fileTooLarge": "L'immagine supera la dimensione massima di 5 MB.",
+    "uploadFailed": "Impossibile caricare la foto. Riprova."
   },
   "profRegistro": {
     "meta": {
@@ -362,7 +369,14 @@
     "backHome": "Torna alla home",
     "successTitle": "Iscrizione inviata!",
     "successText": "Il tuo profilo professionista è in attesa di validazione. Presto potrai ricevere richieste dai clienti.",
-    "submitError": "Impossibile inviare l'iscrizione. Riprova."
+    "submitError": "Impossibile inviare l'iscrizione. Riprova.",
+    "attachPhotoButton": "Allega foto",
+    "attachPhotoHint": "JPG, PNG o WebP · max 5 MB",
+    "uploadingPhoto": "Caricamento foto...",
+    "removePhoto": "Rimuovi",
+    "invalidFileType": "Il file deve essere un'immagine.",
+    "fileTooLarge": "L'immagine supera la dimensione massima di 5 MB.",
+    "uploadFailed": "Impossibile caricare la foto. Riprova."
   },
   "signProfesional": {
     "meta": {
@@ -1968,7 +1982,8 @@
         "questionTypeLabels": {
           "free": "Risposta libera",
           "choice": "Scelta multipla (una risposta)",
-          "multi": "Scelta multipla (1 o più risposte)"
+          "multi": "Scelta multipla (1 o più risposte)",
+          "photo": "Allega foto"
         },
         "choicesLabel": "Risposte",
         "addOptionLabel": "Aggiungi risposta",
@@ -1983,7 +1998,7 @@
           "select": "Selettore",
           "phone": "Telefono",
           "email": "Email",
-          "file": "File",
+          "file": "Foto",
           "scale": "Scala 1-10"
         },
         "questions": [

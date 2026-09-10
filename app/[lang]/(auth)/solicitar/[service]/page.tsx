@@ -91,6 +91,13 @@ export default async function SolicitarPage({
             noFormTitle: t.noFormTitle,
             noFormText: t.noFormText,
             backServices: t.backServices,
+            attachPhotoButton: t.attachPhotoButton,
+            attachPhotoHint: t.attachPhotoHint,
+            uploadingPhoto: t.uploadingPhoto,
+            removePhoto: t.removePhoto,
+            invalidFileType: t.invalidFileType,
+            fileTooLarge: t.fileTooLarge,
+            uploadFailed: t.uploadFailed,
           }}
           loginLabels={{
             emailLabel: loginDict.emailLabel,

@@ -1,9 +1,21 @@
 "use client";
 
+import { useRef, useState } from "react";
 import type { SolicitudQuestion } from "../../actions/solicitud";
+import { uploadFormAttachment } from "../../actions/upload";
 
 export type Answer = string | string[] | number;
 export type Answers = Record<string, Answer>;
+
+export type UploadLabels = {
+  attachPhotoButton: string;
+  attachPhotoHint: string;
+  uploadingPhoto: string;
+  removePhoto: string;
+  invalidFileType: string;
+  fileTooLarge: string;
+  uploadFailed: string;
+};
 
 export const inputClass =
   "h-12 w-full rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40";
@@ -13,11 +25,13 @@ export function QuestionField({
   value,
   requiredMark,
   onChange,
+  uploadLabels,
 }: {
   question: SolicitudQuestion;
   value: Answer;
   requiredMark: string;
   onChange: (v: Answer) => void;
+  uploadLabels?: UploadLabels;
 }) {
   const { id, label, type, required, options } = question;
 
@@ -25,7 +39,11 @@ export function QuestionField({
     <div>
       <label
         className="mb-2 block text-sm font-medium text-ink"
-        htmlFor={type === "radio" || type === "checkbox" || type === "scale" ? undefined : id}
+        htmlFor={
+          type === "radio" || type === "checkbox" || type === "scale" || type === "file"
+            ? undefined
+            : id
+        }
       >
         {label}
         {required ? (
@@ -70,6 +88,9 @@ export function QuestionField({
 
       ) : type === "scale" ? (
         <ScaleField value={value} required={required} onChange={onChange} />
+
+      ) : type === "file" ? (
+        <PhotoField value={value} labels={uploadLabels} onChange={onChange} />
 
       ) : (
         <input
@@ -224,6 +245,114 @@ function ScaleField({
           {n}
         </button>
       ))}
+    </div>
+  );
+}
+
+const MAX_PHOTO_SIZE = 5 * 1024 * 1024;
+
+function PhotoField({
+  value,
+  labels,
+  onChange,
+}: {
+  value: Answer;
+  labels?: UploadLabels;
+  onChange: (v: Answer) => void;
+}) {
+  const [status, setStatus] = useState<"idle" | "uploading" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const url = typeof value === "string" && value.trim() ? value.trim() : "";
+
+  async function upload(file: File) {
+    if (!file.type.startsWith("image/")) {
+      setError(labels?.invalidFileType ?? "El archivo debe ser una imagen.");
+      setStatus("error");
+      return;
+    }
+    if (file.size > MAX_PHOTO_SIZE) {
+      setError(labels?.fileTooLarge ?? "La imagen supera el tamaño máximo de 5 MB.");
+      setStatus("error");
+      return;
+    }
+    setStatus("uploading");
+    setError(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const result = await uploadFormAttachment(fd);
+      onChange(result.url);
+      setStatus("idle");
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : (labels?.uploadFailed ?? "No se pudo subir la foto.")
+      );
+      setStatus("error");
+    }
+  }
+
+  const t = (k: keyof UploadLabels, fallback: string) => labels?.[k] ?? fallback;
+
+  return (
+    <div className="space-y-3">
+      {url ? (
+        <div className="space-y-2">
+          <div className="relative overflow-hidden rounded-lg border border-line/60">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={url} alt="" className="max-h-60 w-full object-cover" />
+          </div>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              disabled={status === "uploading"}
+              className="rounded-lg border border-line/60 px-4 py-2 text-sm font-medium text-ink transition hover:border-primary/40 disabled:opacity-60"
+            >
+              {t("attachPhotoButton", "Cambiar foto")}
+            </button>
+            <button
+              type="button"
+              onClick={() => onChange("")}
+              disabled={status === "uploading"}
+              className="rounded-lg px-4 py-2 text-sm font-medium text-steel transition hover:text-danger disabled:opacity-60"
+            >
+              {t("removePhoto", "Quitar")}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={status === "uploading"}
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-line/70 bg-surface/40 px-4 py-6 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark disabled:opacity-60"
+        >
+          {status === "uploading"
+            ? t("uploadingPhoto", "Subiendo foto...")
+            : t("attachPhotoButton", "Adjuntar foto")}
+        </button>
+      )}
+
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) void upload(file);
+          e.target.value = "";
+        }}
+      />
+
+      <p className="text-xs text-muted">{t("attachPhotoHint", "JPG, PNG o WebP · máx. 5 MB")}</p>
+
+      {error ? (
+        <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

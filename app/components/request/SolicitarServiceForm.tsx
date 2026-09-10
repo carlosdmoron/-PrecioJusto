@@ -51,6 +51,13 @@ type Labels = {
   noFormTitle: string;
   noFormText: string;
   backServices: string;
+  attachPhotoButton: string;
+  attachPhotoHint: string;
+  uploadingPhoto: string;
+  removePhoto: string;
+  invalidFileType: string;
+  fileTooLarge: string;
+  uploadFailed: string;
 };
 
 type Props = {
@@ -119,11 +126,19 @@ function generateAnonCode(): string {
   return `anon-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
 }
 
+// Ignora respuestas de foto (URLs de storage) a la hora de derivar el título
+// de la solicitud: un enlace largo no aporta nada como encabezado.
+function isStorageUrl(text: string) {
+  return text.startsWith("http") && text.includes("/storage/v1/object/public/");
+}
+
 function deriveTitle(serviceName: string, answers: Answers) {
   for (const value of Object.values(answers ?? {})) {
     const val = Array.isArray(value) ? value.join(", ") : String(value ?? "");
     const clean = val.replace(/\s+/g, " ").trim();
-    if (clean) return `${serviceName}: ${clean.slice(0, 80)}`;
+    if (!clean) continue;
+    if (isStorageUrl(clean)) continue;
+    return `${serviceName}: ${clean.slice(0, 80)}`;
   }
   return serviceName;
 }
@@ -498,6 +513,7 @@ export default function SolicitarServiceForm({
             question={currentStep.question}
             value={answers[currentStep.question.id]}
             requiredMark={labels.requiredMark}
+            uploadLabels={labels}
             onChange={(v) => handleAnswer(currentStep.question.id, v)}
           />
         ) : (

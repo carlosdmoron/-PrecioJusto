@@ -47,6 +47,13 @@ type Labels = {
   successTitle: string;
   successText: string;
   submitError: string;
+  attachPhotoButton: string;
+  attachPhotoHint: string;
+  uploadingPhoto: string;
+  removePhoto: string;
+  invalidFileType: string;
+  fileTooLarge: string;
+  uploadFailed: string;
 };
 
 type Props = {
@@ -340,6 +347,7 @@ export default function ProfesionalForm({
             question={currentStep.question}
             value={answers[currentStep.question.id]}
             requiredMark={labels.requiredMark}
+            uploadLabels={labels}
             onChange={(v: Answer) =>
               setAnswers((prev) => ({ ...prev, [currentStep.question.id]: v }))
             }

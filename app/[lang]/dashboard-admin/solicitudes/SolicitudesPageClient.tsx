@@ -17,6 +17,10 @@ import {
   listServices,
 } from "../../../actions/admin";
 
+function isStorageUrl(text: string) {
+  return text.startsWith("http") && text.includes("/storage/v1/object/public/");
+}
+
 export default function SolicitudesPageClient({ data }: { data: any }) {
   const router = useRouter();
   const [items, setItems] = useState(data.items ?? []);
@@ -328,7 +332,26 @@ export default function SolicitudesPageClient({ data }: { data: any }) {
                         className="flex justify-between gap-4 rounded-lg bg-pj-bg px-3 py-2"
                       >
                         <span className="text-xs text-pj-steel">{a.question}</span>
-                        <span className="text-xs font-medium text-pj-ink">{a.answer}</span>
+                        {isStorageUrl(a.answer) ? (
+                          <a
+                            href={a.answer}
+                            target="_blank"
+                            rel="noreferrer"
+                            title={a.answer}
+                            className="shrink-0"
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={a.answer}
+                              alt={a.question}
+                              className="h-16 w-16 rounded-lg border border-pj-border object-cover"
+                            />
+                          </a>
+                        ) : (
+                          <span className="text-xs font-medium text-pj-ink">
+                            {a.answer}
+                          </span>
+                        )}
                       </div>
                     ))}
                   </div>

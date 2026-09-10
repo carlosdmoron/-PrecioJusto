@@ -96,6 +96,13 @@ export default async function ProfRegistroPage({
             successTitle: t.successTitle,
             successText: t.successText,
             submitError: t.submitError,
+            attachPhotoButton: t.attachPhotoButton,
+            attachPhotoHint: t.attachPhotoHint,
+            uploadingPhoto: t.uploadingPhoto,
+            removePhoto: t.removePhoto,
+            invalidFileType: t.invalidFileType,
+            fileTooLarge: t.fileTooLarge,
+            uploadFailed: t.uploadFailed,
           }}
         />
       </div>

@@ -49,6 +49,8 @@ export default function FormulariosPageClient({ data }: { data: any }) {
       ? "multi"
       : type === "radio" || type === "select"
       ? "choice"
+      : type === "file"
+      ? "photo"
       : "free";
 
   const normalizeQuestions = (qs: Question[]): Question[] =>
@@ -479,7 +481,13 @@ export default function FormulariosPageClient({ data }: { data: any }) {
                         const v = e.target.value;
                         changeQuestionType(
                           index,
-                          v === "free" ? "textarea" : v === "multi" ? "checkbox" : "radio"
+                          v === "free"
+                            ? "textarea"
+                            : v === "multi"
+                            ? "checkbox"
+                            : v === "photo"
+                            ? "file"
+                            : "radio"
                         );
                       }}
                       className="h-8 rounded-md bg-field px-2 text-xs text-ink outline-none focus:ring-2 focus:ring-primary/40"
@@ -490,6 +498,9 @@ export default function FormulariosPageClient({ data }: { data: any }) {
                       </option>
                       <option value="multi">
                         {data.builder.questionTypeLabels.multi}
+                      </option>
+                      <option value="photo">
+                        {data.builder.questionTypeLabels.photo}
                       </option>
                     </select>
                     <span className="text-xs text-muted">
@@ -554,7 +565,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               </div>
             );
           })}
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
             <button
               type="button"
               onClick={() => addQuestion("textarea")}
@@ -575,6 +586,13 @@ export default function FormulariosPageClient({ data }: { data: any }) {
               className="w-full rounded-lg border border-dashed border-line/60 py-3 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark"
             >
               + {data.builder.questionTypeLabels.multi}
+            </button>
+            <button
+              type="button"
+              onClick={() => addQuestion("file")}
+              className="w-full rounded-lg border border-dashed border-line/60 py-3 text-sm font-medium text-muted transition hover:border-primary/40 hover:text-primary-dark"
+            >
+              + {data.builder.questionTypeLabels.photo}
             </button>
           </div>
           <div className="flex gap-3 pt-2">
