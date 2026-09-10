@@ -77,7 +77,7 @@ export async function getProfesionalServices(
     .from("services")
     .select(select)
     .in("id", serviceIds)
-    .eq("status", "published")
+    .in("status", ["published", "coming_soon", "review"])
     .order("created_at", { ascending: true })
     .limit(3);
 
