@@ -1,11 +1,18 @@
 import Image from "next/image";
 import { lang } from "next/root-params";
 import { getDictionary } from "../../[lang]/dictionaries";
+import { getProfesionalServices } from "../../actions/profesional";
+import ProfServiceSearch from "./ProfServiceSearch";
 
 export default async function ProfHero() {
   const dict = await getDictionary();
   const { hero } = dict.profesional;
   const current = (await lang()) ?? "es";
+
+  // Servicios que tienen un formulario de inscripción de profesionales activo:
+  // alimentan la barra de búsqueda del hero.
+  const services = await getProfesionalServices(current as "es" | "it" | "en");
+
   return (
     <section className="relative overflow-hidden">
       <Image
@@ -23,19 +30,12 @@ export default async function ProfHero() {
             {hero.cardTitle}
           </h1>
           <p className="mt-6 text-sm leading-relaxed text-steel">{hero.cardText}</p>
-          <form action="#" className="mt-9">
-            <input
-              type="email"
-              placeholder={hero.emailPlaceholder}
-              className="h-12 w-full rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
-            />
-            <button
-              type="submit"
-              className="mt-4 h-12 w-full rounded-lg bg-primary-dark text-sm font-medium text-white transition hover:bg-primary"
-            >
-              {hero.submitButton}
-            </button>
-          </form>
+          <ProfServiceSearch
+            services={services}
+            lang={current}
+            placeholder={hero.searchPlaceholder}
+            button={hero.submitButton}
+          />
           <p className="mt-6 text-center text-xs text-steel">
             {hero.haveAccount}{" "}
             <a

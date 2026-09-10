@@ -172,8 +172,8 @@
     "hero": {
       "cardTitle": "Haz crecer tu negocio con PrecioJusto",
       "cardText": "Únete como profesional y llega a miles de clientes que buscan servicios como los tuyos cada día.",
-      "emailPlaceholder": "Tu correo profesional",
-      "submitButton": "Registrarme gratis",
+      "searchPlaceholder": "Busca tu servicio (ej.: fontanería)",
+      "submitButton": "Buscar",
       "haveAccount": "¿Aún no tienes cuenta?",
       "loginLink": "Crea tu cuenta gratuita",
       "highlights": [

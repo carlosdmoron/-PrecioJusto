@@ -172,8 +172,8 @@
     "hero": {
       "cardTitle": "Fai crescere il tuo business con PrecioJusto",
       "cardText": "Iscriviti come professionista e raggiungi migliaia di clienti che cercano ogni giorno servizi come i tuoi.",
-      "emailPlaceholder": "La tua email professionale",
-      "submitButton": "Registrati gratis",
+      "searchPlaceholder": "Cerca il tuo servizio (es.: idraulico)",
+      "submitButton": "Cerca",
       "haveAccount": "Non hai ancora un account?",
       "loginLink": "Crea il tuo account gratuito",
       "highlights": [

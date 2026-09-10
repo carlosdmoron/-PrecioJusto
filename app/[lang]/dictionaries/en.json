@@ -172,8 +172,8 @@
     "hero": {
       "cardTitle": "Grow your business with PrecioJusto",
       "cardText": "Join as a professional and reach thousands of customers looking for services like yours every day.",
-      "emailPlaceholder": "Your business email",
-      "submitButton": "Sign up free",
+      "searchPlaceholder": "Search your service (e.g.: plumbing)",
+      "submitButton": "Search",
       "haveAccount": "Don't have an account yet?",
       "loginLink": "Create your free account",
       "highlights": [
