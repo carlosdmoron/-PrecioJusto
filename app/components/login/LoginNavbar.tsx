@@ -15,7 +15,7 @@ export default async function LoginNavbar() {
               alt="PrecioJusto"
               width={771}
               height={324}
-              className="h-12 w-auto"
+              className="h-13 w-auto"
             />
         </a>
         <nav aria-label={nav.categories} className="hidden items-center gap-6 text-sm font-medium text-steel lg:flex">

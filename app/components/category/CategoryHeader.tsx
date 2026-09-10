@@ -44,13 +44,13 @@ export default function CategoryHeader({
             </svg>
             <span>{header.menu}</span>
           </button>
-          <a href={`/${lang}`} className="flex items-center gap-2" aria-label="PrecioJusto - Inicio">
+          <a href={`/${lang}`} className="flex shrink-0 items-center gap-2" aria-label="PrecioJusto - Inicio">
             <Image
               src="/images/logo.png"
               alt="PrecioJusto"
               width={771}
               height={324}
-              className="h-12 w-auto"
+              className="h-13 w-auto"
             />
           </a>
         </div>

@@ -18,13 +18,13 @@ export default async function Navbar() {
         className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/40 to-transparent"
       />
       <div className="relative mx-auto flex h-16 w-full max-w-[1280px] items-center justify-between gap-4 px-6 lg:px-20">
-        <a href="#" className="flex items-center gap-3">
+        <a href="#" className="flex shrink-0 items-center gap-3">
           <Image
             src="/images/logo.png"
             alt="PrecioJusto"
             width={771}
             height={324}
-            className="h-12 w-auto"
+            className="h-13 w-auto"
           />
         </a>
         <div className="flex items-center gap-5">

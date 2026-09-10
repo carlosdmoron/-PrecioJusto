@@ -12,7 +12,7 @@ export default async function ProfLogoHeader() {
       <div className="relative mx-auto w-full max-w-[1280px] px-6 py-5 lg:px-20">
         <a
           href={`/${current}`}
-          className="flex items-center gap-3"
+          className="flex shrink-0 items-center gap-3"
           aria-label="PrecioJusto - Inicio"
         >
           <Image
@@ -20,7 +20,7 @@ export default async function ProfLogoHeader() {
             alt="PrecioJusto"
             width={771}
             height={324}
-            className="h-12 w-auto"
+            className="h-13 w-auto"
           />
         </a>
       </div>
