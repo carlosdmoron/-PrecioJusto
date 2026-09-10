@@ -127,13 +127,19 @@ export async function listServices(): Promise<AdminServiceRow[]> {
   });
 }
 
+// Normaliza el título de un servicio: primera letra en mayúscula (base en español,
+// las traducciones se derivan de aquí y siguen la misma capitalización).
+function capitalizeFirst(s: string): string {
+  return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
 export async function createService(input: AdminServiceInput) {
   await requireUser();
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("services")
     .insert({
-      name: input.name,
+      name: capitalizeFirst(input.name),
       slug: input.slug,
       description: input.description ?? "",
       image_url: input.image_url ?? null,
@@ -208,7 +214,7 @@ export async function updateService(id: string, input: AdminServiceInput) {
   const { error } = await supabase
     .from("services")
     .update({
-      name: input.name,
+      name: capitalizeFirst(input.name),
       slug: input.slug,
       description: input.description ?? "",
       image_url: input.image_url ?? null,

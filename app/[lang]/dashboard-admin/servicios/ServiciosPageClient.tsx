@@ -196,7 +196,10 @@ export default function ServiciosPageClient({ data }: { data: any }) {
             <label className="text-xs font-medium text-muted">{data.modal.name}</label>
             <input
               value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              onChange={(e) => {
+                const v = e.target.value;
+                setForm({ ...form, name: v.charAt(0).toUpperCase() + v.slice(1) });
+              }}
               placeholder={data.modal.namePh}
               className="mt-1 h-10 w-full rounded-lg bg-field px-3 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
             />
