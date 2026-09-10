@@ -23,7 +23,7 @@ export default async function ServiciosBuscados() {
           {services.map((service) => (
             <a
               key={service.id}
-              href={`/${current}/profesional`}
+              href={`/${current}/profesional/${service.slug || service.id}`}
               className="group relative overflow-hidden rounded-xl border border-line/40 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="relative h-48 overflow-hidden">
@@ -42,7 +42,7 @@ export default async function ServiciosBuscados() {
               </div>
               <div className="absolute bottom-0 left-0 right-0 translate-y-full px-3 pb-3 transition-transform duration-300 ease-out group-hover:translate-y-0">
                 <span className="flex w-full items-center justify-center rounded-lg bg-primary py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-primary-dark">
-                  {t.presupuestar}
+                  {t.workWithUs}
                 </span>
               </div>
             </a>
