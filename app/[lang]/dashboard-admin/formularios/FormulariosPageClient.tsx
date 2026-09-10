@@ -25,6 +25,7 @@ type Question = {
   type: string;
   required: boolean;
   options: string[];
+  field_key?: string | null;
 };
 
 export default function FormulariosPageClient({ data }: { data: any }) {
@@ -61,6 +62,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
         options: isChoice && (!q.options || q.options.length === 0)
           ? defaultChoiceOptions()
           : q.options ?? [],
+        field_key: q.field_key ?? "",
       };
     });
 
@@ -128,6 +130,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
           type,
           required: false,
           options: isChoice ? defaultChoiceOptions() : [],
+          field_key: "",
         },
       ];
     });
@@ -551,6 +554,31 @@ export default function FormulariosPageClient({ data }: { data: any }) {
                       >
                         + {data.builder.addOptionLabel}
                       </button>
+                    </div>
+                  )}
+                  {formType === "professional" && (
+                    <div className="flex items-center gap-3 border-t border-line/20 pt-2">
+                      <label
+                        className="shrink-0 text-[11px] font-medium text-faint"
+                        title={data.builder.fieldKeyHint}
+                      >
+                        {data.builder.fieldKey}
+                      </label>
+                      <select
+                        value={q.field_key || ""}
+                        onChange={(e) =>
+                          updateQuestion(index, { field_key: e.target.value || null })
+                        }
+                        className="h-8 w-full rounded-md bg-field px-2 text-xs text-ink outline-none focus:ring-2 focus:ring-primary/40"
+                      >
+                        <option value="">{data.builder.fieldKeyLabels.none}</option>
+                        <option value="full_name">{data.builder.fieldKeyLabels.full_name}</option>
+                        <option value="first_name">{data.builder.fieldKeyLabels.first_name}</option>
+                        <option value="last_name">{data.builder.fieldKeyLabels.last_name}</option>
+                        <option value="email">{data.builder.fieldKeyLabels.email}</option>
+                        <option value="phone">{data.builder.fieldKeyLabels.phone}</option>
+                        <option value="photo">{data.builder.fieldKeyLabels.photo}</option>
+                      </select>
                     </div>
                   )}
                 </div>

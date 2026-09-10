@@ -191,8 +191,8 @@ export async function getProfesionalFormData(
   if (!form) return empty();
 
   const qSelect = hasTrans
-    ? "id, label, label_it, label_en, type, required, options, options_it, options_en"
-    : "id, label, type, required, options";
+    ? "id, label, label_it, label_en, type, required, options, options_it, options_en, field_key"
+    : "id, label, type, required, options, field_key";
 
   const { data: questions } = await admin
     .from("form_questions")
@@ -210,6 +210,7 @@ export async function getProfesionalFormData(
     label_en: string | null;
     options_it: string[] | null;
     options_en: string[] | null;
+    field_key: string | null;
   }>;
 
   const localized = await localizeQuestions(questionRows, locale, hasTrans);
@@ -229,6 +230,7 @@ export async function getProfesionalFormData(
       type: q.type,
       required: q.required ?? false,
       options: localized[i]?.options ?? (Array.isArray(q.options) ? q.options : []),
+      field_key: q.field_key ?? null,
     })),
   };
 }
@@ -240,17 +242,69 @@ export type ProfesionalEnrollment = {
   form_id: string;
   answers: Record<string, unknown>;
   account?: {
-    firstName: string;
-    lastName: string;
-    phone?: string;
     email: string;
-    password: string;
   } | null;
+};
+
+type ValidationQuestion = {
+  id: string;
+  type: string;
+  field_key: string | null;
 };
 
 type Validation = {
   formId: string;
+  questions: ValidationQuestion[];
 };
+
+// Extrae los datos "de perfil y cuenta" de las respuestas a preguntas marcadas
+// con field_key. Estas respuestas alimentan el perfil del profesional
+// (profiles) y, en el caso del correo, la creación de la cuenta.
+export type ProfileAnswers = {
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  phone?: string;
+  avatar_url?: string;
+};
+
+function extractProfileAnswers(
+  questions: ValidationQuestion[],
+  answers: Record<string, unknown>
+): ProfileAnswers {
+  const profile: ProfileAnswers = {};
+  for (const q of questions) {
+    if (!q.field_key) continue;
+    const value = answers[q.id];
+    const s = Array.isArray(value) ? String(value[0] ?? "") : String(value ?? "");
+    const text = s.trim();
+    if (!text) continue;
+    switch (q.field_key) {
+      case "full_name": {
+        const parts = text.split(/\s+/);
+        profile.first_name = parts[0];
+        profile.last_name = parts.slice(1).join(" ");
+        break;
+      }
+      case "first_name":
+        profile.first_name = text;
+        break;
+      case "last_name":
+        profile.last_name = text;
+        break;
+      case "email":
+        profile.email = text;
+        break;
+      case "phone":
+        profile.phone = text;
+        break;
+      case "photo":
+        profile.avatar_url = text;
+        break;
+    }
+  }
+  return profile;
+}
 
 async function loadAndValidate(
   serviceId: string,
@@ -281,7 +335,7 @@ async function loadAndValidate(
 
   const { data: questions } = await admin
     .from("form_questions")
-    .select("id, type, required, options")
+    .select("id, type, required, options, field_key")
     .eq("form_id", formId)
     .order("sort_order", { ascending: true });
   const qs = (questions ?? []) as Array<{
@@ -289,6 +343,7 @@ async function loadAndValidate(
     type: string;
     required: boolean;
     options: string[] | null;
+    field_key: string | null;
   }>;
 
   const isEmpty = (v: unknown): boolean => {
@@ -327,51 +382,59 @@ async function loadAndValidate(
     }
   }
 
-  return { formId };
+  return { formId, questions: qs };
 }
 
+// Crea la cuenta del profesional invitado. Como la confirmación de email está
+// activada en el proyecto, la cuenta se crea ya confirmada (email_confirm) con
+// una contraseña temporal generada por el servidor y se inicia sesión al momento:
+// el flujo de la landing lleva al profesional directamente a su dashboard, donde
+// un popup (must_set_password) le pedirá elegir su propia contraseña.
 async function resolveProfessionalUser(
   account: ProfesionalEnrollment["account"],
+  profile: ProfileAnswers,
   notAuthedError: string,
   emailInUseError: string
-): Promise<{ userId: string; email: string }> {
+): Promise<{ userId: string; email: string; mustSetPassword: boolean }> {
   const supabase = await createClient();
   const {
     data: { user: sessionUser },
   } = await supabase.auth.getUser();
 
   if (sessionUser) {
-    const { data: profile } = await supabase
+    const { data: profileRow } = await supabase
       .from("profiles")
       .select("role")
       .eq("id", sessionUser.id)
       .maybeSingle();
-    if (profile?.role !== "professional") {
+    if (profileRow?.role !== "professional") {
       throw new Error(
         "Tu cuenta ya existe con otro rol. Usa una cuenta de profesional o contacta con soporte."
       );
     }
-    return { userId: sessionUser.id, email: sessionUser.email ?? "" };
+    // Ya tiene sesión y contraseña: no necesita el popup.
+    return { userId: sessionUser.id, email: sessionUser.email ?? "", mustSetPassword: false };
   }
 
-  // Invitado: crea la cuenta de profesional en el mismo envío.
-  if (!account?.email || !account.password) {
+  // Invitado: crea la cuenta confirmada en el mismo envío. El correo puede venir
+  // de la respuesta a la pregunta de correo (field_key email) o del paso de
+  // cuenta (solo correo; después elegirá su contraseña en el dashboard).
+  const email = String(account?.email ?? "").trim() || (profile.email ?? "");
+  if (!email) {
     throw new Error(notAuthedError);
   }
-  const email = String(account.email).trim();
-  const firstName = String(account.firstName ?? "").trim();
-  const lastName = String(account.lastName ?? "").trim();
   if (!/^\S+@\S+\.\S+$/.test(email)) throw new Error("Email inválido");
-  if (account.password.length < 6) {
-    throw new Error("La contraseña debe tener al menos 6 caracteres");
-  }
 
-  const { data, error } = await supabase.auth.signUp({
+  const firstName = profile.first_name ?? "";
+  const lastName = profile.last_name ?? "";
+  const tempPassword = globalThis.crypto.randomUUID() + "Pj!";
+
+  const admin = createAdminClient();
+  const { data, error } = await admin.auth.admin.createUser({
     email,
-    password: account.password,
-    options: {
-      data: { role: "professional", first_name: firstName, last_name: lastName },
-    },
+    password: tempPassword,
+    email_confirm: true,
+    user_metadata: { role: "professional", first_name: firstName, last_name: lastName },
   });
   if (error) {
     const msg = String(error.message ?? "").toLowerCase();
@@ -383,22 +446,30 @@ async function resolveProfessionalUser(
   const userId = data?.user?.id;
   if (!userId) throw new Error(notAuthedError);
 
-  const admin = createAdminClient();
-  const patch: Record<string, string> = {
+  const patch: Record<string, string | boolean> = {
     id: userId,
     email,
     role: "professional",
     first_name: firstName,
     last_name: lastName,
+    must_set_password: true,
   };
-  const phone = String(account.phone ?? "").trim();
-  if (phone) patch.phone = phone;
+  if (profile.phone) patch.phone = profile.phone;
+  if (profile.avatar_url) patch.avatar_url = profile.avatar_url;
   await admin
     .from("profiles")
     .upsert(patch, { onConflict: "id" })
     .then(() => undefined, () => undefined);
 
-  return { userId, email };
+  // Inicia sesión automáticamente con la contraseña temporal: el profesional
+  // entra al dashboard sin tener que activar la cuenta por email.
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password: tempPassword,
+  });
+  if (signInError) throw new Error(notAuthedError);
+
+  return { userId, email, mustSetPassword: true };
 }
 
 // Crea (o completa) el perfil profesional: fila en professionals,
@@ -429,7 +500,7 @@ export async function submitProfesionalEnrollment(
     throw new Error("Faltan datos del formulario.");
   }
 
-  const { formId } = await loadAndValidate(
+  const { formId, questions } = await loadAndValidate(
     input.service_id,
     input.form_id,
     input.answers ?? {},
@@ -437,9 +508,11 @@ export async function submitProfesionalEnrollment(
     invalidOption,
     invalidFile
   );
+  const profile = extractProfileAnswers(questions, input.answers ?? {});
 
-  const { userId, email } = await resolveProfessionalUser(
+  const { userId, email, mustSetPassword } = await resolveProfessionalUser(
     input.account ?? null,
+    profile,
     notAuthed,
     emailInUse
   );
@@ -470,6 +543,22 @@ export async function submitProfesionalEnrollment(
     )
     .then(() => undefined, () => undefined);
 
+  // Sincroniza el perfil del profesional con las respuestas marcadas con
+  // field_key (nombre, teléfono y foto). El correo solo se escribe al crear la
+  // cuenta de invitado para no desincronizar el email de acceso.
+  const profilePatch: Record<string, string> = {};
+  if (profile.first_name) profilePatch.first_name = profile.first_name;
+  if (profile.last_name) profilePatch.last_name = profile.last_name;
+  if (profile.phone) profilePatch.phone = profile.phone;
+  if (profile.avatar_url) profilePatch.avatar_url = profile.avatar_url;
+  if (Object.keys(profilePatch).length > 0) {
+    await admin
+      .from("profiles")
+      .update({ ...profilePatch, updated_at: new Date().toISOString() })
+      .eq("id", userId)
+      .then(() => undefined, () => undefined);
+  }
+
   const { error: psError } = await admin.from("professional_services").insert({
     professional_id: userId,
     service_id: input.service_id,
@@ -491,8 +580,47 @@ export async function submitProfesionalEnrollment(
     ok: true,
     professionalId: userId,
     email,
+    mustSetPassword,
     href: "/dashboard-profesional",
   };
+}
+
+// Acción del popup de "crear contraseña" del dashboard profesional: valida que
+// la sesión corresponda a un profesional y guarda la contraseña elegida por el
+// usuario, destapando la marca must_set_password para que el popup no vuelva a
+// aparecer.
+export async function setProfessionalPassword(
+  password: string
+): Promise<{ ok: boolean; error?: string }> {
+  if (!password || password.length < 6) {
+    return { ok: false, error: "password-too-short" };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "not-authed" };
+
+  const { data: profileRow } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (profileRow?.role !== "professional") return { ok: false, error: "not-authed" };
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { ok: false, error: error.message || "error" };
+
+  const admin = createAdminClient();
+  await admin
+    .from("profiles")
+    .update({ must_set_password: false, updated_at: new Date().toISOString() })
+    .eq("id", user.id)
+    .then(() => undefined, () => undefined);
+
+  revalidatePath("/dashboard-profesional", "layout");
+  return { ok: true };
 }
 
 // Indica si el usuario autenticado ya tiene un perfil profesional para el

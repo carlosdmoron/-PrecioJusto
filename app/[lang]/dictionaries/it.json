@@ -1063,7 +1063,22 @@
     },
     "balanceLabel": "Saldo disponibile",
     "balance": "1.245,00 €",
-    "withdraw": "Preleva denaro"
+    "withdraw": "Preleva denaro",
+    "closeLabel": "Chiudi",
+    "setPassword": {
+      "title": "Crea la tua password",
+      "subtitle": "Il tuo account professionale è pronto. Scegli una password per accedere in futuro.",
+      "passwordLabel": "Nuova password",
+      "passwordPlaceholder": "Almeno 6 caratteri",
+      "confirmLabel": "Conferma password",
+      "confirmPlaceholder": "Ripeti la password",
+      "mismatch": "Le password non coincidono.",
+      "tooShort": "La password deve avere almeno 6 caratteri.",
+      "submit": "Salva password",
+      "submitting": "Salvataggio…",
+      "success": "Password creata. Ora puoi accedere con essa.",
+      "error": "Impossibile salvare la password. Riprova."
+    }
   },
   "dashboardCliente": {
     "meta": {
@@ -1989,6 +2004,17 @@
         "choicesLabel": "Risposte",
         "addOptionLabel": "Aggiungi risposta",
         "removeOptionLabel": "Rimuovi risposta",
+        "fieldKey": "Campo del profilo",
+        "fieldKeyHint": "Solo per i moduli dei professionisti: la risposta alimenta l'account e il profilo del professionista nel database.",
+        "fieldKeyLabels": {
+          "none": "Nessuno",
+          "full_name": "Nome completo",
+          "first_name": "Nome",
+          "last_name": "Cognome",
+          "email": "Indirizzo email",
+          "phone": "Telefono cellulare",
+          "photo": "Foto profilo"
+        },
         "questionTypes": {
           "radio": "Scelta singola",
           "checkbox": "Scelta multipla",

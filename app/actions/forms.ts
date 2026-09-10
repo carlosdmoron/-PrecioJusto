@@ -24,6 +24,7 @@ export type FormQuestion = {
   type: string;
   required: boolean;
   options: string[];
+  field_key?: string | null;
 };
 
 export type FormDetail = {
@@ -134,7 +135,7 @@ export async function getForm(id: string): Promise<FormDetail | null> {
 
   const { data: questions, error: qError } = await supabase
     .from("form_questions")
-    .select("id, label, type, required, options")
+    .select("id, label, type, required, options, field_key")
     .eq("form_id", id)
     .order("sort_order", { ascending: true });
 
@@ -160,6 +161,7 @@ export async function getForm(id: string): Promise<FormDetail | null> {
       type: q.type,
       required: q.required ?? false,
       options: Array.isArray(q.options) ? q.options : [],
+      field_key: q.field_key ?? null,
     })),
   };
 }
@@ -181,6 +183,41 @@ export async function createForm(
     .single();
 
   if (error) throw new Error(error.message);
+
+  // Los formularios de profesionales siempre incluyen las preguntas base que
+  // alimentan la cuenta y el perfil del profesional (nombre, foto, correo y
+  // teléfono). El campo field_key indica a qué dato de perfil corresponde.
+  if (formType === "professional") {
+    const baseQuestions: Array<{
+      label: string;
+      type: string;
+      required: boolean;
+      field_key: string;
+    }> = [
+      { label: "¿Cuál es tu nombre completo?", type: "textarea", required: true, field_key: "full_name" },
+      { label: "Adjunta una foto de perfil", type: "file", required: false, field_key: "photo" },
+      { label: "¿Cuál es tu correo electrónico?", type: "text", required: true, field_key: "email" },
+      { label: "¿Cuál es tu teléfono móvil?", type: "text", required: true, field_key: "phone" },
+    ];
+    const rows = baseQuestions.map((q, index) => ({
+      form_id: data.id,
+      sort_order: index,
+      label: q.label,
+      type: q.type,
+      required: q.required,
+      options: [],
+      field_key: q.field_key,
+    }));
+    const { error: insError } = await supabase
+      .from("form_questions")
+      .insert(rows);
+    if (insError) throw new Error(insError.message);
+    await supabase
+      .from("forms")
+      .update({ question_count: rows.length, updated_at: new Date().toISOString() })
+      .eq("id", data.id);
+  }
+
   revalidatePath("/[lang]/dashboard-admin/formularios", "page");
   return data.id;
 }
@@ -238,6 +275,7 @@ export async function updateFormQuestions(
       type: q.type,
       required: q.required ?? false,
       options: q.options ?? [],
+      field_key: q.field_key || null,
     }));
     const { error: insError } = await supabase
       .from("form_questions")
@@ -297,6 +335,7 @@ export async function duplicateForm(formId: string): Promise<string> {
       type: q.type,
       required: q.required,
       options: q.options,
+      field_key: q.field_key || null,
     }));
     const { error: insError } = await supabase
       .from("form_questions")

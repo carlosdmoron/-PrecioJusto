@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { submitProfesionalEnrollment } from "../../actions/profesional";
 import type { SolicitudQuestion } from "../../actions/solicitud";
 import { QuestionField, inputClass, type Answer, type Answers } from "../request/QuestionField";
@@ -29,13 +30,10 @@ type Labels = {
   phonePlaceholder: string;
   emailLabel: string;
   emailPlaceholder: string;
-  passwordLabel: string;
-  passwordPlaceholder: string;
   submitButton: string;
   submitPending: string;
   checkAnswersError: string;
   invalidEmail: string;
-  passwordTooShort: string;
   emailInUse: string;
   duplicateError: string;
   alreadyTitle: string;
@@ -85,20 +83,28 @@ export default function ProfesionalForm({
   isRegistered,
   labels,
 }: Props) {
+  const router = useRouter();
   const [phase, setPhase] = useState<"form" | "success">("form");
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [account, setAccount] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
     email: "",
-    password: "",
   });
   const [formError, setFormError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
   const hasForm = Boolean(form && questions.length > 0);
+
+  // El correo de la cuenta se precarga desde la respuesta a la pregunta
+  // marcada con field_key "email" (pregunta base del formulario profesional).
+  const emailQuestion = useMemo(
+    () => questions.find((q) => q.field_key === "email"),
+    [questions]
+  );
+  const emailFromAnswers = emailQuestion
+    ? String(answers[emailQuestion.id] ?? "").trim()
+    : "";
+  const effectiveEmail = account.email.trim() || emailFromAnswers;
 
   const steps = useMemo<Step[]>(() => {
     if (!hasForm) return [];
@@ -165,12 +171,8 @@ export default function ProfesionalForm({
     }
 
     if (!isLoggedIn) {
-      if (!/^\S+@\S+\.\S+$/.test(account.email.trim())) {
+      if (!/^\S+@\S+\.\S+$/.test(effectiveEmail)) {
         setFormError(labels.invalidEmail);
-        return;
-      }
-      if (account.password.length < 6) {
-        setFormError(labels.passwordTooShort);
         return;
       }
     }
@@ -184,17 +186,13 @@ export default function ProfesionalForm({
       account: isLoggedIn
         ? null
         : {
-            firstName: account.firstName,
-            lastName: account.lastName,
-            phone: account.phone.trim() || undefined,
-            email: account.email.trim(),
-            password: account.password,
+            email: effectiveEmail,
           },
     };
 
     startTransition(async () => {
       try {
-        await submitProfesionalEnrollment(input, {
+        const res = await submitProfesionalEnrollment(input, {
           required: labels.checkAnswersError,
           invalidOption: labels.checkAnswersError,
           notAuthed: labels.submitError,
@@ -202,6 +200,10 @@ export default function ProfesionalForm({
           duplicate: labels.duplicateError,
           saveError: labels.submitError,
         });
+        if (res?.mustSetPassword) {
+          router.push(`/${lang}/dashboard-profesional`);
+          return;
+        }
         setPhase("success");
       } catch (err) {
         setFormError(err instanceof Error ? err.message : labels.submitError);
@@ -357,74 +359,19 @@ export default function ProfesionalForm({
             <h2 className="text-sm font-semibold text-ink">
               {labels.accountSectionTitle}
             </h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div>
-                <label htmlFor="prof-nombre" className="mb-2 block text-sm font-medium text-ink">
-                  {labels.firstNameLabel}
-                </label>
-                <input
-                  id="prof-nombre"
-                  type="text"
-                  placeholder={labels.firstNamePlaceholder}
-                  value={account.firstName}
-                  onChange={(e) => setAccountField("firstName", e.target.value)}
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label htmlFor="prof-apellidos" className="mb-2 block text-sm font-medium text-ink">
-                  {labels.lastNameLabel}
-                </label>
-                <input
-                  id="prof-apellidos"
-                  type="text"
-                  placeholder={labels.lastNamePlaceholder}
-                  value={account.lastName}
-                  onChange={(e) => setAccountField("lastName", e.target.value)}
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label htmlFor="prof-telefono" className="mb-2 block text-sm font-medium text-ink">
-                  {labels.phoneLabel}
-                </label>
-                <input
-                  id="prof-telefono"
-                  type="tel"
-                  placeholder={labels.phonePlaceholder}
-                  value={account.phone}
-                  onChange={(e) => setAccountField("phone", e.target.value)}
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label htmlFor="prof-email" className="mb-2 block text-sm font-medium text-ink">
-                  {labels.emailLabel}
-                </label>
-                <input
-                  id="prof-email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder={labels.emailPlaceholder}
-                  value={account.email}
-                  onChange={(e) => setAccountField("email", e.target.value)}
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label htmlFor="prof-password" className="mb-2 block text-sm font-medium text-ink">
-                  {labels.passwordLabel}
-                </label>
-                <input
-                  id="prof-password"
-                  type="password"
-                  autoComplete="new-password"
-                  placeholder={labels.passwordPlaceholder}
-                  value={account.password}
-                  onChange={(e) => setAccountField("password", e.target.value)}
-                  className={inputClass}
-                />
-              </div>
+            <div className="mt-4">
+              <label htmlFor="prof-email" className="mb-2 block text-sm font-medium text-ink">
+                {labels.emailLabel}
+              </label>
+              <input
+                id="prof-email"
+                type="email"
+                autoComplete="email"
+                placeholder={labels.emailPlaceholder}
+                value={effectiveEmail}
+                onChange={(e) => setAccountField("email", e.target.value)}
+                className={inputClass}
+              />
             </div>
           </div>
         )}

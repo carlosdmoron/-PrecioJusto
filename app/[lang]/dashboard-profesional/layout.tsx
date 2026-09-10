@@ -3,6 +3,7 @@ import { lang } from "next/root-params";
 import { getDictionary } from "../dictionaries";
 import { createClient } from "../../../lib/supabase/server";
 import DashboardSidebar from "../../components/dashboard/DashboardSidebar";
+import SetPasswordModal from "../../components/dashboard/SetPasswordModal";
 
 export default async function DashboardLayout({
   children,
@@ -29,16 +30,26 @@ export default async function DashboardLayout({
     .select("admin_status")
     .eq("id", user.id)
     .maybeSingle();
+
+  // La columna must_set_password existe desde la migración 0014; si aún no está
+  // aplicada el popup de "crear contraseña" simplemente no se muestra.
+  const { error: pwdProbe } = await supabase
+    .from("profiles")
+    .select("must_set_password")
+    .limit(1);
+  const hasMustSetPassword = !pwdProbe;
+  const profileSelect = hasMustSetPassword ? "status, must_set_password" : "status";
   const { data: profile } = await supabase
     .from("profiles")
-    .select("status")
+    .select(profileSelect)
     .eq("id", user.id)
     .maybeSingle();
+  const profileRow = profile as { status?: string | null; must_set_password?: boolean } | null;
 
   const blocked =
     prof?.admin_status === "blocked" ||
-    profile?.status === "banned" ||
-    profile?.status === "blocked";
+    profileRow?.status === "banned" ||
+    profileRow?.status === "blocked";
   if (blocked) {
     await supabase.auth.signOut();
     redirect(loginHref);
@@ -68,6 +79,8 @@ export default async function DashboardLayout({
     },
   ];
 
+  const showSetPassword = Boolean(profileRow?.must_set_password);
+
   return (
     <div className="flex min-h-screen bg-surface max-lg:flex-col">
       <DashboardSidebar
@@ -78,6 +91,25 @@ export default async function DashboardLayout({
         loginHref={loginHref}
       />
       <main className="min-w-0 flex-1">{children}</main>
+      {showSetPassword ? (
+        <SetPasswordModal
+          labels={{
+            title: dict.dashboard.setPassword.title,
+            subtitle: dict.dashboard.setPassword.subtitle,
+            passwordLabel: dict.dashboard.setPassword.passwordLabel,
+            passwordPlaceholder: dict.dashboard.setPassword.passwordPlaceholder,
+            confirmLabel: dict.dashboard.setPassword.confirmLabel,
+            confirmPlaceholder: dict.dashboard.setPassword.confirmPlaceholder,
+            mismatch: dict.dashboard.setPassword.mismatch,
+            tooShort: dict.dashboard.setPassword.tooShort,
+            submit: dict.dashboard.setPassword.submit,
+            submitting: dict.dashboard.setPassword.submitting,
+            success: dict.dashboard.setPassword.success,
+            error: dict.dashboard.setPassword.error,
+            closeLabel: dict.dashboard.closeLabel,
+          }}
+        />
+      ) : null}
     </div>
   );
 }

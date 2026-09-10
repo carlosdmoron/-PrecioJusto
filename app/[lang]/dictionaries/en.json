@@ -1063,7 +1063,22 @@
     },
     "balanceLabel": "Available balance",
     "balance": "€1,245.00",
-    "withdraw": "Withdraw money"
+    "withdraw": "Withdraw money",
+    "closeLabel": "Close",
+    "setPassword": {
+      "title": "Create your password",
+      "subtitle": "Your professional account is ready. Choose a password to sign in later.",
+      "passwordLabel": "New password",
+      "passwordPlaceholder": "At least 6 characters",
+      "confirmLabel": "Confirm password",
+      "confirmPlaceholder": "Repeat your password",
+      "mismatch": "Passwords do not match.",
+      "tooShort": "The password must be at least 6 characters long.",
+      "submit": "Save password",
+      "submitting": "Saving…",
+      "success": "Password created. You can now sign in with it.",
+      "error": "Could not save the password. Please try again."
+    }
   },
   "dashboardCliente": {
     "meta": {
@@ -1989,6 +2004,17 @@
         "choicesLabel": "Answers",
         "addOptionLabel": "Add answer",
         "removeOptionLabel": "Remove answer",
+        "fieldKey": "Profile field",
+        "fieldKeyHint": "Professional forms only: the answer feeds the professional account and profile in the database.",
+        "fieldKeyLabels": {
+          "none": "None",
+          "full_name": "Full name",
+          "first_name": "First name",
+          "last_name": "Last name",
+          "email": "Email address",
+          "phone": "Mobile phone",
+          "photo": "Profile photo"
+        },
         "questionTypes": {
           "radio": "Single choice",
           "checkbox": "Multiple choice",

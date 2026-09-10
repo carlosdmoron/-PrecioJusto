@@ -14,6 +14,7 @@ export type SolicitudQuestion = {
   type: string;
   required: boolean;
   options: string[];
+  field_key?: string | null;
 };
 
 export type SolicitudFormData = {
