@@ -27,7 +27,7 @@ export default async function ProfEnrollment() {
           <p className="mt-3 text-sm leading-relaxed text-steel">{t.subtitle}</p>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {services.slice(0, 3).map((service) => (
             <a
               key={service.id}
               href={`/${current}/profesional/${service.slug}`}

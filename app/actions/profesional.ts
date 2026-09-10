@@ -78,8 +78,7 @@ export async function getProfesionalServices(
     .select(select)
     .in("id", serviceIds)
     .in("status", ["published", "coming_soon", "review"])
-    .order("created_at", { ascending: true })
-    .limit(3);
+    .order("created_at", { ascending: true });
 
   if (error) throw new Error(error.message);
 
