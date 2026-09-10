@@ -14,16 +14,18 @@ export default async function ProfHero() {
   const services = await getProfesionalServices(current as "es" | "it" | "en");
 
   return (
-    <section className="relative overflow-hidden">
-      <Image
-        src="/images/profesional-hero.jpg"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80" />
+    <section className="relative">
+      <div className="absolute inset-0 overflow-hidden">
+        <Image
+          src="/images/profesional-hero.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80" />
+      </div>
       <div className="relative mx-auto flex min-h-[626px] w-full max-w-[1280px] flex-col justify-between px-6 pb-12 pt-12 lg:px-20 lg:pt-[88px]">
         <div className="ml-auto w-full max-w-md rounded-xl bg-white p-8 shadow-2xl shadow-black/30">
           <h1 className="text-2xl font-bold tracking-tight text-ink md:text-3xl md:leading-tight">
