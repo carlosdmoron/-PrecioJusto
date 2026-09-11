@@ -27,7 +27,10 @@ export default async function ProfHero() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80" />
       </div>
       <div className="relative mx-auto flex min-h-[626px] w-full max-w-[1280px] flex-col justify-between px-6 pb-12 pt-12 lg:px-20 lg:pt-[88px]">
-        <div className="ml-auto w-full max-w-md rounded-xl bg-white p-8 shadow-2xl shadow-black/30">
+        <div
+          id="crecer-negocio"
+          className="ml-auto w-full max-w-md rounded-xl bg-white p-8 shadow-2xl shadow-black/30"
+        >
           <h1 className="text-2xl font-bold tracking-tight text-ink md:text-3xl md:leading-tight">
             {hero.cardTitle}
           </h1>

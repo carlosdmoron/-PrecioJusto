@@ -46,6 +46,10 @@
   --shadow-pj-pop: 0 12px 32px -8px rgba(15, 23, 42, 0.16);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-surface);
   color: var(--color-ink);
