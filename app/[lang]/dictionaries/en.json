@@ -2004,6 +2004,8 @@
         "choicesLabel": "Answers",
         "addOptionLabel": "Add answer",
         "removeOptionLabel": "Remove answer",
+        "choiceEmptyOption": "Multiple choice questions cannot have empty answers.",
+        "choiceDuplicateOption": "A multiple choice question has duplicate answers.",
         "fieldKey": "Profile field",
         "fieldKeyHint": "Professional forms only: the answer feeds the professional account and profile in the database.",
         "fieldKeyLabels": {

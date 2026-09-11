@@ -166,6 +166,24 @@ export async function getForm(id: string): Promise<FormDetail | null> {
   };
 }
 
+// Garantiza que solo se persistan las opciones realmente definidas: se recortan
+// los espacios, se descartan las vacías y se eliminan duplicados (ignorando
+// mayúsculas). Las preguntas de tipo libre no llevan opciones.
+function sanitizeOptions(type: string, options: string[]): string[] {
+  if (type !== "radio" && type !== "checkbox" && type !== "select") return [];
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const raw of options ?? []) {
+    const opt = String(raw ?? "").trim();
+    if (!opt) continue;
+    const key = opt.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(opt);
+  }
+  return out;
+}
+
 export async function createForm(
   serviceId: string,
   formType: FormType = "customer"
@@ -274,7 +292,7 @@ export async function updateFormQuestions(
       label: q.label,
       type: q.type,
       required: q.required ?? false,
-      options: q.options ?? [],
+      options: sanitizeOptions(q.type, q.options ?? []),
       field_key: q.field_key || null,
     }));
     const { error: insError } = await supabase

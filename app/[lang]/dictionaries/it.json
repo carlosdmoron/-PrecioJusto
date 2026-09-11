@@ -2004,6 +2004,8 @@
         "choicesLabel": "Risposte",
         "addOptionLabel": "Aggiungi risposta",
         "removeOptionLabel": "Rimuovi risposta",
+        "choiceEmptyOption": "Le domande a scelta multipla non possono avere risposte vuote.",
+        "choiceDuplicateOption": "Una domanda a scelta multipla ha risposte duplicate.",
         "fieldKey": "Campo del profilo",
         "fieldKeyHint": "Solo per i moduli dei professionisti: la risposta alimenta l'account e il profilo del professionista nel database.",
         "fieldKeyLabels": {

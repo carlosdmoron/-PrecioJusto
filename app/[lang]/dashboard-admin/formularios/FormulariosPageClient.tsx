@@ -43,7 +43,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
   const [saving, setSaving] = useState(false);
   const dragIndex = useRef<number | null>(null);
 
-  const defaultChoiceOptions = () => ["A", "B", "C", "D"];
+  const defaultChoiceOptions = () => ["", ""];
 
   const typeKind = (type: string) =>
     type === "checkbox"
@@ -175,7 +175,7 @@ export default function FormulariosPageClient({ data }: { data: any }) {
     setQuestions((prev) =>
       prev.map((q, i) =>
         i === index
-          ? { ...q, options: [...(q.options ?? []), `Opción ${(q.options?.length ?? 0) + 1}`] }
+          ? { ...q, options: [...(q.options ?? []), ""] }
           : q
       )
     );
@@ -189,6 +189,23 @@ export default function FormulariosPageClient({ data }: { data: any }) {
           : q
       )
     );
+  };
+
+  const validateChoiceOptions = (): string | null => {
+    for (const q of questions) {
+      const isChoice =
+        q.type === "radio" || q.type === "checkbox" || q.type === "select";
+      if (!isChoice) continue;
+      const seen = new Set<string>();
+      for (const raw of q.options ?? []) {
+        const opt = raw.trim();
+        if (!opt) return data.builder.choiceEmptyOption;
+        const key = opt.toLowerCase();
+        if (seen.has(key)) return data.builder.choiceDuplicateOption;
+        seen.add(key);
+      }
+    }
+    return null;
   };
 
   const removeQuestion = (index: number) => {
@@ -209,6 +226,11 @@ export default function FormulariosPageClient({ data }: { data: any }) {
 
   const saveQuestions = async () => {
     if (!selectedFormId) return;
+    const invalid = validateChoiceOptions();
+    if (invalid) {
+      toast.show(invalid);
+      return;
+    }
     setSaving(true);
     try {
       if (editingForm) {
@@ -242,6 +264,11 @@ export default function FormulariosPageClient({ data }: { data: any }) {
 
   const handlePublish = async () => {
     if (!selectedFormId) return;
+    const invalid = validateChoiceOptions();
+    if (invalid) {
+      toast.show(invalid);
+      return;
+    }
     setSaving(true);
     try {
       await publishWithSave(selectedFormId);

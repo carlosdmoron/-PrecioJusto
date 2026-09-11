@@ -2004,6 +2004,8 @@
         "choicesLabel": "Respuestas",
         "addOptionLabel": "Añadir respuesta",
         "removeOptionLabel": "Eliminar respuesta",
+        "choiceEmptyOption": "Las preguntas de opción múltiple no pueden tener respuestas vacías.",
+        "choiceDuplicateOption": "Hay respuestas duplicadas en una pregunta de opción múltiple.",
         "fieldKey": "Campo de perfil",
         "fieldKeyHint": "Solo formularios de profesionales: la respuesta alimenta la cuenta y el perfil del profesional en la base de datos.",
         "fieldKeyLabels": {
