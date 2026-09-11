@@ -105,6 +105,79 @@ export async function getProfesionalServices(
   }));
 }
 
+// Servicios publicados que tienen un formulario activo (cualquier tipo):
+// alimentan la sección "Servicios más solicitados" de la página de profesionales.
+export async function getPublishedServicesWithForm(
+  locale: Locale = "es"
+): Promise<PublishedService[]> {
+  const supabase = await createClient();
+
+  const { data: activeForms, error: formsError } = await supabase
+    .from("forms")
+    .select("service_id")
+    .eq("status", "active");
+
+  if (formsError) throw new Error(formsError.message);
+
+  const serviceIds = Array.from(
+    new Set(
+      (activeForms ?? [])
+        .map((f) => f.service_id)
+        .filter((id): id is string => Boolean(id))
+    )
+  );
+
+  if (serviceIds.length === 0) return [];
+
+  const { error: probeError } = await supabase
+    .from("services")
+    .select("image_url")
+    .limit(1);
+  const hasImage = !probeError;
+
+  const { error: transProbeError } = await supabase
+    .from("services")
+    .select("name_it")
+    .limit(1);
+  const hasTrans = !transProbeError;
+
+  const baseCols = hasTrans
+    ? "id, name, name_it, name_en, slug, description, description_it, description_en"
+    : "id, name, slug, description";
+  const select = hasImage ? `${baseCols}, image_url` : baseCols;
+
+  const { data, error } = await supabase
+    .from("services")
+    .select(select)
+    .in("id", serviceIds)
+    .eq("status", "published")
+    .order("created_at", { ascending: true });
+
+  if (error) throw new Error(error.message);
+
+  const rows = (data ?? []) as unknown as Array<{
+    id: string;
+    name: string;
+    slug: string;
+    description: string | null;
+    name_it: string | null;
+    name_en: string | null;
+    description_it: string | null;
+    description_en: string | null;
+    image_url?: string | null;
+  }>;
+
+  const localized = await localizeServices(rows, locale, hasTrans);
+
+  return rows.map((s, i) => ({
+    id: s.id,
+    name: localized[i]?.name ?? s.name,
+    slug: s.slug,
+    description: localized[i]?.description ?? s.description ?? null,
+    image_url: s.image_url ?? null,
+  }));
+}
+
 // ---------------------------------------------------- datos del formulario
 
 // Devuelve el formulario de PROFESIONAL activo asociado a un servicio
