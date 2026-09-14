@@ -128,8 +128,8 @@ const formQuery = admin
   }
 
   const qSelect = hasTrans
-    ? "id, label, label_it, label_en, type, required, options, options_it, options_en"
-    : "id, label, type, required, options";
+    ? "id, label, label_it, label_en, type, required, options, options_it, options_en, field_key"
+    : "id, label, type, required, options, field_key";
 
   const { data: questions } = await admin
     .from("form_questions")
@@ -147,6 +147,7 @@ const formQuery = admin
     label_en: string | null;
     options_it: string[] | null;
     options_en: string[] | null;
+    field_key: string | null;
   }>;
 
   const localized = await localizeQuestions(questionRows, locale, hasTrans);
@@ -166,6 +167,7 @@ const formQuery = admin
       type: q.type,
       required: q.required ?? false,
       options: localized[i]?.options ?? (Array.isArray(q.options) ? q.options : []),
+      field_key: q.field_key ?? null,
     })),
   };
 }

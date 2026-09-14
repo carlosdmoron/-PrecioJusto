@@ -331,13 +331,17 @@ type Validation = {
 
 // Extrae los datos "de perfil y cuenta" de las respuestas a preguntas marcadas
 // con field_key. Estas respuestas alimentan el perfil del profesional
-// (profiles) y, en el caso del correo, la creación de la cuenta.
+// (profiles/professionals) y, en el caso del correo, la creación de la cuenta.
 export type ProfileAnswers = {
   first_name?: string;
   last_name?: string;
   email?: string;
   phone?: string;
   avatar_url?: string;
+  country?: string;
+  region?: string;
+  city?: string;
+  postal_code?: string;
 };
 
 function extractProfileAnswers(
@@ -372,6 +376,19 @@ function extractProfileAnswers(
         break;
       case "photo":
         profile.avatar_url = text;
+        break;
+      case "country":
+        profile.country = text;
+        break;
+      case "region":
+      case "state":
+        profile.region = text;
+        break;
+      case "city":
+        profile.city = text;
+        break;
+      case "postal_code":
+        profile.postal_code = text;
         break;
     }
   }
@@ -602,17 +619,19 @@ export async function submitProfesionalEnrollment(
   if (existing) throw new Error(duplicate);
 
   // Rellena la fila de professionals solo si no existe aún (id = auth user).
+  const profRow: Record<string, string> = {
+    id: userId,
+    entity_type: "individual",
+    admin_status: "pending",
+    verification_status: "pending",
+  };
+  if (profile.country) profRow.country = profile.country;
+  if (profile.region) profRow.province = profile.region;
+  if (profile.city) profRow.municipality = profile.city;
+  if (profile.postal_code) profRow.postal_code = profile.postal_code;
   await admin
     .from("professionals")
-    .upsert(
-      {
-        id: userId,
-        entity_type: "individual",
-        admin_status: "pending",
-        verification_status: "pending",
-      },
-      { onConflict: "id", ignoreDuplicates: true }
-    )
+    .upsert(profRow, { onConflict: "id", ignoreDuplicates: true })
     .then(() => undefined, () => undefined);
 
   // Sincroniza el perfil del profesional con las respuestas marcadas con

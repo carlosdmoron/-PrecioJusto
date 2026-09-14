@@ -605,6 +605,10 @@ export default function FormulariosPageClient({ data }: { data: any }) {
                         <option value="email">{data.builder.fieldKeyLabels.email}</option>
                         <option value="phone">{data.builder.fieldKeyLabels.phone}</option>
                         <option value="photo">{data.builder.fieldKeyLabels.photo}</option>
+                        <option value="country">{data.builder.fieldKeyLabels.country}</option>
+                        <option value="region">{data.builder.fieldKeyLabels.region}</option>
+                        <option value="city">{data.builder.fieldKeyLabels.city}</option>
+                        <option value="postal_code">{data.builder.fieldKeyLabels.postal_code}</option>
                       </select>
                     </div>
                   )}

@@ -2015,7 +2015,11 @@
           "last_name": "Last name",
           "email": "Email address",
           "phone": "Mobile phone",
-          "photo": "Profile photo"
+          "photo": "Profile photo",
+          "country": "Country",
+          "region": "State or region",
+          "city": "City or municipality",
+          "postal_code": "Postal code"
         },
         "questionTypes": {
           "radio": "Single choice",

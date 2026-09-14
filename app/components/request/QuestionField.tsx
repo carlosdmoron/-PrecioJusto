@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import type { SolicitudQuestion } from "../../actions/solicitud";
 import { uploadFormAttachment } from "../../actions/upload";
+import { countryCodes, DEFAULT_COUNTRY_CODE } from "../../lib/countryCodes";
 
 export type Answer = string | string[] | number;
 export type Answers = Record<string, Answer>;
@@ -33,7 +34,12 @@ export function QuestionField({
   onChange: (v: Answer) => void;
   uploadLabels?: UploadLabels;
 }) {
-  const { id, label, type, required, options } = question;
+  const { id, label, type, required, options, field_key } = question;
+
+  const isPhone =
+    field_key === "phone" ||
+    type === "phone" ||
+    /(móvil|movil|celular|mobile|cell\s*phone|phone\s*number)/i.test(label);
 
   return (
     <div>
@@ -92,6 +98,9 @@ export function QuestionField({
       ) : type === "file" ? (
         <PhotoField value={value} labels={uploadLabels} onChange={onChange} />
 
+      ) : isPhone ? (
+        <PhoneField id={id} value={value} onChange={onChange} />
+
       ) : (
         <input
           type="text"
@@ -102,6 +111,60 @@ export function QuestionField({
           className={inputClass}
         />
       )}
+    </div>
+  );
+}
+
+// Descompone un valor guardado como "+34 612 345 678" en prefijo y número.
+function splitPhone(value: Answer): { prefix: string; number: string } {
+  const raw = typeof value === "string" ? value.trim() : "";
+  const match = raw.match(/^(\+\d{1,4}(?:-\d+)?)\s*(.*)$/);
+  if (!match) return { prefix: DEFAULT_COUNTRY_CODE, number: raw };
+  return { prefix: match[1], number: match[2].replace(/\s+/g, " ").trim() };
+}
+
+// Campo de teléfono con selector de prefijo internacional y altura reducida
+// (h-10 en lugar de h-12). Se usa cuando el label de la pregunta hace referencia
+// a un móvil/celular (móvil, mobile, cell) o cuando field_key === "phone".
+function PhoneField({
+  id,
+  value,
+  onChange,
+}: {
+  id: string;
+  value: Answer;
+  onChange: (v: Answer) => void;
+}) {
+  const { prefix, number } = splitPhone(value);
+
+  return (
+    <div className="flex items-stretch gap-2">
+      <select
+        aria-label="Prefijo internacional"
+        value={prefix}
+        onChange={(e) =>
+          onChange(`${e.target.value} ${number}`.trim())
+        }
+        className="h-10 w-[150px] shrink-0 rounded-lg bg-field px-2 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
+      >
+        {countryCodes.map((c) => (
+          <option key={c.code} value={c.code}>
+            {c.code} · {c.nameEs}
+          </option>
+        ))}
+      </select>
+      <input
+        type="tel"
+        id={id}
+        inputMode="tel"
+        autoComplete="tel"
+        value={number}
+        placeholder={"600 000 000"}
+        onChange={(e) =>
+          onChange(`${prefix} ${e.target.value}`.trim())
+        }
+        className="h-10 w-full min-w-0 rounded-lg bg-field px-4 text-sm text-ink outline-none placeholder:text-muted focus:ring-2 focus:ring-primary/40"
+      />
     </div>
   );
 }

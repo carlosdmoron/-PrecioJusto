@@ -203,8 +203,9 @@ export async function createForm(
   if (error) throw new Error(error.message);
 
   // Los formularios de profesionales siempre incluyen las preguntas base que
-  // alimentan la cuenta y el perfil del profesional (nombre, foto, correo y
-  // teléfono). El campo field_key indica a qué dato de perfil corresponde.
+  // alimentan la cuenta, el perfil y la ubicación del profesional (nombre, foto,
+  // correo, teléfono, país, estado/región, ciudad y código postal). El campo
+  // field_key indica a qué dato de perfil corresponde.
   if (formType === "professional") {
     const baseQuestions: Array<{
       label: string;
@@ -215,7 +216,11 @@ export async function createForm(
       { label: "¿Cuál es tu nombre completo?", type: "textarea", required: true, field_key: "full_name" },
       { label: "Adjunta una foto de perfil", type: "file", required: false, field_key: "photo" },
       { label: "¿Cuál es tu correo electrónico?", type: "text", required: true, field_key: "email" },
-      { label: "¿Cuál es tu teléfono móvil?", type: "text", required: true, field_key: "phone" },
+      { label: "¿Cuál es tu teléfono móvil?", type: "phone", required: true, field_key: "phone" },
+      { label: "¿En qué país te encuentras?", type: "text", required: true, field_key: "country" },
+      { label: "¿Cuál es tu estado o región?", type: "text", required: true, field_key: "region" },
+      { label: "¿Cuál es tu ciudad o municipio/municipalidad?", type: "text", required: true, field_key: "city" },
+      { label: "¿Cuál es tu código postal?", type: "text", required: false, field_key: "postal_code" },
     ];
     const rows = baseQuestions.map((q, index) => ({
       form_id: data.id,
